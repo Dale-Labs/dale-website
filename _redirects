@@ -1,9 +1,9 @@
-/app/* https://app.dale.africa 302
-/app/insights/* https://app.dale.africa/insights 302
-/app/cbc/* https://app.dale.africa/cbc 302
-/app/sec/* https://app.dale.africa/sec 302
-/app/cos/* https://app.dale.africa/cos 302
 /app/state-review/* https://app.dale.africa/state-review 302
+/app/cos/* https://app.dale.africa/cos 302
+/app/sec/* https://app.dale.africa/sec 302
+/app/cbc/* https://app.dale.africa/cbc 302
+/app/insights/* https://app.dale.africa/insights 302
+/app/* https://app.dale.africa 302
 /Tools%20Canon/* /internal/tools/ 302
 /Architectural%20Canons/* /internal/canons/ 302
 /Master%20Canon%20Output/* /internal/developer/ 302
