@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DALE Master Canon Output | CTS Compliance Toolkit</title>
+<style>
+:root {
+  --ink: #171a1c;
+  --paper: #f7f5ef;
+  --line: #d8d2c4;
+  --teal: #174f52;
+  --gold: #b8792f;
+  --blue: #2f5f8f;
+  --rose: #9b3f3f;
+  --green: #306b4f;
+  --white: #ffffff;
+  --muted: #66635d;
+  --mono: Consolas, "DM Mono", monospace;
+  --sans: "Segoe UI", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.5;
+}
+header {
+  background: var(--teal);
+  color: var(--white);
+  padding: 28px 32px;
+  border-bottom: 4px solid var(--gold);
+}
+header p {
+  max-width: 980px;
+  margin: 10px 0 0;
+  color: rgba(255,255,255,0.82);
+}
+h1, h2, h3 { line-height: 1.15; }
+h1 { margin: 0; font-size: 34px; }
+h2 { margin: 0 0 14px; font-size: 24px; }
+h3 { margin: 22px 0 8px; font-size: 18px; }
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px 56px;
+}
+section {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+.meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+.meta div, .panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+}
+.label {
+  display: block;
+  color: var(--muted);
+  font: 12px var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.value { display: block; margin-top: 6px; font-weight: 600; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 12px;
+}
+th {
+  background: #ece7db;
+  font: 12px var(--mono);
+  text-transform: uppercase;
+}
+code, pre {
+  font-family: var(--mono);
+}
+code {
+  background: #eee8dc;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+pre {
+  overflow: auto;
+  background: #1e2326;
+  color: #f5f1e8;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font: 12px var(--mono);
+}
+.required { background: #e5f1eb; color: var(--green); }
+.correction { background: #f6e7e7; color: var(--rose); }
+.mapping { background: #e7eef7; color: var(--blue); }
+ul { padding-left: 20px; }
+li + li { margin-top: 6px; }
+</style>
+
+</head>
+<body>
+<header>
+  <h1>DALE Master Canon Output</h1>
+  <p>CTS-compliant canonical record wrapper for CoS, ECOA, ARA, Runner, SEC, CBC, CTS, and observed outcomes.</p>
+  <div class="meta">
+    <div><span class="label">Version</span><span class="value">1.0.0</span></div>
+    <div><span class="label">Standard Basis</span><span class="value">CTS / URT v1.0.0</span></div>
+    <div><span class="label">Schema</span><span class="value">master_canon_output_schema.json</span></div>
+    <div><span class="label">Spec</span><span class="value">master_canon_output_spec.yaml</span></div>
+  </div>
+</header>
+<main>
+  <section>
+    <h2>Purpose</h2>
+    <p>The master canon output preserves each canon's local output while adding the CTS fields needed for shared traceability, runtime interpretation, governance attribution, temporal continuity, contradiction visibility, missingness visibility, and reconstruction.</p>
+  </section>
+
+  <section>
+    <h2>Required Record Shape</h2>
+    <div class="grid">
+      <div class="panel"><span class="status required">Required</span><h3>cts_trace</h3><p>The persistent CTS identity and lineage envelope.</p></div>
+      <div class="panel"><span class="status required">Required</span><h3>canon_context</h3><p>Source canon, version, stage, format, upstream, and downstream context.</p></div>
+      <div class="panel"><span class="status mapping">Mapping</span><h3>urt_mapping</h3><p>Local state preserved and mapped into the shared URT runtime language.</p></div>
+      <div class="panel"><span class="status required">Required</span><h3>continuity</h3><p>Dependency, adaptation, outcome, temporal, reconstruction, and propagation fields.</p></div>
+      <div class="panel"><span class="status required">Required</span><h3>contradictions</h3><p>Visible structural tensions. Empty only when explicitly verified.</p></div>
+      <div class="panel"><span class="status required">Required</span><h3>missingness</h3><p>Visible uncertainty, absence, conflict, inaccessible evidence, or unknown origin.</p></div>
+      <div class="panel"><span class="status required">Required</span><h3>local_record</h3><p>The original canon-specific output. It is preserved, not overwritten.</p></div>
+      <div class="panel"><span class="status required">Required</span><h3>validation</h3><p>CTS compliance result and open corrections.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>CTS Trace Envelope</h2>
+    <table>
+      <thead><tr><th>Field</th><th>Requirement</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>id</code></td><td>Required</td><td>CTS object identity.</td></tr>
+        <tr><td><code>type</code></td><td>Required</td><td>CTS object class.</td></tr>
+        <tr><td><code>layer</code></td><td>Required</td><td>Canon layer: COS, ECOA, ARA, RUNNER, SEC, CBC, CTS, or OUTCOME.</td></tr>
+        <tr><td><code>root_id</code></td><td>Required</td><td>Persistent root lineage.</td></tr>
+        <tr><td><code>parent_id</code></td><td>Expected</td><td>Immediate upstream lineage reference.</td></tr>
+        <tr><td><code>source_local_id</code></td><td>Required</td><td>Original canon-local identifier.</td></tr>
+        <tr><td><code>runtime_state</code></td><td>Required</td><td>URT runtime state.</td></tr>
+        <tr><td><code>governance_state</code></td><td>Required</td><td>Governance legitimacy condition.</td></tr>
+        <tr><td><code>confidence_state</code></td><td>Required</td><td>Reliability condition.</td></tr>
+        <tr><td><code>authority_reference</code></td><td>Required</td><td>Authority, steward, or explicit unknown authority.</td></tr>
+        <tr><td><code>created_at</code></td><td>Required</td><td>ISO 8601 creation time.</td></tr>
+        <tr><td><code>trace_status</code></td><td>Required</td><td>COMPLETE, PARTIAL, BROKEN, or PENDING_RECONSTRUCTION.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Canon Corrections</h2>
+    <table>
+      <thead><tr><th>Canon</th><th>Correction Required</th></tr></thead>
+      <tbody>
+        <tr><td>COS</td><td>Add root and parent lineage, governance, confidence, authority, URT state mapping, and explicit missingness.</td></tr>
+        <tr><td>ECOA</td><td>Add root and parent lineage, governance, confidence, authority, normalized absence conditions, and URT structural-state mapping.</td></tr>
+        <tr><td>ARA</td><td>Add CTS trace envelope, normalized contradictions, URT regime-state mapping, governance, confidence, reconstruction, and propagation.</td></tr>
+        <tr><td>RUNNER</td><td>Create missing YAML and HTML formats. Enforce CTS runtime, adaptation, temporal, and reconstruction fields.</td></tr>
+        <tr><td>SEC</td><td>Add CTS trace envelope. Map RES-* states to URT. Preserve unresolved conditions as missingness or contradictions.</td></tr>
+        <tr><td>CBC</td><td>Add CTS trace envelope. Map governance coherence states to URT. Preserve governance flow tensions and accessibility reconstruction.</td></tr>
+        <tr><td>CTS</td><td>Create missing YAML and HTML formats. Publish this envelope as the shared implementation layer.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Example</h2>
+<pre>{
+  "master_output_id": "MCO-SEC-0001",
+  "cts_trace": {
+    "id": "CTS-SEC-OUTPUT-0001",
+    "type": "CANON_OUTPUT_RECORD",
+    "layer": "SEC",
+    "root_id": "CTS-COS-OBS-0001",
+    "parent_id": "CTS-RUNNER-STATE-0001",
+    "source_local_id": "SEC-20260519-0001",
+    "runtime_state": "STABLE",
+    "governance_state": "LEGITIMATE",
+    "confidence_state": "MODERATE_CONFIDENCE",
+    "validity_status": "ACTIVE",
+    "authority_reference": "Kadana Foundation",
+    "created_at": "2026-05-19T00:00:00Z",
+    "trace_status": "COMPLETE"
+  },
+  "urt_mapping": {
+    "local_state_field": "coherence_state",
+    "local_state_value": "RES-C",
+    "urt_runtime_state": "STABLE",
+    "mapping_confidence": "MODERATE_CONFIDENCE",
+    "mapping_basis": "SEC coherent state maps to URT stable state."
+  },
+  "contradictions": [],
+  "missingness": [],
+  "local_record": {}
+}</pre>
+  </section>
+</main>
+</body>
+</html>
+
+
+

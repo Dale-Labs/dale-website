@@ -1,0 +1,612 @@
+# ============================================================
+# Adaptive Regime Aggregation (ARA) — Canonical YAML Specification
+# DALE Architecture | Kadana | Version 1.0.0 | April 2026
+# Position: Stage 2 Completion Architecture (not a tool, not an observational layer)
+# ============================================================
+
+metadata:
+  name: Adaptive Regime Aggregation (ARA)
+  version: "1.0.0"
+  type: Completion Architecture
+  dale_stage: 2
+  schema_ref: ara_schema.json
+  canonical_principle: >
+    ARA does not replace the inherited ECOA architecture.
+    It inherits and completes unresolved architectural conditions
+    within the same DALE-grounded frame.
+  canonical_law: >
+    All valid Stage 2 execution, integration, tooling, runtime realization,
+    and traceability structures must preserve inherited ECOA continuity.
+
+  important_distinction: >
+    ARA is not an observational layer, scoring engine, recommendation engine,
+    free design-thinking process, or best-solution generator detached from the
+    inherited DALE structure. It is the Stage 2 completion architecture — strictly
+    a completion architecture.
+
+# ============================================================
+# PART I — PURPOSE AND POSITION
+# ============================================================
+part_1_purpose_and_position:
+
+  purpose: >
+    ARA defines the Stage 2 completion architecture of the DALE system.
+    It specifies how unresolved observational architecture inherited from ECOA
+    is transformed into a structurally coherent and operationally readable
+    completion state while preserving traceability, architectural continuity,
+    and inherited empirical conditions.
+
+  position_in_dale_sequence:
+    stage_1_ecoa: "Observational Structuring"
+    stage_2_ara:  "Completion & Coordination"
+    stage_3_runner: "Runtime Realization"
+    note: "Sequential, not parallel. ECOA and ARA do not perform the same role."
+
+  ecoa_vs_ara:
+    ECOA: "observes, structures, reconstructs, and returns empirical architectural states"
+    ARA:  "inherits, coordinates, balances, and completes unresolved architectural conditions"
+
+  canonical_transition_sequence:
+    - "completed observation"
+    - "→ inherited architectural state"
+    - "→ active completion field"
+    - "→ coordinated completion"
+    - "→ readable Stage 2 configuration"
+    note: "This sequence is mandatory. It may not be collapsed."
+
+  ara_begins_only_after:
+    1: "ECOA observation has been completed"
+    2: "the inherited observational condition is admissible for continuation"
+    3: "the inherited architectural frame remains recoverable"
+    4: "the distinction between assigned and non-assigned variables remains structurally visible"
+
+  what_ara_is_not:
+    - observational layer
+    - scoring engine
+    - recommendation engine
+    - free design-thinking process
+    - best-solution generator detached from inherited DALE structure
+    - optimization engine
+    - advisory layer
+    - AI recommendation system
+    - facilitation substitute
+    - freeform interpretation framework
+
+# ============================================================
+# PART II — ARCHITECTURAL IDENTITY
+# ============================================================
+part_2_architectural_identity:
+
+  ara_is: "a design-first completion architecture operating under limited informational conditions"
+
+  function: >
+    Generate a structurally coherent completion state from: the inherited ECOA
+    observational condition, the inherited architectural frame, fixed observational
+    constants, declared completion rules, and active structural conditions carried
+    forward from Stage 1.
+
+  output_is_not:
+    - unrestricted recommendation
+    - narrative proposal
+    - external interpretation
+    - isolated score
+
+  output_is: >
+    A uniquely determined balanced completion generated from the inherited architecture
+    under declared Stage 2 coordination conditions.
+
+  separation_of_responsibilities:
+    observation: "exclusively the responsibility of ECOA"
+    completion:  "exclusively the responsibility of ARA"
+    rationale: >
+      Observation and completion are structurally different operations.
+      Empirical assignment and completion assignment have different validity conditions.
+      Collapsing both layers destroys traceability continuity across the DALE stack.
+
+  fixed_vs_non_assigned:
+    fixed_assigned_state:
+      meaning: "Values observationally assigned by ECOA"
+      behavior: ["remain fixed", "remain non-revisable", "continue conditioning completion"]
+    non_assigned_state:
+      meaning: "Values unresolved under completed observation"
+      behavior: ["form the active completion field", "remain completion-eligible", "resolved through declared coordination structure"]
+
+  completion_under_limited_information: >
+    ARA assumes informational incompleteness as a normal architectural condition.
+    Non-assignment does not invalidate continuation.
+    Incomplete information does not suspend completion.
+    Observational limitation does not justify architectural improvisation.
+    Completion proceeds through declared balancing structures.
+
+  unique_solvability: >
+    ARA requires unique solvability as a structural validity condition.
+    Hidden discretionary selection is invalid.
+    Undeclared branching is invalid.
+    Heuristic substitution is invalid.
+    Multiple unresolved completion outcomes are invalid unless explicitly resolved
+    by declared architectural law.
+
+  dale_readability_requirement:
+    ara_returns:
+      - "a completed value field (E_comp)"
+      - "a reconstructed readable Stage 2 configuration (E_read)"
+      - "a readable Stage 2 design package (P_S2)"
+    ara_does_not_return:
+      - isolated scores
+      - flat recommendations
+      - detached summaries
+
+# ============================================================
+# PART III — INHERITED ECOA STRUCTURE
+# ============================================================
+part_3_inherited_ecoa_structure:
+
+  inheritance_principle: >
+    ARA begins from an inherited and already completed ECOA observational architecture.
+    The inherited ECOA structure remains the architectural substrate of Stage 2 completion.
+    Stage 2 completion occurs inside the inherited architecture — not outside it.
+
+  what_ara_does_not_redefine:
+    - the observational architecture
+    - the variable universe
+    - the readable operational layer
+    - the family organization
+    - the shared metric
+    - reconstruction dependence
+
+  inherited_elements:
+    principle_model_structure:
+      status: "Fixed, globally active, common across all Stage 2 execution"
+      functions_as: ["structural backbone of Stage 2", "continuity layer connecting observation and completion", "architectural grounding for DALE-readable outputs"]
+
+    variable_architecture:
+      formula: "V_proj = V_fund ∪ V_op; V_fund ∩ V_op = ∅"
+      note: "No third completion-only variable class is introduced during Stage 2"
+      continuity: "across Stage 1 observation, Stage 2 completion, and Stage 3 realization"
+
+    fundamental_layer:
+      functions_as: ["continuity-bearing empirical structures", "lower-level completion dependencies", "reconstruction-bearing architectural anchors"]
+      note: "ARA does not replace the lower-level structure with abstract recommendations"
+
+    operational_local_system_layer:
+      inherited_as: "a system of readable local systems rather than isolated labels"
+      operational_variables_remain: ["structurally grounded", "reconstruction-dependent", "linked to inherited lower-level architecture"]
+      completion_occurs_across: "interconnected local systems, not disconnected variable placeholders"
+
+    family_organization:
+      families:
+        F1: { name: "Participant-Grounded Formation", members: ["X1", "X2"] }
+        F2: { name: "Structural Describability",      members: ["X3", "X5", "X6", "X7", "X8"] }
+        F3: { name: "Relational Differentiation",     members: ["X4", "X9", "X10", "X11"] }
+        F4: { name: "Coordination and Closure",       members: ["X12"] }
+      status: "remain active during coordination, anchor handling, reconstruction, readable packaging, and output organization"
+
+    shared_signed_metric:
+      domain: "M = [-1, 1]"
+      continuity: "across observation, completion, and realization"
+      rule: "Stage 2 does not introduce detached scoring systems. Completion continuity remains structurally recoverable."
+
+    reconstruction_dependence:
+      inherited_from: "Stage 1"
+      means: >
+        readable operational states remain dependent on lower-level structures,
+        family organization remains reconstruction-active,
+        and completion outputs remain tied to inherited architectural dependencies.
+
+    assignment_partition:
+      description: "The most important inherited structure of Stage 2"
+      assigned_values: "fixed inherited constants during Stage 2"
+      non_assigned_values: "active completion field"
+      rule: "This assignment structure forms the formal continuation boundary between ECOA and ARA"
+
+  structural_continuity_requirement:
+    minimum_recoverable_structures:
+      - principle-model structure
+      - variable structure
+      - fundamental layer
+      - operational local-system layer
+      - family organization
+      - shared metric
+      - reconstruction dependence
+      - assignment structure
+      - carry-forward structural conditions
+      - traceability continuity
+
+# ============================================================
+# PART IV — STAGE 1 → STAGE 2 TRANSITION LOGIC
+# ============================================================
+part_4_transition_logic:
+
+  transition_principle: >
+    The transition into ARA occurs only after completion of an admissible ECOA
+    Stage 1 observational condition. The Stage 1 → Stage 2 boundary is explicit,
+    sequential, and non-collapsible.
+
+  canonical_transition_sequence:
+    - "raw observational material"
+    - "→ ECOA observational structuring"
+    - "→ inherited Stage 1 empirical architecture"
+    - "→ assignment-state partition"
+    - "→ active completion-field activation"
+    - "→ ARA coordination and balancing"
+    - "→ readable Stage 2 completion configuration"
+
+  formal_stage2_input_condition: >
+    The completed inherited ECOA Stage 1 output package of the active observation.
+    Stage 2 input is architectural, not merely informational.
+    The inherited Stage 1 package functions as the continuity carrier between
+    observation and completion.
+
+  minimum_transition_requirements:
+    completed_stage1_condition:      "Establishes observational completion"
+    recoverable_inherited_architecture:"Preserves continuity"
+    recoverable_assigned_values:     "Preserves fixed constants"
+    recoverable_non_assigned_field:  "Defines active completion field"
+    recoverable_reconstruction_logic:"Preserves readability"
+    recoverable_carry_forward_conditions:"Preserves structural continuity"
+    recoverable_traceability_path:   "Preserves execution transparency"
+
+  transfer_package_components:
+    structural:
+      - inherited variable architecture
+      - inherited family organization
+      - inherited reconstruction structure
+      - inherited metric continuity
+    assignment:
+      - ECOA-assigned values (fixed constants)
+      - ECOA-non-assigned values (completion field membership)
+      - completion-field membership visibility
+    continuity:
+      - carry-forward structural conditions
+      - readable operational reconstruction
+      - traceability continuity
+    execution:
+      - observation identity
+      - execution identity
+      - transition identity
+      - architectural state references
+
+  carry_forward_conditions:
+    definition: >
+      Inherited constraints or continuity-bearing conditions produced during ECOA
+      observation that remain active during Stage 2 completion. Not optional notes,
+      facilitator comments, or external implementation metadata — these are active
+      inherited architectural conditions.
+    examples:
+      - unresolved dependency conditions
+      - continuity constraints
+      - subsystem balancing conditions
+      - structural asymmetries
+      - reconstruction dependencies
+      - inherited family-level constraints
+    rule: "ARA execution must preserve these conditions throughout completion"
+
+  transition_failure_states:
+    - "the inherited observational state is incomplete beyond admissible continuity thresholds"
+    - "the assignment structure is unrecoverable"
+    - "the active completion field cannot be reconstructed"
+    - "traceability continuity is broken"
+    - "reconstruction dependence is missing"
+    - "carry-forward structural conditions are unavailable"
+    consequence: >
+      ARA must not improvise completion from weakened input.
+      The failure is treated as an upstream architectural insufficiency requiring Stage 1 correction.
+      ARA inherits architecture — it does not invent missing architecture during execution.
+
+# ============================================================
+# PART V — ACTIVE COMPLETION FIELD
+# ============================================================
+part_5_active_completion_field:
+
+  completion_field_principle: >
+    The active completion field is the unresolved architectural region inherited from
+    the completed ECOA observation. Completion-field membership is observationally
+    inherited — not operationally invented during Stage 2.
+
+  formal_definition:
+    formula: "V_comp = V_proj minus V_fixed"
+    meaning: "All variables not assigned during Stage 1 become completion-eligible. No additional completion-only variable universe is introduced."
+
+  full_completion_field_rule: >
+    All inherited non-assigned variables must enter the active completion field in full.
+    Execution becomes invalid if unresolved variables are silently excluded,
+    convenience filters reduce the inherited field, tooling omits unresolved members,
+    or hidden heuristics narrow completion scope during execution.
+
+  completion_field_membership_states:
+    ECOA-Fixed:           "Assigned observationally during Stage 1"
+    ARA-Resolved:         "Completed during Stage 2"
+    Completion-Eligible:  "Non-assigned and awaiting coordination"
+    Structurally-Inactive:"Not active under current observation conditions"
+
+  observation_dependent_completion: >
+    Different observations may activate different unresolved regions.
+    Different operational systems may inherit different completion-field structures.
+    Completion-field membership may vary across implementations and deployments.
+    However, the completion-field logic itself remains invariant.
+
+  invalid_completion_field_states:
+    - unresolved variables are omitted
+    - completion eligibility is hidden
+    - assignment-state visibility is lost
+    - completion scope is narrowed informally
+    - unresolved architecture is replaced with external assumptions
+    - completion occurs outside the inherited ECOA structure
+
+# ============================================================
+# PART VI — COORDINATION AND ANCHOR LOGIC
+# ============================================================
+part_6_coordination_and_anchor:
+
+  coordination_principle: >
+    ARA resolves the active completion field through a declared coordination structure
+    operating inside the inherited ECOA architecture. Coordination operates through
+    fixed architectural rules — not freeform optimization, facilitator negotiation,
+    heuristic ranking, recommendation synthesis, or discretionary balancing.
+
+  coordination_scope:
+    operates_on: "inherited non-assigned variables belonging to the active completion field"
+    does_not:
+      - revise ECOA-assigned values
+      - reopen observational assignment
+      - reinterpret empirical evidence
+      - replace inherited architectural continuity
+
+  coordination_under_limited_information: >
+    Coordination does not require universal information completeness.
+    Unresolved architecture does not suspend completion.
+    Informational absence does not authorize arbitrary substitution.
+    The architectural obligation to complete remains active.
+    Quality of completion may vary depending on inherited observational richness.
+
+  anchor_logic_principle: >
+    ARA preserves a fixed anchor regime throughout execution.
+    The anchor functions as the stabilization reference of Stage 2 coordination.
+    Anchor behavior is architecturally declared and execution-bound.
+
+  canonical_anchor_modes:
+    zero_anchor:
+      description: "A(v) = 0 across the active completion field"
+      preserves: [uniformity, metric_continuity, execution_simplicity]
+    family_anchor:
+      description: "Anchor values inherited from operational family structures"
+      preserves: [subsystem_continuity, family_level_reconstruction_dependence, operational_family_balancing_behavior]
+      requirement: "Anchor values must remain inherited, recoverable, and traceable. They may not be improvised, inferred heuristically, or substituted by hidden implementation defaults."
+
+  invalid_anchor_states:
+    - "Hidden anchor substitution — breaks recoverability"
+    - "Runtime anchor improvisation — breaks determinism"
+    - "Undeclared proxy anchors — breaks architectural continuity"
+
+  unique_solvability_requirement: >
+    The completed Stage 2 state must be uniquely generated from: inherited architecture,
+    inherited assigned constants, the declared anchor regime, carry-forward structural
+    conditions, and the declared coordination structure. Multiple unresolved completion
+    outcomes are invalid. Discretionary branching is invalid.
+
+  coordination_integrity_rule: >
+    Stage 2 completion must remain architecture-generated rather than implementation-generated.
+    Execution becomes invalid if hidden heuristics replace architectural balancing,
+    external optimization logic overrides coordination, undeclared weighting systems appear,
+    or discretionary selection substitutes declared completion rules.
+
+  invalid_coordination_states:
+    - "undeclared anchors introduced"
+    - "hidden heuristics replace declared balancing"
+    - "unresolved variables selectively excluded"
+    - "metric continuity broken"
+    - "reconstruction dependence collapses"
+    - "multiple completion states remain unresolved without declared resolution"
+    - "Stage 2 coordination detaches from inherited ECOA continuity"
+
+# ============================================================
+# PART VII — TRACEABILITY AND PRESERVATION
+# ============================================================
+part_7_traceability_and_preservation:
+
+  traceability_principle: >
+    Traceability in ARA is a structural architectural requirement rather than a
+    reporting convenience. Without traceability, Stage 2 ceases to be architecture-faithful.
+
+  structural_preservation_applies_to:
+    - principle-model structure
+    - variable architecture
+    - operational local-system structure
+    - family organization
+    - shared signed metric
+    - reconstruction dependence
+    - assignment-state continuity
+    - carry-forward structural conditions
+
+  canonical_preservation_objects:
+    Stage1ObservationObject:   "Recover Stage 1 source state"
+    AssignmentStateObject:     "Preserve fixed vs resolved distinction"
+    CompletionFieldObject:     "Preserve unresolved activation region"
+    AnchorObject:              "Preserve stabilization regime"
+    CarryForwardObject:        "Preserve inherited structural conditions"
+    ReconstructionPathObject:  "Preserve readable continuity"
+    MetricContinuityObject:    "Preserve signed-space comparability"
+    CoordinationPathObject:    "Preserve balancing lineage"
+    OutputPackageObject:       "Preserve Stage 2 completion integrity"
+    TraceObject:               "Preserve execution lineage across DALE stack"
+
+  no_shortcut_rule: >
+    ARA forbids silent shortcut substitution. Execution becomes invalid if hidden
+    heuristics replace coordination, observational gaps are filled through undeclared
+    inference, precomputed recommendations bypass balancing, tooling collapses
+    architectural distinctions, or runtime convenience replaces declared completion structures.
+
+  runtime_preservation_continuity:
+    must_remain_preserved_into:
+      - Runner execution
+      - runtime realization
+      - adaptation cycles
+      - output serialization
+      - future CTS structures
+    traceability_functions_as: ["historical reconstruction", "runtime continuity infrastructure"]
+
+# ============================================================
+# PART VIII — OUTPUT CONTRACT
+# ============================================================
+part_8_output_contract:
+
+  output_principle: >
+    The output of ARA is a completed Stage 2 architectural state returned in
+    DALE-readable form. It is not an isolated score, recommendation summary,
+    facilitation note, narrative interpretation, or detached optimization result.
+
+  canonical_output_triple:
+    E_comp:
+      name: "Completed value field"
+      contains: ["all values resolved through Stage 2 completion", "resolved variable states", "metric continuity", "assignment-state lineage"]
+      rule: "Does not overwrite ECOA-assigned constants. Fixed values remain inherited while unresolved become resolved."
+    E_read:
+      name: "Readable Stage 2 configuration"
+      represents: "reconstructed operational state of the completed architecture"
+      preserves: ["operational readability", "subsystem continuity", "family organization", "reconstruction dependence inherited from ECOA"]
+      functions_as: "the operationally reconstructible state of the completed architecture"
+    P_S2:
+      name: "Stage 2 design package"
+      purpose: "Complete DALE-facing completion package"
+      feeds_into: ["runtime realization", "downstream execution", "operational deployment", "serialization", "traceable continuation into Runner"]
+      preserves: ["readable completion structure", "traceability continuity", "assignment-state continuity", "operational reconstruction", "inherited architectural identity"]
+
+  all_three_components_mandatory: true
+
+  observation_dependent_output: >
+    Different observations may produce different active completion fields,
+    different resolved-value structures, and different operational reconstruction patterns.
+    However, the output contract itself remains invariant.
+
+  metric_continuity_requirement:
+    domain: "M = [-1, 1]"
+    rule: "ECOA-assigned and ARA-resolved values remain metrically comparable. Stage 2 outputs may not be remapped into detached scoring systems."
+
+  invalid_output_states:
+    - "outputs collapse into flat recommendations"
+    - "readable reconstruction disappears"
+    - "assignment continuity becomes unrecoverable"
+    - "metric continuity breaks"
+    - "traceability paths disappear"
+    - "the completed architecture becomes detached from inherited ECOA continuity"
+    - "outputs remain operationally useful but architecturally non-reconstructible"
+
+# ============================================================
+# PART IX — INTEGRATION RULES
+# ============================================================
+part_9_integration_rules:
+
+  integration_principle: >
+    ARA integration remains valid only if the distinction between observation,
+    completion, and realization remains explicit throughout the DALE stack.
+
+  observational_anchor_rule: "ECOA remains the sole observational anchor of Stage 2"
+  non_revision_rule:         "Values assigned by ECOA remain fixed throughout Stage 2 execution"
+  full_completion_field_rule:"All inherited non-assigned variables must enter the active completion field in full"
+  inherited_structure_rule:  "ARA integration must preserve the inherited ECOA structure"
+  carry_forward_rule:        "Carry-forward structural conditions remain active throughout completion"
+  anchor_integrity_rule:     "Only declared anchor regimes are admissible"
+  coordination_integrity_rule:"The declared coordination structure must be preserved"
+  unique_solution_rule:      "The completed Stage 2 result must remain uniquely determined"
+
+  tool_layer_limitation:
+    tools_may: ["capture inputs", "validate transfer conditions", "trigger execution", "display outputs", "serialize packages", "expose readable configurations", "preserve traceability structures"]
+    tools_may_not: ["define completion logic", "redefine assignment states", "replace coordination structures", "redefine anchor logic", "alter output validity conditions"]
+    tools_are: "implementation containers rather than architectural authorities"
+
+  human_operator_limitation:
+    may:     ["review outputs", "interpret operational meaning", "assess deployment viability", "initiate runtime realization"]
+    may_not: ["silently override assignment continuity", "override coordination law", "override completion-field integrity", "replace coordination with facilitation judgment"]
+
+  minimum_acceptance_checklist:
+    ECOA_remains_sole_observational_anchor:     "Mandatory"
+    Stage2_begins_from_inherited_ECOA_state:    "Mandatory"
+    ECOA_assigned_values_remain_fixed:          "Mandatory"
+    full_completion_field_preserved:            "Mandatory"
+    shared_metric_continuity:                   "Mandatory"
+    family_organization_preserved:              "Mandatory"
+    carry_forward_conditions_active:            "Mandatory"
+    declared_anchor_regime_preserved:           "Mandatory"
+    coordination_structure_preserved:           "Mandatory"
+    unique_solvability_preserved:               "Mandatory"
+    output_contract_complete:                   "Mandatory"
+    traceability_continuity_recoverable:        "Mandatory"
+    no_hidden_heuristics_or_substitutions:      "Mandatory"
+
+# ============================================================
+# PART X — RUNTIME AND TOOL INTEROPERABILITY
+# ============================================================
+part_10_runtime_interoperability:
+
+  runtime_principle: >
+    ARA is a completion architecture, not a runtime execution engine.
+    It produces completion-bearing architectural states while Runner later
+    realizes those states operationally.
+
+  stage2_to_stage3_continuity:
+    sequence: "completed observation → inherited completion field → coordinated completion → readable Stage 2 package → runtime realization package → operational execution state"
+    requirements: ["explicit", "recoverable", "traceable across all runtime systems"]
+
+  runtime_transfer_requirements:
+    stage1_identity:             "Preserve upstream continuity"
+    assignment_state_continuity: "Survive serialization"
+    completion_field_continuity: "Remain portable"
+    anchor_regime:               "Remain intact across runtime transfer"
+    carry_forward_conditions:    "Remain active"
+    readable_reconstruction:     "Remain portable"
+    metric_continuity:           "Preserved"
+
+  serialization_principle: >
+    Serialization is treated as an architectural continuity operation rather than
+    a simple export operation. Architecture must not collapse into flat payloads
+    lacking recoverability.
+
+  cts_compatibility: >
+    ARA interoperability structures must remain compatible with future
+    Canonical Trace Standard (CTS) systems. ARA functions as one of the
+    foundational trace-bearing layers of the DALE Operating System.
+
+# ============================================================
+# PART XI — FAILURE CONDITIONS
+# ============================================================
+part_11_failure_conditions:
+
+  failure_principle: >
+    Failure in ARA is defined structurally rather than operationally.
+    A system may produce operationally useful outputs while still remaining
+    architecturally invalid. Architectural validity depends on preservation of
+    declared completion conditions rather than apparent usefulness alone.
+
+  canonical_invalid_states:
+    "Reopened observation during Stage 2":      "Breaks observational boundary"
+    "Silent revision of ECOA-fixed values":     "Breaks assignment continuity"
+    "Partial completion-field handling":        "Breaks completion integrity"
+    "Hidden anchor substitution":              "Breaks stabilization recoverability"
+    "Heuristic replacement of coordination":   "Breaks architectural determinism"
+    "Detached scoring outputs":               "Breaks DALE readability"
+    "Broken metric continuity":               "Breaks cross-stage comparability"
+    "Unrecoverable traceability lineage":      "Breaks architectural accountability"
+    "Flattened runtime serialization":        "Breaks realization continuity"
+    "Human discretionary override during execution": "Breaks declared completion law"
+    "Shortcut recommendation substitution":   "Breaks architecture continuity"
+
+  key_principle: >
+    Usable output alone does not constitute valid ARA execution.
+    Architectural recoverability is mandatory.
+
+# ============================================================
+# APPENDICES REFERENCE
+# ============================================================
+appendices:
+  A: "Canonical Variable Reference — 40 fundamental (v1-v40) + 12 operational (X1-X12)"
+  B: "Operational Family Structures — F1-F4 with member variables"
+  C: "Assignment-State Taxonomy — 5 states with stage ownership"
+  D: "Completion-Field Structures — field identity, membership, status, lineage"
+  E: "Anchor Modes and Rules — zero-anchor, family-anchor, invalid states"
+  F: "Stage 1 → Stage 2 Transfer Package — all required transfer elements"
+  G: "Stage 2 Output Structure — E_comp, E_read, P_S2 components"
+  H: "Trace Object Structures — all required trace fields"
+  I: "Runtime Continuity Objects — runtime transfer and serialization fields"
+  J: "Failure and Invalidity Matrix — all canonical failure states"
+  K: "Validation Checklist Matrix — 15 mandatory requirements"
+  L: "Integration Boundary Summary — layer responsibilities and invariants"

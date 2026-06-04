@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>DALE Internal Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #071416;
+    color: #e8f0f1;
+    font-family: "Nunito", sans-serif;
+    padding: 1.2rem;
+  }
+  main {
+    width: min(100%, 480px);
+    border: 1px solid rgba(127, 168, 174, 0.24);
+    background: rgba(14, 76, 82, 0.12);
+    padding: clamp(1.5rem, 5vw, 2.4rem);
+  }
+  a { color: #f65f54; }
+  .brand {
+    font-family: "Marcellus", serif;
+    font-size: 1.35rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .brand span { color: #f65f54; }
+  h1 {
+    margin: 2rem 0 0.8rem;
+    font-family: "Marcellus", serif;
+    font-size: clamp(2rem, 8vw, 3rem);
+    font-weight: 400;
+  }
+  p { color: #93b4b9; line-height: 1.7; }
+  form { display: grid; gap: 1rem; margin-top: 1.7rem; }
+  label {
+    display: grid;
+    gap: 0.45rem;
+    color: #c7d7d9;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  input {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid rgba(127, 168, 174, 0.28);
+    background: rgba(7, 20, 22, 0.86);
+    color: #e8f0f1;
+    font: inherit;
+    padding: 0.8rem 0.9rem;
+  }
+  button {
+    min-height: 48px;
+    border: 1px solid #f65f54;
+    background: #f65f54;
+    color: #fff;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .error {
+    display: none;
+    color: #ffd2cf;
+    border: 1px solid rgba(246, 95, 84, 0.35);
+    background: rgba(246, 95, 84, 0.1);
+    padding: 0.8rem;
+  }
+  .note { margin-top: 1rem; font-size: 0.86rem; }
+</style>
+</head>
+<body>
+<main>
+  <a class="brand" href="../">dale<span>(a)</span></a>
+  <h1>Internal Login</h1>
+  <p>DALE internal access is for team members and approved validation partners.</p>
+  <p class="error" id="error">Login was not accepted. Check your email and password, or confirm that internal access has been configured.</p>
+  <form method="post" action="/login">
+    <input type="hidden" name="next" id="next" value="/internal/">
+    <label>Email <input type="email" name="email" autocomplete="email" required></label>
+    <label>Password <input type="password" name="password" autocomplete="current-password" required></label>
+    <button type="submit">Log in</button>
+  </form>
+  <p class="note">Access is enforced by server-side environment settings. Production credentials are not stored in this page.</p>
+</main>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const next = params.get("next");
+  if (next && next.startsWith("/internal")) document.getElementById("next").value = next;
+  if (params.get("error")) document.getElementById("error").style.display = "block";
+</script>
+</body>
+</html>

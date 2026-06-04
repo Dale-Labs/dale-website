@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoS Mapping Tool — Canonical Specification | DALE · Kadana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  :root {
+    --ink: #1a1a18;
+    --paper: #f4f1eb;
+    --teal-deep: #1b4f52;
+    --teal-mid: #2a7a7e;
+    --teal-light: #4aabaf;
+    --amber: #c8893a;
+    --amber-light: #e8b86d;
+    --rose: #b85252;
+    --mist: #e8e4dc;
+    --grid: #d8d3c8;
+    --mono: 'DM Mono', monospace;
+    --serif: 'Playfair Display', serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--teal-deep);
+    color: var(--paper);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--amber);
+  }
+
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 56px;
+  }
+
+  .logo-mark {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber-light);
+    white-space: nowrap;
+  }
+
+  .header-divider { width: 1px; height: 24px; background: rgba(255,255,255,0.2); }
+
+  .tool-badge {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .header-nav {
+    margin-left: auto;
+    display: flex;
+    gap: 0;
+  }
+
+  .nav-tab {
+    padding: 0 1.25rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .nav-tab:hover { color: rgba(255,255,255,0.9); }
+  .nav-tab.active {
+    color: var(--amber-light);
+    border-bottom-color: var(--amber-light);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--teal-deep);
+    color: var(--paper);
+    padding: 4rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgba(255,255,255,0.04) 39px,
+      rgba(255,255,255,0.04) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 39px,
+      rgba(255,255,255,0.04) 39px,
+      rgba(255,255,255,0.04) 40px
+    );
+  }
+
+  .hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: end;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    max-width: 540px;
+    line-height: 1.7;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .meta-pill {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .pill-stage { background: var(--amber); color: var(--ink); }
+  .pill-version { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+  .pill-layer { background: var(--teal-mid); color: rgba(255,255,255,0.9); border: 1px solid var(--teal-light); }
+
+  /* ── PIPELINE BAR ── */
+  .pipeline {
+    background: var(--ink);
+    padding: 1rem 2rem;
+  }
+
+  .pipeline-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .pipeline-step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1.5rem 0 0;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .pipeline-step.active { color: var(--amber-light); }
+  .pipeline-step.active .step-dot { background: var(--amber); }
+
+  .step-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    flex-shrink: 0;
+  }
+
+  .step-arrow {
+    color: rgba(255,255,255,0.2);
+    margin: 0 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main { max-width: 1280px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── SECTION ── */
+  .section { margin: 3rem 0; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--teal-deep);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--grid);
+  }
+
+  .section-body {
+    font-size: 0.925rem;
+    color: #3a3a35;
+    line-height: 1.75;
+  }
+
+  /* ── GRID LAYOUTS ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-meta { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: #fff;
+    border: 1px solid var(--grid);
+    border-radius: 3px;
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .card-accent {
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .card-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--teal-deep);
+  }
+
+  .card-body {
+    font-size: 0.875rem;
+    color: #4a4a45;
+    line-height: 1.65;
+  }
+
+  /* ── PRINCIPLE CARDS ── */
+  .principle-card {
+    background: #fff;
+    border: 1px solid var(--grid);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .principle-header {
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .principle-header:hover { background: var(--mist); }
+
+  .principle-id {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #fff;
+    background: var(--teal-deep);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .principle-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--teal-deep);
+    flex: 1;
+  }
+
+  .principle-chevron {
+    color: var(--teal-mid);
+    transition: transform 0.2s;
+    font-size: 0.8rem;
+  }
+
+  .principle-card.open .principle-chevron { transform: rotate(90deg); }
+
+  .principle-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--mist);
+  }
+
+  .principle-card.open .principle-body { display: block; }
+
+  .principle-field { margin: 0.75rem 0; }
+
+  .field-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin-bottom: 0.25rem;
+  }
+
+  .field-value {
+    font-size: 0.875rem;
+    color: #3a3a35;
+    line-height: 1.65;
+  }
+
+  /* ── VARIABLE TABLE ── */
+  .var-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  .var-table th {
+    background: var(--teal-deep);
+    color: rgba(255,255,255,0.9);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .var-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--mist);
+    vertical-align: top;
+    color: #3a3a35;
+  }
+
+  .var-table tr:hover td { background: rgba(42,122,126,0.04); }
+
+  .var-id {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--teal-mid);
+    white-space: nowrap;
+  }
+
+  .family-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 2px;
+    background: var(--mist);
+    color: var(--teal-deep);
+    white-space: nowrap;
+  }
+
+  /* ── METRIC VIZ ── */
+  .metric-bar-wrap {
+    margin: 1rem 0;
+  }
+
+  .metric-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: #888;
+    margin-bottom: 0.25rem;
+  }
+
+  .metric-track {
+    height: 8px;
+    background: var(--mist);
+    border-radius: 4px;
+    position: relative;
+    overflow: visible;
+  }
+
+  .metric-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+
+  .metric-zero {
+    position: absolute;
+    left: 50%;
+    top: -3px;
+    width: 2px;
+    height: 14px;
+    background: var(--grid);
+    transform: translateX(-50%);
+  }
+
+  /* ── ALGO STEPS ── */
+  .algo-steps { counter-reset: step; }
+
+  .algo-step {
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .algo-step-num {
+    counter-increment: step;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--teal-deep);
+    color: #fff;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .algo-step-body { flex: 1; }
+
+  .algo-step-title {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--teal-deep);
+    margin-bottom: 0.35rem;
+  }
+
+  .algo-step-desc {
+    font-size: 0.85rem;
+    color: #4a4a45;
+    line-height: 1.65;
+  }
+
+  .algo-step-op {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--amber);
+    margin-top: 0.3rem;
+  }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    background: var(--ink);
+    border-radius: 3px;
+    padding: 1.25rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: #c8ded5;
+    overflow-x: auto;
+    margin: 1rem 0;
+    border-left: 3px solid var(--amber);
+  }
+
+  .code-key { color: var(--amber-light); }
+  .code-val { color: #a8d5b5; }
+  .code-str { color: #f0c080; }
+  .code-comment { color: #668; font-style: italic; }
+  .code-num { color: var(--teal-light); }
+
+  /* ── STATUS CHIPS ── */
+  .status-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 1rem 0; }
+
+  .status-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: 2px;
+    font-size: 0.8rem;
+  }
+
+  .chip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .chip-assigned { background: rgba(74,171,175,0.12); color: var(--teal-deep); }
+  .chip-assigned .chip-dot { background: var(--teal-mid); }
+  .chip-info { background: rgba(200,137,58,0.12); color: #8a5a1a; }
+  .chip-info .chip-dot { background: var(--amber); }
+  .chip-struct { background: var(--mist); color: #666; }
+  .chip-struct .chip-dot { background: #aaa; }
+  .chip-missing { background: rgba(184,82,82,0.1); color: var(--rose); }
+  .chip-missing .chip-dot { background: var(--rose); }
+
+  /* ── WARNING BOX ── */
+  .notice-box {
+    border-radius: 3px;
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    margin: 1rem 0;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .notice-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .notice-teal { background: rgba(27,79,82,0.08); border-left: 3px solid var(--teal-mid); color: var(--teal-deep); }
+  .notice-amber { background: rgba(200,137,58,0.1); border-left: 3px solid var(--amber); color: #6a4010; }
+  .notice-red { background: rgba(184,82,82,0.08); border-left: 3px solid var(--rose); color: var(--rose); }
+
+  /* ── DOWNLOAD BUTTONS ── */
+  .download-bar {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+  }
+
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .dl-primary {
+    background: var(--teal-deep);
+    color: var(--paper);
+  }
+
+  .dl-primary:hover { background: var(--teal-mid); }
+
+  .dl-secondary {
+    background: transparent;
+    color: var(--teal-deep);
+    border: 1px solid var(--teal-mid);
+  }
+
+  .dl-secondary:hover { background: var(--mist); }
+
+  /* ── INTERPRETIVE CONSTRAINT BOX ── */
+  .constraint-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .constraint-col { }
+
+  .constraint-col-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.75rem;
+    margin-bottom: 0;
+    border-radius: 2px 2px 0 0;
+  }
+
+  .label-can { background: rgba(42,122,126,0.15); color: var(--teal-deep); }
+  .label-cannot { background: rgba(184,82,82,0.12); color: var(--rose); }
+
+  .constraint-list {
+    list-style: none;
+    border: 1px solid var(--grid);
+    border-top: none;
+    border-radius: 0 0 2px 2px;
+    overflow: hidden;
+  }
+
+  .constraint-list li {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--mist);
+    color: #3a3a35;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .constraint-list li:last-child { border-bottom: none; }
+  .constraint-list li::before { font-size: 0.65rem; flex-shrink: 0; }
+  .can-list li::before { content: '✓'; color: var(--teal-mid); }
+  .cannot-list li::before { content: '✗'; color: var(--rose); }
+
+  /* ── OPERATIONAL VAR CARDS ── */
+  .op-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+  @media (max-width: 900px) { .op-grid { grid-template-columns: 1fr; } }
+
+  .op-card {
+    background: #fff;
+    border: 1px solid var(--grid);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .op-card-header {
+    padding: 0.75rem 1rem;
+    background: var(--teal-deep);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .op-id {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--amber-light);
+    flex-shrink: 0;
+  }
+
+  .op-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.95);
+    line-height: 1.3;
+  }
+
+  .op-card-body { padding: 0.875rem 1rem; }
+
+  .op-desc { font-size: 0.82rem; color: #4a4a45; line-height: 1.6; margin-bottom: 0.5rem; }
+
+  .op-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+  .op-tag {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 2px;
+    border: 1px solid currentColor;
+  }
+
+  .tag-D { color: var(--teal-mid); }
+  .tag-A { color: var(--amber); }
+  .tag-L { color: var(--rose); }
+  .tag-E { color: #777; }
+
+  /* ── RECORD EXPLORER ── */
+  .record-form {
+    background: #fff;
+    border: 1px solid var(--grid);
+    border-radius: 3px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+
+  @media (max-width: 700px) { .form-row { grid-template-columns: 1fr; } }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+
+  .form-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+  }
+
+  .form-input, .form-select {
+    border: 1px solid var(--grid);
+    border-radius: 2px;
+    padding: 0.45rem 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--ink);
+    background: var(--paper);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .form-input:focus, .form-select:focus { border-color: var(--teal-mid); }
+
+  .generate-btn {
+    background: var(--teal-deep);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    padding: 0.55rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .generate-btn:hover { background: var(--teal-mid); }
+
+  .record-output {
+    margin-top: 1rem;
+    display: none;
+  }
+
+  .record-output.visible { display: block; }
+
+  /* ── TRACEABILITY PATH ── */
+  .trace-path {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    background: var(--mist);
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+  }
+
+  .trace-node {
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+    background: #fff;
+    border: 1px solid var(--grid);
+    color: var(--teal-deep);
+  }
+
+  .trace-arrow { color: var(--grid); font-size: 0.8rem; }
+
+  .trace-node.active { background: var(--teal-deep); color: #fff; border-color: var(--teal-deep); }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    padding: 2rem;
+    margin-top: 4rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-right { color: var(--amber); }
+
+  /* ── CONSTRAINT BANNER ── */
+  .constraint-banner {
+    background: var(--ink);
+    color: rgba(255,255,255,0.7);
+    padding: 0.75rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+
+  .constraint-banner span { color: var(--amber-light); }
+</style>
+</head>
+<body>
+
+<!-- CONSTRAINT BANNER -->
+<div class="constraint-banner">
+  <span>Canonical Rule:</span> Tools operate on structure, they do not create it &nbsp;·&nbsp;
+  <span>ECOA defines reality</span> &nbsp;·&nbsp; ARA resolves structure &nbsp;·&nbsp; Runner executes &nbsp;·&nbsp;
+  No layer substitutes another
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-mark">DALE · Kadana</div>
+    <div class="header-divider"></div>
+    <div class="tool-badge">CoS Mapping Tool &nbsp;/&nbsp; v1.0.0</div>
+    <nav class="header-nav">
+      <div class="nav-tab active" onclick="showPanel('overview')">Overview</div>
+      <div class="nav-tab" onclick="showPanel('principles')">Principles</div>
+      <div class="nav-tab" onclick="showPanel('variables')">Variables</div>
+      <div class="nav-tab" onclick="showPanel('algorithm')">Algorithm</div>
+      <div class="nav-tab" onclick="showPanel('outputs')">Outputs</div>
+      <div class="nav-tab" onclick="showPanel('schemas')">Schemas</div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Canonical Specification · Toolkit Bundle</div>
+      <h1 class="hero-title">Community Operating<br>System (CoS) Mapping Tool</h1>
+      <p class="hero-subtitle">
+        The Diagnostic/Sensor layer of the DALE architecture.
+        Captures system signal from submitted observation packages and feeds
+        structured empirical outputs into the ECOA observational pipeline.
+      </p>
+    </div>
+    <div class="hero-meta">
+      <span class="meta-pill pill-stage">Stage: Observe</span>
+      <span class="meta-pill pill-layer">Layer: Tool Interface</span>
+      <span class="meta-pill pill-version">v1.0.0 · April 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- PIPELINE BAR -->
+<div class="pipeline">
+  <div class="pipeline-inner">
+    <div class="pipeline-step active">
+      <span class="step-dot"></span>
+      CoS Mapping
+    </div>
+    <span class="step-arrow">→</span>
+    <div class="pipeline-step active">
+      <span class="step-dot"></span>
+      ECOA Observation
+    </div>
+    <span class="step-arrow">→</span>
+    <div class="pipeline-step">
+      <span class="step-dot"></span>
+      ARA Resolution
+    </div>
+    <span class="step-arrow">→</span>
+    <div class="pipeline-step">
+      <span class="step-dot"></span>
+      Runner Execution
+    </div>
+    <span class="step-arrow">→</span>
+    <div class="pipeline-step">
+      <span class="step-dot"></span>
+      SEC (Pathway)
+    </div>
+    <span class="step-arrow">→</span>
+    <div class="pipeline-step">
+      <span class="step-dot"></span>
+      CBC (Exchange)
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ═══════════════════ OVERVIEW ═══════════════════ -->
+  <div class="panel active" id="panel-overview">
+
+    <div class="section">
+      <div class="section-label">What this tool does</div>
+      <div class="section-title">Purpose & Scope</div>
+
+      <div class="grid-2">
+        <div>
+          <div class="section-body">
+            <p>The CoS Mapping Tool is the <strong>Diagnostic/Sensor layer</strong> of the DALE architecture. Its function is to capture system signal from a submitted observation package — a finite family of admissible abstract inputs — and transform them into structured empirical observations through the ECOA pipeline.</p>
+            <br>
+            <p>It does not evaluate, rank, score, or prescribe. It observes. Every output it produces is a structured empirical state, not a judgment.</p>
+          </div>
+
+          <div class="notice-box notice-teal" style="margin-top:1.25rem">
+            <span class="notice-icon">ⓘ</span>
+            <div>One execution = one submitted package of abstract inputs under one concrete observation condition. The tool does not determine which inputs to submit or how to reformulate later packages.</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card-accent" style="background:var(--teal-mid)"></div>
+            <div class="card-label" style="color:var(--teal-mid)">Inputs</div>
+            <div class="card-title">What enters the tool</div>
+            <div class="card-body">
+              <ul style="padding-left:1rem;line-height:2">
+                <li>Submitted package of candidate abstract inputs</li>
+                <li>Concrete observation condition (sector, geography, engagement type, mode)</li>
+                <li>Practitioner ID and timestamp</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:1rem">
+            <div class="card-accent" style="background:var(--amber)"></div>
+            <div class="card-label" style="color:var(--amber)">Outputs</div>
+            <div class="card-title">What the tool returns</div>
+            <div class="card-body">
+              <ul style="padding-left:1rem;line-height:2">
+                <li>Fundamental empirical state (v1–v40)</li>
+                <li>Operational empirical state (X1–X12)</li>
+                <li>DALE family states (D/A/L/E)</li>
+                <li>Canonical output records with full traceability</li>
+                <li>Noise log for non-admissible inputs</li>
+                <li>Balance-relevant missingness log</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Architectural position</div>
+      <div class="section-title">Where CoS Sits in the DALE System</div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-accent" style="background:var(--teal-light)"></div>
+          <div class="card-label" style="color:var(--teal-mid)">Observe</div>
+          <div class="card-title">CoS Mapping Tool</div>
+          <div class="card-body">Captures system signal. Feeds ECOA observation. This is the entry point of the observational pipeline.</div>
+        </div>
+        <div class="card">
+          <div class="card-accent" style="background:var(--grid)"></div>
+          <div class="card-label" style="color:#999">Resolve / Realize</div>
+          <div class="card-title">Social Enterprise Canvas</div>
+          <div class="card-body">Maps value pathways. Receives operational empirical state from CoS. Feeds ARA resolution.</div>
+        </div>
+        <div class="card">
+          <div class="card-accent" style="background:var(--grid)"></div>
+          <div class="card-label" style="color:#999">Formalize</div>
+          <div class="card-title">Community Benefit Contracts</div>
+          <div class="card-body">Formalizes value exchange. Receives DALE family states. Locks governance structure.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Interpretive constraint</div>
+      <div class="section-title">What Outputs Can and Cannot Mean</div>
+
+      <div class="constraint-grid">
+        <div class="constraint-col">
+          <div class="constraint-col-label label-can">Outputs may be read as</div>
+          <ul class="constraint-list can-list">
+            <li>State description</li>
+            <li>Empirical configuration</li>
+            <li>Reporting carrier of subsystem state</li>
+            <li>Structural signal for later human interpretation</li>
+          </ul>
+        </div>
+        <div class="constraint-col">
+          <div class="constraint-col-label label-cannot">Outputs may NOT be read as</div>
+          <ul class="constraint-list cannot-list">
+            <li>Proof of success</li>
+            <li>Verdict of failure</li>
+            <li>Score of quality</li>
+            <li>Direct intervention command</li>
+            <li>Normative ranking</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Downloads</div>
+      <div class="section-title">Toolkit Bundle Files</div>
+      <div class="section-body" style="margin-bottom:1rem">All three formats serve different audiences. Use JSON for system integration, YAML for developer onboarding and practitioner reference, and this HTML tool for institutional review and training.</div>
+      <div class="download-bar">
+        <a class="dl-btn dl-primary" href="cos_mapping_schema.json" download>⬇ JSON Schema</a>
+        <a class="dl-btn dl-primary" href="cos_mapping_spec.yaml" download>⬇ YAML Spec</a>
+        <a class="dl-btn dl-secondary" onclick="window.print()">⎙ Print / PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ PRINCIPLES ═══════════════════ -->
+  <div class="panel" id="panel-principles">
+    <div class="section">
+      <div class="section-label">Fixed global frame</div>
+      <div class="section-title">Five Global Principles</div>
+      <div class="section-body" style="margin-bottom:1.5rem">
+        These five principles are the fixed structural backbone of the architecture. They are not guidelines or themes — they are formal structural laws that govern admissibility, decomposition, signed-state determination, and empirical assignment. <strong>They cannot be redefined during observational execution.</strong>
+      </div>
+
+      <div class="notice-box notice-amber">
+        <span class="notice-icon">⚠</span>
+        <div>No operational variable, local system, metric transformation, or empirical output may introduce principles external to this fixed set. Every variable must be expressible through at least one of these principles and at least one of their associated model families.</div>
+      </div>
+
+      <div style="margin-top:1.5rem">
+
+        <div class="principle-card" id="p1">
+          <div class="principle-header" onclick="togglePrinciple('p1')">
+            <span class="principle-id">P1</span>
+            <span class="principle-name">Participant-grounded legitimacy</span>
+            <span class="principle-chevron">▶</span>
+          </div>
+          <div class="principle-body">
+            <div class="principle-field">
+              <div class="field-label">Domain</div>
+              <div class="field-value">Identity, dignity, agency, disclosure, participation, readiness, safety, context-shape</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Structural law</div>
+              <div class="field-value">Admissible formation must begin from identity-bearing, dignity-bearing, agency-preserving, safe, and non-coerced participant conditions. Formations that bypass participant legitimacy, safety, agency, or admissible disclosure are architecturally inadmissible.</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Model family (M1)</div>
+              <div class="field-value">Tree of Life · Identity Mapping · Context–Pattern–Support · Facilitator Role · Archetype Mirror · UTAUT Facilitation Lens</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Subsumes</div>
+              <div class="field-value">Identity preceding enterprise · psychological safety as structural precondition · no forced vulnerability · participant control over disclosure · dignity restoration · experience preceding naming</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="principle-card" id="p2">
+          <div class="principle-header" onclick="togglePrinciple('p2')">
+            <span class="principle-id">P2</span>
+            <span class="principle-name">Structural observation before intervention</span>
+            <span class="principle-chevron">▶</span>
+          </div>
+          <div class="principle-body">
+            <div class="principle-field">
+              <div class="field-label">Domain</div>
+              <div class="field-value">Observation, system description, problem formation, causal depth, design direction</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Structural law</div>
+              <div class="field-value">Admissible action, change, or movement must be preceded by structural observation, system describability, and problem clarification. Systems that bypass observation do not support admissible bounded movement.</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Model family (M2)</div>
+              <div class="field-value">Community Operating System · System Blueprint · Cause Ladder / 5 Whys · Fishbone / Cause–Effect · Boundary Tagging · Gap–to–HMW</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Subsumes</div>
+              <div class="field-value">Observation before action · system description before change · root-cause distinction · clarity before ideation · design beginning with the right question</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="principle-card" id="p3">
+          <div class="principle-header" onclick="togglePrinciple('p3')">
+            <span class="principle-id">P3</span>
+            <span class="principle-name">Explicit relational differentiation for decision-relevant system readability</span>
+            <span class="principle-chevron">▶</span>
+          </div>
+          <div class="principle-body">
+            <div class="principle-field">
+              <div class="field-label">Domain</div>
+              <div class="field-value">Actor position, influence, gatekeeping, value structure, burden distribution, risk distribution</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Structural law</div>
+              <div class="field-value">Relational asymmetries, actor-position differences, structural flows, and decision-relevant empirical signals must be made explicit and non-collapsed.</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Model family (M3)</div>
+              <div class="field-value">Influence Map · Gatekeeper · Value Flow · Burden–Benefit–Risk · Four-Flow Overlay · Audience Triangle · Audience Segmentation · Impact Map · Impact Management Lens</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Subsumes</div>
+              <div class="field-value">Distinguishing power from title · making invisible influence explicit · separating beneficiary/user/customer/payer · separating value/burden/benefit/risk</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="principle-card" id="p4">
+          <div class="principle-header" onclick="togglePrinciple('p4')">
+            <span class="principle-id">P4</span>
+            <span class="principle-name">Context-fit and bounded movement</span>
+            <span class="principle-chevron">▶</span>
+          </div>
+          <div class="principle-body">
+            <div class="principle-field">
+              <div class="field-label">Domain</div>
+              <div class="field-value">Movement, intervention fit, boundary logic, partnership readiness, procurement access</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Structural law</div>
+              <div class="field-value">Admissible movement must fit context, position, timing, safety, readiness, and explicit boundaries. Fit has priority over force.</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Model family (M4)</div>
+              <div class="field-value">Move Fit · Partnership Readiness · Procurement Cycle · Negotiation / BATNA</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="principle-card" id="p5">
+          <div class="principle-header" onclick="togglePrinciple('p5')">
+            <span class="principle-id">P5</span>
+            <span class="principle-name">Adaptive continuity with local agency</span>
+            <span class="principle-chevron">▶</span>
+          </div>
+          <div class="principle-body">
+            <div class="principle-field">
+              <div class="field-label">Domain</div>
+              <div class="field-value">Continuity, leadership, revisability under learning, localization, community agency, coordination</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Structural law</div>
+              <div class="field-value">Admissible systems must preserve continuity, revisability under learning, local agency, and operational coordination discipline.</div>
+            </div>
+            <div class="principle-field">
+              <div class="field-label">Model family (M5)</div>
+              <div class="field-value">Leadership Shift · Continuity Pathways · DALE Four-Element Agile Impact · Agile Impact Implementation · Community-Driven Data · Localization Value-Chain · Standards-of-Practice · Integrated Accountability System · Implementation Roadmap</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ VARIABLES ═══════════════════ -->
+  <div class="panel" id="panel-variables">
+    <div class="section">
+      <div class="section-label">Common empirical layer</div>
+      <div class="section-title">40 Fundamental Variables (v1–v40)</div>
+      <div class="section-body" style="margin-bottom:1rem">
+        The fundamental-variable layer is the common empirical basis of the architecture. Empirical assignment occurs here — and only here — after admissible recursive decomposition has reached terminal subsystem realization. Every operational variable is reconstructed from this layer.
+      </div>
+
+      <div class="notice-box notice-teal">
+        <span class="notice-icon">ⓘ</span>
+        <div><strong>Metric domain: [−1, 1]</strong> &nbsp;·&nbsp; −1 = minimum admissible state &nbsp;·&nbsp; 0 = neutral (no effective contribution) &nbsp;·&nbsp; 1 = maximum admissible state. Neither −1 nor 1 is a universal good/bad label.</div>
+      </div>
+
+      <div class="metric-bar-wrap" style="margin:1.5rem 0">
+        <div class="metric-label-row">
+          <span>−1 (minimum)</span>
+          <span>0 (neutral)</span>
+          <span>+1 (maximum)</span>
+        </div>
+        <div class="metric-track">
+          <div class="metric-zero"></div>
+          <div class="metric-fill" style="width:50%;background:linear-gradient(90deg,var(--rose),var(--teal-light));"></div>
+        </div>
+      </div>
+
+      <table class="var-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Variable Name</th>
+            <th>Family</th>
+            <th>Governing Principle(s)</th>
+          </tr>
+        </thead>
+        <tbody id="fund-var-table"></tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-label">First readable layer</div>
+      <div class="section-title">12 Operational Variables (X1–X12)</div>
+      <div class="section-body" style="margin-bottom:1.5rem">
+        Operational variables are the first readable reconstructed layer of the architecture. Each is a local system grounded in the fundamental-variable layer. Empirical states are reconstructed upward — not assigned directly.
+      </div>
+
+      <div class="op-grid" id="op-var-grid"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ ALGORITHM ═══════════════════ -->
+  <div class="panel" id="panel-algorithm">
+    <div class="section">
+      <div class="section-label">Observational pipeline</div>
+      <div class="section-title">Six-Step Transformation Logic</div>
+      <div class="section-body" style="margin-bottom:1.5rem">
+        The CoS Mapping Tool executes a deterministic observational pipeline. For fixed architecture, fixed admissible input, and fixed observation condition, exactly one internal path is admitted. No alternative path is generated during execution.
+      </div>
+
+      <div class="trace-path">
+        <span class="trace-node active">A_adm</span>
+        <span class="trace-arrow">→</span>
+        <span class="trace-node active">S_in</span>
+        <span class="trace-arrow">→</span>
+        <span class="trace-node active">R_term</span>
+        <span class="trace-arrow">→</span>
+        <span class="trace-node active">Δ (signed states)</span>
+        <span class="trace-arrow">→</span>
+        <span class="trace-node active">E_fund</span>
+        <span class="trace-arrow">→</span>
+        <span class="trace-node active">E_op</span>
+        <span class="trace-arrow">→</span>
+        <span class="trace-node active">E_a (abstract return)</span>
+      </div>
+
+      <div class="algo-steps" style="margin-top:2rem">
+
+        <div class="algo-step">
+          <div class="algo-step-num">1</div>
+          <div class="algo-step-body">
+            <div class="algo-step-title">Common Input-System Observation</div>
+            <div class="algo-step-desc">The submitted admissible package is placed inside one common DALE-grounded frame before individual recursive realization proceeds. Abstract inputs are not treated as an isolated list — they are co-observed as one input-system configuration.</div>
+            <div class="algo-step-op">Operator: S_in(A_adm, c) = {P_proj, M_proj, A_adm, Ξ(A_adm, c)}</div>
+          </div>
+        </div>
+
+        <div class="algo-step">
+          <div class="algo-step-num">2</div>
+          <div class="algo-step-body">
+            <div class="algo-step-title">Admissibility Check</div>
+            <div class="algo-step-desc">Each candidate input is checked against 7 admissibility conditions. Non-admissible inputs are classified as form_noise, decomposition_noise, or architectural_noise. They are recorded in the noise log but do not enter the observational process.</div>
+            <div class="algo-step-op">Predicate: χ_in(a) ∈ {0, 1}</div>
+          </div>
+        </div>
+
+        <div class="algo-step">
+          <div class="algo-step-num">3</div>
+          <div class="algo-step-body">
+            <div class="algo-step-title">Recursive Decomposition</div>
+            <div class="algo-step-desc">Each admissible abstract input is decomposed through its operational realization, then through lower-level realized subsystems under the same fixed architecture, until every branch reaches a terminal realized subsystem satisfying the stop condition.</div>
+            <div class="algo-step-op">Operator: Φ(a, c) = R_term(a, c) — uniquely determined, no alternative path admitted</div>
+            <div style="margin-top:0.75rem;display:flex;gap:0.75rem;flex-wrap:wrap">
+              <div class="notice-box notice-teal" style="flex:1;margin:0">
+                <span class="notice-icon">I</span>
+                <div><strong>Type I: Fundamental closure</strong> — V(S) ⊆ V_fund. Assign local signed states, then empirical values.</div>
+              </div>
+              <div class="notice-box notice-amber" style="flex:1;margin:0">
+                <span class="notice-icon">II</span>
+                <div><strong>Type II: Non-observability</strong> — V(S) ∩ V_proj = ∅. Record status: no_observable_variables.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="algo-step">
+          <div class="algo-step-num">4</div>
+          <div class="algo-step-body">
+            <div class="algo-step-title">Local Signed-State Realization</div>
+            <div class="algo-step-desc">At terminal Type I subsystems, each fundamental variable receives a local signed observational state in [−1, 1] under the governing principles and models of that subsystem. Explicit informational absence is recorded when no admissible data exists.</div>
+            <div class="algo-step-op">δ_R(f; a, c) ∈ [−1, 1] ∪ {∅_info} — these are NOT yet final empirical outputs</div>
+          </div>
+        </div>
+
+        <div class="algo-step">
+          <div class="algo-step-num">5</div>
+          <div class="algo-step-body">
+            <div class="algo-step-title">Metric Assignment at Fundamental Layer</div>
+            <div class="algo-step-desc">Final empirical assignment aggregates local signed states across all terminal subsystems containing the same fundamental variable. If no non-absent signed states exist, explicit informational absence is recorded — never a default or neutral substitute.</div>
+            <div class="algo-step-op">μ_Φ(f; a, c) = mean(D_f(a, c)) &nbsp;·&nbsp; κ(x) = 2·(x−m_min)/(m_max−m_min)−1 for metric transformation</div>
+          </div>
+        </div>
+
+        <div class="algo-step">
+          <div class="algo-step-num">6</div>
+          <div class="algo-step-body">
+            <div class="algo-step-title">Upward Reconstruction</div>
+            <div class="algo-step-desc">Operational empirical states are reconstructed from the fundamental layer using fixed admissible bases. DALE family states are then reconstructed from contributing operational states. Finally, abstract-level empirical return is formed for each admissible input.</div>
+            <div class="algo-step-op">F_X → E_op → G_S → E_{D/A/L/E} → F_a → E_a(c)</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="notice-box notice-red" style="margin-top:2rem">
+        <span class="notice-icon">⊗</span>
+        <div><strong>Not permitted during execution:</strong> redefining principles or models, introducing a third variable class, inserting neutral/default values for informational absence, admitting an alternative decomposition path for the same architecture-input-condition triple, or determining how future packages should be reformulated.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ OUTPUTS ═══════════════════ -->
+  <div class="panel" id="panel-outputs">
+    <div class="section">
+      <div class="section-label">Output logic</div>
+      <div class="section-title">Status Logic & Structural Distinctions</div>
+
+      <div class="section-body" style="margin-bottom:1.5rem">
+        The architecture distinguishes six structural conditions that must never be collapsed into one another.
+      </div>
+
+      <div class="status-row">
+        <div class="status-chip chip-assigned"><span class="chip-dot"></span> assigned — valid empirical value in [−1, 1]</div>
+        <div class="status-chip chip-info"><span class="chip-dot"></span> info_absence — activated, data missing</div>
+        <div class="status-chip chip-struct"><span class="chip-dot"></span> struct_absence — admissible, not activated</div>
+        <div class="status-chip chip-missing"><span class="chip-dot"></span> balance_relevant_missingness — required by governing principles, absent from terminal realization</div>
+      </div>
+
+      <div class="notice-box notice-red" style="margin-top:1rem">
+        <span class="notice-icon">⊗</span>
+        <div><strong>info_absence is never replaced by a neutral value (0), a default value, or an inferred completion.</strong> If required admissible information is absent, the status is recorded explicitly. This is a structural condition of the observational result, not a gap to be filled.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Canonical record</div>
+      <div class="section-title">Output Record Generator</div>
+      <div class="section-body" style="margin-bottom:1.25rem">Generate a sample canonical output record for review and integration reference.</div>
+
+      <div class="record-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Entity ID</label>
+            <input class="form-input" id="r-entity" value="Ashoka-VL-001" type="text">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Variable</label>
+            <select class="form-select" id="r-var">
+              <option value="v1">v1 — identity</option>
+              <option value="v4">v4 — psychological_safety</option>
+              <option value="v19">v19 — system_structure</option>
+              <option value="v21">v21 — power_asymmetry</option>
+              <option value="v27">v27 — value</option>
+              <option value="v35">v35 — root_cause_depth</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-select" id="r-status">
+              <option value="assigned">assigned</option>
+              <option value="info_absence">info_absence</option>
+              <option value="struct_absence">struct_absence</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Empirical Value</label>
+            <input class="form-input" id="r-value" value="0.45" type="number" min="-1" max="1" step="0.01">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Engagement Type</label>
+            <select class="form-select" id="r-type">
+              <option>Level1_ClientProject</option>
+              <option>Level2_CommunitySprint</option>
+              <option>Level3_Platform</option>
+            </select>
+          </div>
+          <div class="form-group" style="justify-content:flex-end">
+            <label class="form-label">&nbsp;</label>
+            <button class="generate-btn" onclick="generateRecord()">Generate Record</button>
+          </div>
+        </div>
+
+        <div class="record-output" id="record-out">
+          <div class="code-block" id="record-json"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Layered output structure</div>
+      <div class="section-title">Output Layers</div>
+      <div class="grid-2">
+        <div>
+          <div style="font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:0.75rem">Structural Outputs (generated by pipeline)</div>
+          <div class="card" style="margin-bottom:0.75rem">
+            <div class="card-accent" style="background:var(--teal-deep)"></div>
+            <div class="card-label" style="color:var(--teal-mid)">Layer 1</div>
+            <div class="card-title">Fundamental Empirical State</div>
+            <div class="card-body">Common empirical substrate. Basis for all higher reconstruction. Activated v1–v40 with values or info_absence.</div>
+          </div>
+          <div class="card" style="margin-bottom:0.75rem">
+            <div class="card-accent" style="background:var(--teal-mid)"></div>
+            <div class="card-label" style="color:var(--teal-mid)">Layer 2</div>
+            <div class="card-title">Operational Empirical State</div>
+            <div class="card-body">First readable output layer. Reconstructed X1–X12 states. Default: arithmetic mean of assigned contributing fundamental values.</div>
+          </div>
+          <div class="card" style="margin-bottom:0.75rem">
+            <div class="card-accent" style="background:var(--teal-light)"></div>
+            <div class="card-label" style="color:var(--teal-mid)">Layer 3</div>
+            <div class="card-title">DALE Family States</div>
+            <div class="card-body">Compact DALE-readable configuration: Delivery / Accountability / Learning / Ecosystem.</div>
+          </div>
+          <div class="card">
+            <div class="card-accent" style="background:var(--amber)"></div>
+            <div class="card-label" style="color:var(--amber)">Layer 4</div>
+            <div class="card-title">Abstract-Level Empirical Return</div>
+            <div class="card-body">Empirically reconstructed state of each admissible abstract input. Arithmetic mean of assigned operational values.</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:0.75rem">Organizational Outputs (integration & exposure)</div>
+          <div class="card" style="margin-bottom:0.75rem">
+            <div class="card-accent" style="background:var(--grid)"></div>
+            <div class="card-label" style="color:#999">Tool Dataset</div>
+            <div class="card-title">CoS Local Dataset (D_i)</div>
+            <div class="card-body">Structured observational container. Entity set, tool-field set, observation-condition set, time structure, empirical records.</div>
+          </div>
+          <div class="card" style="margin-bottom:0.75rem">
+            <div class="card-accent" style="background:var(--grid)"></div>
+            <div class="card-label" style="color:#999">Integration</div>
+            <div class="card-title">Unified Master Dataset (M*)</div>
+            <div class="card-body">Integrates CoS + SEC + CBC datasets. Preserves layer, family, and traceability provenance across tools.</div>
+          </div>
+          <div class="card">
+            <div class="card-accent" style="background:var(--rose)"></div>
+            <div class="card-label" style="color:var(--rose)">Boundary Exposure</div>
+            <div class="card-title">Noise Log + Missingness Log</div>
+            <div class="card-body">Non-admissible inputs recorded as form/decomposition/architectural noise. Balance-relevant missing variables preserved as structural trace — not collapsed into absence.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SCHEMAS ═══════════════════ -->
+  <div class="panel" id="panel-schemas">
+    <div class="section">
+      <div class="section-label">Machine-readable</div>
+      <div class="section-title">JSON Schema Sample</div>
+      <div class="section-body" style="margin-bottom:1rem">Core schema excerpt showing the observation unit structure. Full schema available for download.</div>
+
+      <div class="code-block">
+<span class="code-comment">// CoS Mapping Tool — Canonical Schema v1.0.0</span>
+<span class="code-key">{</span>
+  <span class="code-key">"observation_unit"</span>: <span class="code-key">{</span>
+    <span class="code-key">"observation_id"</span>: <span class="code-str">"CoS-2026-04-15-A7X3K1"</span>,
+    <span class="code-key">"submitted_package"</span>: [
+      <span class="code-key">{</span>
+        <span class="code-key">"input_id"</span>: <span class="code-str">"a1"</span>,
+        <span class="code-key">"input_label"</span>: <span class="code-str">"Community health worker identity context"</span>,
+        <span class="code-key">"admissibility_status"</span>: <span class="code-str">"admissible"</span>,
+        <span class="code-key">"operational_scope"</span>: [
+          <span class="code-key">{</span> <span class="code-key">"variable_id"</span>: <span class="code-str">"X1"</span>, <span class="code-key">"variable_name"</span>: <span class="code-str">"identity_articulation_state"</span> <span class="code-key">}</span>,
+          <span class="code-key">{</span> <span class="code-key">"variable_id"</span>: <span class="code-str">"X2"</span>, <span class="code-key">"variable_name"</span>: <span class="code-str">"safety_and_participation_state"</span> <span class="code-key">}</span>
+        ]
+      <span class="code-key">}</span>
+    ],
+    <span class="code-key">"observation_condition"</span>: <span class="code-key">{</span>
+      <span class="code-key">"condition_id"</span>: <span class="code-str">"c1"</span>,
+      <span class="code-key">"sector"</span>: <span class="code-str">"climate_finance"</span>,
+      <span class="code-key">"engagement_type"</span>: <span class="code-str">"Level1_ClientProject"</span>,
+      <span class="code-key">"observation_mode"</span>: <span class="code-str">"facilitated_session"</span>
+    <span class="code-key">}</span>
+  <span class="code-key">}</span>,
+  <span class="code-key">"output_structure"</span>: <span class="code-key">{</span>
+    <span class="code-key">"fundamental_empirical_state"</span>: [
+      <span class="code-key">{</span>
+        <span class="code-key">"variable_id"</span>: <span class="code-str">"v1"</span>,
+        <span class="code-key">"variable_name"</span>: <span class="code-str">"identity"</span>,
+        <span class="code-key">"activation_status"</span>: <span class="code-str">"activated"</span>,
+        <span class="code-key">"empirical_value"</span>: <span class="code-num">0.72</span>,
+        <span class="code-key">"output_status"</span>: <span class="code-str">"assigned"</span>,
+        <span class="code-key">"governing_principles"</span>: [<span class="code-str">"P1"</span>],
+        <span class="code-key">"governing_models"</span>: [<span class="code-str">"Tree of Life Model"</span>, <span class="code-str">"Identity Mapping Model"</span>]
+      <span class="code-key">}</span>,
+      <span class="code-key">{</span>
+        <span class="code-key">"variable_id"</span>: <span class="code-str">"v22"</span>,
+        <span class="code-key">"variable_name"</span>: <span class="code-str">"invisible_influence"</span>,
+        <span class="code-key">"activation_status"</span>: <span class="code-str">"activated"</span>,
+        <span class="code-key">"empirical_value"</span>: <span class="code-str">"info_absence"</span>,
+        <span class="code-key">"output_status"</span>: <span class="code-str">"info_absence"</span>
+        <span class="code-comment">// NOT replaced with 0. Structural condition preserved.</span>
+      <span class="code-key">}</span>
+    ]
+  <span class="code-key">}</span>
+<span class="code-key">}</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Human-readable</div>
+      <div class="section-title">YAML Spec Sample</div>
+
+      <div class="code-block">
+<span class="code-comment"># CoS Mapping Tool — Canonical YAML Spec</span>
+<span class="code-key">metadata</span>:
+  <span class="code-key">tool_id</span>: <span class="code-str">CoS</span>
+  <span class="code-key">dale_stage</span>: <span class="code-str">Observe</span>
+  <span class="code-key">architectural_role</span>: <span class="code-str">Diagnostic / Sensor</span>
+  <span class="code-key">canonical_rule</span>: <span class="code-str">"Tools operate on structure, they do not create it"</span>
+
+<span class="code-key">algorithms</span>:
+  <span class="code-key">step_4_metric_assignment</span>:
+    <span class="code-key">absence_rule</span>: >
+      If D_f(a, c) = empty, record μ_Φ(f; a, c) = info_absence.
+      No neutral value, default value, or inferred completion inserted.
+    <span class="code-key">metric_transformation</span>:
+      <span class="code-key">formula</span>: <span class="code-str">"κ(x; m_min, m_max) = 2*(x-m_min)/(m_max-m_min) - 1"</span>
+
+<span class="code-key">admissibility_constraints</span>:
+  <span class="code-key">not_permitted_during_execution</span>:
+    - <span class="code-str">Redefining global principle set (P1–P5)</span>
+    - <span class="code-str">Introducing a third variable class</span>
+    - <span class="code-str">Inserting neutral values in place of info_absence</span>
+    - <span class="code-str">Admitting alternative internal path for same triple</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">For institutional reviewers</div>
+      <div class="section-title">Governance & Assurance Reference</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-accent" style="background:var(--teal-mid)"></div>
+          <div class="card-label" style="color:var(--teal-mid)">Version Control</div>
+          <div class="card-title">Architecture Versioning</div>
+          <div class="card-body">This is v1.0.0 of the CoS canonical spec. Revision of the variable architecture (v1–v40, X1–X12) requires explicit version transition. The global principle-model frame (P1–P5, M1–M5) is fixed across the architecture.</div>
+        </div>
+        <div class="card">
+          <div class="card-accent" style="background:var(--amber)"></div>
+          <div class="card-label" style="color:var(--amber)">Methodological Reliability</div>
+          <div class="card-title">Determinism Guarantee</div>
+          <div class="card-body">For fixed architecture, fixed admissible input, and fixed observation condition, the architecture admits exactly one internal observational path. This is falsifiability built into the design — not an external claim.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>DALE · Kadana &nbsp;·&nbsp; CoS Mapping Tool Canonical Spec v1.0.0 &nbsp;·&nbsp; April 2026</div>
+    <div class="footer-right">ECOA defines reality · ARA resolves structure · Runner executes</div>
+  </div>
+</footer>
+
+<script>
+  // ── NAVIGATION ──
+  function showPanel(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // ── PRINCIPLES ──
+  function togglePrinciple(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  // ── FUNDAMENTAL VARIABLE TABLE ──
+  const fundVars = [
+    { id:'v1',name:'identity',family:'Participant formation',principles:'P1'},
+    { id:'v2',name:'dignity',family:'Participant formation',principles:'P1'},
+    { id:'v3',name:'agency',family:'Participant formation',principles:'P1'},
+    { id:'v4',name:'psychological_safety',family:'Participant formation',principles:'P1'},
+    { id:'v5',name:'participant_readiness',family:'Participant formation',principles:'P1'},
+    { id:'v6',name:'participant_overload',family:'Participant formation',principles:'P1'},
+    { id:'v7',name:'participant_freeze',family:'Participant formation',principles:'P1'},
+    { id:'v8',name:'reflective_capacity',family:'Participant formation',principles:'P1'},
+    { id:'v9',name:'adaptive_thinking',family:'Participant formation',principles:'P1,P5'},
+    { id:'v10',name:'pattern_noticing',family:'Participant formation',principles:'P2'},
+    { id:'v11',name:'cognitive_load',family:'Participant formation',principles:'P1'},
+    { id:'v12',name:'beneficiary_position',family:'Relational actor position',principles:'P3'},
+    { id:'v13',name:'customer_position',family:'Relational actor position',principles:'P3'},
+    { id:'v14',name:'payer_position',family:'Relational actor position',principles:'P3'},
+    { id:'v15',name:'payment_capacity',family:'Relational actor position',principles:'P3,P4'},
+    { id:'v16',name:'decision_authority',family:'Relational actor position',principles:'P3'},
+    { id:'v17',name:'community_participation',family:'System participation influence',principles:'P1,P5'},
+    { id:'v18',name:'community_stewardship',family:'System participation influence',principles:'P5'},
+    { id:'v19',name:'system_structure',family:'System participation influence',principles:'P2'},
+    { id:'v20',name:'decision_pathway',family:'System participation influence',principles:'P2,P3'},
+    { id:'v21',name:'power_asymmetry',family:'System participation influence',principles:'P3'},
+    { id:'v22',name:'invisible_influence',family:'System participation influence',principles:'P3'},
+    { id:'v23',name:'localization',family:'Localization & contextual fit',principles:'P5'},
+    { id:'v24',name:'local_actor_agency',family:'Localization & contextual fit',principles:'P1,P5'},
+    { id:'v25',name:'local_actor_autonomy',family:'Localization & contextual fit',principles:'P5'},
+    { id:'v26',name:'contextual_fit',family:'Localization & contextual fit',principles:'P4'},
+    { id:'v27',name:'value',family:'Value impact resourcing flow',principles:'P3'},
+    { id:'v28',name:'impact',family:'Value impact resourcing flow',principles:'P3'},
+    { id:'v29',name:'resourcing',family:'Value impact resourcing flow',principles:'P4,P5'},
+    { id:'v30',name:'money_flow',family:'Value impact resourcing flow',principles:'P3'},
+    { id:'v31',name:'impact_flow',family:'Value impact resourcing flow',principles:'P3'},
+    { id:'v32',name:'data_flow',family:'Value impact resourcing flow',principles:'P3'},
+    { id:'v33',name:'decision_flow',family:'Value impact resourcing flow',principles:'P3'},
+    { id:'v34',name:'flow_coherence',family:'Value impact resourcing flow',principles:'P3'},
+    { id:'v35',name:'root_cause_depth',family:'Problem change learning',principles:'P2'},
+    { id:'v36',name:'problem_priority',family:'Problem change learning',principles:'P2'},
+    { id:'v37',name:'assumption_exposure',family:'Problem change learning',principles:'P2'},
+    { id:'v38',name:'learning_adaptivity',family:'Problem change learning',principles:'P5'},
+    { id:'v39',name:'continuity_risk',family:'Continuity & execution',principles:'P5'},
+    { id:'v40',name:'roadmap_readiness',family:'Continuity & execution',principles:'P5'},
+  ];
+
+  const tbody = document.getElementById('fund-var-table');
+  fundVars.forEach(v => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="var-id">${v.id}</td>
+      <td>${v.name.replace(/_/g,' ')}</td>
+      <td><span class="family-tag">${v.family}</span></td>
+      <td><span style="font-family:var(--mono);font-size:0.75rem;color:var(--teal-mid)">${v.principles}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // ── OPERATIONAL VARIABLE GRID ──
+  const opVars = [
+    { id:'X1', name:'Identity Articulation State', family:'pf', desc:'Readable articulation of identity-bearing structure: personal foundation, direction, challenge, purpose-bearing expression, identity-to-action linkage.', dale:['L','A'] },
+    { id:'X2', name:'Safety & Participation State', family:'pf', desc:'Readable condition of psychological safety, disclosure boundary, non-performative participation, pacing, and reflection legitimacy.', dale:['L','A'] },
+    { id:'X3', name:'System Description State', family:'sd', desc:'Readable description of surrounding system: actors, rules, routines, decision processes, support/resistance structure, influence structure.', dale:['L','D','E'] },
+    { id:'X4', name:'Flow Visibility State', family:'rd', desc:'Readable visibility of value, burden, benefit, risk, information, money, impact, data, and decision-related structural flows.', dale:['D','A','E'] },
+    { id:'X5', name:'Position, Power & Influence State', family:'sd', desc:'Readable relation among actor position, decision-bearing location, action boundary, formal authority, informal influence, and gatekeeping structure.', dale:['L','D','E'] },
+    { id:'X6', name:'Problem Framing State', family:'sd', desc:'Readable formulation of problem structure: symptom distinction, cause tracing, focus discipline, leverage exposure, prioritized framing.', dale:['L','D','E'] },
+    { id:'X7', name:'Design-Direction State', family:'sd', desc:'Readable transition from problem structure toward formulated design direction, mechanism direction, and early structured response formation.', dale:['L','D','E'] },
+    { id:'X8', name:'Learning & Validation State', family:'sd', desc:'Readable adaptive-learning layer: assumption exposure, light testing, contact with reality, field validation, and learning-bearing revision.', dale:['L','D','E'] },
+    { id:'X9', name:'Audience & Payment Structure State', family:'rd', desc:'Readable differentiation of beneficiary, user, customer, payer, funder, and related payment-bearing structure.', dale:['D','A','E'] },
+    { id:'X10', name:'Value–Impact–Enterprise State', family:'rd', desc:'Readable relation between value proposition, impact proposition, proposed offering, mechanism of change, operating architecture.', dale:['D','A','E'] },
+    { id:'X11', name:'Resourcing, Scale & Continuity State', family:'rd', desc:'Readable structure of resourcing logic, scale pathway, bottleneck exposure, continuity exposure, and leadership dependency.', dale:['D','A','E'] },
+    { id:'X12', name:'Coordination, Localization & Roadmap State', family:'cc', desc:'Readable closure of coordination, localization condition, standards, data-process requirements, roadmap logic, and implementation-facing commitment.', dale:['E','A','D'] },
+  ];
+
+  const famLabels = { pf:'Participant Formation', sd:'Structural Describability', rd:'Relational Differentiation', cc:'Coordination & Closure' };
+  const grid = document.getElementById('op-var-grid');
+  opVars.forEach(v => {
+    const tags = v.dale.map(d => `<span class="op-tag tag-${d}">${d}</span>`).join('');
+    const el = document.createElement('div');
+    el.className = 'op-card';
+    el.innerHTML = `
+      <div class="op-card-header">
+        <span class="op-id">${v.id}</span>
+        <span class="op-name">${v.name}</span>
+      </div>
+      <div class="op-card-body">
+        <div class="op-desc">${v.desc}</div>
+        <div class="op-tags">
+          <span class="family-tag">${famLabels[v.family]}</span>
+          ${tags}
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+
+  // ── RECORD GENERATOR ──
+  function generateRecord() {
+    const entity = document.getElementById('r-entity').value || 'Entity-001';
+    const variable = document.getElementById('r-var').value;
+    const varName = document.getElementById('r-var').options[document.getElementById('r-var').selectedIndex].text.split('—')[1].trim();
+    const status = document.getElementById('r-status').value;
+    const rawVal = parseFloat(document.getElementById('r-value').value);
+    const value = status === 'assigned' ? Math.min(1, Math.max(-1, rawVal)) : null;
+    const engType = document.getElementById('r-type').value;
+    const ts = new Date().toISOString();
+    const obsId = `CoS-${ts.slice(0,10).replace(/-/g,'')}-${Math.random().toString(36).substr(2,6).toUpperCase()}`;
+
+    const record = {
+      ObservationID: obsId,
+      SourceTool: "CoS",
+      Layer: "fundamental",
+      Family: "participant_grounded_formation",
+      EntityID: entity,
+      StateID: variable,
+      VariableName: varName.replace(/_/g,' '),
+      EmpiricalValue: status === 'assigned' ? value : null,
+      Status: status,
+      UsedVariables: [variable],
+      InactiveVariables: status === 'struct_absence' ? [variable] : [],
+      UsedPrinciples: ["P1", "P2"],
+      UsedModels: ["Community Operating System Model", "Identity Mapping Model"],
+      ObservationCondition: engType,
+      Timestamp: ts,
+      TracePath: `${obsId}→${variable}→fundamental→${engType}`
+    };
+
+    const json = JSON.stringify(record, null, 2);
+    document.getElementById('record-json').innerHTML = syntaxHighlight(json);
+    document.getElementById('record-out').classList.add('visible');
+  }
+
+  function syntaxHighlight(json) {
+    return json
+      .replace(/"([^"]+)":/g, '<span class="code-key">"$1":</span>')
+      .replace(/: "([^"]+)"/g, ': <span class="code-str">"$1"</span>')
+      .replace(/: (-?[0-9.]+)/g, ': <span class="code-num">$1</span>')
+      .replace(/: (null|true|false)/g, ': <span class="code-num">$1</span>');
+  }
+</script>
+</body>
+</html>

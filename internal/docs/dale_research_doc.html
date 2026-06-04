@@ -1,0 +1,435 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DALE Research Document | Validation Architecture and Evidence Record</title>
+<style>
+@import url('https://fonts.googleapis.com/css2family=DM+Mono:wght@400;500&family=Marcellus&family=Nunito:wght@300;400;500;600;700;800&display=swap');
+:root{--ink:#1a1a1a;--paper:#f0ede8;--card:#fff;--orange:#dd6037;--teal:#077187;--teal2:#087f8c;--char:#3d3d3d;--muted:#7a7a7a;--line:rgba(61,61,61,.1);--soft:#f4f4f4;--green:#01a854;--rose:#e25072;--head:'Marcellus',serif;--body:'Nunito',sans-serif;--mono:'DM Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--body);background:var(--paper);color:var(--char);line-height:1.7}.shell{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:100vh}.side{position:sticky;top:0;height:100vh;background:#101010;color:#fff;padding:24px 18px;display:flex;flex-direction:column;gap:20px}.brand{border-bottom:1px solid rgba(255,255,255,.08);padding:4px 8px 20px}.brand strong{display:block;font-family:var(--head);font-size:24px;font-weight:400;letter-spacing:.03em}.brand span{display:block;margin-top:4px;color:rgba(255,255,255,.36);font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em}.nav-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.32);padding:0 8px}.toc{display:flex;flex-direction:column;gap:6px;overflow:auto;padding-right:4px}.toc a{text-decoration:none;color:rgba(255,255,255,.62);border-left:3px solid transparent;border-radius:0 8px 8px 0;padding:10px 10px 10px 12px;font-size:13px;line-height:1.35}.toc a:hover{background:rgba(255,255,255,.05);color:#fff;border-left-color:var(--orange)}.toc span{display:block;color:var(--orange);font-family:var(--mono);font-size:10px;margin-bottom:3px}.side-foot{margin-top:auto;background:rgba(7,113,135,.14);border:1px solid rgba(7,113,135,.25);border-radius:14px;padding:14px;color:rgba(255,255,255,.72);font-size:12px}.main{min-width:0}.hero{background:linear-gradient(135deg,#111 0%,#2a2a2a 100%);color:#fff;padding:54px 48px 42px;position:relative;overflow:hidden}.hero:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 82% 10%,rgba(7,113,135,.24),transparent 18rem),radial-gradient(circle at 95% 82%,rgba(221,96,55,.18),transparent 17rem)}.hero-inner{position:relative;max-width:1040px}.eyebrow{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#ffb088;font-weight:500;margin-bottom:14px}.hero h1{font-family:var(--head);font-size:clamp(42px,7vw,82px);font-weight:400;line-height:1.02;margin-bottom:18px}.hero p{max-width:720px;color:rgba(255,255,255,.66);font-size:17px}.meta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}.pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.09);color:rgba(255,255,255,.74)}.pill.orange{background:var(--orange);color:#fff}.summary-band{background:#fff;border-bottom:1px solid var(--line);padding:18px 48px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}.stat b{display:block;font-family:var(--head);font-size:24px;font-weight:400;color:var(--teal)}.stat span{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.content{max-width:1040px;margin:0 auto;padding:34px 34px 80px}.doc-section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;margin:0 0 22px;box-shadow:0 12px 30px rgba(61,61,61,.045)}.doc-section h2{font-family:var(--head);font-size:34px;font-weight:400;line-height:1.15;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}.doc-section h3{font-family:var(--head);font-size:24px;font-weight:400;color:var(--teal);margin:26px 0 10px}.doc-section h4{font-size:17px;color:var(--char);margin:20px 0 8px;font-weight:800}.doc-section h5{font-size:14px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin:18px 0 8px}.doc-section p{font-size:15.5px;color:#454545;margin:9px 0}.centered{text-align:center}.quote-block{border-left:4px solid var(--orange);background:rgba(221,96,55,.06);padding:14px 18px;border-radius:0 12px 12px 0;color:#6f2d16!important;font-family:var(--head);font-size:20px!important}.bullet-item{position:relative;padding-left:24px}.bullet-item:before{content:'';position:absolute;left:3px;color:var(--orange);font-weight:800}.table-wrap{overflow:auto;margin:18px 0;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:620px}th{background:#1a1a1a;color:#fff;text-align:left;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:500;padding:12px 14px}td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top;font-size:14px;color:#454545}tr:nth-child(even) td{background:#fafafa}.page-divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:26px 0}.footer{padding:24px 34px 44px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em}@media(max-width:980px){.shell{display:block}.side{position:relative;height:auto}.toc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-height:none}.hero,.summary-band{padding-left:24px;padding-right:24px}.summary-band{grid-template-columns:repeat(2,1fr)}.content{padding:24px 16px 60px}.doc-section{padding:20px}.doc-section h2{font-size:28px}}@media(max-width:620px){.toc{grid-template-columns:1fr}.summary-band{grid-template-columns:1fr}.hero h1{font-size:42px}table{min-width:560px}}
+</style>
+
+</head>
+<body>
+<div class="shell">
+<aside class="side">
+  <div class="brand"><strong>DALE</strong><span>Validation Architecture</span></div>
+  <div class="nav-label">Document map</div>
+  <nav class="toc"><a href="#section-1"><span>01</span>Preamble</a><a href="#section-2"><span>02</span>Part 1: Validation Environments</a><a href="#section-3"><span>03</span>Part 2: DALE Provenance Core</a><a href="#section-4"><span>04</span>Part 3: DALE Tools</a><a href="#section-5"><span>05</span>Part 4: Adapters</a><a href="#section-6"><span>06</span>Part 5: Validation Lifecycle</a><a href="#section-7"><span>07</span>Appendix A: DALE Origin Statement</a><a href="#section-8"><span>08</span>Appendix B: Architecture Diagram</a><a href="#section-9"><span>09</span>Appendix C: Canon Reference</a><a href="#section-10"><span>10</span>Appendix D: Glossary</a></nav>
+  <div class="side-foot">Research document converted from the DALE Word generator into a standalone HTML canon page.</div>
+</aside>
+<div class="main">
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">DALE Labs / Kadana Foundation</div>
+    <h1>Validation Architecture and Evidence Record</h1>
+    <p>Version 2.0, June 2026. A structured research record for DALE's validation environments, provenance core, tools, adapters, lifecycle evidence, and canon references.</p>
+    <div class="meta-row"><span class="pill orange">Research Document</span><span class="pill">Version 2.0</span><span class="pill">June 2026</span><span class="pill">HTML Canon</span></div>
+  </div>
+</header>
+<section class="summary-band">
+  <div class="stat"><b>10</b><span>Major sections</span></div>
+  <div class="stat"><b>31</b><span>Evidence tables</span></div>
+  <div class="stat"><b>241</b><span>Text blocks</span></div>
+  <div class="stat"><b>98</b><span>Headings</span></div>
+</section>
+<main class="content"><p class="centered"><strong>DALE</strong></p>
+<p class="centered">Validation Architecture and Evidence Record</p>
+<p class="centered">Version 2.0  —  June 2026</p>
+<p class="centered">DALE Labs / Kadana Foundation</p>
+<div class="page-divider"></div>
+<section class="doc-section" id="section-1"><h2>Preamble</h2>
+<h3>The Original Question</h3>
+<p>DALE did not begin as a technology project.</p>
+<p>It began with an observation.</p>
+<p>Communities create value every day. Farmers, social entrepreneurs, citizen groups, local organizations, fellows, cooperatives, and informal networks continuously generate knowledge, relationships, commitments, and solutions.</p>
+<p>Yet as value moves through larger systems, it becomes increasingly difficult to see.</p>
+<p>The original question behind Kuza was simple:</p>
+<p class="quote-block"><em>How do we ensure that value created at the edge remains visible as it moves through a system</em></p>
+<p>At the time this appeared in discussions about climate finance, grassroots organizations, women and youth enterprises, and market access. The intuition was that communities were creating value, but the evidence of that value was not surviving the journey.</p>
+<h3>The Pattern</h3>
+<p>Over time DALE expanded into multiple validation environments. Each appeared different on the surface. Together they revealed a consistent pattern.</p>
+<p>In every environment the challenge was not creation. The challenge was survival.</p>
+<p>Observations were created. Relationships were created. Commitments were created. Knowledge was created. Value was created.</p>
+<p>The question was whether those records remained meaningful after people, organizations, projects, funding streams, and institutions changed.</p>
+<p>The answer was not consistent. And that inconsistency was the finding.</p>
+<p>The adversary was not technical failure. The adversary was institutional impermanence.</p>
+<p>Organizations close. Projects end. Funding shifts. Staff leave. Governments change. Platforms disappear.</p>
+<h3>The Hypothesis</h3>
+<p class="quote-block"><em>DALE tests whether observations, value, commitments, relationships, and context can survive institutional change without losing meaning.</em></p>
+<p>Different environments stress-test different dimensions of survival. Together they examine the same underlying question from different angles.</p>
+<h3>Document Structure</h3>
+<p>This document is organized around three distinct layers that were conflated in earlier versions of the DALE framework:</p>
+<div class="table-wrap"><table><tr><th><strong>Layer</strong></th><th><strong>Function</strong></th></tr><tr><td>Validation Environments</td><td>Where provenance is generated and survival is tested</td></tr><tr><td>DALE Provenance Core and Tools</td><td>How provenance is structured and interpreted</td></tr><tr><td>Adapters</td><td>How external systems consume provenance</td></tr></table></div>
+<p>A fourth section documents the Validation Lifecycle, tracking current evidence status and open questions across all environments.</p>
+</section>
+<div class="page-divider"></div>
+<section class="doc-section" id="section-2"><h2>Part 1: Validation Environments</h2>
+<h3>What a Validation Environment Is</h3>
+<p>A validation environment is not a DALE product.</p>
+<p>It is not a module, a tool, or an application.</p>
+<p>A validation environment is a real-world context in which provenance is generated and survival conditions can be observed.</p>
+<p>Validation environments exist independently of DALE. DALE observes within them. The environments generate evidence. DALE tools interpret that evidence.</p>
+<p>Each environment tests a specific dimension of the central hypothesis. Together they build a cumulative evidence base for provenance survival across different types of institutional change.</p>
+<h3>Environment Status Classification</h3>
+<div class="table-wrap"><table><tr><th><strong>Status</strong></th><th><strong>Meaning</strong></th></tr><tr><td>Active</td><td>Live validation occurring</td></tr><tr><td>Established</td><td>Evidence exists; environment no longer primary</td></tr><tr><td>Proposed</td><td>Design defined; validation not yet started</td></tr><tr><td>Archived</td><td>Historical evidence retained; environment closed</td></tr></table></div>
+<h3>Environment Summary</h3>
+<div class="table-wrap"><table><tr><th><strong>Environment</strong></th><th><strong>Provenance Type</strong></th><th><strong>Status</strong></th></tr><tr><td>Jitambulishe</td><td>Context</td><td>Active</td></tr><tr><td>Jielekeze</td><td>Value + Continuity</td><td>Proposed</td></tr><tr><td>OYW SVE</td><td>Exchange</td><td>Active</td></tr><tr><td>BAN</td><td>Relationships</td><td>Active</td></tr><tr><td>Agricultural Provenance Environment (APE)</td><td>Portability</td><td>Proposed</td></tr></table></div>
+<h3>Environment 1: Jitambulishe</h3>
+<div class="table-wrap"><table><tr><th><strong>Field</strong></th><th><strong>Detail</strong></th></tr><tr><td>Provenance Type</td><td>Context</td></tr><tr><td>Status</td><td>Active</td></tr></table></div>
+<h4>What is being observed</h4>
+<p>Jitambulishe is a civic observability environment. Citizens, community members, and local actors generate observations about conditions, problems, solutions, and events in their immediate context.</p>
+<p>The native unit of observation is the citizen report. A pothole. A water issue. A public service failure. A community solution. A local concern. A civic participation event.</p>
+<p>The core question is: what is happening here</p>
+<h4>What provenance type is being generated</h4>
+<p>Context provenance. Records of what was observed, by whom, in what circumstances, with what evidence, at what point in time.</p>
+<p>Context provenance captures the conditions surrounding value creation rather than the value itself. It answers the question: what was the environment in which this happened</p>
+<h4>What survival condition is being tested</h4>
+<p>Can community observations remain interpretable and useful after the original observers, platforms, and institutions have changed</p>
+<p>Specifically: can a citizen observation generated in one institutional context remain meaningful when accessed by a different actor — a county government, a service provider, a researcher, a community benefit program — in a different institutional context</p>
+<h4>Evidence Registry</h4>
+<div class="table-wrap"><table><tr><th><strong>Evidence Type</strong></th><th><strong>Status</strong></th></tr><tr><td>Records generated</td><td>Ongoing. Citizen observations being generated across multiple community contexts including civic issues, public service experiences, and local solutions.</td></tr><tr><td>Survival event observed</td><td>Partial. Observations have survived platform iterations. Full cross-institutional survival not yet formally tested.</td></tr><tr><td>Transfer event observed</td><td>Limited. Some observations have been referenced by external actors. Structured transfer protocol not yet in place.</td></tr><tr><td>Interpretation event observed</td><td>Partial. CoS has been applied to interpret context records. Systematic interpretation across observation types ongoing.</td></tr><tr><td>Validation result</td><td>Pending. Origination hypothesis largely confirmed. Survival hypothesis requires structured transfer testing.</td></tr></table></div>
+<h4>Planned Upgrade</h4>
+<p>Addition of a lightweight provenance layer to existing observation records: observation source, observation type, evidence attached, verification status, relationship links. This upgrade makes every Jitambulishe observation DALE-native without changing the citizen-facing interface.</p>
+<h3>Environment 2: Jielekeze</h3>
+<div class="table-wrap"><table><tr><th><strong>Field</strong></th><th><strong>Detail</strong></th></tr><tr><td>Provenance Type</td><td>Value + Continuity</td></tr><tr><td>Status</td><td>Proposed</td></tr></table></div>
+<h4>What is being observed</h4>
+<p>Jielekeze is a producer and social entrepreneur environment. Farmers, cooperatives, social enterprises, fellowship alumni, producer organizations, and community ventures generate records of value creation, exchange, and progression over time.</p>
+<p>The native unit of observation is the producer or enterprise journey. An enterprise launched. A cooperative formed. A product batch created. A market relationship established. A value pathway traced.</p>
+<p>The core question is: what value is being created and how is it moving</p>
+<h4>What provenance type is being generated</h4>
+<p>Value provenance. Records of what was produced, by whom, through what process, exchanged with whom, under what conditions, with what outcome.</p>
+<p>Continuity provenance. Records of how value relationships, enterprises, and producer journeys persist and evolve through personnel change, organizational change, and market change.</p>
+<h4>What survival condition is being tested</h4>
+<p>Can producer-generated value records remain interpretable and useful as they move across cooperatives, processors, exporters, buyers, funders, and compliance systems</p>
+<p>Can the continuity of a producer’s value contribution remain visible after program completion, fellowship ending, or organizational transition</p>
+<h4>Evidence Registry</h4>
+<div class="table-wrap"><table><tr><th><strong>Evidence Type</strong></th><th><strong>Status</strong></th></tr><tr><td>Records generated</td><td>Not yet. Interface and record schema under development.</td></tr><tr><td>Survival event observed</td><td>Not yet. Pending first structured value transfer test.</td></tr><tr><td>Transfer event observed</td><td>Not yet. Pending pilot activation.</td></tr><tr><td>Interpretation event observed</td><td>Not yet. SEC and CBC application to Jielekeze records planned.</td></tr><tr><td>Validation result</td><td>Pending.</td></tr></table></div>
+<h3>Environment 3: OYW SVE</h3>
+<div class="table-wrap"><table><tr><th><strong>Field</strong></th><th><strong>Detail</strong></th></tr><tr><td>Provenance Type</td><td>Exchange</td></tr><tr><td>Status</td><td>Active</td></tr></table></div>
+<h4>What is being observed</h4>
+<p>OYW SVE is a structured value exchange environment operating within the One Young World East Africa network. Young leaders, social entrepreneurs, community organizations, and partner institutions generate records of value exchanged across geographic, organizational, and cultural boundaries.</p>
+<p>The native unit of observation is the structured value exchange. A skill transferred. A resource committed. A partnership formed. A contribution made. A value transaction between actors who would not ordinarily share a formal record of the exchange.</p>
+<p>The core question is: can exchange be recorded in a way that survives the movement of people and organizations across contexts</p>
+<h4>What provenance type is being generated</h4>
+<p>Exchange provenance. Records of what was exchanged, between whom, under what terms, with what evidence of completion, and with what outcome.</p>
+<p>Exchange provenance differs from value provenance in that it is relational rather than unilateral. It requires both parties to a transaction to be represented in the record. It captures not just what was created but what moved between actors.</p>
+<h4>What survival condition is being tested</h4>
+<p>Can exchange records generated within a network remain interpretable and useful as participants move across countries, organizations, and institutional contexts</p>
+<h4>Evidence Registry</h4>
+<div class="table-wrap"><table><tr><th><strong>Evidence Type</strong></th><th><strong>Status</strong></th></tr><tr><td>Records generated</td><td>Active. Structured value exchange records being generated across the East Africa pilot. Exchange Record Generator producing structured JSON outputs.</td></tr><tr><td>Survival event observed</td><td>Partial. Records have persisted across pilot iterations. Cross-country and cross-organizational survival not yet formally tested at scale.</td></tr><tr><td>Transfer event observed</td><td>Partial. Exchange records have been referenced across organizational contexts within the network. Structured cross-institutional transfer protocol in development.</td></tr><tr><td>Interpretation event observed</td><td>Active. CBC framework being applied to exchange commitments generated within the SVE environment.</td></tr><tr><td>Validation result</td><td>Pending. Exchange origination confirmed. Survival across organizational boundaries requires further structured testing.</td></tr></table></div>
+<h4>Relationship to CBC</h4>
+<p>OYW SVE is one of the primary environments feeding CBC. Exchange commitments generated within the SVE environment become inputs to commitment provenance tracking. The SVE environment generates the exchange record. CBC interprets whether the commitment embedded in that exchange survives organizational and personnel change.</p>
+<h3>Environment 4: BAN</h3>
+<div class="table-wrap"><table><tr><th><strong>Field</strong></th><th><strong>Detail</strong></th></tr><tr><td>Provenance Type</td><td>Relationships</td></tr><tr><td>Status</td><td>Active</td></tr></table></div>
+<h4>What is being observed</h4>
+<p>BAN is a relationship provenance environment operating within a network of community organizations, civil society actors, and development practitioners across East Africa. Member organizations generate records of relationships, collaborations, referrals, and network connections that persist across funding cycles, organizational transitions, and personnel change.</p>
+<p>The native unit of observation is the relationship event. A collaboration initiated. A referral made. A partnership sustained. A network connection activated. A trust relationship demonstrated through action.</p>
+<p>The core question is: can relationships that exist informally within a network be recorded in a way that survives the end of the programs and funding that originally created them</p>
+<h4>What provenance type is being generated</h4>
+<p>Relationship provenance. Records of who is connected to whom, through what history, with what evidence of interaction, and with what continuity across organizational and funding transitions.</p>
+<p>Relationship provenance differs from exchange provenance in that it is cumulative rather than transactional. A single exchange creates an exchange record. A relationship is built from a pattern of exchanges, interactions, and mutual recognitions over time.</p>
+<h4>What survival condition is being tested</h4>
+<p>Can relationship records survive the end of the funding cycles, programs, and intermediary organizations that originally created the conditions for those relationships to form</p>
+<h4>Evidence Registry</h4>
+<div class="table-wrap"><table><tr><th><strong>Evidence Type</strong></th><th><strong>Status</strong></th></tr><tr><td>Records generated</td><td>Active. Relationship records accumulating across member organizations. Connection events, collaboration histories, and referral patterns being documented.</td></tr><tr><td>Survival event observed</td><td>Partial. Relationships have demonstrably persisted beyond individual funding cycles. Formal measurement of relationship provenance survival across organizational closure not yet completed.</td></tr><tr><td>Transfer event observed</td><td>Partial. Relationship records have been referenced by actors moving between organizations. Structured portability not yet formally tested.</td></tr><tr><td>Interpretation event observed</td><td>Partial. CoS has been applied to interpret relationship context. Systematic relationship provenance interpretation across the full network ongoing.</td></tr><tr><td>Validation result</td><td>Pending. Relationship persistence beyond funding cycles partially evidenced. Structured survival testing across organizational boundaries required to confirm hypothesis.</td></tr></table></div>
+<h4>The Post-ODA Significance</h4>
+<p>BAN is the environment most directly relevant to the post-ODA transition context. As aid-funded intermediaries withdraw from East Africa, the relationships they convened risk becoming invisible. BAN tests whether relationship provenance can be preserved independently of the institutional infrastructure that created it.</p>
+<h3>Environment 5: Agricultural Provenance Environment (APE)</h3>
+<div class="table-wrap"><table><tr><th><strong>Field</strong></th><th><strong>Detail</strong></th></tr><tr><td>Provenance Type</td><td>Value + Continuity + Portability</td></tr><tr><td>Status</td><td>Proposed</td></tr></table></div>
+<h4>What is being observed</h4>
+<p>APE is a multi-node agricultural provenance environment testing whether producer-originated records can survive movement across organizational boundaries without losing meaning.</p>
+<p>Unlike other DALE validation environments which operate through a single primary interface, APE is structured as a network of observation nodes operating within the same environment. Each node generates provenance records from its specific position within the value chain.</p>
+<p>The core question is: can provenance survive organizational boundaries without losing meaning</p>
+<h4>What provenance type is being generated</h4>
+<p class="bullet-item">Value provenance — records of what was produced, by whom, through what process, and with what outcome at each point in the value chain.</p>
+<p class="bullet-item">Continuity provenance — records of how producer relationships, cooperative structures, and community value persist through market change, seasonal cycles, and organizational transition.</p>
+<p class="bullet-item">Provenance portability — evidence of whether records generated at one node remain interpretable and usable at a different node without manual translation or re-creation.</p>
+<h4>What survival condition is being tested</h4>
+<p>Can a producer-generated record originating at community level remain meaningful and usable as it moves through cooperative, processor, aggregator, exporter, and buyer — and eventually into compliance, carbon, or community benefit frameworks</p>
+<p>Three criteria constitute the primary validation tests: Does the record remain interpretable Does it remain verifiable Does it remain useful</p>
+<h4>Observation Nodes within APE</h4>
+<h5>Samaky Hub</h5>
+<div class="table-wrap"><table><tr><th><strong>Field</strong></th><th><strong>Detail</strong></th></tr><tr><td>Role</td><td>Community-level producer node</td></tr><tr><td>Position</td><td>Origin</td></tr></table></div>
+<p>What is being observed:</p>
+<p class="bullet-item">Fish value chains</p>
+<p class="bullet-item">Producer activity and output</p>
+<p class="bullet-item">Cooperative formation and function</p>
+<p class="bullet-item">Market interactions and exchange</p>
+<p class="bullet-item">Knowledge transfer between producers</p>
+<p class="bullet-item">Community benefit creation</p>
+<p>Provenance generated: producer records, exchange records, relationship records, outcome records.</p>
+<p>Significance: Samaky Hub is the primary record origination point within APE. The provenance survival hypothesis is tested from this point outward.</p>
+<h5>JOOUST</h5>
+<div class="table-wrap"><table><tr><th><strong>Field</strong></th><th><strong>Detail</strong></th></tr><tr><td>Role</td><td>Academic coordination and verification node</td></tr><tr><td>Position</td><td>Verification layer</td></tr></table></div>
+<p>What is being observed: research validity and methodology, data quality and consistency, knowledge continuity across seasons and cycles.</p>
+<p>Provenance generated: verification records, interpretation records.</p>
+<p>Significance: JOOUST provides the methodological backbone of APE. Their verification records constitute independent evidence that producer-generated provenance meets interpretability standards before records move further along the value chain.</p>
+<h5>PSA (Pamela Steele Associates)</h5>
+<div class="table-wrap"><table><tr><th><strong>Field</strong></th><th><strong>Detail</strong></th></tr><tr><td>Role</td><td>Supply chain expertise node</td></tr><tr><td>Position</td><td>Portability assessment layer</td></tr></table></div>
+<p>What is being observed: custody transitions between value chain actors, traceability requirements at each transition point, compliance relevance of producer-generated records, portability conditions.</p>
+<p>Provenance generated: verification records, transfer records, portability assessments.</p>
+<p>Significance: PSA brings supply chain systems expertise from health supply chain contexts, where provenance degradation across institutional boundaries is a documented operational problem. Their role in APE is to define what portability means in practice.</p>
+<h5>Future Nodes</h5>
+<p>The node architecture allows APE to expand without creating new environments. Candidate future nodes include:</p>
+<p class="bullet-item">Siaya Fish Farmers Groups</p>
+<p class="bullet-item">Nyadhi producer collectives</p>
+<p class="bullet-item">JOOUST Agriculture Department</p>
+<p class="bullet-item">Climate-smart agriculture groups</p>
+<p class="bullet-item">Women’s agribusiness cooperatives</p>
+<p class="bullet-item">Processors, aggregators, and exporters as value chain nodes</p>
+<p class="bullet-item">County extension services as verification nodes</p>
+<h4>Evidence Registry</h4>
+<div class="table-wrap"><table><tr><th><strong>Evidence Type</strong></th><th><strong>Status</strong></th></tr><tr><td>Records generated</td><td>Not yet. Samaky Hub identified as origination node. Record schema and observation protocol under development.</td></tr><tr><td>Survival event observed</td><td>Not yet. Pending first structured transfer between Samaky Hub and JOOUST verification layer.</td></tr><tr><td>Transfer event observed</td><td>Not yet. First transfer test — Samaky Hub to JOOUST — is the minimum viable validation event for APE.</td></tr><tr><td>Interpretation event observed</td><td>Not yet. PSA portability assessment framework under development.</td></tr><tr><td>Validation result</td><td>Pending. Primary validation criteria defined: does the record remain interpretable, verifiable, and useful across node boundaries</td></tr></table></div>
+<h4>Minimum Viable Validation Event</h4>
+<p>One producer record. One commodity. Three node transfers.</p>
+<p>Samaky Hub → JOOUST → PSA → Downstream consumer</p>
+<p>If the record remains interpretable, verifiable, and useful at each transfer point, the portability hypothesis is confirmed for this environment.</p>
+</section>
+<div class="page-divider"></div>
+<section class="doc-section" id="section-3"><h2>Part 2: DALE Provenance Core</h2>
+<h3>What the Core Does</h3>
+<p>The DALE Provenance Core is not a database. It is not a ledger. It is not a dashboard.</p>
+<p>It is the structural layer that makes provenance portable.</p>
+<p>The core does three things:</p>
+<p class="bullet-item">It receives records from validation environments.</p>
+<p class="bullet-item">It structures those records so they remain interpretable across contexts.</p>
+<p class="bullet-item">It preserves originator relationships so that every record retains a verifiable connection to the actor, community, or institution that generated it.</p>
+<p>The core does not own the records it holds. It preserves the relationships between records and their origins. DALE preserves who originated what, who verified what, who transformed what, and who consumed what — without any single actor owning the graph itself.</p>
+<h3>What the Core Does Not Do</h3>
+<p>The core does not generate insights directly. It does not produce compliance reports. It does not manage projects or tasks. It does not replace existing traceability, governance, or civic platforms.</p>
+<p>Those are functions of DALE Tools and Adapters, which sit downstream of the core.</p>
+<p>The moment the core begins optimizing for a specific downstream consumer, it loses universality. The canon structure described below protects against this by keeping the core focused on describing reality rather than satisfying any particular read layer.</p>
+<h3>The Canon Structure</h3>
+<p>Canons are the structural vocabularies of the DALE Provenance Core. A canon describes a domain of reality. It defines the objects, relationships, and events that exist within that domain in a way that is precise enough to be machine-readable and general enough to remain valid across contexts.</p>
+<p>Canons are not adapters. They do not translate DALE records into external formats. They describe what happened. Adapters translate those descriptions into what specific external systems need to see.</p>
+<h4>Observation Canon</h4>
+<p>Describes the structure of observations generated within validation environments.</p>
+<p>Core objects: Observer, Observation, Context, Evidence, Verification Status, Relationship Links.</p>
+<p>Primary environments: Jitambulishe, JOOUST verification layer within APE.</p>
+<h4>Exchange Canon</h4>
+<p>Describes the structure of value exchanges between actors.</p>
+<p>Core objects: Actor A, Actor B, Exchange Event, Value Type, Terms, Evidence, Outcome.</p>
+<p>Primary environments: OYW SVE, Jielekeze, APE.</p>
+<h4>Provenance Canon</h4>
+<p>Describes the structure of provenance chains — the sequence of custody, transformation, and verification events through which a record or asset moves.</p>
+<p>Core objects: Origin, Custodian, Transformation Event, Verification Event, Transfer Event, Chain of Custody.</p>
+<p>Primary environments: APE, Jielekeze, OYW SVE.</p>
+<h4>CBC Canon</h4>
+<p>Describes the structure of commitments made between stakeholders and the evidence of whether those commitments were honored, adapted, or lost.</p>
+<p>Core objects: Commitment Maker, Commitment Receiver, Commitment Terms, Commitment Event, Adaptation Event, Outcome, Evidence.</p>
+<p>Primary environments: OYW SVE, BAN, Jielekeze, Jitambulishe.</p>
+<h4>Supply Chain Canon (SCC)</h4>
+<p>Describes the structure of physical assets moving through production and distribution chains. The SCC is a connector canon that adds the physical asset layer agricultural supply chains require.</p>
+<div class="table-wrap"><table><tr><th><strong>SCC Object</strong></th><th><strong>DALE Equivalent</strong></th></tr><tr><td>Product / Batch</td><td>Asset in Exchange Canon</td></tr><tr><td>Custodian</td><td>Actor in Provenance Canon</td></tr><tr><td>Transformation Event</td><td>Exchange Event</td></tr><tr><td>Verification Event</td><td>Observation with verification status</td></tr><tr><td>Origin</td><td>Provenance origin point</td></tr><tr><td>Chain of Custody</td><td>Provenance chain</td></tr></table></div>
+<h3>The Provenance Graph</h3>
+<p>The provenance graph is the accumulated record of all observations, exchanges, commitments, and custody events across all validation environments.</p>
+<p>It has three distinguishing properties:</p>
+<p class="bullet-item">It preserves originator relationships. Every record retains a verifiable connection to the actor who generated it.</p>
+<p class="bullet-item">It is cross-environment. Records from Jitambulishe and APE can be connected without either environment needing to know about the other.</p>
+<p class="bullet-item">It survives institutional change. The graph does not depend on any single organization, platform, or funding stream for its integrity.</p>
+<h3>Provenance as Institutional Memory</h3>
+<p>DALE provenance functions as institutional memory.</p>
+<p>Not memory owned by a single institution.</p>
+<p>Memory that survives movement between institutions.</p>
+<p>Most institutional memory fails because it is stored inside the institution that created it. When the institution changes, the memory degrades or disappears. DALE provenance is stored in relationship to its origins rather than inside any single institutional container.</p>
+</section>
+<div class="page-divider"></div>
+<section class="doc-section" id="section-4"><h2>Part 3: DALE Tools</h2>
+<h3>What DALE Tools Are</h3>
+<p>DALE Tools are interpretation engines. They are not validation environments. They do not generate provenance records. They do not originate evidence.</p>
+<p>DALE Tools receive provenance records from validation environments and apply structured interpretation frameworks to answer specific questions about what those records mean.</p>
+<p class="quote-block"><em>A validation environment answers: did the provenance survive A DALE Tool answers: what does the provenance mean</em></p>
+<h3>Tool Summary</h3>
+<div class="table-wrap"><table><tr><th><strong>Tool</strong></th><th><strong>Purpose</strong></th><th><strong>Primary Input</strong></th></tr><tr><td>State Review</td><td>Origin state capture</td><td>All environments</td></tr><tr><td>CoS</td><td>Context interpretation</td><td>Jitambulishe, Jielekeze, APE</td></tr><tr><td>SEC</td><td>Adaptation interpretation</td><td>Jielekeze, OYW SVE</td></tr><tr><td>CBC</td><td>Commitment interpretation</td><td>All environments</td></tr><tr><td>Insights</td><td>Cross-environment analysis</td><td>All tools</td></tr></table></div>
+<h3>Tool 1: State Review</h3>
+<p>Purpose: Origin state capture.</p>
+<p>State Review is the entry point into the DALE interpretation layer. It captures the condition of an actor, community, organization, or system at a defined point in time — establishing a baseline against which subsequent observations, exchanges, and outcomes can be measured.</p>
+<p>Key question answered: What was the condition at origin, and what has changed since</p>
+<h3>Tool 2: Context of Systems (CoS)</h3>
+<p>Purpose: Context interpretation.</p>
+<p>CoS interprets the systemic context surrounding provenance records. It identifies the relationships, conditions, pressures, and environmental factors that shaped what was observed, exchanged, or committed to within a validation environment.</p>
+<p>CoS answers the question that most data systems ignore: not just what happened, but why the conditions existed for it to happen.</p>
+<p>Key question answered: What systemic conditions shaped this provenance record, and how do those conditions affect its meaning</p>
+<h3>Tool 3: Systems Evolution Canvas (SEC)</h3>
+<p>Purpose: Adaptation interpretation.</p>
+<p>SEC interprets how actors, systems, and value pathways have adapted over time in response to changing conditions. Where CoS captures the context at a point in time, SEC captures the trajectory — how conditions, relationships, and value pathways have changed across the provenance record.</p>
+<p>Key question answered: How has this actor, system, or value pathway adapted over time, and does that adaptation represent continuity or degradation</p>
+<h3>Tool 4: Community Benefit Commitment (CBC)</h3>
+<p>Purpose: Commitment interpretation.</p>
+<p>CBC interprets commitment provenance. It receives records of what was promised, by whom, to whom, under what conditions — and tracks whether those commitments were honored, adapted, or lost as circumstances changed.</p>
+<p>CBC is unique among DALE Tools in that it captures intention as well as action. CBC does not generate commitments. It interprets commitment records that originate within validation environments.</p>
+<p>Key question answered: What was promised, what happened, and did the commitment survive institutional change</p>
+<h3>Tool 5: Insights</h3>
+<p>Purpose: Cross-environment analysis.</p>
+<p>Insights is the cross-environment observability layer. It receives interpreted records from all other DALE Tools and identifies patterns, connections, and signals that are only visible when provenance records from multiple environments are held in relationship to each other.</p>
+<p>Insights is where the provenance graph becomes analytically useful. The blocked irrigation canal observed in Jitambulishe and the 20 percent yield reduction recorded in Jielekeze are separate records. Insights connects them.</p>
+<p>Key question answered: What patterns emerge when provenance records from multiple environments are held in relationship to each other</p>
+</section>
+<div class="page-divider"></div>
+<section class="doc-section" id="section-5"><h2>Part 4: Adapters</h2>
+<h3>What Adapters Are</h3>
+<p>Adapters are read layers. They translate DALE provenance records into formats, vocabularies, and structures that external systems require.</p>
+<p>Adapters do not generate provenance. They do not interpret provenance. They consume it.</p>
+<p>This distinction is the most important governance boundary in the DALE architecture. The moment the provenance core begins optimizing for a specific adapter, the core loses universality. Adapters exist so that the core never has to make that compromise.</p>
+<h3>Adapter Summary</h3>
+<div class="table-wrap"><table><tr><th><strong>Adapter</strong></th><th><strong>External System</strong></th><th><strong>Primary Provenance Consumed</strong></th></tr><tr><td>Governance Adapter</td><td>County governments, community benefit programs, civil society</td><td>Context, commitment, relationship provenance</td></tr><tr><td>Compliance Adapter</td><td>EUDR, CS3D, ESG frameworks</td><td>Value, portability, exchange provenance</td></tr><tr><td>Carbon Adapter</td><td>Carbon markets, climate finance mechanisms</td><td>Value, continuity, context provenance</td></tr><tr><td>Community Benefit Adapter</td><td>Community benefit agreements, CSR programs, direct funding</td><td>Exchange, commitment, relationship provenance</td></tr></table></div>
+<h3>Adapter 1: Governance Adapter</h3>
+<p>External systems served: county governments, community benefit programs, civil society organizations, local institutions, policy processes.</p>
+<p>Primary provenance consumed: context provenance from Jitambulishe, commitment provenance from CBC, relationship provenance from BAN, cross-environment patterns from Insights.</p>
+<p>Current status: partially developed. Full adapter specification pending governance partner engagement.</p>
+<p>Key external question answered: What did communities observe, what was promised in response, and what evidence exists that commitments were honored</p>
+<h3>Adapter 2: Compliance Adapter</h3>
+<p>External systems served: EU Deforestation Regulation (EUDR), Corporate Sustainability Due Diligence Directive (CS3D), ESG reporting frameworks, sustainability certification systems.</p>
+<p>Primary provenance consumed: value provenance from Jielekeze, portability records from APE, exchange provenance from OYW SVE, SCC Canon records for physical asset traceability.</p>
+<div class="table-wrap"><table><tr><th><strong>DALE Provenance Object</strong></th><th><strong>Compliance Equivalent</strong></th></tr><tr><td>Actor</td><td>Supplier</td></tr><tr><td>Provenance Chain</td><td>Chain of custody</td></tr><tr><td>Exchange Event</td><td>Transaction record</td></tr><tr><td>Observation with verification</td><td>Audit evidence</td></tr><tr><td>CBC Commitment</td><td>Corrective action</td></tr><tr><td>Outcome Record</td><td>Compliance status</td></tr><tr><td>SCC Batch</td><td>Product lot</td></tr><tr><td>SCC Custodian</td><td>Custody holder</td></tr></table></div>
+<p>Current status: schema mapping defined. Full adapter specification requires APE validation evidence.</p>
+<p>Key external question answered: Can producer-originated provenance satisfy compliance requirements without requiring buyers to reconstruct the supply chain record from scratch</p>
+<h3>Adapter 3: Carbon Adapter</h3>
+<p>External systems served: voluntary carbon markets, compliance carbon mechanisms, climate finance programs, nature-based solution verification frameworks.</p>
+<p>Primary provenance consumed: value and continuity provenance from Jielekeze, context provenance from Jitambulishe, cross-environment patterns from Insights.</p>
+<p>Current status: conceptual mapping defined. Adapter specification requires active Jielekeze environment.</p>
+<p>Key external question answered: Can community-generated provenance provide the additionality, permanence, and co-benefit evidence that carbon verification frameworks require</p>
+<h3>Adapter 4: Community Benefit Adapter</h3>
+<p>External systems served: community benefit agreements, CSR programs, direct funding mechanisms, impact investors, community development finance institutions.</p>
+<p>Primary provenance consumed: exchange provenance from OYW SVE, commitment provenance from CBC, relationship provenance from BAN, value provenance from Jielekeze.</p>
+<p>Current status: partially developed through CBC and OYW SVE work. Most immediate development opportunity is within the OYW East Africa pilot.</p>
+<p>Key external question answered: What evidence exists that value reached communities, through what pathway did it move, and did community benefit persist after the program or project ended</p>
+<h3>What Adapters Are Not</h3>
+<p>Adapters are not products. They are not the reason DALE exists.</p>
+<p>The commercial opportunity in adapters is real. But the moment adapter requirements begin driving core architecture decisions, DALE stops being provenance infrastructure and becomes a compliance tool, a carbon tool, or a governance tool.</p>
+<p>The adapters serve the core. The core does not serve the adapters.</p>
+</section>
+<div class="page-divider"></div>
+<section class="doc-section" id="section-6"><h2>Part 5: Validation Lifecycle</h2>
+<h3>What the Validation Lifecycle Is</h3>
+<p>The validation lifecycle is the progression through which the central DALE hypothesis is tested. It is not a product roadmap. It is not a funding timeline. It is a research architecture.</p>
+<div class="table-wrap"><table><tr><th><strong>Stage</strong></th><th><strong>Question</strong></th></tr><tr><td>Origin</td><td>Can communities, producers, and stakeholders generate DALE-native provenance records</td></tr><tr><td>Survive</td><td>Can those records remain interpretable, verifiable, and useful as they move across institutional boundaries</td></tr><tr><td>Commit</td><td>Can commitments embedded in provenance records survive personnel turnover, organizational change, and adaptation</td></tr><tr><td>Consume</td><td>Can external systems consume DALE provenance without recreating it</td></tr></table></div>
+<h3>Why the Sequence Matters</h3>
+<p>Each stage has a dependency. Survival cannot be tested until origination is confirmed. Commitment cannot be tested until survival is confirmed. Consumption cannot be tested until commitment is confirmed.</p>
+<p>The sequence reflects the logical structure of the provenance survival hypothesis itself.</p>
+<h3>Stage 1: Origin</h3>
+<p class="quote-block"><em>Can communities, producers, and stakeholders generate consistent, DALE-native provenance records</em></p>
+<p>Stage assessment: Origin is confirmed for active environments. Proposed environments require origination testing before survival hypothesis can be tested.</p>
+<div class="table-wrap"><table><tr><th><strong>Environment</strong></th><th><strong>Origination Evidence</strong></th></tr><tr><td>Jitambulishe</td><td>Citizen observations generated consistently across multiple community contexts. Observation structure sufficient for CoS interpretation.</td></tr><tr><td>OYW SVE</td><td>Structured value exchange records generated across East Africa pilot. Exchange Record Generator producing structured JSON outputs.</td></tr><tr><td>BAN</td><td>Relationship records accumulating across member organizations. Connection events and collaboration histories documented.</td></tr><tr><td>Jielekeze</td><td>Proposed. Record schema under development. Origination not yet tested.</td></tr><tr><td>APE</td><td>Proposed. Samaky Hub identified as primary origination node. Record schema and observation protocol under development.</td></tr></table></div>
+<h3>Stage 2: Survive</h3>
+<p class="quote-block"><em>Can provenance records remain interpretable, verifiable, and useful as they move across institutional boundaries</em></p>
+<p>This is the central unanswered question in the DALE validation architecture. Stage 1 is largely evidenced. Stage 2 is the threshold the entire architecture is currently designed to cross.</p>
+<p>Three criteria apply to every survival test event:</p>
+<p class="bullet-item">Interpretable — can an actor who did not generate the record understand what it means without requiring the originator to explain it</p>
+<p class="bullet-item">Verifiable — can an actor who did not generate the record confirm that what it claims is accurate</p>
+<p class="bullet-item">Useful — can an actor who did not generate the record act on it without recreating it from scratch</p>
+<p>Stage assessment: APE is the highest-priority validation environment because it provides the most legible survival test conditions — market-driven transfer events with clear failure signals if provenance does not survive.</p>
+<div class="table-wrap"><table><tr><th><strong>Environment</strong></th><th><strong>Survival Evidence</strong></th></tr><tr><td>Jitambulishe</td><td>Observations have survived platform iterations. Cross-institutional survival not yet formally tested. Planned provenance layer upgrade will enable structured survival testing.</td></tr><tr><td>OYW SVE</td><td>Exchange records have persisted across pilot iterations. Cross-country and cross-organizational survival not yet tested at scale.</td></tr><tr><td>BAN</td><td>Relationships have demonstrably persisted beyond individual funding cycles. Formal survival measurement across organizational closure not yet completed.</td></tr><tr><td>Jielekeze</td><td>Proposed. Survival cannot be tested until origination is established.</td></tr><tr><td>APE</td><td>Proposed. Minimum viable survival test: one producer record across three node transfers — Samaky Hub → JOOUST → PSA → downstream consumer.</td></tr></table></div>
+<h3>Stage 3: Commit</h3>
+<p class="quote-block"><em>Can commitments embedded in provenance records survive personnel turnover, organizational change, and adaptation</em></p>
+<p>Stage assessment: Commitment provenance is partially evidenced but not yet formally tested under structured transition conditions. CBC provides the interpretation framework. Active environments need structured commitment survival tests.</p>
+<div class="table-wrap"><table><tr><th><strong>Environment</strong></th><th><strong>Commitment Evidence</strong></th></tr><tr><td>OYW SVE</td><td>Exchange commitments generated and tracked through CBC. Survival across program cycles partially evidenced. Cross-organizational commitment survival not yet formally tested.</td></tr><tr><td>BAN</td><td>Relationship commitments tracked across funding cycles. Evidence that some commitments persist beyond program endings. Formal commitment provenance survival measurement pending.</td></tr><tr><td>Jitambulishe</td><td>Community observation commitments tracked through CBC in development. Formal testing pending.</td></tr><tr><td>Jielekeze</td><td>Proposed. Producer and enterprise commitments will be a primary commitment provenance source once environment is active.</td></tr><tr><td>APE</td><td>Proposed. Supply chain commitments represent a high-stakes commitment provenance test context.</td></tr></table></div>
+<h3>Stage 4: Consume</h3>
+<p class="quote-block"><em>Can external systems consume DALE provenance without recreating it</em></p>
+<p>This is the stage at which DALE’s commercial viability is confirmed or denied. Stage 4 validation depends on Stage 2 survival confirmation.</p>
+<div class="table-wrap"><table><tr><th><strong>Adapter</strong></th><th><strong>Consumption Evidence</strong></th></tr><tr><td>Governance Adapter</td><td>Not yet tested. CBC and Jitambulishe provide input records. Governance partner engagement required for consumption testing.</td></tr><tr><td>Compliance Adapter</td><td>Not yet tested. Schema mapping defined. APE survival confirmation required before compliance consumption can be tested.</td></tr><tr><td>Carbon Adapter</td><td>Not yet tested. Jielekeze activation required to generate continuity provenance for carbon consumption testing.</td></tr><tr><td>Community Benefit Adapter</td><td>Partially evidenced through OYW SVE and CBC work. Full consumption testing pending broader community benefit agreement deployment.</td></tr></table></div>
+<h3>Validation Priorities</h3>
+<h4>Immediate Priority — Stage 2 Survival Testing in APE</h4>
+<p>The minimum viable survival test — one producer record across three node transfers at Samaky Hub — is the highest leverage validation event currently available. Everything downstream of this test becomes significantly more evidenced if it confirms the survival hypothesis.</p>
+<h4>Concurrent Priority — Jielekeze Activation</h4>
+<p>Jielekeze is the only proposed environment that feeds multiple stages simultaneously. It generates origination evidence for Stage 1, value and continuity records for Stage 2, producer commitments for Stage 3, and carbon and community benefit inputs for Stage 4.</p>
+<h4>Medium Term Priority — Structured Commitment Survival Tests</h4>
+<p>OYW SVE and BAN both have sufficient provenance records to design structured commitment survival tests. Identifying a specific commitment, tracking it across a defined transition event, and measuring whether it remains interpretable, verifiable, and useful after the transition would provide Stage 3 evidence without requiring new environment activation.</p>
+<h4>Longer Term Priority — Compliance Consumption Testing via APE</h4>
+<p>Once APE generates survival evidence, the Compliance Adapter becomes testable. Engaging a compliance buyer — an exporter or processor facing EUDR requirements — to attempt to satisfy due diligence using APE-generated provenance records would provide the first Stage 4 consumption evidence and the first direct commercial validation of the revenue architecture.</p>
+</section>
+<div class="page-divider"></div>
+<section class="doc-section" id="section-7"><h2>Appendix A: DALE Origin Statement</h2>
+<p><em>Reproduced in full as the founding document of the DALE validation architecture.</em></p>
+<h3>The Original Question</h3>
+<p>DALE did not begin as a technology project. It began with an observation.</p>
+<p>Communities create value every day. Farmers, social entrepreneurs, citizen groups, local organizations, fellows, cooperatives, and informal networks continuously generate knowledge, relationships, commitments, and solutions.</p>
+<p>Yet as value moves through larger systems, it often becomes increasingly difficult to see.</p>
+<p class="quote-block"><em>How do we ensure that value created at the edge remains visible as it moves through a system</em></p>
+<h3>What We Learned</h3>
+<p>Over time DALE expanded into multiple validation environments. Each appeared different on the surface. Together they revealed a consistent pattern.</p>
+<p>In every environment the challenge was not creation. The challenge was survival. The answer was not consistent. And that inconsistency was the finding.</p>
+<h3>The Pattern</h3>
+<p>The adversary is not technical failure. The adversary is institutional impermanence.</p>
+<p>Organizations close. Projects end. Funding shifts. Staff leave. Governments change. Platforms disappear. The central question becomes: what survives</p>
+<h3>The DALE Hypothesis</h3>
+<p class="quote-block"><em>DALE tests whether observations, value, commitments, relationships, and context can survive institutional change without losing meaning.</em></p>
+<h3>Provenance as Institutional Memory</h3>
+<p>DALE is not primarily a governance platform, a compliance platform, or a civic participation platform. DALE is a provenance infrastructure.</p>
+<p>Provenance is the ability to understand what happened, in context, with evidence, after the original circumstances have changed.</p>
+<p>In this sense provenance functions as institutional memory. Not memory owned by a single institution. Memory that survives movement between institutions.</p>
+<h3>The Validation Lifecycle</h3>
+<p class="bullet-item">Origin — Can communities, producers, and stakeholders generate records</p>
+<p class="bullet-item">Survive — Can those records remain interpretable, verifiable, and useful as they move</p>
+<p class="bullet-item">Commit — Can commitments remain visible through adaptation and turnover</p>
+<p class="bullet-item">Consume — Can external systems use provenance without recreating it</p>
+<h3>The Purpose of DALE</h3>
+<p>DALE exists to preserve the provenance of what communities, producers, and stakeholders create so that value remains visible, meaningful, and usable long after the systems around it have changed.</p>
+</section>
+<div class="page-divider"></div>
+<section class="doc-section" id="section-8"><h2>Appendix B: Architecture Diagram</h2>
+<div class="table-wrap"><table><tr><th><strong>Layer</strong></th><th><strong>Components</strong></th></tr><tr><td>VALIDATION ENVIRONMENTS</td><td>Jitambulishe (Context, Active)  |  Jielekeze (Value + Continuity, Proposed)  |  OYW SVE (Exchange, Active)  |  BAN (Relationships, Active)  |  APE (Portability, Proposed)</td></tr><tr><td>↓</td><td></td></tr><tr><td>DALE PROVENANCE CORE</td><td>Canons: Observation • Exchange • Provenance • CBC • Supply Chain (SCC)
+Provenance Graph: Preserves originator relationships across all environments</td></tr><tr><td>↓</td><td></td></tr><tr><td>DALE TOOLS</td><td>State Review (Origin)  |  CoS (Context)  |  SEC (Adaptation)  |  CBC (Commitment)  |  Insights (Cross-environment)</td></tr><tr><td>↓</td><td></td></tr><tr><td>ADAPTERS</td><td>Governance  |  Compliance (EUDR/CS3D)  |  Carbon  |  Community Benefit</td></tr></table></div>
+</section>
+<div class="page-divider"></div>
+<section class="doc-section" id="section-9"><h2>Appendix C: Canon Reference</h2>
+<h3>Observation Canon</h3>
+<div class="table-wrap"><table><tr><th><strong>Object</strong></th><th><strong>Definition</strong></th></tr><tr><td>Observer</td><td>Actor generating the observation</td></tr><tr><td>Observation</td><td>The recorded event, condition, or experience</td></tr><tr><td>Context</td><td>Systemic conditions surrounding the observation</td></tr><tr><td>Evidence</td><td>Supporting material attached to the observation</td></tr><tr><td>Verification Status</td><td>Whether the observation has been independently confirmed</td></tr><tr><td>Relationship Links</td><td>Connections to other observations, actors, or records</td></tr></table></div>
+<h3>Exchange Canon</h3>
+<div class="table-wrap"><table><tr><th><strong>Object</strong></th><th><strong>Definition</strong></th></tr><tr><td>Actor A</td><td>Originating party in the exchange</td></tr><tr><td>Actor B</td><td>Receiving party in the exchange</td></tr><tr><td>Exchange Event</td><td>The recorded transfer of value between parties</td></tr><tr><td>Value Type</td><td>Classification of what was exchanged</td></tr><tr><td>Terms</td><td>Conditions under which the exchange occurred</td></tr><tr><td>Evidence</td><td>Supporting material confirming the exchange</td></tr><tr><td>Outcome</td><td>Recorded result of the exchange</td></tr></table></div>
+<h3>Provenance Canon</h3>
+<div class="table-wrap"><table><tr><th><strong>Object</strong></th><th><strong>Definition</strong></th></tr><tr><td>Origin</td><td>The point at which the record or asset was first generated</td></tr><tr><td>Custodian</td><td>Actor holding responsibility for the record or asset at a given point</td></tr><tr><td>Transformation Event</td><td>A recorded change to the asset or record during custody</td></tr><tr><td>Verification Event</td><td>Independent confirmation of record or asset status</td></tr><tr><td>Transfer Event</td><td>Recorded handoff of custody from one actor to another</td></tr><tr><td>Chain of Custody</td><td>The complete sequence of custodians and transfer events</td></tr></table></div>
+<h3>CBC Canon</h3>
+<div class="table-wrap"><table><tr><th><strong>Object</strong></th><th><strong>Definition</strong></th></tr><tr><td>Commitment Maker</td><td>Actor making the commitment</td></tr><tr><td>Commitment Receiver</td><td>Actor to whom the commitment is made</td></tr><tr><td>Commitment Terms</td><td>What was promised, under what conditions, by when</td></tr><tr><td>Commitment Event</td><td>The recorded moment of commitment</td></tr><tr><td>Adaptation Event</td><td>A recorded change to the commitment terms with evidence</td></tr><tr><td>Outcome</td><td>Whether the commitment was honored, adapted, or lost</td></tr><tr><td>Evidence</td><td>Supporting material confirming commitment status</td></tr></table></div>
+<h3>Supply Chain Canon (SCC)</h3>
+<div class="table-wrap"><table><tr><th><strong>Object</strong></th><th><strong>Definition</strong></th><th><strong>DALE Equivalent</strong></th></tr><tr><td>Product</td><td>The commodity or physical asset being traced</td><td>Asset in Exchange Canon</td></tr><tr><td>Batch</td><td>A defined quantity of product at a point in the chain</td><td>Exchange Canon unit</td></tr><tr><td>Origin</td><td>Where and by whom the product was first produced</td><td>Provenance Canon origin</td></tr><tr><td>Transformation Event</td><td>A change to the product during processing or handling</td><td>Provenance Canon transformation</td></tr><tr><td>Custodian</td><td>Actor holding the product at a given point</td><td>Provenance Canon custodian</td></tr><tr><td>Verification Event</td><td>Independent confirmation of product status or claim</td><td>Observation with verification status</td></tr></table></div>
+</section>
+<div class="page-divider"></div>
+<section class="doc-section" id="section-10"><h2>Appendix D: Glossary</h2>
+<p><strong>Adapter</strong> A translation layer that maps DALE provenance records into formats required by external systems. Adapters consume provenance. They do not generate it. Current adapters: Governance, Compliance, Carbon, Community Benefit.</p>
+<p><strong>Agricultural Provenance Environment (APE)</strong> The proposed DALE validation environment testing whether provenance can survive movement across organizational boundaries in a market-driven agricultural context. Primary nodes: Samaky Hub, JOOUST, PSA. Status: Proposed.</p>
+<p><strong>BAN</strong> Active DALE validation environment testing relationship provenance survival across funding cycles, organizational transitions, and leadership change.</p>
+<p><strong>Canon</strong> A structured vocabulary describing a domain of reality within the DALE Provenance Core. Canons describe what happened. They do not translate records for external consumption. Current canons: Observation, Exchange, Provenance, CBC, Supply Chain.</p>
+<p><strong>CBC (Community Benefit Commitment)</strong> Both a DALE canon and a DALE Tool. As a canon: the structured vocabulary for recording commitments, adaptations, and outcomes. As a tool: the interpretation engine that tracks whether commitments survive institutional change.</p>
+<p><strong>Chain of Custody</strong> The complete sequence of custodians and transfer events through which a physical asset or provenance record has moved.</p>
+<p><strong>CoS (Context of Systems)</strong> DALE Tool for interpreting the systemic context surrounding provenance records.</p>
+<p><strong>Consumption</strong> Stage 4 of the DALE Validation Lifecycle. Tests whether external systems can use DALE provenance without recreating it.</p>
+<p><strong>Context Provenance</strong> Provenance type generated by Jitambulishe. Records of what was observed, by whom, in what circumstances, with what evidence.</p>
+<p><strong>Commitment Provenance</strong> Provenance type generated through CBC across all environments. Records of what was promised, what happened, and whether the commitment survived institutional change.</p>
+<p><strong>Exchange Provenance</strong> Provenance type generated by OYW SVE. Records of what moved between actors, under what terms, with what evidence and outcome.</p>
+<p><strong>Institutional Impermanence</strong> The primary adversary tested by the DALE validation architecture. The condition in which organizations close, projects end, funding shifts, staff leave, and platforms disappear — causing provenance records to degrade or disappear with them.</p>
+<p><strong>Institutional Memory</strong> The ability of a system to remember what happened after the people who witnessed it have moved on. DALE provenance functions as institutional memory that survives movement between institutions.</p>
+<p><strong>Insights</strong> DALE Tool for cross-environment analysis. Receives interpreted records from all other tools and identifies patterns visible only when provenance from multiple environments is held in relationship.</p>
+<p><strong>Jielekeze</strong> Proposed DALE validation environment testing value and continuity provenance survival. Native unit: producer or enterprise journey. Status: Proposed.</p>
+<p><strong>Jitambulishe</strong> Active DALE validation environment testing context provenance survival. Native unit: citizen observation. Status: Active.</p>
+<p><strong>JOOUST</strong> Jaramogi Oginga Odinga University of Science and Technology. Academic coordination and verification node within APE.</p>
+<p><strong>Kuza</strong> The original project from which DALE emerged. Kuza identified the central question that DALE now tests: how do we ensure that value created at the edge remains visible as it moves through a system</p>
+<p><strong>Observation</strong> The foundational unit of DALE provenance. Every provenance type begins with an observation of some kind.</p>
+<p><strong>Origin</strong> Stage 1 of the DALE Validation Lifecycle. Tests whether communities, producers, and stakeholders can generate consistent DALE-native provenance records.</p>
+<p><strong>OYW SVE</strong> Active DALE validation environment testing exchange provenance survival across geographic, organizational, and cultural boundaries within the One Young World East Africa network. Status: Active.</p>
+<p><strong>Provenance</strong> The ability to understand what happened, in context, with evidence, after the original circumstances have changed. DALE’s core function is preserving provenance across institutional change.</p>
+<p><strong>Provenance Core</strong> The structural layer of DALE that receives records from validation environments, structures them using canons, and preserves originator relationships within the provenance graph.</p>
+<p><strong>Provenance Graph</strong> The accumulated connected structure of all observations, exchanges, commitments, and custody events across all DALE validation environments. Preserves originator relationships. Survives institutional change. Cross-environment by design.</p>
+<p><strong>Provenance Portability</strong> The property of a provenance record that allows it to remain interpretable, verifiable, and useful when accessed by an actor or system that was not present at origination. The primary hypothesis tested by APE.</p>
+<p><strong>PSA (Pamela Steele Associates)</strong> Supply chain expertise node within APE. Brings operational supply chain systems knowledge from health supply chain contexts.</p>
+<p><strong>Relationship Provenance</strong> Provenance type generated by BAN. Records of who is connected to whom, through what history, with what evidence of interaction across organizational and funding transitions.</p>
+<p><strong>Samaky Hub</strong> Community-level producer node within APE. Primary record origination site for APE. Observes fish value chains, producer activity, cooperative formation, market interactions, and community benefit creation.</p>
+<p><strong>SEC (Systems Evolution Canvas)</strong> DALE Tool for adaptation interpretation. Answers: how has this actor, system, or value pathway adapted over time, and does that adaptation represent continuity or degradation</p>
+<p><strong>State Review</strong> DALE Tool for origin state capture. Establishes the baseline condition against which subsequent observations, exchanges, and outcomes are measured.</p>
+<p><strong>Survive</strong> Stage 2 of the DALE Validation Lifecycle. The central unanswered hypothesis. Tests whether provenance records remain interpretable, verifiable, and useful as they move across institutional boundaries.</p>
+<p><strong>Validation Environment</strong> A real-world context in which provenance is generated and survival conditions can be observed. Validation environments exist independently of DALE. They generate evidence. DALE tools interpret that evidence.</p>
+<p><strong>Validation Lifecycle</strong> The four-stage research architecture through which the DALE central hypothesis is tested: Origin → Survive → Commit → Consume.</p>
+<p><strong>Value Provenance</strong> Provenance type generated by Jielekeze. Records of what was produced, by whom, through what process, exchanged with whom, under what conditions, with what outcome.</p>
+<p class="centered"><em>End of Document</em></p>
+<p class="centered">DALE Research Document — Validation Architecture and Evidence Record  |  Version 2.0 — June 2026  |  DALE Labs / Kadana Foundation</p>
+</section></main>
+<footer class="footer">End of Document  DALE Research Document  Version 2.0  June 2026</footer>
+</div>
+</div>
+</body>
+</html>
+
+
+

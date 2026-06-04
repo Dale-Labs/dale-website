@@ -1,0 +1,413 @@
+:root {
+  --dale-docs-ink: #1a1a18;
+  --dale-docs-paper: #f4f1eb;
+  --dale-docs-card: #ffffff;
+  --dale-docs-line: #d8d3c8;
+  --dale-docs-teal: #1b4f52;
+  --dale-docs-teal-2: #2a7a7e;
+  --dale-docs-amber: #c8893a;
+  --dale-docs-rose: #b85252;
+  --dale-docs-muted: #69655d;
+  --dale-docs-mono: "DM Mono", Consolas, monospace;
+  --dale-docs-serif: "Playfair Display", Georgia, serif;
+  --dale-docs-sans: "DM Sans", "Segoe UI", Arial, sans-serif;
+}
+
+html {
+  scroll-padding-top: 116px;
+}
+
+body.dale-docs-index,
+body.dale-docs-enhanced {
+  background: var(--dale-docs-paper);
+}
+
+body.dale-docs-enhanced .site-header,
+body.dale-docs-enhanced .sh {
+  top: 56px;
+}
+
+body.dale-docs-enhanced .side {
+  top: 56px;
+  height: calc(100vh - 56px);
+}
+
+.dale-docs-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(26, 26, 24, 0.97);
+  color: #fff;
+  border-bottom: 2px solid var(--dale-docs-amber);
+  font-family: var(--dale-docs-sans);
+}
+
+.dale-docs-topbar a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dale-docs-topbar-inner {
+  max-width: 1180px;
+  min-height: 56px;
+  margin: 0 auto;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.dale-docs-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 190px;
+}
+
+.dale-docs-brand strong {
+  font-family: var(--dale-docs-serif);
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.dale-docs-brand span {
+  color: rgba(255, 255, 255, 0.55);
+  font: 10px var(--dale-docs-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dale-docs-menu {
+  display: none;
+  margin-left: auto;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: #fff;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font: 11px var(--dale-docs-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.dale-docs-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  overflow-x: auto;
+}
+
+.dale-docs-links a,
+.dale-docs-links span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  white-space: nowrap;
+  border-radius: 6px;
+  padding: 0 10px;
+  color: rgba(255, 255, 255, 0.68);
+  font: 11px var(--dale-docs-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dale-docs-links a:hover,
+.dale-docs-links a[aria-current="page"] {
+  background: rgba(200, 137, 58, 0.18);
+  color: #fff;
+}
+
+.dale-docs-links span {
+  color: rgba(255, 255, 255, 0.34);
+}
+
+.dale-docs-breadcrumb {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  background: #fff;
+  border-bottom: 1px solid var(--dale-docs-line);
+  color: var(--dale-docs-muted);
+  font: 11px var(--dale-docs-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dale-docs-breadcrumb a {
+  color: var(--dale-docs-teal);
+  text-decoration: none;
+}
+
+.dale-docs-breadcrumb b {
+  color: var(--dale-docs-ink);
+  font-weight: 500;
+}
+
+.dale-docs-page-footer {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 26px 22px 46px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.dale-docs-page-footer a {
+  display: block;
+  min-height: 96px;
+  background: #fff;
+  color: var(--dale-docs-ink);
+  border: 1px solid var(--dale-docs-line);
+  border-radius: 8px;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.dale-docs-page-footer a:hover {
+  border-color: var(--dale-docs-amber);
+}
+
+.dale-docs-page-footer span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--dale-docs-muted);
+  font: 11px var(--dale-docs-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dale-docs-page-footer strong {
+  display: block;
+  font-family: var(--dale-docs-serif);
+  font-size: 21px;
+  line-height: 1.2;
+}
+
+.dale-docs-index-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 42px 22px 70px;
+}
+
+.dale-docs-hero {
+  padding: 54px 0 34px;
+}
+
+.dale-docs-kicker,
+.dale-docs-card-kicker,
+.dale-docs-section-label {
+  color: var(--dale-docs-teal-2);
+  font: 11px var(--dale-docs-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.dale-docs-hero h1 {
+  margin: 12px 0 14px;
+  max-width: 780px;
+  color: var(--dale-docs-ink);
+  font-family: var(--dale-docs-serif);
+  font-size: clamp(44px, 7vw, 78px);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.dale-docs-hero p {
+  max-width: 760px;
+  color: #45413a;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.dale-docs-walkthrough {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin: 28px 0 40px;
+}
+
+.dale-docs-step {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--dale-docs-line);
+  border-radius: 8px;
+  padding: 16px 18px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.dale-docs-step:hover {
+  border-color: var(--dale-docs-amber);
+}
+
+.dale-docs-step-number {
+  color: var(--dale-docs-amber);
+  font: 18px var(--dale-docs-mono);
+}
+
+.dale-docs-step h2 {
+  margin: 0 0 4px;
+  font-family: var(--dale-docs-serif);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.dale-docs-step p {
+  margin: 0;
+  color: var(--dale-docs-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.dale-docs-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.dale-docs-tag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--dale-docs-line);
+  border-radius: 999px;
+  padding: 5px 8px;
+  background: #f8f5ed;
+  color: var(--dale-docs-muted);
+  font: 10px var(--dale-docs-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dale-docs-tag.current {
+  background: #e8f4ee;
+  color: #2d6a4f;
+  border-color: #c7dfd3;
+}
+
+.dale-docs-tag.draft {
+  background: #fdf3e7;
+  color: #8a5a1f;
+  border-color: #eccb9e;
+}
+
+.dale-docs-tag.archived {
+  background: #f1eeee;
+  color: #7d5858;
+  border-color: #dacaca;
+}
+
+.dale-docs-tag.pending {
+  background: #fafafa;
+  color: #888;
+}
+
+.dale-docs-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.dale-docs-card {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--dale-docs-line);
+  border-radius: 8px;
+  padding: 18px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.dale-docs-card:hover {
+  border-color: var(--dale-docs-amber);
+}
+
+.dale-docs-card h3 {
+  margin: 10px 0 8px;
+  color: var(--dale-docs-ink);
+  font-family: var(--dale-docs-serif);
+  font-size: 23px;
+  line-height: 1.15;
+}
+
+.dale-docs-card p {
+  margin: 0;
+  color: #514d45;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.dale-docs-card .dale-docs-tags {
+  justify-content: flex-start;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.dale-docs-muted-card {
+  opacity: 0.76;
+}
+
+@media (max-width: 860px) {
+  body.dale-docs-enhanced .site-header,
+  body.dale-docs-enhanced .sh,
+  body.dale-docs-enhanced .side {
+    top: 0;
+    height: auto;
+  }
+
+  .dale-docs-topbar {
+    position: relative;
+  }
+
+  .dale-docs-topbar-inner {
+    flex-wrap: wrap;
+    min-height: 58px;
+  }
+
+  .dale-docs-menu {
+    display: inline-flex;
+  }
+
+  .dale-docs-links {
+    display: none;
+    flex-basis: 100%;
+    margin: 0;
+    padding: 0 0 12px;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: visible;
+  }
+
+  .dale-docs-topbar.is-open .dale-docs-links {
+    display: flex;
+  }
+
+  .dale-docs-links a,
+  .dale-docs-links span {
+    width: 100%;
+  }
+
+  .dale-docs-step {
+    grid-template-columns: 1fr;
+  }
+
+  .dale-docs-tags {
+    justify-content: flex-start;
+  }
+
+  .dale-docs-page-footer {
+    grid-template-columns: 1fr;
+  }
+}

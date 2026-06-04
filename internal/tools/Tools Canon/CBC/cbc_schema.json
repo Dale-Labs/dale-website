@@ -1,0 +1,527 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kadana.org/schemas/cbc/v1.0.0",
+  "title": "Community Benefit Contract (CBC) — Canonical Schema",
+  "description": "CBC is the governance reconciliation and adaptive value exchange layer of the DALE architecture. It organizes traceable structural outputs from CoS, ECOA, ARA, Runner, and SEC into legitimate and traceable governance coordination architectures. CBC activates conditionally — only when Runner determines governance reconciliation is required.",
+  "version": "1.0.0",
+  "tool_id": "CBC",
+  "dale_stage": "Formalize",
+  "architectural_position": {
+    "layer": "Governance Reconciliation & Adaptive Value Exchange",
+    "role": "Exchange Tool",
+    "activation": "Conditional — Runner determines realization pathway",
+    "receives_from": ["CoS", "ECOA", "ARA", "Runner", "SEC (where RT-H)"],
+    "feeds_into": ["Master Dataset", "Institutional Partners", "Community Governance"],
+    "canonical_rules": [
+      "Tools operate on structure. They do not create it.",
+      "CBC formalizes governance and value exchange. It does not invent them.",
+      "CBC does not invent legitimacy. It surfaces how legitimacy operates, where governance disconnects emerge, and what remains unresolved across actors and scales."
+    ]
+  },
+
+  "activation_logic": {
+    "description": "CBC is NOT automatically activated. Runner determines the realization pathway.",
+    "cbc_activates_when": [
+      "value realization requires formalization of negotiated value exchange architecture",
+      "participation continuity requires governance coordination",
+      "governance coordination requires formal reconciliation structures",
+      "institutional legitimacy requires traceable accountability architecture",
+      "benefit accountability requires formal governance structures",
+      "stewardship alignment requires negotiated obligation systems",
+      "trust verification requires observable governance continuity",
+      "adaptive obligation structures require formal coordination"
+    ],
+    "sec_first_when": [
+      "enterprise operating structures are required before governance formalization",
+      "coordinated delivery systems require enterprise architecture",
+      "operational continuity mechanisms require enterprise formation",
+      "enterprise stewardship infrastructure must precede governance reconciliation"
+    ],
+    "direct_to_cbc_when": [
+      "negotiated governance without enterprise creation",
+      "benefit formalization without enterprise creation",
+      "participation agreements without enterprise creation",
+      "adaptive accountability structures without enterprise creation",
+      "institutional reconciliation without enterprise creation",
+      "resource stewardship without enterprise creation",
+      "contractual coordination without enterprise creation"
+    ],
+    "realization_types": {
+      "RT-SEC": "Enterprise realization required — SEC activates, CBC may follow",
+      "RT-CBC": "Governance reconciliation required — CBC activates directly",
+      "RT-H":   "Hybrid — SEC activates first, then CBC",
+      "RT-U":   "Realization pathway unresolved — do not proceed until Runner resolves"
+    }
+  },
+
+  "definitions": {
+
+    "GovernanceCoherenceState": {
+      "type": "string",
+      "enum": ["RES-C", "RES-F", "RES-U", "RES-D", "RES-B", "RES-LR", "RES-AR", "RES-TR", "RES-CR"],
+      "description": "RES-C=Coherent | RES-F=Fragile | RES-U=Unresolved | RES-D=Dependency exposed | RES-B=Bottleneck exposed | RES-LR=Legitimacy risk | RES-AR=Authority risk | RES-TR=Trust risk | RES-CR=Continuity risk"
+    },
+
+    "UnresolvedCondition": {
+      "type": "object",
+      "description": "Explicitly preserved unresolved governance condition. Never collapsed. Must be carried through all subsequent phases.",
+      "properties": {
+        "condition_id":       { "type": "string" },
+        "condition_type":     { "type": "string", "enum": ["informational_absence", "structural_absence", "dependency", "tension", "missingness", "fragility", "legitimacy_gap", "governance_asymmetry", "trust_fracture"] },
+        "source_layer":       { "type": "string", "enum": ["CoS", "ECOA", "ARA", "Runner", "SEC", "CBC-Phase1", "CBC-Phase2", "CBC-Phase3", "CBC-Phase4", "CBC-Phase5", "CBC-Phase6"] },
+        "description":        { "type": "string" },
+        "governance_scale":   { "type": "string", "enum": ["macro", "meso", "micro", "cross-scale"] },
+        "carried_forward_to": { "type": "string" }
+      },
+      "required": ["condition_id", "condition_type", "source_layer", "description"]
+    },
+
+    "GovernanceFlowRecord": {
+      "type": "object",
+      "properties": {
+        "flow_type":   { "type": "string", "enum": ["value", "obligation", "trust", "authority"] },
+        "description": { "type": "string" },
+        "actors":      { "type": "array", "items": { "type": "string" } },
+        "direction":   { "type": "string" },
+        "scale":       { "type": "string", "enum": ["macro", "meso", "micro", "cross-scale"] },
+        "state":       { "$ref": "#/definitions/GovernanceCoherenceState" },
+        "trace_ref":   { "type": "string" }
+      },
+      "required": ["flow_type", "state"]
+    },
+
+    "GovernanceCoherenceAssessment": {
+      "type": "object",
+      "properties": {
+        "dimension":   { "type": "string", "enum": ["legitimacy", "accountability", "trust", "authority", "flow"] },
+        "state":       { "$ref": "#/definitions/GovernanceCoherenceState" },
+        "description": { "type": "string" },
+        "findings":    { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["dimension", "state"]
+    },
+
+    "GovernanceArchitectureLayer": {
+      "type": "object",
+      "properties": {
+        "layer_id":      { "type": "string" },
+        "scale":         { "type": "string", "enum": ["macro", "meso", "micro"] },
+        "description":   { "type": "string" },
+        "elements":      { "type": "array", "items": { "type": "string" } },
+        "state":         { "$ref": "#/definitions/GovernanceCoherenceState" },
+        "source_phase":  { "type": "integer" },
+        "trace_ref":     { "type": "string" }
+      },
+      "required": ["layer_id", "scale", "state"]
+    },
+
+    "GovernanceDomainOutput": {
+      "type": "object",
+      "properties": {
+        "structure":   { "type": "string" },
+        "description": { "type": "string" },
+        "state":       { "$ref": "#/definitions/GovernanceCoherenceState" },
+        "ecoa_vars":   { "type": "array", "items": { "type": "string" }, "description": "Relevant ECOA variables (e.g. v16, v21, v27)" },
+        "trace_ref":   { "type": "string" }
+      },
+      "required": ["state"]
+    },
+
+    "GovernanceIntakePackage": {
+      "type": "object",
+      "description": "Phase 1 output. Complete governance reconciliation intake assembled from all upstream layers.",
+      "properties": {
+        "gip_id":           { "type": "string" },
+        "observation_id":   { "type": "string" },
+        "realization_type": { "type": "string", "enum": ["RT-CBC", "RT-H"] },
+        "cos_inputs": {
+          "type": "object",
+          "properties": {
+            "actor_maps":          { "type": "array", "items": { "type": "string" } },
+            "interaction_maps":    { "type": "array", "items": { "type": "string" } },
+            "issue_landscapes":    { "type": "array", "items": { "type": "string" } },
+            "system_pattern_maps": { "type": "array", "items": { "type": "string" } },
+            "visibility_layers":   { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "ecoa_inputs": {
+          "type": "object",
+          "properties": {
+            "operational_variables":           { "type": "array", "items": { "type": "string" }, "description": "X1-X12" },
+            "fundamental_variable_assignments":{ "type": "array", "items": { "type": "string" }, "description": "v1-v40" },
+            "informational_absence_conditions":{ "type": "array", "items": { "type": "string" } },
+            "structural_absence_conditions":   { "type": "array", "items": { "type": "string" } },
+            "balance_relevant_missingness":    { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "ara_inputs": {
+          "type": "object",
+          "properties": {
+            "resolution_states":        { "type": "array", "items": { "type": "string" } },
+            "structural_contradictions":{ "type": "array", "items": { "type": "string" } },
+            "dependency_structures":    { "type": "array", "items": { "type": "string" } },
+            "adaptive_configurations":  { "type": "array", "items": { "type": "string" } },
+            "balance_conditions":       { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "runner_inputs": {
+          "type": "object",
+          "properties": {
+            "execution_pathways":            { "type": "array", "items": { "type": "string" } },
+            "governance_logic":              { "type": "array", "items": { "type": "string" } },
+            "transition_pathways":           { "type": "array", "items": { "type": "string" } },
+            "realization_type_determination":{ "type": "string", "enum": ["RT-CBC", "RT-H"] }
+          }
+        },
+        "sec_inputs": {
+          "type": "object",
+          "description": "Required when RT-H — CBC receives SEC outputs as upstream inputs",
+          "properties": {
+            "cbc_transition_package": { "type": "string", "description": "CTP from SEC Phase 7" },
+            "governance_bearing_structures":            { "type": "array", "items": { "type": "string" } },
+            "stewardship_obligations":                  { "type": "array", "items": { "type": "string" } },
+            "negotiated_value_exchange_conditions":     { "type": "array", "items": { "type": "string" } },
+            "measurement_obligations":                  { "type": "array", "items": { "type": "string" } },
+            "continuity_protections":                   { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "governance_domains_activated": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["Legitimacy", "Obligation", "Value", "Trust", "Governance", "Participation", "Adaptation"] }
+        },
+        "unresolved_conditions_carried_forward": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/UnresolvedCondition" }
+        },
+        "traceability_verified": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["gip_id", "observation_id", "realization_type", "traceability_verified", "timestamp"]
+    },
+
+    "GovernanceStructureSet": {
+      "type": "object",
+      "description": "Phase 2 output. First governance reconciliation layer defining required coordination structure.",
+      "properties": {
+        "gss_id":               { "type": "string" },
+        "gip_ref":              { "type": "string" },
+        "actor_structure":      { "$ref": "#/definitions/GovernanceDomainOutput" },
+        "legitimacy_structure": { "$ref": "#/definitions/GovernanceDomainOutput" },
+        "obligation_structure": { "$ref": "#/definitions/GovernanceDomainOutput" },
+        "value_exchange_structure": { "$ref": "#/definitions/GovernanceDomainOutput" },
+        "trust_structure":      { "$ref": "#/definitions/GovernanceDomainOutput" },
+        "stewardship_structure":{ "$ref": "#/definitions/GovernanceDomainOutput" },
+        "governance_boundaries":{ "$ref": "#/definitions/GovernanceDomainOutput" },
+        "adaptation_structure": { "$ref": "#/definitions/GovernanceDomainOutput" },
+        "unresolved_conditions":{ "type": "array", "items": { "$ref": "#/definitions/UnresolvedCondition" } }
+      },
+      "required": ["gss_id", "gip_ref"]
+    },
+
+    "GovernanceFlowMap": {
+      "type": "object",
+      "description": "Phase 3 output. All four mandatory governance flows mapped with intersections and tensions.",
+      "properties": {
+        "gfm_id":         { "type": "string" },
+        "gss_ref":        { "type": "string" },
+        "value_flow":     { "$ref": "#/definitions/GovernanceFlowRecord" },
+        "obligation_flow":{ "$ref": "#/definitions/GovernanceFlowRecord" },
+        "trust_flow":     { "$ref": "#/definitions/GovernanceFlowRecord" },
+        "authority_flow": { "$ref": "#/definitions/GovernanceFlowRecord" },
+        "flow_intersections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "flows_involved":   { "type": "array", "items": { "type": "string", "enum": ["value", "obligation", "trust", "authority"] } },
+              "intersection_type":{ "type": "string", "enum": ["reinforcement", "fracture"] },
+              "description":      { "type": "string" },
+              "scale":            { "type": "string", "enum": ["macro", "meso", "micro", "cross-scale"] }
+            }
+          }
+        },
+        "governance_tensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tension_id":    { "type": "string" },
+              "flows_involved":{ "type": "array", "items": { "type": "string" } },
+              "description":   { "type": "string" },
+              "status":        { "type": "string", "const": "unresolved" }
+            }
+          }
+        },
+        "flow_coherence_state": { "$ref": "#/definitions/GovernanceCoherenceState" }
+      },
+      "required": ["gfm_id", "gss_ref", "value_flow", "obligation_flow", "trust_flow", "authority_flow", "flow_coherence_state"]
+    },
+
+    "GovernanceCoherenceMap": {
+      "type": "object",
+      "description": "Phase 4 output. Assessment of whether governance coordination holds under real-world conditions.",
+      "properties": {
+        "gcm_id":               { "type": "string" },
+        "gfm_ref":              { "type": "string" },
+        "legitimacy_coherence": { "$ref": "#/definitions/GovernanceCoherenceAssessment" },
+        "accountability_coherence":{ "$ref": "#/definitions/GovernanceCoherenceAssessment" },
+        "trust_coherence":      { "$ref": "#/definitions/GovernanceCoherenceAssessment" },
+        "authority_coherence":  { "$ref": "#/definitions/GovernanceCoherenceAssessment" },
+        "flow_coherence":       { "$ref": "#/definitions/GovernanceCoherenceAssessment" },
+        "governance_bottlenecks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bottleneck_id":{ "type": "string" },
+              "domain":       { "type": "string" },
+              "description":  { "type": "string" },
+              "state":        { "type": "string", "const": "RES-B" }
+            }
+          }
+        },
+        "governance_continuity_risks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "risk_id":      { "type": "string" },
+              "risk_type":    { "type": "string", "enum": ["legitimacy", "accountability", "trust", "authority", "participation", "adaptation"] },
+              "description":  { "type": "string" },
+              "state":        { "type": "string", "enum": ["RES-LR", "RES-AR", "RES-TR", "RES-CR"] }
+            }
+          }
+        },
+        "unresolved_tensions":     { "type": "array", "items": { "$ref": "#/definitions/UnresolvedCondition" } },
+        "overall_coherence_state": { "$ref": "#/definitions/GovernanceCoherenceState" }
+      },
+      "required": ["gcm_id", "gfm_ref", "overall_coherence_state"]
+    },
+
+    "GovernanceArchitectureExpression": {
+      "type": "object",
+      "description": "Phase 5 output. Structured governance coordination architecture across macro, meso, and micro scales.",
+      "properties": {
+        "gae_id":                      { "type": "string" },
+        "gcm_ref":                     { "type": "string" },
+        "upstream_governance_systems": { "type": "array", "items": { "$ref": "#/definitions/GovernanceArchitectureLayer" }, "description": "Macro-scale institutional coordination structures" },
+        "localized_governance_systems":{ "type": "array", "items": { "$ref": "#/definitions/GovernanceArchitectureLayer" }, "description": "Micro-scale downstream legitimacy structures" },
+        "stewardship_architecture":    { "type": "array", "items": { "$ref": "#/definitions/GovernanceArchitectureLayer" }, "description": "Accountability and continuity structures" },
+        "verification_architecture":   { "type": "array", "items": { "$ref": "#/definitions/GovernanceArchitectureLayer" }, "description": "Observability and trust systems" },
+        "unresolved_conditions_visible":{ "type": "array", "items": { "$ref": "#/definitions/UnresolvedCondition" } },
+        "cross_scale_reconciliation": {
+          "type": "object",
+          "description": "How governance operates across macro, meso, and micro realities",
+          "properties": {
+            "macro_realities":  { "type": "array", "items": { "type": "string" }, "description": "Metrics, compliance, reporting, operational controls, financial accountability, institutional governance" },
+            "micro_realities":  { "type": "array", "items": { "type": "string" }, "description": "Relational legitimacy, trust, lived participation, social memory, informal coordination, adaptive community governance" },
+            "reconciliation_logic": { "type": "string" },
+            "reconciliation_state": { "$ref": "#/definitions/GovernanceCoherenceState" }
+          }
+        },
+        "traceability_paths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "element_id":  { "type": "string" },
+              "source_phase":{ "type": "integer", "minimum": 1, "maximum": 4 },
+              "source_ref":  { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["gae_id", "gcm_ref"]
+    },
+
+    "GovernanceContinuityAdaptationMap": {
+      "type": "object",
+      "description": "Phase 6 output. Governance survivability under operational pressure and changing conditions.",
+      "properties": {
+        "gcam_id": { "type": "string" },
+        "gae_ref": { "type": "string" },
+        "governance_adaptation_pathways": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pathway_id":   { "type": "string" },
+              "description":  { "type": "string" },
+              "renegotiation_mechanism": { "type": "string" },
+              "state":        { "$ref": "#/definitions/GovernanceCoherenceState" }
+            }
+          }
+        },
+        "legitimacy_risks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "risk_id":    { "type": "string" },
+              "description":{ "type": "string" },
+              "state":      { "type": "string", "const": "RES-LR" }
+            }
+          }
+        },
+        "authority_resilience":   { "$ref": "#/definitions/GovernanceCoherenceAssessment" },
+        "trust_resilience":       { "$ref": "#/definitions/GovernanceCoherenceAssessment" },
+        "governance_breakpoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "breakpoint_id":{ "type": "string" },
+              "description":  { "type": "string" },
+              "trigger_condition": { "type": "string" }
+            }
+          }
+        },
+        "continuity_missingness": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/UnresolvedCondition" },
+          "description": "Must be forwarded to GAP. Do not project resolution that has not been demonstrated."
+        }
+      },
+      "required": ["gcam_id", "gae_ref"]
+    },
+
+    "GovernanceAccessibilityPackage": {
+      "type": "object",
+      "description": "Phase 7 output. Operational governance outputs maintaining legibility across governance scales. CBC recognizes that governance asymmetry often emerges through comprehension asymmetry.",
+      "properties": {
+        "gap_id":   { "type": "string" },
+        "gcam_ref": { "type": "string" },
+        "governance_summaries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "summary_id":   { "type": "string" },
+              "audience":     { "type": "string", "enum": ["institutional", "community", "stewardship", "observability", "all"] },
+              "content":      { "type": "string" },
+              "readability_level": { "type": "string" }
+            }
+          }
+        },
+        "institutional_governance_outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "output_id":   { "type": "string" },
+              "description": { "type": "string" },
+              "format":      { "type": "string" }
+            }
+          },
+          "description": "Upstream operational requirements — macro-scale legibility"
+        },
+        "community_facing_outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "output_id":   { "type": "string" },
+              "description": { "type": "string" },
+              "format":      { "type": "string" }
+            }
+          },
+          "description": "Downstream interpretability — micro-scale legitimacy"
+        },
+        "stewardship_outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "output_id":   { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "observability_outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "output_id":   { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "unresolved_conditions_forwarded": { "type": "array", "items": { "$ref": "#/definitions/UnresolvedCondition" } },
+        "governance_access_complete": { "type": "boolean" }
+      },
+      "required": ["gap_id", "gcam_ref", "governance_access_complete"]
+    },
+
+    "CBCOutputRecord": {
+      "type": "object",
+      "description": "Canonical output record for master dataset integration.",
+      "properties": {
+        "observation_id":       { "type": "string" },
+        "source_tool":          { "type": "string", "const": "CBC" },
+        "phase":                { "type": "integer", "minimum": 1, "maximum": 7 },
+        "layer":                { "type": "string", "enum": ["intake", "framing", "synthesis", "coherence", "expression", "continuity", "formalization"] },
+        "domain":               { "type": "string", "enum": ["Legitimacy", "Obligation", "Value", "Trust", "Governance", "Participation", "Adaptation"] },
+        "entity_id":            { "type": "string" },
+        "state_id":             { "type": "string", "enum": ["GIP", "GSS", "GFM", "GCM", "GAE", "GCAM", "GAP"] },
+        "governance_state":     { "$ref": "#/definitions/GovernanceCoherenceState" },
+        "realization_type":     { "type": "string", "enum": ["RT-SEC", "RT-CBC", "RT-H", "RT-U"] },
+        "governance_scale":     { "type": "string", "enum": ["macro", "meso", "micro", "cross-scale"] },
+        "status":               { "type": "string", "enum": ["reconciled", "unresolved", "fragile", "missing"] },
+        "trace_ref":            { "type": "string" },
+        "used_principles":      { "type": "array", "items": { "type": "string", "enum": ["P1", "P2", "P3", "P4", "P5"] } },
+        "observation_condition":{ "type": "string" },
+        "timestamp":            { "type": "string", "format": "date-time" },
+        "trace_path":           { "type": "string" }
+      },
+      "required": ["observation_id", "source_tool", "phase", "state_id", "governance_state", "realization_type", "status", "timestamp"]
+    }
+  },
+
+  "phase_output_chain": [
+    { "phase": 1, "output": "GovernanceIntakePackage",            "abbreviation": "GIP",  "feeds_into": "Phase 2" },
+    { "phase": 2, "output": "GovernanceStructureSet",             "abbreviation": "GSS",  "feeds_into": "Phase 3" },
+    { "phase": 3, "output": "GovernanceFlowMap",                  "abbreviation": "GFM",  "feeds_into": "Phase 4" },
+    { "phase": 4, "output": "GovernanceCoherenceMap",             "abbreviation": "GCM",  "feeds_into": "Phase 5" },
+    { "phase": 5, "output": "GovernanceArchitectureExpression",   "abbreviation": "GAE",  "feeds_into": "Phase 6" },
+    { "phase": 6, "output": "GovernanceContinuityAdaptationMap",  "abbreviation": "GCAM", "feeds_into": "Phase 7" },
+    { "phase": 7, "output": "GovernanceAccessibilityPackage",     "abbreviation": "GAP",  "feeds_into": "Master Dataset + Partners" }
+  ],
+
+  "architectural_constraints": {
+    "not_permitted": [
+      "activating CBC without Runner RT-CBC or RT-H determination",
+      "fabricating legitimacy where governance tensions are unresolved",
+      "collapsing unresolved governance conditions into reconciled states",
+      "generating governance structures without traceable upstream inputs",
+      "treating compliance as legitimacy",
+      "skipping phases in the 7-phase sequence",
+      "producing GAP without completing Phases 1-6",
+      "using CBC to replace CoS, ECOA, ARA, Runner, or SEC"
+    ],
+    "preservation_rules": [
+      "All unresolved conditions from upstream layers preserved in GIP and carried through all phases",
+      "RES-F, RES-U, RES-LR, RES-AR, RES-TR are valid expected outputs — do not force RES-C",
+      "Governance tensions and asymmetries are structural findings — preserve them",
+      "Cross-scale reconciliation must distinguish macro realities from micro realities — do not collapse",
+      "Comprehension asymmetry must be addressed in Phase 7 — both institutional and community-facing outputs required"
+    ]
+  },
+
+  "cross_scale_governance": {
+    "description": "CBC explicitly recognizes that actors operating within the same system often govern through different realities.",
+    "macro_level_realities": ["metrics", "compliance", "reporting structures", "operational controls", "financial accountability", "institutional governance"],
+    "micro_level_realities":  ["relational legitimacy", "trust", "lived participation", "social memory", "informal coordination", "adaptive community governance"],
+    "cbc_role": "Reconciliation infrastructure between these governance realities — not replacement of either"
+  },
+
+  "integration": {
+    "master_dataset_fields": [
+      "ObservationID", "SourceTool", "Phase", "Layer", "Domain",
+      "EntityID", "StateID", "GovernanceState", "RealizationType",
+      "GovernanceScale", "Status", "TraceRef", "UsedPrinciples",
+      "ObservationCondition", "Timestamp", "TracePath"
+    ],
+    "final_position": "CBC is the terminal governance layer of the DALE architecture. Its outputs feed the master dataset, institutional partners, and community governance — not another DALE tool."
+  }
+}

@@ -1,0 +1,617 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARA — Adaptive Regime Aggregation | Canonical Specification | DALE · Kadana</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+:root{
+  --teal:#1B4F52;--teal-mid:#2A7A7E;--teal-lite:#D4ECEE;
+  --amber:#C8893A;--amber-bg:#FDF3E7;--amber-lite:#E8B86D;
+  --rose:#B85252;--rose-bg:#FAEEEE;
+  --ink:#1A1A18;--paper:#F4F1EB;--mist:#E8E4DC;--grid:#D8D3C8;--white:#FFFFFF;
+  --green:#2D6A4F;--green-bg:#E8F4EE;
+  --deep:#0D2B2E;--slate:#1E3A5F;--slate-bg:#EEF2F8;
+  --mono:'DM Mono',monospace;--serif:'Playfair Display',serif;--sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);min-height:100vh;}
+.cb{background:var(--deep);color:rgba(255,255,255,.6);padding:.6rem 2rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-align:center;}
+.cb span{color:var(--amber-lite);}
+.sh{background:var(--slate);color:var(--paper);position:sticky;top:0;z-index:100;border-bottom:2px solid var(--amber);}
+.hi{max-width:1300px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;gap:1.5rem;height:54px;}
+.logo{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;color:var(--amber-lite);white-space:nowrap;}
+.hd{width:1px;height:22px;background:rgba(255,255,255,.2);}
+.tid{font-family:var(--mono);font-size:.68rem;color:rgba(255,255,255,.6);}
+.ab{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;padding:.2rem .6rem;border-radius:2px;background:rgba(200,137,58,.25);color:var(--amber-lite);border:1px solid rgba(200,137,58,.4);}
+.hn{margin-left:auto;display:flex;}
+.nt{padding:0 1rem;height:54px;display:flex;align-items:center;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;user-select:none;}
+.nt:hover{color:rgba(255,255,255,.9);}
+.nt.active{color:var(--amber-lite);border-bottom-color:var(--amber-lite);}
+.hero{background:var(--slate);color:var(--paper);padding:3.5rem 2rem 2.75rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.025) 39px,rgba(255,255,255,.025) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.025) 39px,rgba(255,255,255,.025) 40px);}
+.hero-in{max-width:1300px;margin:0 auto;position:relative;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;}
+.hey{font-family:var(--mono);font-size:.68rem;letter-spacing:.25em;color:var(--amber-lite);margin-bottom:.6rem;}
+.ht{font-family:var(--serif);font-size:clamp(1.9rem,3.5vw,3rem);font-weight:700;line-height:1.1;margin-bottom:.9rem;}
+.hs{font-size:.95rem;font-weight:300;color:rgba(255,255,255,.65);max-width:560px;line-height:1.75;}
+.hm{display:flex;flex-direction:column;gap:.45rem;align-items:flex-end;}
+.mp{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;padding:.32rem .7rem;border-radius:2px;white-space:nowrap;}
+.p-stage{background:var(--amber);color:var(--ink);}
+.p-type{background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);}
+.p-ver{background:var(--teal-mid);color:rgba(255,255,255,.85);border:1px solid #4aabaf;}
+.seq-bar{background:var(--deep);padding:1rem 2rem;overflow-x:auto;}
+.seq-in{max-width:1300px;margin:0 auto;display:flex;align-items:center;gap:0;}
+.sn{display:flex;align-items:center;gap:.45rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:rgba(255,255,255,.35);white-space:nowrap;padding-right:.3rem;}
+.sn.active{color:var(--amber-lite);}
+.sd{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0;}
+.sn.active .sd{background:var(--amber);}
+.sa{color:rgba(255,255,255,.18);margin:0 .4rem;font-size:.75rem;}
+.main{max-width:1300px;margin:0 auto;padding:0 2rem 4rem;}
+.panel{display:none;}.panel.active{display:block;}
+.sec{margin:2.75rem 0;}
+.sl{font-family:var(--mono);font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:.4rem;}
+.st{font-family:var(--serif);font-size:1.55rem;font-weight:600;color:var(--teal);margin-bottom:1.25rem;padding-bottom:.65rem;border-bottom:1px solid var(--grid);}
+.sb{font-size:.92rem;color:#3a3a35;line-height:1.75;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+@media(max-width:900px){.g2{grid-template-columns:1fr;}.hero-in{grid-template-columns:1fr;}.hm{flex-direction:row;flex-wrap:wrap;align-items:flex-start;}}
+.card{background:#fff;border:1px solid var(--grid);border-radius:3px;padding:1.4rem;position:relative;}
+.ca{position:absolute;top:0;left:0;width:3px;height:100%;border-radius:3px 0 0 3px;}
+.cl{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.45rem;}
+.ct{font-family:var(--serif);font-size:1rem;font-weight:600;margin-bottom:.65rem;color:var(--teal);}
+.cb2{font-size:.865rem;color:#4a4a45;line-height:1.65;}
+.notice{border-radius:2px;padding:.85rem 1.1rem;font-size:.865rem;line-height:1.65;margin:1rem 0;display:flex;gap:.65rem;align-items:flex-start;}
+.ni{font-size:.9rem;flex-shrink:0;margin-top:.1rem;}
+.n-teal{background:rgba(27,79,82,.08);border-left:3px solid var(--teal-mid);color:var(--teal);}
+.n-amber{background:var(--amber-bg);border-left:3px solid var(--amber);color:#6a4010;}
+.n-red{background:var(--rose-bg);border-left:3px solid var(--rose);color:var(--rose);}
+.n-slate{background:var(--slate-bg);border-left:3px solid var(--slate);color:var(--slate);}
+.dt{width:100%;border-collapse:collapse;font-size:.845rem;margin:.9rem 0;}
+.dt th{background:var(--slate);color:#fff;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.55rem .75rem;text-align:left;font-weight:400;}
+.dt td{padding:.5rem .75rem;border-bottom:1px solid var(--mist);color:#3a3a35;vertical-align:top;}
+.dt tr:nth-child(even) td{background:rgba(212,236,238,.1);}
+.mc{font-family:var(--mono);font-size:.75rem;color:var(--teal-mid);}
+.lb{background:var(--deep);border-radius:3px;padding:1.4rem 1.75rem;margin:1.25rem 0;}
+.ll{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-lite);margin-bottom:.5rem;}
+.lt{font-family:var(--serif);font-size:1.05rem;color:#fff;line-height:1.6;font-style:italic;}
+.state-grid{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0;}
+.state-chip{padding:.38rem .75rem;border-radius:2px;font-size:.8rem;display:flex;align-items:center;gap:.4rem;}
+.sc-tag{font-family:var(--mono);font-size:.65rem;font-weight:500;}
+.sc-fixed{background:var(--teal-lite);color:var(--teal);}
+.sc-elig{background:var(--amber-bg);color:#7a4010;}
+.sc-res{background:var(--green-bg);color:var(--green);}
+.sc-rt{background:rgba(91,74,138,.1);color:#5B4A8A;}
+.sc-inact{background:var(--mist);color:#666;}
+.anchor-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+@media(max-width:700px){.anchor-grid{grid-template-columns:1fr;}}
+.anchor-card{border-radius:3px;overflow:hidden;}
+.anchor-h{padding:.75rem 1rem;display:flex;align-items:center;gap:.65rem;}
+.anchor-tag{font-family:var(--mono);font-size:.7rem;font-weight:500;padding:.2rem .5rem;border-radius:2px;}
+.anchor-name{font-size:.875rem;font-weight:500;flex:1;}
+.anchor-b{padding:.75rem 1rem;font-size:.845rem;color:#4a4a45;line-height:1.6;border-top:1px solid var(--mist);}
+.chain{display:flex;flex-direction:column;gap:.3rem;margin:1rem 0;padding:1.4rem;background:var(--deep);border-radius:3px;}
+.chain-node{font-family:var(--mono);font-size:.78rem;padding:.35rem .75rem;border-radius:2px;}
+.chain-arrow{color:rgba(255,255,255,.25);font-size:.75rem;padding-left:.75rem;}
+.part-acc{border:1px solid var(--grid);border-radius:3px;overflow:hidden;margin-bottom:.9rem;}
+.ph{padding:.9rem 1.2rem;background:var(--slate);display:flex;align-items:center;gap:1rem;cursor:pointer;transition:background .2s;}
+.ph:hover{background:#2a4a70;}
+.ph.open{background:var(--deep);}
+.pn{font-family:var(--mono);font-size:.65rem;color:var(--amber-lite);flex-shrink:0;}
+.pname{font-size:.88rem;font-weight:500;color:#fff;flex:1;}
+.pchev{color:rgba(255,255,255,.5);font-size:.7rem;transition:transform .2s;}
+.ph.open .pchev{transform:rotate(90deg);}
+.pb{display:none;padding:1.2rem;border-top:1px solid var(--mist);}
+.ph.open+.pb{display:block;}
+.inv-list{list-style:none;}
+.inv-list li{padding:.4rem 0;font-size:.855rem;color:#3a3a35;display:flex;align-items:flex-start;gap:.5rem;border-bottom:1px solid var(--mist);}
+.inv-list li:last-child{border-bottom:none;}
+.inv-list li::before{content:'✗';color:var(--rose);font-size:.65rem;flex-shrink:0;margin-top:.2rem;}
+.val-list{list-style:none;}
+.val-list li{padding:.4rem 0;font-size:.855rem;color:#3a3a35;display:flex;align-items:flex-start;gap:.5rem;border-bottom:1px solid var(--mist);}
+.val-list li:last-child{border-bottom:none;}
+.val-list li::before{content:'✓';color:var(--green);font-size:.65rem;flex-shrink:0;margin-top:.2rem;}
+.code-block{background:var(--ink);border-radius:3px;padding:1.1rem 1.4rem;font-family:var(--mono);font-size:.77rem;line-height:1.7;color:#c8ded5;overflow-x:auto;border-left:3px solid var(--amber);}
+.ck{color:var(--amber-lite);}.cs{color:#f0c080;}.cc{color:#558;font-style:italic;}.cn{color:#4aabaf;}
+.dl-bar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.75rem 0;}
+.dl-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1.2rem;border-radius:2px;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;text-decoration:none;transition:all .2s;}
+.dl-p{background:var(--teal);color:var(--paper);}.dl-p:hover{background:var(--teal-mid);}
+.dl-s{background:transparent;color:var(--teal);border:1px solid var(--teal-mid);}.dl-s:hover{background:var(--mist);}
+.sf{background:var(--deep);color:rgba(255,255,255,.4);padding:1.75rem 2rem;margin-top:4rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;}
+.sfi{max-width:1300px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;}
+.sfr{color:var(--amber);}
+</style>
+
+</head>
+<body>
+
+<div class="cb"><span>ARA:</span> Stage 2 Completion Architecture &nbsp;·&nbsp; <span>Inherits ECOA</span> — does not replace it &nbsp;·&nbsp; Uniquely determined completion &nbsp;·&nbsp; <span>No heuristics, no shortcuts</span></div>
+
+<header class="sh">
+  <div class="hi">
+    <div class="logo">DALE · Kadana</div><div class="hd"></div>
+    <div class="tid">Adaptive Regime Aggregation (ARA)</div>
+    <span class="ab">Stage 2 · Completion Architecture</span>
+    <nav class="hn">
+      <div class="nt active" onclick="showPanel('overview')">Overview</div>
+      <div class="nt" onclick="showPanel('inheritance')">Inheritance</div>
+      <div class="nt" onclick="showPanel('completion')">Completion Field</div>
+      <div class="nt" onclick="showPanel('coordination')">Coordination</div>
+      <div class="nt" onclick="showPanel('outputs')">Outputs</div>
+      <div class="nt" onclick="showPanel('schemas')">Schemas</div>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-in">
+    <div>
+      <div class="hey">Canonical Spec Sheet · Architecture Reference</div>
+      <h1 class="ht">Adaptive Regime<br>Aggregation (ARA)</h1>
+      <p class="hs">ARA is the Stage 2 completion architecture of DALE. It inherits the completed ECOA observational condition and resolves the active non-assigned completion field through declared coordination structures, returning a uniquely determined balanced completion readable through the inherited DALE architecture.</p>
+    </div>
+    <div class="hm">
+      <span class="mp p-stage">Stage 2 · Completion</span>
+      <span class="mp p-type">Downstream from ECOA · Upstream from Runner</span>
+      <span class="mp p-ver">Canon v1.0.0 · April 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="seq-bar">
+  <div class="seq-in">
+    <div class="sn"><span class="sd"></span>Stage 1: ECOA</div><span class="sa">→</span>
+    <div class="sn active"><span class="sd"></span>Stage 2: ARA</div><span class="sa">→</span>
+    <div class="sn"><span class="sd"></span>Stage 3: Runner</div>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- OVERVIEW -->
+<div class="panel active" id="panel-overview">
+  <div class="sec">
+    <div class="sl">What ARA is</div>
+    <div class="st">Purpose and Canonical Principle</div>
+    <div class="g2">
+      <div>
+        <p class="sb">ARA is a design-first completion architecture operating under limited informational conditions. Its function is to generate a structurally coherent completion state from the inherited ECOA observational condition, the inherited architectural frame, fixed observational constants, declared completion rules, and active structural conditions carried forward from Stage 1.</p>
+        <div class="lb" style="margin-top:1.25rem">
+          <div class="ll">Canonical Principle</div>
+          <div class="lt">"ARA does not replace the inherited ECOA architecture. It inherits and completes unresolved architectural conditions within the same DALE-grounded frame."</div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:1rem">
+          <div class="ca" style="background:var(--slate)"></div>
+          <div class="cl" style="color:var(--teal-mid)">What ARA is</div>
+          <div class="ct">Completion Architecture</div>
+          <div class="cb2">Inherits ECOA condition · Preserves fixed constants · Resolves non-assigned field · Returns uniquely determined completion readable through DALE</div>
+        </div>
+        <div class="card">
+          <div class="ca" style="background:var(--rose)"></div>
+          <div class="cl" style="color:var(--rose)">What ARA is not</div>
+          <div class="ct">Not Any of These</div>
+          <div class="cb2">Observational layer · Scoring engine · Recommendation engine · Free design-thinking process · Best-solution generator · Optimization engine · AI advisory layer · Facilitation substitute</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sl">Stage sequence</div>
+    <div class="st">DALE Sequence and ARA Position</div>
+    <div class="g2">
+      <div>
+        <table class="dt">
+          <thead><tr><th>Stage</th><th>Layer</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td class="mc">Stage 1</td><td>ECOA</td><td>Observational Structuring</td></tr>
+            <tr><td class="mc" style="color:var(--amber)">Stage 2</td><td style="font-weight:500">ARA</td><td style="font-weight:500;color:var(--teal)">Completion & Coordination</td></tr>
+            <tr><td class="mc">Stage 3</td><td>Runner</td><td>Runtime Realization</td></tr>
+          </tbody>
+        </table>
+        <div class="notice n-teal"><span class="ni">ⓘ</span>ECOA observes. ARA completes. Runner realizes. These are structurally different operations. Collapsing them destroys traceability continuity across the DALE stack.</div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:.75rem">Canonical Transition Sequence</div>
+        <div class="chain">
+          <div class="chain-node" style="background:rgba(200,137,58,.15);color:var(--amber-lite)">completed observation</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-node" style="background:rgba(255,255,255,.06);color:#c8ded5">inherited architectural state</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-node" style="background:rgba(255,255,255,.06);color:#c8ded5">active completion field</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-node" style="background:rgba(255,255,255,.06);color:#c8ded5">coordinated completion</div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-node" style="background:rgba(44,171,175,.15);color:var(--teal-lite)">readable Stage 2 configuration</div>
+        </div>
+        <div style="font-size:.8rem;color:#666;font-style:italic;margin-top:.5rem">This sequence is mandatory, sequential, and non-collapsible.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sl">Assignment distinction</div>
+    <div class="st">Fixed vs Non-Assigned States</div>
+    <p class="sb" style="margin-bottom:1rem">ARA preserves a mandatory distinction between two state types inherited from ECOA. This distinction defines the internal assignment structure of Stage 2.</p>
+    <div class="state-grid">
+      <div class="state-chip sc-fixed"><span class="sc-tag">ECOA-Fixed</span>Assigned observationally during Stage 1 — remain fixed, non-revisable, continue conditioning completion</div>
+      <div class="state-chip sc-elig"><span class="sc-tag">Completion-Eligible</span>Non-assigned and unresolved — form the active completion field</div>
+      <div class="state-chip sc-res"><span class="sc-tag">ARA-Resolved</span>Completed during Stage 2 coordination</div>
+      <div class="state-chip sc-rt"><span class="sc-tag">Runtime-Realized</span>Operationally instantiated downstream by Runner</div>
+      <div class="state-chip sc-inact"><span class="sc-tag">Structurally-Inactive</span>Not active under current observation conditions</div>
+    </div>
+    <div class="notice n-red"><span class="ni">✗</span>ARA does not overwrite Stage 1. ECOA-assigned values remain fixed throughout Stage 2 execution. They may not be revised, remapped, reweighted, normalized externally, or reinterpreted during completion.</div>
+    <div class="dl-bar">
+      <a class="dl-btn dl-p" href="ara_schema.json" download>⬇ JSON Schema</a>
+      <a class="dl-btn dl-p" href="ara_spec.yaml" download>⬇ YAML Spec</a>
+      <a class="dl-btn dl-s" onclick="window.print()">⎙ Print / PDF</a>
+    </div>
+  </div>
+</div>
+
+<!-- INHERITANCE -->
+<div class="panel" id="panel-inheritance">
+  <div class="sec">
+    <div class="sl">Inherited structure</div>
+    <div class="st">What ARA Inherits from ECOA</div>
+    <p class="sb" style="margin-bottom:1.25rem">ARA begins from an inherited and already completed ECOA observational architecture. Stage 2 completion occurs inside the inherited architecture — not outside it. The inherited ECOA structure remains the architectural substrate of Stage 2 completion.</p>
+    <div class="notice n-amber"><span class="ni">!</span>ARA does not redefine: the observational architecture, the variable universe, the readable operational layer, the family organization, the shared metric, or reconstruction dependence. These remain the architectural substrate.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sl">Inherited elements</div>
+    <div class="st">Nine Inherited Structural Elements</div>
+    <div id="inheritance-parts"></div>
+  </div>
+
+  <div class="sec">
+    <div class="sl">Transition conditions</div>
+    <div class="st">Stage 1 → Stage 2 Transition Requirements</div>
+    <p class="sb" style="margin-bottom:1rem">Transition into Stage 2 is admissible only if all of the following remain recoverable. The transfer package is not a flat export object — it is a continuity-bearing architectural object.</p>
+    <table class="dt">
+      <thead><tr><th>Requirement</th><th>Purpose</th></tr></thead>
+      <tbody id="transition-table"></tbody>
+    </table>
+    <div class="notice n-red"><span class="ni">✗</span>ARA must not improvise completion from weakened input. If any transition condition fails, the failure is treated as upstream observational insufficiency requiring Stage 1 correction — not downstream completion improvisation.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sl">Operational families</div>
+    <div class="st">Inherited Family Organization (F1–F4)</div>
+    <table class="dt">
+      <thead><tr><th>Family</th><th>Name</th><th>Operational Variables</th></tr></thead>
+      <tbody>
+        <tr><td class="mc">F1</td><td>Participant-Grounded Formation</td><td class="mc">X1, X2</td></tr>
+        <tr><td class="mc">F2</td><td>Structural Describability</td><td class="mc">X3, X5, X6, X7, X8</td></tr>
+        <tr><td class="mc">F3</td><td>Relational Differentiation</td><td class="mc">X4, X9, X10, X11</td></tr>
+        <tr><td class="mc">F4</td><td>Coordination and Closure</td><td class="mc">X12</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- COMPLETION FIELD -->
+<div class="panel" id="panel-completion">
+  <div class="sec">
+    <div class="sl">Active completion field</div>
+    <div class="st">Completion Field Logic</div>
+    <div class="g2">
+      <div>
+        <p class="sb">The active completion field is the unresolved architectural region inherited from the completed ECOA observation. Completion-field membership is observationally inherited — not operationally invented during Stage 2.</p>
+        <div class="lb" style="margin-top:1rem">
+          <div class="ll">Formal Definition</div>
+          <div class="lt">V_comp = V_proj \ V_fixed</div>
+        </div>
+        <p class="sb" style="margin-top:.75rem">All variables not assigned during Stage 1 become completion-eligible. No additional completion-only variable universe is introduced during Stage 2.</p>
+      </div>
+      <div>
+        <div class="card">
+          <div class="ca" style="background:var(--rose)"></div>
+          <div class="cl" style="color:var(--rose)">Full-Completion-Field Rule</div>
+          <div class="ct">No Silent Exclusions</div>
+          <div class="cb2">All inherited non-assigned variables must enter the active completion field in full. Execution becomes invalid if unresolved variables are silently excluded, convenience filters reduce the inherited field, tooling omits unresolved members, or hidden heuristics narrow completion scope.</div>
+        </div>
+        <div class="notice n-amber" style="margin-top:.75rem"><span class="ni">!</span>Completion-field membership is observation-dependent. Different observations activate different unresolved regions. However, the completion-field logic itself remains invariant.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sl">Example</div>
+    <div class="st">Illustrative Completion Field (Example A)</div>
+    <p class="sb" style="margin-bottom:1rem">A completed ECOA observation produces assigned and non-assigned operational variables. The non-assigned set becomes the active completion field.</p>
+    <table class="dt">
+      <thead><tr><th>Variable</th><th>Name</th><th>Stage 1 Status</th><th>Stage 2 Role</th></tr></thead>
+      <tbody id="example-a-table"></tbody>
+    </table>
+    <div class="notice n-teal"><span class="ni">ⓘ</span>ARA begins from inherited architecture — not from raw project interpretation. Assigned values remain fixed inherited constants. The completion field (non-assigned set) is resolved through declared coordination.</div>
+  </div>
+</div>
+
+<!-- COORDINATION -->
+<div class="panel" id="panel-coordination">
+  <div class="sec">
+    <div class="sl">Coordination logic</div>
+    <div class="st">Two Canonical Anchor Modes</div>
+    <p class="sb" style="margin-bottom:1.25rem">ARA resolves the active completion field through a declared coordination structure. The anchor functions as the stabilization reference of Stage 2. Only two anchor modes are admissible. Coordination is not freeform optimization, facilitator negotiation, heuristic ranking, or discretionary balancing.</p>
+    <div class="anchor-grid">
+      <div class="anchor-card" style="border:1px solid var(--grid)">
+        <div class="anchor-h" style="background:var(--teal-lite)">
+          <span class="anchor-tag" style="background:var(--teal);color:#fff">Zero-Anchor</span>
+          <span class="anchor-name" style="color:var(--teal)">A(v) = 0 across completion field</span>
+        </div>
+        <div class="anchor-b">Completion balancing occurs relative to neutral structural equilibrium conditions inside the inherited metric space. Preserves: uniformity, metric continuity, and execution simplicity across the unresolved architectural region.</div>
+      </div>
+      <div class="anchor-card" style="border:1px solid var(--grid)">
+        <div class="anchor-h" style="background:var(--amber-bg)">
+          <span class="anchor-tag" style="background:var(--amber);color:var(--ink)">Family-Anchor</span>
+          <span class="anchor-name" style="color:#7a4010">Inherited from operational family structures</span>
+        </div>
+        <div class="anchor-b">Balancing occurs relative to inherited subsystem-family conditions. Preserves: subsystem continuity, family-level reconstruction dependence, and operational-family balancing behavior. Anchor values must remain inherited, recoverable, and traceable.</div>
+      </div>
+    </div>
+    <div class="notice n-red"><span class="ni">✗</span>Invalid anchor states: hidden anchor substitution (breaks recoverability), runtime anchor improvisation (breaks determinism), undeclared proxy anchors (breaks architectural continuity). Anchor values may not be improvised, inferred heuristically, or substituted by hidden implementation defaults.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sl">Unique solvability</div>
+    <div class="st">Determinism Requirement</div>
+    <p class="sb" style="margin-bottom:1rem">ARA requires unique solvability as a structural validity condition. The completed Stage 2 state must be uniquely generated from: inherited architecture, inherited assigned constants, the declared anchor regime, carry-forward structural conditions, and the declared coordination structure.</p>
+    <div class="g2">
+      <div>
+        <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:.75rem">Valid coordination</div>
+        <ul class="val-list">
+          <li>Architecture-generated completion</li>
+          <li>Declared balancing structures applied to inherited field</li>
+          <li>Fixed observational constants remain active throughout</li>
+          <li>Unique outcome from declared conditions</li>
+          <li>Full traceability of coordination path</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--rose);margin-bottom:.75rem">Invalid coordination</div>
+        <ul class="inv-list">
+          <li>Hidden heuristics replace architectural balancing</li>
+          <li>External optimization logic overrides coordination</li>
+          <li>Undeclared weighting systems introduced</li>
+          <li>Discretionary selection substitutes declared rules</li>
+          <li>Multiple competing outcomes remain unresolved</li>
+          <li>AI recommendations bypass Stage 2 execution</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sl">Canonical laws</div>
+    <div class="st">Coordination Laws</div>
+    <div id="laws-container"></div>
+  </div>
+</div>
+
+<!-- OUTPUTS -->
+<div class="panel" id="panel-outputs">
+  <div class="sec">
+    <div class="sl">Output contract</div>
+    <div class="st">Canonical Stage 2 Output Triple</div>
+    <p class="sb" style="margin-bottom:1.25rem">The canonical Stage 2 output is the triple (E_comp, E_read, P_S2). All three components are mandatory. Execution becomes invalid if any component is omitted, collapsed, or replaced by simplified substitutes.</p>
+    <div class="g2">
+      <div>
+        <div class="card" style="margin-bottom:1rem">
+          <div class="ca" style="background:var(--teal)"></div>
+          <div class="cl" style="color:var(--teal-mid)">E_comp</div>
+          <div class="ct">Completed Value Field</div>
+          <div class="cb2">Contains all values resolved through Stage 2 completion. Preserves completion outputs, resolved variable states, metric continuity, and assignment-state lineage. Does NOT overwrite ECOA-assigned constants — fixed values remain inherited while unresolved become resolved.</div>
+        </div>
+        <div class="card" style="margin-bottom:1rem">
+          <div class="ca" style="background:var(--teal-mid)"></div>
+          <div class="cl" style="color:var(--teal-mid)">E_read</div>
+          <div class="ct">Readable Stage 2 Configuration</div>
+          <div class="cb2">Reconstructed operational state of the completed architecture. Preserves operational readability, subsystem continuity, family organization, and reconstruction dependence inherited from ECOA.</div>
+        </div>
+        <div class="card">
+          <div class="ca" style="background:var(--amber)"></div>
+          <div class="cl" style="color:var(--amber)">P_S2</div>
+          <div class="ct">Stage 2 Design Package</div>
+          <div class="cb2">Complete DALE-facing completion package for runtime realization, downstream execution, serialization, and traceable continuation into Runner. Runner begins from this package — not from raw completion values alone.</div>
+        </div>
+      </div>
+      <div>
+        <div class="notice n-red"><span class="ni">✗</span>ARA does not return: isolated scores, flat recommendations, narrative interpretations, or detached optimization results. The output is a continuation of the inherited ECOA architecture completed through the declared Stage 2 coordination structure.</div>
+        <div style="margin-top:1rem">
+          <div class="notice n-amber"><span class="ni">!</span>All Stage 2 outputs must remain reconstructible through the same DALE-grounded architecture inherited from Stage 1. Readable interpretation without recoverability is structurally invalid.</div>
+        </div>
+        <div style="margin-top:1rem">
+          <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:.75rem">Validation Checklist</div>
+          <table class="dt">
+            <thead><tr><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody id="checklist-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEMAS -->
+<div class="panel" id="panel-schemas">
+  <div class="sec">
+    <div class="sl">Machine-readable</div>
+    <div class="st">JSON Schema Sample</div>
+    <div class="code-block"><span class="cc">// ARA Canonical Schema v1.0.0 — Stage 2 Output Object example</span>
+<span class="ck">{</span>
+  <span class="ck">"stage2_output_id"</span>: <span class="cs">"ARA-2026-04-15-CHE-001"</span>,
+  <span class="ck">"E_comp"</span>: <span class="ck">{</span>
+    <span class="ck">"resolved_variables"</span>: [
+      <span class="ck">{</span> <span class="ck">"variable_id"</span>: <span class="cs">"X4"</span>, <span class="ck">"assignment_status"</span>: <span class="cs">"ARA-Resolved"</span>,
+        <span class="ck">"assigned_value"</span>: <span class="cn">0.38</span>, <span class="ck">"assigned_by"</span>: <span class="cs">"ARA"</span> <span class="ck">}</span>,
+      <span class="ck">{</span> <span class="ck">"variable_id"</span>: <span class="cs">"X7"</span>, <span class="ck">"assignment_status"</span>: <span class="cs">"ARA-Resolved"</span>,
+        <span class="ck">"assigned_value"</span>: <span class="cn">0.21</span>, <span class="ck">"assigned_by"</span>: <span class="cs">"ARA"</span> <span class="ck">}</span>
+    ],
+    <span class="ck">"metric_continuity"</span>: <span class="cs">"[-1,1]"</span>,
+    <span class="ck">"completion_lineage"</span>: <span class="cs">"ARA-2026-04-15-CHE-001 → zero-anchor → family-F2"</span>
+  <span class="ck">}</span>,
+  <span class="ck">"assignment_continuity"</span>: <span class="ck">{</span>
+    <span class="ck">"ecoa_fixed_values"</span>: [<span class="cs">"X1"</span>, <span class="cs">"X2"</span>, <span class="cs">"X3"</span>, <span class="cs">"X5"</span>, <span class="cs">"X6"</span>],
+    <span class="ck">"ara_resolved_values"</span>: [<span class="cs">"X4"</span>, <span class="cs">"X7"</span>, <span class="cs">"X8"</span>, <span class="cs">"X9"</span>, <span class="cs">"X10"</span>, <span class="cs">"X11"</span>, <span class="cs">"X12"</span>]
+    <span class="cc">// Distinction preserved — ECOA-fixed and ARA-resolved never collapsed</span>
+  <span class="ck">}</span>,
+  <span class="ck">"output_trace_path"</span>: <span class="cs">"ECOA-OBS-001 → ARA-Stage2 → zero-anchor → E_comp → E_read → P_S2"</span>
+<span class="ck">}</span></div>
+  </div>
+  <div class="sec">
+    <div class="sl">Appendices</div>
+    <div class="st">Twelve Canon Appendices</div>
+    <table class="dt">
+      <thead><tr><th>Appendix</th><th>Content</th></tr></thead>
+      <tbody id="appendix-table"></tbody>
+    </table>
+    <div class="dl-bar">
+      <a class="dl-btn dl-p" href="ara_schema.json" download>⬇ JSON Schema</a>
+      <a class="dl-btn dl-p" href="ara_spec.yaml" download>⬇ YAML Spec</a>
+      <a class="dl-btn dl-s" onclick="window.print()">⎙ Print / PDF</a>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer class="sf">
+  <div class="sfi">
+    <div>DALE · Kadana &nbsp;·&nbsp; ARA Canonical Specification v1.0.0 &nbsp;·&nbsp; April 2026</div>
+    <div class="sfr">ARA inherits ECOA · completes the field · returns uniquely determined Stage 2 configuration</div>
+  </div>
+</footer>
+
+<script>
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nt').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Inheritance parts
+const iparts=[
+  {n:'Global Principle–Model Structure','body':'Inherited fixed global principles (P1–P5) and model families (M1–M5). Remains fixed, globally active, and common across all Stage 2 execution. Functions as the structural backbone of Stage 2 and the continuity layer connecting observation and completion. Stage 2 does not introduce an external principle vocabulary.'},
+  {n:'Variable Architecture','body':'V_proj = V_fund ∪ V_op. No third completion-only variable class is introduced during Stage 2. The inherited variable universe remains continuous across Stage 1 observation, Stage 2 completion, and Stage 3 realization.'},
+  {n:'Fundamental Layer','body':'The complete ECOA fundamental layer (v1–v40) as lower-level architectural substrate. Remains globally shared, metrically continuous, and active during Stage 2. Fundamental variables continue functioning as continuity-bearing empirical structures and reconstruction-bearing architectural anchors.'},
+  {n:'Operational Local-System Layer','body':'Operational variables (X1–X12) inherited as readable local systems — not isolated labels. Stage 2 completion occurs across interconnected local systems. Operational variables remain structurally grounded, reconstruction-dependent, and linked to inherited lower-level architecture.'},
+  {n:'Family Organization','body':'F1 Participant-Grounded Formation (X1, X2) · F2 Structural Describability (X3, X5, X6, X7, X8) · F3 Relational Differentiation (X4, X9, X10, X11) · F4 Coordination and Closure (X12). Families remain active during coordination, anchor handling, reconstruction, and output organization.'},
+  {n:'Shared Signed Metric','body':'M = [-1, 1]. Continuous across observation, completion, and realization. Stage 2 does not introduce detached scoring systems. ECOA-assigned values and ARA-resolved values remain metrically comparable.'},
+  {n:'Reconstruction Dependence','body':'Readable operational states remain dependent on lower-level structures. Family organization remains reconstruction-active. Completion outputs remain tied to inherited architectural dependencies. Stage 2 completion must remain reconstructible through the same inherited reconstruction path established during Stage 1.'},
+  {n:'Assignment Partition','body':'The most important inherited structure of Stage 2. Assigned values = fixed inherited constants. Non-assigned values = active completion field. This assignment structure forms the formal continuation boundary between ECOA and ARA.'},
+  {n:'Carry-Forward Structural Conditions','body':'Active inherited structural constraints produced during ECOA observation that remain active during Stage 2 completion. Not optional notes or metadata — active inherited architectural conditions. Examples: unresolved dependency conditions, continuity constraints, subsystem balancing conditions, structural asymmetries, reconstruction dependencies, family-level constraints.'},
+];
+const ip=document.getElementById('inheritance-parts');
+iparts.forEach((p,i)=>{
+  const el=document.createElement('div');el.className='part-acc';
+  const h=document.createElement('div');h.className='ph';
+  h.innerHTML=`<span class="pn">Element ${i+1}</span><span class="pname">${p.n}</span><span class="pchev">▶</span>`;
+  h.onclick=function(){this.classList.toggle('open');};
+  const b=document.createElement('div');b.className='pb';
+  b.innerHTML=`<p style="font-size:.875rem;color:#3a3a35;line-height:1.7">${p.body}</p>`;
+  el.appendChild(h);el.appendChild(b);ip.appendChild(el);
+});
+
+// Transition table
+const tt=[
+  ['Completed Stage 1 condition','Establishes observational completion'],
+  ['Recoverable inherited architecture','Preserves continuity'],
+  ['Recoverable assigned values','Preserves fixed constants'],
+  ['Recoverable non-assigned field','Defines active completion field'],
+  ['Recoverable reconstruction logic','Preserves readability'],
+  ['Recoverable carry-forward conditions','Preserves structural continuity'],
+  ['Recoverable traceability path','Preserves execution transparency'],
+];
+const ttb=document.getElementById('transition-table');
+tt.forEach((r,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td>`;ttb.appendChild(tr);});
+
+// Example A table
+const ea=[
+  ['X1','identity_articulation_state','Assigned','ECOA-Fixed — remains constant'],
+  ['X2','safety_and_participation_state','Assigned','ECOA-Fixed — remains constant'],
+  ['X3','system_description_state','Assigned','ECOA-Fixed — remains constant'],
+  ['X4','flow_visibility_state','Non-Assigned','Completion-Eligible → enters V_comp'],
+  ['X5','position_power_and_influence_state','Assigned','ECOA-Fixed — remains constant'],
+  ['X6','problem_framing_state','Assigned','ECOA-Fixed — remains constant'],
+  ['X7','design_direction_state','Non-Assigned','Completion-Eligible → enters V_comp'],
+  ['X8','learning_and_validation_state','Non-Assigned','Completion-Eligible → enters V_comp'],
+  ['X9','audience_and_payment_structure_state','Non-Assigned','Completion-Eligible → enters V_comp'],
+  ['X10','value_impact_enterprise_state','Non-Assigned','Completion-Eligible → enters V_comp'],
+  ['X11','resourcing_scale_and_continuity_state','Non-Assigned','Completion-Eligible → enters V_comp'],
+  ['X12','coordination_localization_and_roadmap_state','Non-Assigned','Completion-Eligible → enters V_comp'],
+];
+const eat=document.getElementById('example-a-table');
+const thead=document.createElement('thead');
+thead.innerHTML='<tr><th>ID</th><th>Name</th><th>Stage 1 Status</th><th>Stage 2 Role</th></tr>';
+eat.parentElement.insertBefore(thead,eat);
+ea.forEach((r,i)=>{
+  const tr=document.createElement('tr');
+  const color=r[2]==='Non-Assigned'?'color:var(--amber);font-weight:500':'color:var(--green)';
+  tr.innerHTML=`<td class="mc">${r[0]}</td><td>${r[1].replace(/_/g,' ')}</td><td style="${color}">${r[2]}</td><td>${r[3]}</td>`;
+  eat.appendChild(tr);
+});
+
+// Laws
+const laws=[
+  {label:'Canonical Principle',text:'ARA does not replace the inherited ECOA architecture. It inherits and completes unresolved architectural conditions within the same DALE-grounded frame.'},
+  {label:'Coordination Law',text:'Coordination operates through fixed architectural rules applied to the inherited completion field under declared Stage 2 conditions. The purpose of coordination is to generate a uniquely determined balanced completion state from the unresolved architectural region inherited from ECOA.'},
+  {label:'Unique Solvability Law',text:'ARA requires unique solvability as a structural validity condition. The completed Stage 2 state must be uniquely generated from: inherited architecture, inherited assigned constants, the declared anchor regime, carry-forward structural conditions, and the declared coordination structure.'},
+  {label:'No-Shortcut Law',text:'ARA forbids silent shortcut substitution. Execution becomes invalid if hidden heuristics replace coordination, observational gaps are filled through undeclared inference, precomputed recommendations bypass balancing, or runtime convenience replaces declared completion structures.'},
+  {label:'Output Law',text:'Stage 2 output must remain a complete, readable, traceable, and metrically continuous continuation of the inherited ECOA architecture. Runner execution begins from the Stage 2 design package rather than from raw completion values alone.'},
+];
+const lc=document.getElementById('laws-container');
+laws.forEach(l=>{
+  const el=document.createElement('div');el.className='lb';el.style.marginBottom='1rem';
+  el.innerHTML=`<div class="ll">${l.label}</div><div class="lt">"${l.text}"</div>`;
+  lc.appendChild(el);
+});
+
+// Checklist
+const checks=[
+  ['Stage 1 continuity recoverable','Mandatory'],
+  ['ECOA-fixed values preserved','Mandatory'],
+  ['Full completion field preserved','Mandatory'],
+  ['Shared metric continuity preserved','Mandatory'],
+  ['Family organization preserved','Mandatory'],
+  ['Carry-forward conditions active','Mandatory'],
+  ['Declared anchor regime preserved','Mandatory'],
+  ['Coordination structure preserved','Mandatory'],
+  ['Unique solvability preserved','Mandatory'],
+  ['Reconstruction continuity preserved','Mandatory'],
+  ['Runtime continuity preserved','Mandatory'],
+  ['Traceability recoverable','Mandatory'],
+  ['No hidden heuristics or substitutions','Mandatory'],
+  ['No shortcut completion logic','Mandatory'],
+  ['Full output contract preserved','Mandatory'],
+];
+const ct=document.getElementById('checklist-table');
+checks.forEach(c=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${c[0]}</td><td style="font-family:var(--mono);font-size:.72rem;color:var(--green)">${c[1]}</td>`;ct.appendChild(tr);});
+
+// Appendices
+const apps=[
+  ['A','Canonical Variable Reference — 40 fundamental (v1-v40) + 12 operational (X1-X12) with layer and status type'],
+  ['B','Operational Family Structures — F1-F4 with member variables'],
+  ['C','Assignment-State Taxonomy — 5 states with stage ownership (ECOA/ARA/Runner/Cross-Stage)'],
+  ['D','Completion-Field Structures — field identity, membership, status, dependencies, lineage'],
+  ['E','Anchor Modes and Rules — zero-anchor, family-anchor, invalid anchor states'],
+  ['F','Stage 1 → Stage 2 Transfer Package — all required transfer elements'],
+  ['G','Stage 2 Output Structure — E_comp, E_read, P_S2 components'],
+  ['H','Trace Object Structures — all required trace fields'],
+  ['I','Runtime Continuity Objects — runtime transfer and serialization fields'],
+  ['J','Failure and Invalidity Matrix — all canonical failure states and reasons'],
+  ['K','Validation Checklist Matrix — 15 mandatory requirements'],
+  ['L','Integration Boundary Summary — layer responsibilities and invariants'],
+];
+const at=document.getElementById('appendix-table');
+apps.forEach(a=>{const tr=document.createElement('tr');tr.innerHTML=`<td class="mc">${a[0]}</td><td>${a[1]}</td>`;at.appendChild(tr);});
+</script>
+</body>
+</html>
+
+
+
+

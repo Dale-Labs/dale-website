@@ -1,0 +1,616 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECOA — Empirical Concept Observation Architecture | Canonical Specification | DALE · Kadana</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+:root {
+  --teal:#1B4F52;--teal-mid:#2A7A7E;--teal-lite:#D4ECEE;
+  --amber:#C8893A;--amber-bg:#FDF3E7;--amber-lite:#E8B86D;
+  --rose:#B85252;--rose-bg:#FAEEEE;
+  --ink:#1A1A18;--paper:#F4F1EB;--mist:#E8E4DC;--grid:#D8D3C8;--white:#FFFFFF;--grey-bg:#F0EDE8;
+  --green:#2D6A4F;--green-bg:#E8F4EE;
+  --deep:#0D2B2E;
+  --mono:'DM Mono',monospace;--serif:'Playfair Display',serif;--sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);min-height:100vh;}
+.constraint-banner{background:var(--deep);color:rgba(255,255,255,.6);padding:.6rem 2rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-align:center;}
+.constraint-banner span{color:var(--amber-lite);}
+.site-header{background:var(--deep);color:var(--paper);position:sticky;top:0;z-index:100;border-bottom:2px solid var(--amber);}
+.header-inner{max-width:1300px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;gap:1.5rem;height:54px;}
+.logo{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;color:var(--amber-lite);white-space:nowrap;}
+.hd{width:1px;height:22px;background:rgba(255,255,255,.2);}
+.tool-id{font-family:var(--mono);font-size:.68rem;color:rgba(255,255,255,.6);}
+.arch-badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;padding:.2rem .6rem;border-radius:2px;background:rgba(200,137,58,.25);color:var(--amber-lite);border:1px solid rgba(200,137,58,.4);}
+.header-nav{margin-left:auto;display:flex;}
+.nav-tab{padding:0 1rem;height:54px;display:flex;align-items:center;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;user-select:none;}
+.nav-tab:hover{color:rgba(255,255,255,.9);}
+.nav-tab.active{color:var(--amber-lite);border-bottom-color:var(--amber-lite);}
+.hero{background:var(--deep);color:var(--paper);padding:3.5rem 2rem 2.75rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.025) 39px,rgba(255,255,255,.025) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.025) 39px,rgba(255,255,255,.025) 40px);}
+.hero-inner{max-width:1300px;margin:0 auto;position:relative;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;}
+.hero-eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.25em;color:var(--amber-lite);margin-bottom:.6rem;}
+.hero-title{font-family:var(--serif);font-size:clamp(1.9rem,3.5vw,3rem);font-weight:700;line-height:1.1;margin-bottom:.9rem;}
+.hero-sub{font-size:.95rem;font-weight:300;color:rgba(255,255,255,.65);max-width:560px;line-height:1.75;}
+.hero-meta{display:flex;flex-direction:column;gap:.45rem;align-items:flex-end;}
+.meta-pill{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;padding:.32rem .7rem;border-radius:2px;white-space:nowrap;}
+.pill-arch{background:var(--amber);color:var(--ink);}
+.pill-type{background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);}
+.pill-version{background:var(--teal-mid);color:rgba(255,255,255,.85);border:1px solid #4aabaf;}
+.stack-bar{background:var(--deep);padding:1rem 2rem;border-bottom:1px solid rgba(255,255,255,.08);}
+.stack-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;gap:0;}
+.stack-node{display:flex;flex-direction:column;align-items:center;padding:.55rem .9rem;text-align:center;position:relative;}
+.stack-node.active{background:rgba(200,137,58,.15);border-radius:2px;}
+.sn-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:rgba(255,255,255,.4);}
+.stack-node.active .sn-label{color:var(--amber-lite);}
+.sn-desc{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.1rem;}
+.stack-node.active .sn-desc{color:rgba(200,137,58,.7);}
+.stack-arrow{color:rgba(255,255,255,.15);font-size:.8rem;margin:0 .2rem;padding-bottom:.4rem;}
+.main{max-width:1300px;margin:0 auto;padding:0 2rem 4rem;}
+.panel{display:none;}.panel.active{display:block;}
+.section{margin:2.75rem 0;}
+.sec-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:.4rem;}
+.sec-title{font-family:var(--serif);font-size:1.55rem;font-weight:600;color:var(--teal);margin-bottom:1.25rem;padding-bottom:.65rem;border-bottom:1px solid var(--grid);}
+.sec-body{font-size:.92rem;color:#3a3a35;line-height:1.75;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr;}.hero-inner{grid-template-columns:1fr;}.hero-meta{flex-direction:row;flex-wrap:wrap;align-items:flex-start;}}
+.card{background:#fff;border:1px solid var(--grid);border-radius:3px;padding:1.4rem;position:relative;}
+.card-accent{position:absolute;top:0;left:0;width:3px;height:100%;border-radius:3px 0 0 3px;}
+.card-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.45rem;}
+.card-title{font-family:var(--serif);font-size:1rem;font-weight:600;margin-bottom:.65rem;color:var(--teal);}
+.card-body{font-size:.865rem;color:#4a4a45;line-height:1.65;}
+.notice{border-radius:2px;padding:.85rem 1.1rem;font-size:.865rem;line-height:1.65;margin:1rem 0;display:flex;gap:.65rem;align-items:flex-start;}
+.notice-icon{font-size:.9rem;flex-shrink:0;margin-top:.1rem;}
+.notice-teal{background:rgba(27,79,82,.08);border-left:3px solid var(--teal-mid);color:var(--teal);}
+.notice-amber{background:var(--amber-bg);border-left:3px solid var(--amber);color:#6a4010;}
+.notice-red{background:var(--rose-bg);border-left:3px solid var(--rose);color:var(--rose);}
+.notice-dark{background:rgba(13,43,46,.06);border-left:3px solid var(--deep);color:var(--deep);}
+.data-table{width:100%;border-collapse:collapse;font-size:.845rem;margin:.9rem 0;}
+.data-table th{background:var(--deep);color:#fff;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.55rem .75rem;text-align:left;font-weight:400;}
+.data-table td{padding:.5rem .75rem;border-bottom:1px solid var(--mist);color:#3a3a35;vertical-align:top;}
+.data-table tr:nth-child(even) td{background:rgba(212,236,238,.15);}
+.mono-cell{font-family:var(--mono);font-size:.75rem;color:var(--teal-mid);}
+.inv-badge{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;padding:.18rem .5rem;border-radius:2px;background:var(--rose-bg);color:var(--rose);border:1px solid rgba(184,82,82,.2);}
+.adapt-badge{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;padding:.18rem .5rem;border-radius:2px;background:var(--green-bg);color:var(--green);border:1px solid rgba(45,106,79,.2);}
+.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1rem 0;}
+@media(max-width:700px){.status-grid{grid-template-columns:1fr;}}
+.status-card{border-radius:3px;padding:.9rem;border:1px solid var(--grid);}
+.status-tag{font-family:var(--mono);font-size:.68rem;font-weight:500;margin-bottom:.3rem;}
+.status-name{font-size:.82rem;font-weight:500;margin-bottom:.3rem;}
+.status-desc{font-size:.8rem;color:#4a4a45;line-height:1.55;}
+.sc-assigned{background:var(--green-bg);border-color:rgba(45,106,79,.2);}
+.sc-info{background:var(--amber-bg);border-color:rgba(200,137,58,.2);}
+.sc-struct{background:var(--mist);border-color:var(--grid);}
+.sc-nonobs{background:rgba(91,74,138,.08);border-color:rgba(91,74,138,.2);}
+.sc-inactive{background:#fff;border-color:var(--grid);}
+.sc-bal{background:var(--rose-bg);border-color:rgba(184,82,82,.2);}
+.flow-steps{display:flex;flex-direction:column;gap:.5rem;margin:1rem 0;}
+.flow-step{display:flex;align-items:flex-start;gap:1rem;}
+.fs-num{width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--mono);font-size:.72rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem;}
+.fs-body{flex:1;}
+.fs-title{font-weight:500;font-size:.88rem;color:var(--teal);margin-bottom:.2rem;}
+.fs-desc{font-size:.83rem;color:#4a4a45;line-height:1.6;}
+.fs-arrow{color:var(--grid);font-size:.8rem;margin:0 0 0 12px;}
+.law-block{background:var(--deep);border-radius:3px;padding:1.4rem 1.75rem;margin:1.25rem 0;}
+.law-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-lite);margin-bottom:.5rem;}
+.law-text{font-family:var(--serif);font-size:1.05rem;color:#fff;line-height:1.6;font-style:italic;}
+.part-accordion{border:1px solid var(--grid);border-radius:3px;overflow:hidden;margin-bottom:1rem;}
+.part-header{padding:.9rem 1.2rem;background:var(--teal);display:flex;align-items:center;gap:1rem;cursor:pointer;transition:background .2s;}
+.part-header:hover{background:var(--teal-mid);}
+.part-header.open{background:var(--deep);}
+.part-num{font-family:var(--mono);font-size:.65rem;color:var(--amber-lite);flex-shrink:0;}
+.part-name{font-size:.88rem;font-weight:500;color:#fff;flex:1;}
+.part-chevron{color:rgba(255,255,255,.5);font-size:.7rem;transition:transform .2s;}
+.part-header.open .part-chevron{transform:rotate(90deg);}
+.part-body{display:none;padding:1.2rem;border-top:1px solid var(--mist);}
+.part-header.open + .part-body{display:block;}
+.checklist{list-style:none;}
+.checklist li{padding:.45rem 0;font-size:.86rem;color:#3a3a35;display:flex;align-items:flex-start;gap:.6rem;border-bottom:1px solid var(--mist);}
+.checklist li:last-child{border-bottom:none;}
+.cl-pass{color:var(--green);font-size:.65rem;margin-top:.2rem;flex-shrink:0;}
+.cl-fail{color:var(--rose);font-size:.65rem;margin-top:.2rem;flex-shrink:0;}
+.code-block{background:var(--ink);border-radius:3px;padding:1.1rem 1.4rem;font-family:var(--mono);font-size:.77rem;line-height:1.7;color:#c8ded5;overflow-x:auto;border-left:3px solid var(--amber);}
+.ck{color:var(--amber-lite);}.cs{color:#f0c080;}.cc{color:#558;font-style:italic;}.cn{color:#4aabaf;}
+.dl-bar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.75rem 0;}
+.dl-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1.2rem;border-radius:2px;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;text-decoration:none;transition:all .2s;}
+.dl-primary{background:var(--teal);color:var(--paper);}
+.dl-primary:hover{background:var(--teal-mid);}
+.dl-secondary{background:transparent;color:var(--teal);border:1px solid var(--teal-mid);}
+.dl-secondary:hover{background:var(--mist);}
+.site-footer{background:var(--deep);color:rgba(255,255,255,.4);padding:1.75rem 2rem;margin-top:4rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;}
+.footer-inner{max-width:1300px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;}
+.footer-right{color:var(--amber);}
+.two-col-table{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+@media(max-width:700px){.two-col-table{grid-template-columns:1fr;}}
+.col-header{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;padding:.4rem .8rem;border-radius:2px 2px 0 0;}
+.col-fixed{background:var(--rose-bg);color:var(--rose);}
+.col-adapt{background:var(--green-bg);color:var(--green);}
+.col-list{border:1px solid var(--grid);border-top:none;border-radius:0 0 2px 2px;overflow:hidden;list-style:none;}
+.col-list li{padding:.48rem .8rem;font-size:.845rem;border-bottom:1px solid var(--mist);color:#3a3a35;display:flex;align-items:flex-start;gap:.5rem;}
+.col-list li:last-child{border-bottom:none;}
+.fix-list li::before{content:'⊗';color:var(--rose);font-size:.65rem;flex-shrink:0;margin-top:.2rem;}
+.adp-list li::before{content:'✓';color:var(--green);font-size:.65rem;flex-shrink:0;margin-top:.2rem;}
+</style>
+
+</head>
+<body>
+
+<div class="constraint-banner">
+  <span>ECOA:</span> Observational Realization Architecture of DALE &nbsp;·&nbsp;
+  <span>Not a tool</span> — tools operate within it &nbsp;·&nbsp;
+  DALE foundational architecture remains <span>invariant</span> &nbsp;·&nbsp;
+  Observation-only throughout execution
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">DALE · Kadana</div>
+    <div class="hd"></div>
+    <div class="tool-id">ECOA — Empirical Concept Observation Architecture</div>
+    <span class="arch-badge">Architecture Layer</span>
+    <nav class="header-nav">
+      <div class="nav-tab active" onclick="showPanel('overview')">Overview</div>
+      <div class="nav-tab" onclick="showPanel('laws')">Laws</div>
+      <div class="nav-tab" onclick="showPanel('parts')">Canon Parts</div>
+      <div class="nav-tab" onclick="showPanel('statuses')">Statuses</div>
+      <div class="nav-tab" onclick="showPanel('adaptation')">Adaptation</div>
+      <div class="nav-tab" onclick="showPanel('schemas')">Schemas</div>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Canonical Specification · Architecture Reference</div>
+      <h1 class="hero-title">Empirical Concept<br>Observation Architecture</h1>
+      <p class="hero-sub">ECOA is the observational realization architecture of DALE. It transforms admissible abstract system observations into structured empirical observation states while preserving observational admissibility, structural coherence, traceability, readable reconstruction, and architectural continuity.</p>
+    </div>
+    <div class="hero-meta">
+      <span class="meta-pill pill-arch">Architecture Layer</span>
+      <span class="meta-pill pill-type">Observation-Only · Invariant Core</span>
+      <span class="meta-pill pill-version">Canon v1.0.0 · April 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="stack-bar">
+  <div class="stack-inner">
+    <div class="stack-node"><div class="sn-label">DALE</div><div class="sn-desc">Foundational architecture</div></div>
+    <span class="stack-arrow">↓</span>
+    <div class="stack-node active"><div class="sn-label">ECOA</div><div class="sn-desc">Observational realization</div></div>
+    <span class="stack-arrow">↓</span>
+    <div class="stack-node"><div class="sn-label">Observable System Realization</div><div class="sn-desc">Empirical states</div></div>
+    <span class="stack-arrow">↓</span>
+    <div class="stack-node"><div class="sn-label">Readable Operational Structures</div><div class="sn-desc">Reconstructed outputs</div></div>
+    <span class="stack-arrow">↓</span>
+    <div class="stack-node"><div class="sn-label">Tool Layer</div><div class="sn-desc">CoS · SEC · CBC</div></div>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ═══ OVERVIEW ═══ -->
+<div class="panel active" id="panel-overview">
+  <div class="section">
+    <div class="sec-label">What ECOA is</div>
+    <div class="sec-title">Core Definition & Foundational Position</div>
+    <div class="grid-2">
+      <div>
+        <p class="sec-body">ECOA (Empirical Concept Observation Architecture) is the observational realization architecture of DALE. Its role is to transform admissible abstract system observations into structured empirical observation states while preserving observational admissibility, structural coherence, traceability, readable reconstruction, and architectural continuity.</p>
+        <br>
+        <div class="notice notice-dark"><span class="notice-icon">ⓘ</span>ECOA operationalizes observation. It does not redefine DALE, replace DALE, or function independently from DALE foundational architecture. ECOA exists downstream from DALE foundational logic and upstream from DALE tool execution.</div>
+        <div class="notice notice-amber" style="margin-top:.75rem"><span class="notice-icon">!</span>ECOA is not a tool. Tools are downstream observational containers. ECOA is the architecture within which tools operate. Tool convenience must never redefine observational structure.</div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-accent" style="background:var(--deep)"></div>
+          <div class="card-label" style="color:var(--teal-mid)">Five foundational functions</div>
+          <div class="card-title">What ECOA Performs</div>
+          <div class="card-body">
+            <table style="width:100%;font-size:.845rem">
+              <tr><td style="padding:.35rem 0;font-weight:500;color:var(--teal)">Admissible Observation Handling</td><td style="padding:.35rem 0;color:#4a4a45">Determines valid observational entry</td></tr>
+              <tr><td style="padding:.35rem 0;font-weight:500;color:var(--teal)">Structural Decomposition</td><td style="padding:.35rem 0;color:#4a4a45">Recursively decomposes admissible systems</td></tr>
+              <tr><td style="padding:.35rem 0;font-weight:500;color:var(--teal)">Empirical Assignment</td><td style="padding:.35rem 0;color:#4a4a45">Generates observation-bound empirical states</td></tr>
+              <tr><td style="padding:.35rem 0;font-weight:500;color:var(--teal)">Reconstruction</td><td style="padding:.35rem 0;color:#4a4a45">Returns readable operational structures</td></tr>
+              <tr><td style="padding:.35rem 0;font-weight:500;color:var(--teal)">Traceability Preservation</td><td style="padding:.35rem 0;color:#4a4a45">Maintains recoverable observational lineage</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="notice notice-red" style="margin-top:1rem"><span class="notice-icon">✗</span>ECOA must not become: a recommendation engine, prediction engine, ranking engine, scoring engine detached from traceability, prescriptive intervention engine, or best-solution optimization engine. The observation-only boundary is foundational and non-negotiable.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-label">Canonical observation flow</div>
+    <div class="sec-title">Observational Realization Sequence</div>
+    <p class="sec-body" style="margin-bottom:1.25rem">This sequence remains invariant across all observational realizations. Every layer must remain recoverable from the layer beneath it.</p>
+    <div class="flow-steps" id="obs-flow"></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-label">Fixed vs adaptable</div>
+    <div class="sec-title">Architecture Boundary</div>
+    <div class="two-col-table">
+      <div>
+        <div class="col-header col-fixed">Fixed — Protected DALE Foundational Architecture</div>
+        <ul class="col-list fix-list" id="fixed-list"></ul>
+      </div>
+      <div>
+        <div class="col-header col-adapt">Adaptable — Within Canon-Governed Constraints</div>
+        <ul class="col-list adp-list" id="adapt-list"></ul>
+      </div>
+    </div>
+    <div class="dl-bar">
+      <a class="dl-btn dl-primary" href="ecoa_schema.json" download>⬇ JSON Schema</a>
+      <a class="dl-btn dl-primary" href="ecoa_spec.yaml" download>⬇ YAML Spec</a>
+      <a class="dl-btn dl-secondary" onclick="window.print()">⎙ Print / PDF</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LAWS ═══ -->
+<div class="panel" id="panel-laws">
+  <div class="section">
+    <div class="sec-label">Canonical laws</div>
+    <div class="sec-title">Eight Foundational ECOA Laws</div>
+    <p class="sec-body" style="margin-bottom:1.5rem">These laws govern all ECOA realizations. They are invariant. They may not be modified during implementation, tool realization, or client adaptation.</p>
+    <div id="laws-container"></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-label">Structural continuity</div>
+    <div class="sec-title">Recovery Chain — Non-Negotiable</div>
+    <div style="background:var(--deep);border-radius:3px;padding:1.5rem 2rem;margin:1rem 0;">
+      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:.25rem">
+        <div style="font-family:var(--mono);font-size:.8rem;color:var(--amber-lite);padding:.35rem .75rem;background:rgba(200,137,58,.15);border-radius:2px">Readable Return</div>
+        <div style="color:rgba(255,255,255,.3);font-size:.75rem;padding-left:.75rem">↓ recoverable from</div>
+        <div style="font-family:var(--mono);font-size:.8rem;color:#c8ded5;padding:.35rem .75rem;background:rgba(255,255,255,.06);border-radius:2px">Operational Reconstruction</div>
+        <div style="color:rgba(255,255,255,.3);font-size:.75rem;padding-left:.75rem">↓ recoverable from</div>
+        <div style="font-family:var(--mono);font-size:.8rem;color:#c8ded5;padding:.35rem .75rem;background:rgba(255,255,255,.06);border-radius:2px">Empirical Assignment</div>
+        <div style="color:rgba(255,255,255,.3);font-size:.75rem;padding-left:.75rem">↓ recoverable from</div>
+        <div style="font-family:var(--mono);font-size:.8rem;color:#c8ded5;padding:.35rem .75rem;background:rgba(255,255,255,.06);border-radius:2px">Variable Realization</div>
+        <div style="color:rgba(255,255,255,.3);font-size:.75rem;padding-left:.75rem">↓ recoverable from</div>
+        <div style="font-family:var(--mono);font-size:.8rem;color:#c8ded5;padding:.35rem .75rem;background:rgba(255,255,255,.06);border-radius:2px">Recursive Decomposition</div>
+        <div style="color:rgba(255,255,255,.3);font-size:.75rem;padding-left:.75rem">↓ recoverable from</div>
+        <div style="font-family:var(--mono);font-size:.8rem;color:#c8ded5;padding:.35rem .75rem;background:rgba(255,255,255,.06);border-radius:2px">Observation Formation</div>
+      </div>
+      <div style="margin-top:1rem;font-size:.83rem;color:rgba(255,255,255,.5);font-style:italic">No observational layer may become detached from the structures that generated it.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CANON PARTS ═══ -->
+<div class="panel" id="panel-parts">
+  <div class="section">
+    <div class="sec-label">Nine-part canon</div>
+    <div class="sec-title">ECOA Canon Structure</div>
+    <p class="sec-body" style="margin-bottom:1.25rem">The ECOA Canon is organized into nine parts. Each part defines a specific layer of the observational realization architecture. The canon also includes ten appendices covering definitions, status references, traceability objects, validation checklists, and machine schema references.</p>
+    <div id="parts-container"></div>
+  </div>
+</div>
+
+<!-- ═══ STATUSES ═══ -->
+<div class="panel" id="panel-statuses">
+  <div class="section">
+    <div class="sec-label">Structural status logic</div>
+    <div class="sec-title">Six Canonical Structural Statuses</div>
+    <p class="sec-body" style="margin-bottom:1rem">ECOA does not treat missingness as neutral. Silence ≠ absence. Absence ≠ inactivity. Non-observability ≠ missing data. These distinctions must remain explicit throughout realization and must not collapse into neutral values or silent omissions.</p>
+    <div class="status-grid" id="status-grid"></div>
+    <div class="notice notice-red"><span class="notice-icon">✗</span>Converting missingness to neutral values, silent omission, UI-based status collapse, default substitution, hidden inference, and reporting simplification that removes statuses are all structurally invalid. They introduce false coherence or break traceability.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-label">Mandatory distinctions</div>
+    <div class="sec-title">What Must Never Be Collapsed</div>
+    <table class="data-table">
+      <thead><tr><th>Distinction</th><th>Why It Matters</th><th>Required</th></tr></thead>
+      <tbody>
+        <tr><td>Absence vs inactivity</td><td>An inactive variable is structurally valid and recoverable — an absent structure does not exist</td><td class="mono-cell" style="color:var(--green)">✓ Yes</td></tr>
+        <tr><td>Absence vs non-observability</td><td>Non-observability means the structure may exist but cannot currently be observed — absence means it does not exist</td><td class="mono-cell" style="color:var(--green)">✓ Yes</td></tr>
+        <tr><td>Missingness vs neutrality</td><td>Missingness has structural meaning and traceability implications — neutrality implies no effective contribution</td><td class="mono-cell" style="color:var(--green)">✓ Yes</td></tr>
+        <tr><td>Informational absence vs structural absence</td><td>Informational absence means the architecture cannot assign from available observation — structural absence means the structure itself does not exist</td><td class="mono-cell" style="color:var(--green)">✓ Yes</td></tr>
+        <tr><td>Non-observability vs unresolvedness</td><td>Non-observability is a visibility condition — unresolvedness is a structural state</td><td class="mono-cell" style="color:var(--green)">✓ Yes</td></tr>
+        <tr><td>Assignment vs assumption</td><td>Assignment is observation-bound — assumption is not architecturally admissible</td><td class="mono-cell" style="color:var(--green)">✓ Yes</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="sec-label">Status reference</div>
+    <div class="sec-title">Full Status Reference Table</div>
+    <table class="data-table">
+      <thead><tr><th>Status</th><th>Assignment Exists</th><th>Traceable</th><th>Recoverable</th><th>Reconstruction Impact</th><th>Admissible</th></tr></thead>
+      <tbody>
+        <tr><td class="mono-cell">assigned</td><td style="color:var(--green)">Yes</td><td>Yes</td><td>Yes</td><td>Direct reconstruction</td><td style="color:var(--green)">✓</td></tr>
+        <tr><td class="mono-cell">informational_absence</td><td style="color:var(--rose)">No</td><td>Yes</td><td>Yes</td><td>Reconstruction incomplete</td><td style="color:var(--green)">✓</td></tr>
+        <tr><td class="mono-cell">structural_absence</td><td style="color:var(--rose)">No</td><td>Yes</td><td>Yes</td><td>Structure omitted explicitly</td><td style="color:var(--green)">✓</td></tr>
+        <tr><td class="mono-cell">structural_non_observability</td><td style="color:var(--rose)">No</td><td>Yes</td><td>Yes</td><td>Conditionally limited</td><td style="color:var(--green)">✓</td></tr>
+        <tr><td class="mono-cell">inactive</td><td style="color:var(--rose)">No</td><td>Yes</td><td>Yes</td><td>No direct reconstruction participation</td><td style="color:var(--green)">✓</td></tr>
+        <tr><td class="mono-cell">balance_relevant_missingness</td><td>Partial</td><td>Yes</td><td>Yes</td><td>Reconstruction integrity impacted</td><td style="color:var(--green)">✓</td></tr>
+        <tr><td class="mono-cell" style="color:var(--rose)">silent_omission</td><td>No</td><td style="color:var(--rose)">No</td><td style="color:var(--rose)">No</td><td style="color:var(--rose)">Reconstruction corrupted</td><td style="color:var(--rose)">✗</td></tr>
+        <tr><td class="mono-cell" style="color:var(--rose)">neutralized_missingness</td><td>False</td><td style="color:var(--rose)">No</td><td style="color:var(--rose)">No</td><td style="color:var(--rose)">False coherence introduced</td><td style="color:var(--rose)">✗</td></tr>
+        <tr><td class="mono-cell" style="color:var(--rose)">hidden_substitution</td><td>False</td><td style="color:var(--rose)">No</td><td style="color:var(--rose)">No</td><td style="color:var(--rose)">Traceability broken</td><td style="color:var(--rose)">✗</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ ADAPTATION ═══ -->
+<div class="panel" id="panel-adaptation">
+  <div class="section">
+    <div class="sec-label">Adaptation governance</div>
+    <div class="sec-title">Adaptation Boundary</div>
+    <div class="law-block">
+      <div class="law-label">Governing Adaptation Law</div>
+      <div class="law-text">"Observable realization may adapt. Foundational observational architecture may not."</div>
+    </div>
+    <p class="sec-body" style="margin-bottom:1.25rem">Adaptation exists because different systems require different observational visibility. Healthcare systems, governance systems, enterprise systems, localization systems, climate systems, education systems, and community systems may require different observable variables, operational structures, and family organizations. However, contextual adaptation must not redefine foundational architecture.</p>
+    <div class="notice notice-amber"><span class="notice-icon">!</span>Clients, implementers, and tool builders do not modify DALE foundational architecture. They may adapt within canon-governed constraints only if traceability, admissibility, observational continuity, reconstruction dependence, structural status recoverability, and foundational DALE laws remain intact.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-label">Canonization process</div>
+    <div class="sec-title">Canonical Governance Flow</div>
+    <p class="sec-body" style="margin-bottom:1rem">Adaptation becomes official only after canonization. Uncanonized realizations remain experimental — not official ECOA realizations.</p>
+    <div class="flow-steps" id="gov-flow"></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-label">Validation checklist</div>
+    <div class="sec-title">Adaptation Validation Requirements</div>
+    <p class="sec-body" style="margin-bottom:1rem">An adapted ECOA realization must validate all of the following:</p>
+    <table class="data-table">
+      <thead><tr><th>Validation Area</th><th>Requirement</th></tr></thead>
+      <tbody id="checklist-table"></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="sec-label">Non-admissible patterns</div>
+    <div class="sec-title">What Makes Adaptation Non-Admissible</div>
+    <div class="notice notice-red"><span class="notice-icon">✗</span>Adaptation becomes non-admissible when it: converts ECOA into prescription, breaks decomposition continuity, introduces detached scoring systems, collapses absence into neutrality, removes traceability, bypasses reconstruction dependence, introduces arbitrary variables detached from structure, or replaces architectural logic with implementation convenience.</div>
+  </div>
+</div>
+
+<!-- ═══ SCHEMAS ═══ -->
+<div class="panel" id="panel-schemas">
+  <div class="section">
+    <div class="sec-label">Machine-readable</div>
+    <div class="sec-title">JSON Schema Sample</div>
+    <div class="code-block"><span class="cc">// ECOA Canonical Schema v1.0.0 — ObservationPackage example</span>
+<span class="ck">{</span>
+  <span class="ck">"observation_package_id"</span>: <span class="cs">"OP-2026-04-15-A7X3K1"</span>,
+  <span class="ck">"observation_id"</span>: <span class="cs">"OBS-2026-04-15-CHE-001"</span>,
+  <span class="ck">"observation_condition"</span>: <span class="ck">{</span>
+    <span class="ck">"condition_id"</span>: <span class="cs">"c1"</span>,
+    <span class="ck">"active_principles"</span>: [<span class="cs">"P1"</span>, <span class="cs">"P2"</span>, <span class="cs">"P3"</span>],
+    <span class="ck">"active_models"</span>: [<span class="cs">"Community Operating System Model"</span>, <span class="cs">"Influence Map Model"</span>]
+  <span class="ck">}</span>,
+  <span class="ck">"structural_statuses"</span>: [
+    <span class="ck">{</span> <span class="ck">"variable_id"</span>: <span class="cs">"v1"</span>, <span class="ck">"structural_status"</span>: <span class="cs">"assigned"</span>, <span class="ck">"balance_impact"</span>: <span class="cn">false</span> <span class="ck">}</span>,
+    <span class="ck">{</span> <span class="ck">"variable_id"</span>: <span class="cs">"v22"</span>, <span class="ck">"structural_status"</span>: <span class="cs">"informational_absence"</span>,
+      <span class="ck">"status_reason"</span>: <span class="cs">"Invisible influence not observable in this session"</span>,
+      <span class="ck">"balance_impact"</span>: <span class="cn">true</span> <span class="cc">// balance_relevant_missingness</span>
+    <span class="ck">}</span>,
+    <span class="ck">{</span> <span class="ck">"variable_id"</span>: <span class="cs">"v35"</span>, <span class="ck">"structural_status"</span>: <span class="cs">"structural_non_observability"</span>,
+      <span class="ck">"status_reason"</span>: <span class="cs">"Root-cause structures inaccessible — power barriers at institutional level"</span>
+    <span class="ck">}</span>
+  ],
+  <span class="ck">"trace_path"</span>: <span class="cs">"OBS-001 → CoS-Decomp → v1-v40-activation → assignment → reconstruction"</span>
+<span class="ck">}</span></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-label">Human-readable</div>
+    <div class="sec-title">YAML Spec Sample</div>
+    <div class="code-block"><span class="cc"># ECOA Canon — Structural Status Governing Law</span>
+<span class="ck">part_7_structural_status</span>:
+  <span class="ck">governing_law</span>: >
+    ECOA must preserve explicit distinguishability between observational
+    realization, informational absence, structural absence, inactivity,
+    non-observability, and balance-relevant missingness.
+
+  <span class="ck">foundational_principle</span>: >
+    ECOA does not treat missingness as neutral.
+    Silence ≠ absence. Absence ≠ inactivity. Non-observability ≠ missing data.
+
+  <span class="ck">non_admissible_handling</span>:
+    <span class="ck">converting_missingness_to_neutral</span>: <span class="cs">"Destroys integrity"</span>
+    <span class="ck">silent_omission</span>:                   <span class="cs">"Breaks traceability"</span>
+    <span class="ck">ui_based_status_collapse</span>:           <span class="cs">"Removes distinguishability"</span>
+    <span class="ck">default_substitution</span>:               <span class="cs">"Creates false coherence"</span>
+    <span class="ck">hidden_inference</span>:                   <span class="cs">"Breaks observation-only law"</span>
+
+<span class="ck">part_10_adaptation_governance</span>:
+  <span class="ck">governing_law</span>: >
+    Observational realizations may evolve only through traceable,
+    structurally validated, canon-governed adaptation that preserves
+    foundational DALE architectural continuity.</div>
+  </div>
+
+  <div class="section">
+    <div class="sec-label">Appendices</div>
+    <div class="sec-title">Ten Canon Appendices</div>
+    <table class="data-table">
+      <thead><tr><th>Appendix</th><th>Content</th></tr></thead>
+      <tbody>
+        <tr><td class="mono-cell">A</td><td>Canonical Definitions — 32 terms formally defined</td></tr>
+        <tr><td class="mono-cell">B</td><td>Structural Status Reference — full status matrix with admissibility flags</td></tr>
+        <tr><td class="mono-cell">C</td><td>Traceability Reference — 12 canonical trace objects with required fields</td></tr>
+        <tr><td class="mono-cell">D</td><td>Variable Architecture Reference — hierarchy and example variable types</td></tr>
+        <tr><td class="mono-cell">E</td><td>Reconstruction Reference — layers, inputs, outputs, and dependency requirements</td></tr>
+        <tr><td class="mono-cell">F</td><td>Integration Reference — observation package fields and integration modes</td></tr>
+        <tr><td class="mono-cell">G</td><td>Adaptation Validation Checklist — 12-point pass/fail validation</td></tr>
+        <tr><td class="mono-cell">H</td><td>Machine Schema Reference — canonical schema objects and required fields</td></tr>
+        <tr><td class="mono-cell">I</td><td>Observational Flow Reference — 6 canonical flow sequences</td></tr>
+        <tr><td class="mono-cell">J</td><td>Glossary Reference — human-readable terms mapped to canonical meanings</td></tr>
+      </tbody>
+    </table>
+    <div class="dl-bar">
+      <a class="dl-btn dl-primary" href="ecoa_schema.json" download>⬇ JSON Schema</a>
+      <a class="dl-btn dl-primary" href="ecoa_spec.yaml" download>⬇ YAML Spec</a>
+      <a class="dl-btn dl-secondary" onclick="window.print()">⎙ Print / PDF</a>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>DALE · Kadana &nbsp;·&nbsp; ECOA Canonical Specification v1.0.0 &nbsp;·&nbsp; April 2026</div>
+    <div class="footer-right">DALE foundational architecture invariant · ECOA realizes observation · Tools operate within it</div>
+  </div>
+</footer>
+
+<script>
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// OBS FLOW
+const obsFlow=[
+  {n:1,title:'Abstract System Condition',desc:'Starting point — an abstract system eligible for observational realization'},
+  {n:2,title:'Admissible Observation Formation',desc:'System becomes eligible: bounded, structurally coherent, internally interpretable, permits recursive decomposition'},
+  {n:3,title:'Observation Condition Declaration',desc:'Active contextual condition declared — influences activation pathways, does not redefine architecture'},
+  {n:4,title:'Recursive Structural Decomposition',desc:'System decomposed from higher-level structures to progressively realizable observational units'},
+  {n:5,title:'Variable Realization',desc:'Observational structures become empirically expressible through fundamental variables'},
+  {n:6,title:'Empirical Assignment',desc:'Observation-bound empirical states generated after admissible realization and decomposition continuity'},
+  {n:7,title:'Operational Reconstruction',desc:'Readable operational structures returned from realized empirical states'},
+  {n:8,title:'Readable Observation Return',desc:'Final observational output — architecture-dependent, observation-dependent, traceability-bound'},
+];
+const of=document.getElementById('obs-flow');
+obsFlow.forEach((s,i)=>{
+  const el=document.createElement('div');
+  el.className='flow-step';
+  el.innerHTML=`<div class="fs-num">${s.n}</div><div class="fs-body"><div class="fs-title">${s.title}</div><div class="fs-desc">${s.desc}</div></div>`;
+  of.appendChild(el);
+  if(i<obsFlow.length-1){const a=document.createElement('div');a.className='fs-arrow';a.textContent='↓';of.appendChild(a);}
+});
+
+// FIXED vs ADAPT
+const fixed=['Observation-only law','Admissibility logic','Recursive decomposition','Principle-model hierarchy','Signed-state logic','Empirical assignment logic','Reconstruction dependence','Structural status logic','Traceability law','Architectural continuity law'];
+const adapt=['Fundamental variable universes','Operational variable structures','Family organizations','Reconstruction mappings','Readable reporting structures','Dataset structures','Contextual observational realizations'];
+const fl=document.getElementById('fixed-list');
+const al=document.getElementById('adapt-list');
+fixed.forEach(f=>{const li=document.createElement('li');li.innerHTML=f;fl.appendChild(li);});
+adapt.forEach(a=>{const li=document.createElement('li');li.innerHTML=a;al.appendChild(li);});
+
+// LAWS
+const laws=[
+  {label:'Observation-Only Law',text:'ECOA remains observation-only throughout execution. ECOA must not become a recommendation engine, prediction engine, ranking engine, scoring engine detached from traceability, prescriptive intervention engine, or best-solution optimization engine. The observational boundary is foundational and non-negotiable.'},
+  {label:'Structural Continuity Law',text:'Every observational layer must remain recoverable from the layer beneath it. No observational layer may become detached from the structures that generated it.'},
+  {label:'Traceability Law',text:'Every ECOA observational output must remain recoverable from the observational structures, decomposition pathways, assignment states, and reconstruction layers that generated it.'},
+  {label:'Adaptation Law',text:'Observable realization may adapt. Foundational observational architecture may not.'},
+  {label:'Integration Law',text:'Tools may expose, organize, store, and operationalize ECOA realization, but may not replace, redefine, or obscure the architectural continuity that generates observational outputs.'},
+  {label:'Governance Law',text:'Observational realizations may evolve only through traceable, structurally validated, canon-governed adaptation that preserves foundational DALE architectural continuity.'},
+  {label:'Variable Architecture Law',text:'Variables remain structurally dependent realization layers through which admissible observations become empirically assignable and operationally reconstructible within traceable ECOA architecture.'},
+  {label:'Reconstruction Law',text:'Readable operational return must remain reconstructible from empirical realization through traceable reconstruction continuity across all observational layers.'},
+  {label:'Structural Status Law',text:'ECOA must preserve explicit distinguishability between observational realization, informational absence, structural absence, inactivity, non-observability, and balance-relevant missingness across all observational layers.'},
+];
+const lc=document.getElementById('laws-container');
+laws.forEach((l,i)=>{
+  const el=document.createElement('div');
+  el.className='law-block';
+  el.style.marginBottom='1rem';
+  el.innerHTML=`<div class="law-label">Law ${i+1} — ${l.label}</div><div class="law-text">"${l.text}"</div>`;
+  lc.appendChild(el);
+});
+
+// PARTS
+const parts=[
+  {n:'I',name:'Foundational Architectural Position',body:'Defines core definition, foundational position of ECOA within DALE, observation-only constraint, fixed foundational architecture layers (admissibility, decomposition, principle-model hierarchy, signed-state, reconstruction, traceability), architectural invariants, structural role, observation dependency, structural status preservation, and canonical ECOA law.'},
+  {n:'II',name:'Observational Realization Architecture',body:'Defines canonical observation flow, admissible observation formation, observation conditions, recursive structural decomposition, terminal realization, variable realization, empirical assignment, operational reconstruction, readable observation return, structural continuity law, observational integrity, and canonical observational realization law.'},
+  {n:'III',name:'Adaptation Boundary and Variable Governance',body:'Defines foundational adaptation law, why adaptation exists, the adaptation boundary (what may and may not adapt), protected foundational architecture, variable adaptation logic, admissible variable adaptation requirements, non-admissible adaptation patterns, variable architecture governance, canonical variable architecture layers (fundamental, operational, family), adaptation scope, canonical adaptation process, adaptation validation, canonization requirement, and tool layer consequence.'},
+  {n:'IV',name:'Variable Architecture and Observational Structures',body:'Defines variable architecture role (realization anchoring, structural continuity, empirical assignment, reconstruction dependency, traceability preservation), canonical variable hierarchy, fundamental variables and their characteristics, variable universes, variable activation, variable assignment states, signed-state logic, variable dependency, operational variables, operational reconstruction dependency, family structures, variable family logic, variable architecture integrity, adapted variable architectures, non-admissible variable structures, canonical variable realization flow, and traceability requirements.'},
+  {n:'V',name:'Reconstruction Logic and Readable Operational Return',body:'Defines reconstruction role (not summarization), canonical reconstruction flow, reconstruction dependency, reconstruction layers (fundamental, operational, family, readable return), operational reconstruction, reconstruction conditions and states, family reconstruction, readable observation return elements, reconstruction integrity, non-admissible reconstruction forms, reconstruction and adaptation, reconstruction recoverability law, reconstruction traceability, and canonical reconstruction law.'},
+  {n:'VI',name:'Structural Status Logic and Missingness Architecture',body:'Defines why missingness is not neutral, the five structural status functions (distinguishability, missingness preservation, observational integrity, balance visibility, traceability continuity), all six canonical structural statuses in detail (assigned, informational absence, structural absence, structural non-observability, inactive, balance-relevant missingness), mandatory distinctions, status preservation law, non-admissible status handling, status flow, status and reconstruction requirements, status and adaptation rules, status and traceability requirements, and canonical structural status law.'},
+  {n:'VII',name:'Traceability Logic and Observational Continuity',body:'Defines traceability as an architectural continuity requirement (not reporting metadata), traceability role (recoverability, architectural continuity, observational integrity, structural visibility, execution transparency), canonical traceability flow, traceability dependencies, observation lineage requirements, traceability layers, activated structure visibility, traceability and missingness, traceability and reconstruction, structural continuity law, traceability and adaptation, dataset traceability requirements, tool-layer traceability, non-admissible traceability handling, and canonical traceability law.'},
+  {n:'VIII',name:'Integration Logic and Tool Boundary',body:'Defines the distinction between tools and architecture, integration role, canonical integration flow, tool boundary (what tools may and may not do), observation package logic, execution integrity, dataset continuity requirements, integration modes (external runner, embedded, hybrid, manual-assisted), integration invariants, integration and missingness, integration and reconstruction, human operator boundary, non-admissible integration patterns, integration recoverability law, and canonical integration law.'},
+  {n:'IX',name:'Adaptation Governance and Canonization',body:'Defines adaptation governance role (validation, canonization, continuity preservation, version governance, architectural protection), canonical governance flow (9 steps from observation need to operational realization), adaptation scope, canonization requirements, adaptation validation areas, experimental vs canonical realizations, version governance, compatibility governance, governance and tool layers, governance and human operators, non-admissible governance behaviors, adaptation recoverability law, governance and traceability, governance and future adaptation, and canonical governance law.'},
+];
+const pc=document.getElementById('parts-container');
+parts.forEach(p=>{
+  const el=document.createElement('div');el.className='part-accordion';
+  const h=document.createElement('div');h.className='part-header';
+  h.innerHTML=`<span class="part-num">Part ${p.n}</span><span class="part-name">${p.name}</span><span class="part-chevron">▶</span>`;
+  h.onclick=function(){this.classList.toggle('open');};
+  const b=document.createElement('div');b.className='part-body';
+  b.innerHTML=`<p style="font-size:.875rem;color:#3a3a35;line-height:1.7">${p.body}</p>`;
+  el.appendChild(h);el.appendChild(b);pc.appendChild(el);
+});
+
+// STATUSES
+const statuses=[
+  {cls:'sc-assigned',tag:'assigned',name:'Assigned Observation',desc:'Empirical realization exists. Observation-bound, traceable, and reconstructible. Does not imply completeness, certainty, or universal truth.'},
+  {cls:'sc-info',tag:'informational_absence',name:'Informational Absence',desc:'Information unavailable — architecture cannot realize assignment from available observation. Must remain explicit. Never collapses to neutral defaults or silent substitution.'},
+  {cls:'sc-struct',tag:'structural_absence',name:'Structural Absence',desc:'The relevant structure does not exist within the observed system. Differs fundamentally from informational absence — this is absence of the structure itself, not information about it.'},
+  {cls:'sc-nonobs',tag:'structural_non_observability',name:'Structural Non-Observability',desc:'Structure may exist but cannot currently be observed under active observational condition. May result from visibility limitations, power barriers, timing constraints, or observational restrictions.'},
+  {cls:'sc-inactive',tag:'inactive',name:'Inactive Structure',desc:'Variable admissible within the architecture but not activated under the active observation. Remains structurally valid, recoverable, and architecture-visible. Must not be treated as absent.'},
+  {cls:'sc-bal',tag:'balance_relevant_missingness',name:'Balance-Relevant Missingness',desc:'Missingness materially affects realization integrity, reconstruction continuity, or downstream architectural admissibility. One of the most important structural states in ECOA.'},
+];
+const sg=document.getElementById('status-grid');
+statuses.forEach(s=>{
+  const el=document.createElement('div');
+  el.className=`status-card ${s.cls}`;
+  el.innerHTML=`<div class="status-tag">${s.tag}</div><div class="status-name">${s.name}</div><div class="status-desc">${s.desc}</div>`;
+  sg.appendChild(el);
+});
+
+// GOV FLOW
+const govFlow=[
+  {n:1,title:'Observation Need',desc:'Identify the observational objective and domain requiring adaptation'},
+  {n:2,title:'Adaptation Proposal',desc:'Propose variable architecture changes within admissible bounds'},
+  {n:3,title:'Variable Architecture Design',desc:'Design adapted variable universes, operational structures, family organizations'},
+  {n:4,title:'Reconstruction Mapping',desc:'Map reconstruction logic for adapted structures'},
+  {n:5,title:'Traceability Validation',desc:'Verify observational lineage remains recoverable'},
+  {n:6,title:'Structural Coherence Validation',desc:'Verify architectural continuity is preserved'},
+  {n:7,title:'Canon Review',desc:'Review by architecture governance — validates against all 12 checklist requirements'},
+  {n:8,title:'Canonization',desc:'Formal approval — adaptation becomes official ECOA realization'},
+  {n:9,title:'Operational Realization',desc:'Canonized adaptation enters production implementation'},
+];
+const gf=document.getElementById('gov-flow');
+govFlow.forEach((s,i)=>{
+  const el=document.createElement('div');el.className='flow-step';
+  el.innerHTML=`<div class="fs-num">${s.n}</div><div class="fs-body"><div class="fs-title">${s.title}</div><div class="fs-desc">${s.desc}</div></div>`;
+  gf.appendChild(el);
+  if(i<govFlow.length-1){const a=document.createElement('div');a.className='fs-arrow';a.textContent='↓';gf.appendChild(a);}
+});
+
+// CHECKLIST
+const checks=[
+  ['Admissibility Integrity','Observation-only law preserved'],
+  ['Structural Continuity','Decomposition continuity preserved'],
+  ['Assignment Integrity','Signed-state continuity preserved'],
+  ['Reconstruction Continuity','Readable return recoverable'],
+  ['Traceability Visibility','Observational lineage visible'],
+  ['Status Distinguishability','Missingness preserved explicitly'],
+  ['Variable Coherence','Variables structurally grounded'],
+  ['Family Coherence','Organizational continuity preserved'],
+  ['Operational Readability','Outputs operationally interpretable'],
+  ['Dataset Continuity','Required trace fields preserved'],
+  ['Integration Integrity','Tool layer not replacing architecture'],
+  ['Governance Compliance','Canonization process followed'],
+];
+const ct=document.getElementById('checklist-table');
+checks.forEach(c=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><strong>${c[0]}</strong></td><td>${c[1]}</td>`;
+  ct.appendChild(tr);
+});
+</script>
+</body>
+</html>
+
+
+
+

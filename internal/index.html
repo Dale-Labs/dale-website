@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>DALE Internal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #071416; color: #e8f0f1; font-family: "Nunito", sans-serif; }
+  header, main, footer { width: min(1120px, calc(100% - 2.4rem)); margin: 0 auto; }
+  header { padding: 2rem 0 1.5rem; display: flex; justify-content: space-between; gap: 1rem; align-items: center; border-bottom: 1px solid rgba(127,168,174,.22); }
+  a { color: inherit; }
+  .brand { font-family: "Marcellus", serif; font-size: 1.35rem; letter-spacing: .05em; text-decoration: none; }
+  .brand span, .kicker { color: #f65f54; }
+  .logout { color: #93b4b9; font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+  main { padding: clamp(3.5rem, 8vw, 6rem) 0; }
+  .kicker { font-size: .72rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+  h1 { margin: .8rem 0 1rem; font-family: "Marcellus", serif; font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 400; }
+  p { color: #93b4b9; line-height: 1.75; max-width: 760px; }
+  .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; margin-top: 2.5rem; border: 1px solid rgba(127,168,174,.24); background: rgba(127,168,174,.24); }
+  .card { min-height: 230px; padding: 1.6rem; background: rgba(7,20,22,.94); text-decoration: none; display: flex; flex-direction: column; }
+  .card:hover { background: rgba(14,76,82,.22); }
+  .card h2 { margin: 0 0 .9rem; font-family: "Marcellus", serif; font-weight: 400; font-size: 1.4rem; }
+  .card p { font-size: .94rem; margin: 0; }
+  .card span { margin-top: auto; color: #1a6b73; font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  footer { padding: 2rem 0 3rem; border-top: 1px solid rgba(127,168,174,.18); color: #5f8c93; font-size: .82rem; }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 580px) { header { align-items: flex-start; flex-direction: column; } .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="../">dale<span>(a)</span></a>
+  <a class="logout" href="/logout">Log out</a>
+</header>
+<main>
+  <p class="kicker">Restricted</p>
+  <h1>DALE Internal</h1>
+  <p>This section contains DALE documentation, tool canons, and implementation materials. Access is restricted to DALE team members and approved validation partners.</p>
+  <div class="grid">
+    <a class="card" href="docs/">
+      <h2>Documentation</h2>
+      <p>Internal walkthroughs, coherence audits, and long-form documentation.</p>
+      <span>Open docs</span>
+    </a>
+    <a class="card" href="canons/">
+      <h2>Tool Canons</h2>
+      <p>Restricted canon materials for DALE tools and architecture.</p>
+      <span>Open canons</span>
+    </a>
+    <a class="card" href="developer/">
+      <h2>Developer Resources</h2>
+      <p>Machine-readable specs, schemas, runners, traces, and execution templates.</p>
+      <span>Open resources</span>
+    </a>
+    <a class="card" href="validation/">
+      <h2>Validation Infrastructure</h2>
+      <p>Internal validation matrices, evidence structures, and partner materials.</p>
+      <span>Open validation</span>
+    </a>
+  </div>
+</main>
+<footer>Internal access roles prepared: admin, team, validation_partner, viewer.</footer>
+</body>
+</html>

@@ -1,0 +1,441 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kadana.org/schemas/ara/v1.0.0",
+  "title": "Adaptive Regime Aggregation (ARA) — Canonical Schema",
+  "description": "ARA is the Stage 2 completion architecture of DALE. It inherits the completed ECOA observational condition and resolves the active non-assigned completion field through declared coordination structures, returning a uniquely determined balanced completion readable through the inherited DALE architecture. ARA is not an observational layer, scoring engine, recommendation engine, or free design process.",
+  "version": "1.0.0",
+  "architectural_position": {
+    "type": "Completion Architecture",
+    "dale_stage": 2,
+    "note": "ARA is not a tool and not an observational layer. It is the Stage 2 completion architecture operating within the inherited ECOA frame.",
+    "sequence": "Stage 1: ECOA (Observation) → Stage 2: ARA (Completion) → Stage 3: Runner (Runtime Realization)",
+    "canonical_principle": "ARA does not replace the inherited ECOA architecture. It inherits and completes unresolved architectural conditions within the same DALE-grounded frame.",
+    "canonical_law": "All valid Stage 2 execution, integration, tooling, runtime realization, and traceability structures must preserve inherited ECOA continuity."
+  },
+
+  "what_ara_is_not": [
+    "an observational layer",
+    "a scoring engine",
+    "a recommendation engine",
+    "a free design-thinking process",
+    "a best-solution generator detached from the inherited DALE structure",
+    "an optimization engine detached from architecture",
+    "an advisory layer",
+    "an AI recommendation system",
+    "a facilitation substitute",
+    "a freeform interpretation framework"
+  ],
+
+  "architectural_invariants": {
+    "description": "These conditions remain mandatory throughout all ARA execution.",
+    "assignment_continuity":       { "status": "Mandatory", "meaning": "ECOA-fixed values remain preserved throughout Stage 2" },
+    "completion_field_integrity":  { "status": "Mandatory", "meaning": "Full unresolved architectural region inherited from ECOA" },
+    "shared_metric_continuity":    { "status": "Mandatory", "meaning": "M = [-1, 1] preserved across observation and completion" },
+    "reconstruction_continuity":   { "status": "Mandatory", "meaning": "DALE-readable outputs remain recoverable from lower-level architecture" },
+    "anchor_integrity":            { "status": "Mandatory", "meaning": "Declared anchor regime remains explicit, stable, recoverable, and traceable" },
+    "coordination_determinism":    { "status": "Mandatory", "meaning": "Stage 2 result uniquely determined from inherited architecture and declared rules" },
+    "traceability_continuity":     { "status": "Mandatory", "meaning": "Every Stage 2 state recoverable through inherited architectural path" },
+    "runtime_recoverability":      { "status": "Mandatory", "meaning": "Outputs remain serializable and runtime-continuous for Runner" }
+  },
+
+  "definitions": {
+
+    "AssignmentState": {
+      "type": "string",
+      "enum": ["ECOA-Fixed", "Completion-Eligible", "ARA-Resolved", "Runtime-Realized", "Structurally-Inactive"],
+      "description": "ECOA-Fixed=assigned during Stage 1, remains invariant | Completion-Eligible=non-assigned, enters completion field | ARA-Resolved=completed during Stage 2 | Runtime-Realized=operationally instantiated downstream | Structurally-Inactive=not active under current observation"
+    },
+
+    "AnchorMode": {
+      "type": "string",
+      "enum": ["zero-anchor", "family-anchor"],
+      "description": "zero-anchor=A(v)=0 across active completion field, preserving uniform metric equilibrium | family-anchor=anchor values inherited from operational family structures, preserving subsystem-level balancing behavior. No additional undeclared anchor modes are admissible."
+    },
+
+    "VariableReference": {
+      "type": "object",
+      "description": "Reference to a canonical DALE variable with assignment state.",
+      "properties": {
+        "variable_id":        { "type": "string" },
+        "variable_name":      { "type": "string" },
+        "layer":              { "type": "string", "enum": ["fundamental", "operational"] },
+        "assignment_state":   { "$ref": "#/definitions/AssignmentState" },
+        "assigned_value":     {
+          "oneOf": [
+            { "type": "number", "minimum": -1, "maximum": 1 },
+            { "type": "null" }
+          ],
+          "description": "Value in [-1, 1] for assigned/resolved states. Null for completion-eligible or inactive."
+        },
+        "family_id":          { "type": "string" },
+        "trace_ref":          { "type": "string" }
+      },
+      "required": ["variable_id", "variable_name", "layer", "assignment_state"]
+    },
+
+    "Stage1ObservationObject": {
+      "type": "object",
+      "description": "Inherited Stage 1 continuity anchor. The formal input condition of Stage 2. Functions as the continuity carrier between observation and completion.",
+      "properties": {
+        "stage1_observation_id":       { "type": "string" },
+        "observation_context":         { "type": "string" },
+        "observation_timestamp":       { "type": "string", "format": "date-time" },
+        "source_architecture_version": { "type": "string" },
+        "reconstruction_state":        { "type": "string" },
+        "metric_state":                { "type": "string", "const": "[-1,1]" },
+        "family_state":                { "type": "object" },
+        "trace_path":                  { "type": "string" },
+        "inherited_principle_model_frame": {
+          "type": "object",
+          "properties": {
+            "principles": { "type": "array", "items": { "type": "string" } },
+            "models":     { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      },
+      "required": ["stage1_observation_id", "observation_timestamp", "source_architecture_version"]
+    },
+
+    "AssignmentStateObject": {
+      "type": "object",
+      "description": "Preserves fixed vs resolved distinction throughout execution. ECOA-fixed values remain non-revisable. Non-assigned values form the active completion field.",
+      "properties": {
+        "variable_id":        { "type": "string" },
+        "assignment_status":  { "$ref": "#/definitions/AssignmentState" },
+        "assigned_by":        { "type": "string", "enum": ["ECOA", "ARA", "N/A"] },
+        "assigned_value":     {
+          "oneOf": [
+            { "type": "number", "minimum": -1, "maximum": 1 },
+            { "type": "null" }
+          ]
+        },
+        "metric_space":       { "type": "string", "const": "[-1,1]" },
+        "assignment_timestamp":{ "type": "string", "format": "date-time" },
+        "assignment_lineage": { "type": "string" }
+      },
+      "required": ["variable_id", "assignment_status", "assigned_by"]
+    },
+
+    "CompletionFieldObject": {
+      "type": "object",
+      "description": "The unresolved architectural region inherited from ECOA. V_comp = V_proj minus V_fixed. Inherited directly from assignment-state structure — not manually selected, facilitator-defined, tool-generated, or runtime-improvised.",
+      "properties": {
+        "completion_field_id":      { "type": "string" },
+        "completion_membership":    {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "All inherited non-assigned variable IDs. Must be complete — no silent exclusions."
+        },
+        "completion_status":        { "type": "string", "enum": ["active", "resolved", "inactive"] },
+        "structural_dependencies":  { "type": "array", "items": { "type": "string" } },
+        "family_membership":        { "type": "object", "description": "Family continuity for each completion-field member" },
+        "completion_lineage":       { "type": "string" },
+        "fixed_dependencies":       {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "ECOA-fixed variable IDs that condition completion of this field"
+        }
+      },
+      "required": ["completion_field_id", "completion_membership", "completion_status"]
+    },
+
+    "AnchorObject": {
+      "type": "object",
+      "description": "Preserves the stabilization regime of Stage 2 coordination. Only zero-anchor and family-anchor modes are admissible. Anchors may not be improvised, inferred heuristically, or substituted by hidden implementation defaults.",
+      "properties": {
+        "anchor_id":        { "type": "string" },
+        "anchor_mode":      { "$ref": "#/definitions/AnchorMode" },
+        "anchor_value":     {
+          "oneOf": [
+            { "type": "number", "minimum": -1, "maximum": 1, "description": "0 for zero-anchor mode" },
+            { "type": "null", "description": "Null when family-anchor values are inherited per-variable" }
+          ]
+        },
+        "anchor_family":    {
+          "type": "string",
+          "description": "Family ID where applicable for family-anchor mode. Must be inherited, recoverable, and traceable."
+        },
+        "anchor_lineage":   { "type": "string" },
+        "anchor_timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["anchor_id", "anchor_mode"]
+    },
+
+    "CarryForwardObject": {
+      "type": "object",
+      "description": "Active inherited structural constraints from ECOA that continue conditioning completion throughout Stage 2. Not optional notes, facilitator comments, or external metadata — these are active inherited architectural conditions.",
+      "properties": {
+        "condition_id":      { "type": "string" },
+        "condition_type":    {
+          "type": "string",
+          "enum": ["unresolved_dependency", "continuity_constraint", "subsystem_balancing_condition", "structural_asymmetry", "reconstruction_dependency", "family_level_constraint"]
+        },
+        "condition_source":  { "type": "string", "description": "Stage 1 source reference" },
+        "condition_state":   { "type": "string", "enum": ["active", "resolved", "suspended"] },
+        "dependency_links":  { "type": "array", "items": { "type": "string" } },
+        "condition_lineage": { "type": "string" }
+      },
+      "required": ["condition_id", "condition_type", "condition_source", "condition_state"]
+    },
+
+    "CoordinationObject": {
+      "type": "object",
+      "description": "The declared coordination structure applied to the active completion field. Operates through fixed architectural rules — not freeform optimization, facilitator negotiation, heuristic ranking, or discretionary balancing.",
+      "properties": {
+        "coordination_id":           { "type": "string" },
+        "coordination_mode":         { "type": "string" },
+        "coordination_dependencies": { "type": "array", "items": { "type": "string" } },
+        "completion_inputs":         { "type": "array", "items": { "type": "string" }, "description": "Active unresolved variable IDs entering coordination" },
+        "fixed_dependencies":        { "type": "array", "items": { "type": "string" }, "description": "ECOA-fixed variable IDs conditioning coordination" },
+        "coordination_path":         { "type": "string" },
+        "determinism_status":        { "type": "boolean", "description": "True if unique solvability is preserved" }
+      },
+      "required": ["coordination_id", "coordination_mode", "determinism_status"]
+    },
+
+    "ReconstructionObject": {
+      "type": "object",
+      "description": "Preserves DALE-readable continuity. Stage 2 outputs must remain recoverable through inherited reconstruction paths from lower-level architecture.",
+      "properties": {
+        "reconstruction_id":         { "type": "string" },
+        "operational_state":         { "type": "object", "description": "Readable operational continuity across X1-X12" },
+        "family_organization":       {
+          "type": "object",
+          "properties": {
+            "F1_participant_grounded_formation": { "type": "object" },
+            "F2_structural_describability":      { "type": "object" },
+            "F3_relational_differentiation":     { "type": "object" },
+            "F4_coordination_and_closure":       { "type": "object" }
+          }
+        },
+        "lower_level_dependencies":  { "type": "array", "items": { "type": "string" } },
+        "reconstruction_path":       { "type": "string" },
+        "readability_status":        { "type": "string", "enum": ["intact", "degraded", "invalid"] }
+      },
+      "required": ["reconstruction_id", "readability_status"]
+    },
+
+    "TraceObject": {
+      "type": "object",
+      "description": "Preserves execution lineage across the entire DALE stack. Traceability is a structural architectural requirement — not a reporting convenience.",
+      "properties": {
+        "trace_id":              { "type": "string" },
+        "source_observation":    { "type": "string", "description": "Stage 1 origin reference" },
+        "completion_path":       { "type": "string", "description": "Stage 2 balancing lineage" },
+        "assignment_continuity": { "type": "string" },
+        "anchor_regime":         { "type": "string" },
+        "carry_forward_conditions": { "type": "array", "items": { "type": "string" } },
+        "reconstruction_path":   { "type": "string" },
+        "runtime_continuity":    { "type": "string" },
+        "trace_timestamp":       { "type": "string", "format": "date-time" },
+        "trace_integrity_status":{ "type": "boolean" }
+      },
+      "required": ["trace_id", "source_observation", "trace_integrity_status"]
+    },
+
+    "Stage2OutputObject": {
+      "type": "object",
+      "description": "The canonical Stage 2 output triple (E_comp, E_read, P_S2). All three components are mandatory. The output is not an isolated score, recommendation summary, or narrative — it is a completed Stage 2 architectural state in DALE-readable form.",
+      "properties": {
+        "stage2_output_id":     { "type": "string" },
+        "E_comp": {
+          "type": "object",
+          "description": "Completed value field. Contains all values resolved through Stage 2 completion. Does not overwrite ECOA-assigned constants.",
+          "properties": {
+            "resolved_variables": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/AssignmentStateObject" }
+            },
+            "completion_lineage": { "type": "string" },
+            "metric_continuity":  { "type": "string", "const": "[-1,1]" }
+          },
+          "required": ["resolved_variables", "metric_continuity"]
+        },
+        "E_read": {
+          "type": "object",
+          "description": "Readable Stage 2 configuration. Reconstructed operational state of the completed architecture. Preserves operational readability, subsystem continuity, family organization, and reconstruction dependence.",
+          "properties": {
+            "operational_variables": { "type": "array", "items": { "$ref": "#/definitions/VariableReference" } },
+            "family_structures":     { "type": "object" },
+            "reconstruction_path":   { "type": "string" },
+            "readability_status":    { "type": "string", "enum": ["intact", "degraded", "invalid"] }
+          },
+          "required": ["readability_status"]
+        },
+        "P_S2": {
+          "type": "object",
+          "description": "Stage 2 design package. Complete DALE-facing completion package for runtime realization, downstream execution, operational deployment, serialization, and traceable continuation into Runner.",
+          "properties": {
+            "readable_completion_structure": { "type": "object" },
+            "traceability_continuity":       { "type": "string" },
+            "assignment_state_continuity":   { "type": "object" },
+            "operational_reconstruction":    { "type": "object" },
+            "inherited_architectural_identity": { "type": "string" },
+            "runtime_transfer_state":        { "type": "string" },
+            "output_trace_path":             { "type": "string" }
+          },
+          "required": ["traceability_continuity", "output_trace_path"]
+        },
+        "assignment_continuity": {
+          "type": "object",
+          "description": "Preserves fixed/resolved distinction. ECOA-fixed values, ARA-resolved values, and completion lineage remain distinct and recoverable.",
+          "properties": {
+            "ecoa_fixed_values":   { "type": "array", "items": { "type": "string" } },
+            "ara_resolved_values": { "type": "array", "items": { "type": "string" } },
+            "completion_lineage":  { "type": "string" }
+          }
+        },
+        "metric_continuity":  { "type": "string", "const": "[-1,1]" },
+        "output_trace_path":  { "type": "string" },
+        "timestamp":          { "type": "string", "format": "date-time" }
+      },
+      "required": ["stage2_output_id", "E_comp", "E_read", "P_S2", "metric_continuity", "output_trace_path", "timestamp"]
+    },
+
+    "Stage1ToStage2TransferPackage": {
+      "type": "object",
+      "description": "Canonical Stage 1 → Stage 2 transfer package. Not a flat export object — a continuity-bearing architectural object. Stage 2 input is architectural, not merely informational.",
+      "properties": {
+        "stage1_observation_id":  { "type": "string" },
+        "variable_architecture":  { "type": "object", "description": "Complete inherited V_proj with assignment states" },
+        "assignment_state_map":   { "type": "array", "items": { "$ref": "#/definitions/AssignmentStateObject" } },
+        "completion_field_membership": { "type": "array", "items": { "type": "string" } },
+        "family_structure":       { "type": "object" },
+        "reconstruction_path":    { "type": "string" },
+        "carry_forward_conditions":{ "type": "array", "items": { "$ref": "#/definitions/CarryForwardObject" } },
+        "metric_state":           { "type": "string", "const": "[-1,1]" },
+        "trace_path":             { "type": "string" },
+        "transition_timestamp":   { "type": "string", "format": "date-time" }
+      },
+      "required": ["stage1_observation_id", "assignment_state_map", "completion_field_membership", "metric_state", "trace_path", "transition_timestamp"]
+    },
+
+    "RuntimeTransferObject": {
+      "type": "object",
+      "description": "Architecture-preserving transport object for Stage 2 → Stage 3 continuity. Functions as architectural continuity carrier — not a flat execution payload.",
+      "properties": {
+        "runtime_transfer_id":    { "type": "string" },
+        "source_stage2_package":  { "type": "string" },
+        "serialization_state":    { "type": "string", "enum": ["valid", "degraded", "invalid"] },
+        "runtime_environment":    { "type": "string" },
+        "runtime_trace_path":     { "type": "string" },
+        "runtime_integrity_status": { "type": "boolean" },
+        "assignment_continuity_preserved": { "type": "boolean" },
+        "reconstruction_continuity_preserved": { "type": "boolean" },
+        "metric_continuity_preserved": { "type": "boolean" }
+      },
+      "required": ["runtime_transfer_id", "source_stage2_package", "serialization_state", "runtime_integrity_status"]
+    }
+  },
+
+  "variable_reference": {
+    "fundamental_variables": {
+      "count": 40,
+      "status_type": "Inherited",
+      "metric_domain": "[-1, 1]",
+      "variables": {
+        "v1":"identity", "v2":"dignity", "v3":"agency", "v4":"psychological_safety",
+        "v5":"participant_readiness", "v6":"participant_overload", "v7":"participant_freeze",
+        "v8":"reflective_capacity", "v9":"adaptive_thinking", "v10":"pattern_noticing",
+        "v11":"cognitive_load", "v12":"beneficiary_position", "v13":"customer_position",
+        "v14":"payer_position", "v15":"payment_capacity", "v16":"decision_authority",
+        "v17":"community_participation", "v18":"community_stewardship", "v19":"system_structure",
+        "v20":"decision_pathway", "v21":"power_asymmetry", "v22":"invisible_influence",
+        "v23":"localization", "v24":"local_actor_agency", "v25":"local_actor_autonomy",
+        "v26":"contextual_fit", "v27":"value", "v28":"impact", "v29":"resourcing",
+        "v30":"money_flow", "v31":"impact_flow", "v32":"data_flow", "v33":"decision_flow",
+        "v34":"flow_coherence", "v35":"root_cause_depth", "v36":"problem_priority",
+        "v37":"assumption_exposure", "v38":"learning_adaptivity", "v39":"continuity_risk",
+        "v40":"roadmap_readiness"
+      }
+    },
+    "operational_variables": {
+      "count": 12,
+      "status_type": "Reconstructible",
+      "variables": {
+        "X1":"identity_articulation_state",
+        "X2":"safety_and_participation_state",
+        "X3":"system_description_state",
+        "X4":"flow_visibility_state",
+        "X5":"position_power_and_influence_state",
+        "X6":"problem_framing_state",
+        "X7":"design_direction_state",
+        "X8":"learning_and_validation_state",
+        "X9":"audience_and_payment_structure_state",
+        "X10":"value_impact_enterprise_state",
+        "X11":"resourcing_scale_and_continuity_state",
+        "X12":"coordination_localization_and_roadmap_state"
+      }
+    },
+    "operational_family_structures": {
+      "F1": { "name": "Participant-Grounded Formation", "members": ["X1", "X2"] },
+      "F2": { "name": "Structural Describability",      "members": ["X3", "X5", "X6", "X7", "X8"] },
+      "F3": { "name": "Relational Differentiation",     "members": ["X4", "X9", "X10", "X11"] },
+      "F4": { "name": "Coordination and Closure",       "members": ["X12"] }
+    }
+  },
+
+  "transition_requirements": {
+    "description": "Transition into Stage 2 is admissible only if all of the following remain recoverable.",
+    "requirements": {
+      "completed_stage1_condition":    "Establishes observational completion",
+      "recoverable_inherited_architecture":"Preserves continuity",
+      "recoverable_assigned_values":   "Preserves fixed constants",
+      "recoverable_non_assigned_field":"Defines active completion field",
+      "recoverable_reconstruction_logic":"Preserves readability",
+      "recoverable_carry_forward_conditions":"Preserves structural continuity",
+      "recoverable_traceability_path": "Preserves execution transparency"
+    }
+  },
+
+  "anchor_modes": {
+    "zero_anchor": {
+      "description": "A(v) = 0 across the active completion field. Balancing occurs relative to neutral structural equilibrium inside inherited metric space.",
+      "preserves": ["uniformity", "metric_continuity", "execution_simplicity"]
+    },
+    "family_anchor": {
+      "description": "Anchor values inherited from operational family structures. Balancing occurs relative to inherited subsystem-family conditions.",
+      "preserves": ["subsystem_continuity", "family_level_reconstruction_dependence", "operational_family_balancing_behavior"],
+      "requirement": "Anchor values must remain inherited, recoverable, and traceable. They may not be improvised, inferred heuristically, or substituted by hidden implementation defaults."
+    }
+  },
+
+  "invalid_states": {
+    "observational": ["Reopened observation during Stage 2", "Revision of ECOA-fixed values", "Undeclared observational reinterpretation"],
+    "assignment":    ["Fixed and resolved states collapse together", "Assignment lineage disappears", "Silent revision of ECOA assignments"],
+    "completion":    ["Partial completion-field handling", "Unresolved variables silently excluded", "Completion scope narrowed informally"],
+    "coordination":  ["Hidden heuristics replace declared balancing", "External optimization overrides coordination", "Discretionary branching during execution"],
+    "anchor":        ["Hidden anchor substitution", "Runtime anchor improvisation", "Undeclared proxy anchors"],
+    "metric":        ["Outputs remapped into detached scoring systems", "Metric continuity breaks", "Resolved values lose comparability with observational states"],
+    "reconstruction":["Readable outputs detach from lower-level architecture", "Family organization becomes unrecoverable", "Outputs flatten into detached summaries"],
+    "traceability":  ["Execution lineage disappears", "Completion paths become unrecoverable", "Assignment-state visibility collapses"],
+    "runtime":       ["Serialized outputs lose assignment continuity", "Reconstruction paths disappear", "Flat payloads lacking architectural recoverability"],
+    "shortcuts":     ["Recommendations bypass completion", "Heuristics bypass coordination", "AI recommendations from Stage 1 summaries without Stage 2 execution"]
+  },
+
+  "validation_checklist": {
+    "stage1_continuity_recoverable":  "Mandatory",
+    "ecoa_fixed_values_preserved":    "Mandatory",
+    "full_completion_field_preserved":"Mandatory",
+    "shared_metric_continuity":       "Mandatory",
+    "family_continuity_preserved":    "Mandatory",
+    "carry_forward_conditions_active":"Mandatory",
+    "anchor_regime_preserved":        "Mandatory",
+    "coordination_structure_preserved":"Mandatory",
+    "unique_solvability_preserved":   "Mandatory",
+    "reconstruction_continuity":      "Mandatory",
+    "runtime_continuity_preserved":   "Mandatory",
+    "traceability_recoverable":       "Mandatory",
+    "no_hidden_heuristics":           "Mandatory",
+    "no_shortcut_substitution":       "Mandatory",
+    "full_output_contract_preserved": "Mandatory"
+  },
+
+  "integration_boundary": {
+    "ECOA":           { "responsibility": "Observation", "cannot_redefine": "Completion logic" },
+    "ARA":            { "responsibility": "Completion",  "cannot_redefine": "Observation" },
+    "Runner":         { "responsibility": "Runtime realization", "cannot_redefine": "Observational assignment" },
+    "Tool_Layer":     { "responsibility": "Capture, transport, serialization, display", "cannot_redefine": "Architectural laws" },
+    "Human_Operator": { "responsibility": "Review, interpretation, deployment", "cannot_redefine": "Completion structures" }
+  }
+}

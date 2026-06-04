@@ -1,0 +1,321 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kadana.org/schemas/runner/v1.0.0",
+  "title": "Runner — Canonical Schema",
+  "description": "Runner is the Stage 3 runtime realization architecture of DALE. It operationally instantiates completed DALE architecture inherited from ARA while preserving continuity, traceability, and adaptive runtime integrity. Runner does not redesign architecture — it realizes inherited architectural completion states operationally while preserving traceable continuity across runtime conditions.",
+  "version": "1.0.0",
+  "architectural_position": {
+    "type": "Runtime Realization Architecture",
+    "dale_stage": 3,
+    "note": "Runner is not a workflow automation platform, recommendation engine, or detached orchestration system. It is the Stage 3 runtime realization layer of completed DALE architecture.",
+    "sequence": "Stage 1: ECOA (Observation) → Stage 2: ARA (Completion) → Stage 3: Runner (Runtime Realization)",
+    "canonical_principle": "Runner does not redesign architecture. Runner realizes inherited architectural completion states operationally while preserving traceable continuity across runtime conditions.",
+    "canonical_law": "All valid runtime execution, adaptation, serialization, interoperability, and trace propagation structures must preserve inherited architectural continuity."
+  },
+
+  "what_runner_is_not": [
+    "an observational architecture",
+    "a completion architecture",
+    "a recommendation engine",
+    "a workflow automation platform",
+    "a detached orchestration system",
+    "a runtime AI abstraction layer",
+    "an architecture-authoring infrastructure"
+  ],
+
+  "runtime_continuity_objective": "Preservation of architectural continuity during live realization.",
+
+  "architectural_invariants": {
+    "assignment_continuity":          { "status": "Mandatory", "meaning": "ECOA-fixed and ARA-resolved values remain distinct and recoverable throughout runtime" },
+    "runtime_realization_continuity": { "status": "Mandatory", "meaning": "Execution remains linked to inherited Stage 2 continuity" },
+    "runtime_traceability_continuity":{ "status": "Mandatory", "meaning": "Realization lineage remains recoverable throughout execution" },
+    "adaptation_lineage_continuity":  { "status": "Mandatory", "meaning": "Runtime evolution remains traceable" },
+    "divergence_visibility":          { "status": "Mandatory", "meaning": "Runtime instability remains observable and traceable" },
+    "reconstruction_continuity":      { "status": "Mandatory", "meaning": "DALE-readable outputs remain recoverable from lower-level architecture" },
+    "metric_continuity":              { "status": "Mandatory", "meaning": "Runtime states remain metrically comparable with inherited M=[-1,1]" },
+    "runtime_portability_continuity": { "status": "Mandatory", "meaning": "Runtime states remain serializable and transferable without continuity collapse" },
+    "cts_compatibility":              { "status": "Mandatory", "meaning": "Runtime structures remain compatible with Canonical Trace Standard systems" }
+  },
+
+  "definitions": {
+
+    "RuntimeStatus": {
+      "type": "string",
+      "enum": ["active", "adapting", "diverging", "recovering", "stable", "degraded", "invalid"]
+    },
+
+    "DivergenceCategory": {
+      "type": "string",
+      "enum": ["environmental", "structural", "coordination", "continuity", "operational", "adaptation"],
+      "description": "environmental=external contextual instability | structural=subsystem continuity breakdown | coordination=runtime coordination instability | continuity=loss of recoverable lineage | operational=realization drift | adaptation=adaptation-induced continuity degradation"
+    },
+
+    "DivergenceSeverity": {
+      "type": "string",
+      "enum": ["low", "moderate", "high", "critical"],
+      "description": "low=continuity stable | moderate=adaptation required | high=realization continuity threatened | critical=runtime continuity collapse risk"
+    },
+
+    "RealizationState": {
+      "type": "object",
+      "description": "Active operational instantiation of inherited Stage 2 architecture. Preserves assignment continuity, reconstruction continuity, subsystem continuity, and runtime traceability.",
+      "properties": {
+        "realization_id":          { "type": "string" },
+        "source_stage2_package":   { "type": "string", "description": "Reference to inherited ARA Stage 2 output" },
+        "runtime_environment":     { "type": "string" },
+        "operational_state":       { "type": "object", "description": "Current operational continuity across X1-X12" },
+        "assignment_continuity": {
+          "type": "object",
+          "properties": {
+            "ecoa_fixed_values":    { "type": "array", "items": { "type": "string" } },
+            "ara_resolved_values":  { "type": "array", "items": { "type": "string" } },
+            "runtime_states":       { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "runtime_status":          { "$ref": "#/definitions/RuntimeStatus" },
+        "realization_timestamp":   { "type": "string", "format": "date-time" },
+        "runtime_trace_path":      { "type": "string" }
+      },
+      "required": ["realization_id", "source_stage2_package", "runtime_status", "realization_timestamp", "runtime_trace_path"]
+    },
+
+    "AdaptationState": {
+      "type": "object",
+      "description": "Continuity-preserving runtime evolution under changing operational conditions. Adaptation must preserve assignment continuity, traceability, reconstruction continuity, and realization lineage. Adaptation may not redefine inherited architecture or erase runtime traceability lineage.",
+      "properties": {
+        "adaptation_id":          { "type": "string" },
+        "adaptation_trigger":     { "type": "string", "description": "Runtime change condition that initiated adaptation" },
+        "trigger_categories": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["environmental_instability", "operational_overload", "continuity_degradation", "divergence_emergence", "subsystem_disruption", "evolving_contextual_requirements"] }
+        },
+        "source_realization_state":{ "type": "string" },
+        "adaptation_continuity":   { "type": "string", "description": "Preserved architectural continuity reference" },
+        "adaptation_impact":       { "type": "string" },
+        "adaptation_status":       { "type": "string", "enum": ["active", "complete", "failed"] },
+        "assignment_continuity_preserved": { "type": "boolean" },
+        "reconstruction_continuity_preserved": { "type": "boolean" },
+        "trace_continuity_preserved": { "type": "boolean" },
+        "adaptation_timestamp":    { "type": "string", "format": "date-time" },
+        "adaptation_trace_path":   { "type": "string" }
+      },
+      "required": ["adaptation_id", "adaptation_trigger", "adaptation_status", "assignment_continuity_preserved", "adaptation_timestamp"]
+    },
+
+    "DivergenceState": {
+      "type": "object",
+      "description": "Detectable deviation between inherited realization continuity and active runtime behavior. All divergence conditions must remain visible, traceable, and runtime-recoverable. Runner preserves divergence visibility rather than hiding operational fracture.",
+      "properties": {
+        "divergence_id":           { "type": "string" },
+        "divergence_category":     { "$ref": "#/definitions/DivergenceCategory" },
+        "divergence_source":       { "type": "string" },
+        "affected_subsystems":     { "type": "array", "items": { "type": "string" } },
+        "divergence_severity":     { "$ref": "#/definitions/DivergenceSeverity" },
+        "divergence_visibility":   { "type": "boolean", "description": "Must always be true — hidden divergence is invalid" },
+        "continuity_impact":       { "type": "string" },
+        "adaptation_triggered":    { "type": "boolean" },
+        "divergence_timestamp":    { "type": "string", "format": "date-time" },
+        "divergence_trace_path":   { "type": "string" }
+      },
+      "required": ["divergence_id", "divergence_category", "divergence_severity", "divergence_visibility", "divergence_timestamp"]
+    },
+
+    "RecoveryState": {
+      "type": "object",
+      "description": "Runtime continuity restoration from divergence. Recovery must preserve runtime lineage, adaptation continuity, and architectural recoverability. Recovery may not erase runtime history or trace continuity.",
+      "properties": {
+        "recovery_id":             { "type": "string" },
+        "source_divergence":       { "type": "string" },
+        "recovery_type":           { "type": "string", "enum": ["subsystem_stabilization", "adaptation_recalibration", "continuity_restoration", "realization_state_correction", "controlled_reconfiguration"] },
+        "historical_continuity_preserved": { "type": "boolean" },
+        "adaptation_lineage_preserved": { "type": "boolean" },
+        "architectural_recoverability_preserved": { "type": "boolean" },
+        "recovery_status":         { "type": "string", "enum": ["active", "complete", "partial", "failed"] },
+        "recovery_timestamp":      { "type": "string", "format": "date-time" },
+        "recovery_trace_path":     { "type": "string" }
+      },
+      "required": ["recovery_id", "source_divergence", "historical_continuity_preserved", "recovery_status", "recovery_timestamp"]
+    },
+
+    "ContinuityState": {
+      "type": "object",
+      "description": "Preservation status of inherited architectural continuity during realization. Tracks assignment continuity, reconstruction continuity, trace continuity, and runtime recoverability.",
+      "properties": {
+        "continuity_id":              { "type": "string" },
+        "assignment_continuity":      { "type": "boolean" },
+        "reconstruction_continuity":  { "type": "boolean" },
+        "metric_continuity":          { "type": "boolean" },
+        "runtime_continuity_status":  { "type": "string", "enum": ["preserved", "degraded", "critical", "invalid"] },
+        "continuity_timestamp":       { "type": "string", "format": "date-time" },
+        "continuity_trace_path":      { "type": "string" }
+      },
+      "required": ["continuity_id", "assignment_continuity", "reconstruction_continuity", "runtime_continuity_status", "continuity_timestamp"]
+    },
+
+    "RuntimeTraceState": {
+      "type": "object",
+      "description": "Active runtime propagation of architectural lineage during realization. Preserves execution recoverability, runtime accountability, and cross-stage continuity across the full DALE stack.",
+      "properties": {
+        "runtime_trace_id":        { "type": "string" },
+        "source_observation":      { "type": "string", "description": "Stage 1 ECOA origin continuity reference" },
+        "completion_lineage":      { "type": "string", "description": "Stage 2 ARA continuity reference" },
+        "realization_lineage":     { "type": "string" },
+        "adaptation_lineage":      { "type": "string" },
+        "recovery_lineage":        { "type": "string" },
+        "runtime_timestamp":       { "type": "string", "format": "date-time" },
+        "trace_integrity_status":  { "type": "boolean" }
+      },
+      "required": ["runtime_trace_id", "source_observation", "completion_lineage", "trace_integrity_status"]
+    },
+
+    "ReconstructionState": {
+      "type": "object",
+      "description": "Runtime-readable operational continuity recoverable through inherited DALE architecture. Must remain reconstructible from lower-level architecture during runtime evolution.",
+      "properties": {
+        "reconstruction_id":         { "type": "string" },
+        "operational_configuration": { "type": "object", "description": "Runtime operational continuity across X1-X12" },
+        "family_continuity": {
+          "type": "object",
+          "properties": {
+            "F1_participant_grounded_formation": { "type": "object" },
+            "F2_structural_describability":      { "type": "object" },
+            "F3_relational_differentiation":     { "type": "object" },
+            "F4_coordination_and_closure":       { "type": "object" }
+          }
+        },
+        "reconstruction_dependencies": { "type": "array", "items": { "type": "string" } },
+        "reconstruction_status":      { "type": "string", "enum": ["intact", "degraded", "invalid"] },
+        "reconstruction_timestamp":   { "type": "string", "format": "date-time" },
+        "reconstruction_trace_path":  { "type": "string" }
+      },
+      "required": ["reconstruction_id", "reconstruction_status", "reconstruction_timestamp"]
+    },
+
+    "RuntimeTransferState": {
+      "type": "object",
+      "description": "Downstream continuity-preserving portability of realized execution states. Functions as architectural continuity carrier — not a flat execution payload.",
+      "properties": {
+        "runtime_transfer_id":          { "type": "string" },
+        "source_runtime_state":         { "type": "string" },
+        "serialization_continuity":     { "type": "boolean" },
+        "runtime_environment_target":   { "type": "string" },
+        "portability_status":           { "type": "string", "enum": ["valid", "degraded", "invalid"] },
+        "assignment_continuity_preserved": { "type": "boolean" },
+        "reconstruction_continuity_preserved": { "type": "boolean" },
+        "runtime_integrity_status":     { "type": "boolean" },
+        "runtime_transfer_timestamp":   { "type": "string", "format": "date-time" },
+        "runtime_transfer_trace_path":  { "type": "string" }
+      },
+      "required": ["runtime_transfer_id", "source_runtime_state", "serialization_continuity", "portability_status", "runtime_integrity_status", "runtime_transfer_timestamp"]
+    },
+
+    "RunnerOutputPackage": {
+      "type": "object",
+      "description": "Canonical Runner output triple (R_state, R_trace, P_RT). All three components are mandatory. Runner outputs are not detached operational summaries — they are continuity-bearing architectural states linked to observation, completion, realization, adaptation, and runtime evolution.",
+      "properties": {
+        "runtime_output_id":   { "type": "string" },
+        "R_state": {
+          "description": "Active runtime realization state",
+          "$ref": "#/definitions/RealizationState"
+        },
+        "R_trace": {
+          "description": "Runtime continuity and traceability state",
+          "$ref": "#/definitions/RuntimeTraceState"
+        },
+        "P_RT": {
+          "type": "object",
+          "description": "Runtime transfer and realization package. Supports downstream transfer, serialization, portability, continuity recovery, and long-term operational traceability.",
+          "properties": {
+            "runtime_state_ref":         { "type": "string" },
+            "runtime_trace_state_ref":   { "type": "string" },
+            "runtime_transfer_package":  { "$ref": "#/definitions/RuntimeTransferState" },
+            "runtime_evolution_state":   { "type": "object", "description": "Longitudinal runtime continuity" },
+            "runtime_output_trace_path": { "type": "string" }
+          },
+          "required": ["runtime_output_trace_path"]
+        },
+        "assignment_continuity_preserved": { "type": "boolean" },
+        "metric_continuity":   { "type": "string", "const": "[-1,1]" },
+        "runtime_output_trace_path": { "type": "string" },
+        "timestamp":           { "type": "string", "format": "date-time" }
+      },
+      "required": ["runtime_output_id", "R_state", "R_trace", "P_RT", "assignment_continuity_preserved", "metric_continuity", "timestamp"]
+    }
+  },
+
+  "canonical_runtime_sequence": {
+    "description": "Sequential, explicit, and non-collapsible. This sequence remains invariant.",
+    "sequence": [
+      "observational architecture (ECOA)",
+      "→ coordinated completion (ARA)",
+      "→ runtime transfer package",
+      "→ realization activation",
+      "→ operational runtime state",
+      "→ adaptive runtime continuity",
+      "→ downstream realization outputs"
+    ]
+  },
+
+  "runtime_state_categories": {
+    "realization_states":     "Active operational realization — runtime continuity",
+    "adaptation_states":      "Runtime evolutionary adjustment — continuity-preserving evolution",
+    "divergence_states":      "Runtime instability visibility — runtime accountability",
+    "recovery_states":        "Runtime continuity restoration — continuity stabilization",
+    "runtime_transfer_states":"Downstream portability continuity — realization portability",
+    "reconstruction_states":  "Runtime readability continuity — DALE recoverability",
+    "runtime_trace_states":   "Runtime lineage propagation — cross-stage traceability"
+  },
+
+  "divergence_categories": {
+    "environmental": "External contextual instability",
+    "structural":    "Breakdown of subsystem continuity",
+    "coordination":  "Runtime coordination instability",
+    "continuity":    "Loss of continuity recoverability",
+    "operational":   "Runtime realization drift from intended continuity",
+    "adaptation":    "Adaptation-induced continuity degradation"
+  },
+
+  "divergence_severity_states": {
+    "low":      "Continuity remains stable",
+    "moderate": "Adaptation required",
+    "high":     "Realization continuity threatened",
+    "critical": "Runtime continuity collapse risk"
+  },
+
+  "invalid_runtime_states": {
+    "detached_runtime_execution":        "Breaks inherited continuity",
+    "collapsed_assignment_lineage":      "Breaks recoverability",
+    "opaque_adaptation_continuity":      "Breaks runtime evolution traceability",
+    "hidden_divergence_conditions":      "Breaks instability visibility",
+    "flattened_runtime_serialization":   "Breaks portability continuity",
+    "runtime_only_operational_abstraction":"Breaks DALE readability",
+    "runtime_scoring_substitution":      "Breaks metric continuity",
+    "unrecoverable_realization_lineage": "Breaks runtime accountability",
+    "tool_defined_continuity_override":  "Breaks architectural authority",
+    "human_discretionary_runtime_override":"Breaks continuity integrity",
+    "runtime_black_box_execution":       "Breaks trace recoverability"
+  },
+
+  "integration_boundary": {
+    "ECOA":           { "responsibility": "Observation",                        "cannot_redefine": "Runtime realization" },
+    "ARA":            { "responsibility": "Completion",                          "cannot_redefine": "Runtime continuity" },
+    "Runner":         { "responsibility": "Runtime realization",                 "cannot_redefine": "Observation and completion" },
+    "Tool_Layer":     { "responsibility": "Execution, serialization, monitoring, display", "cannot_redefine": "Architectural continuity" },
+    "Human_Operator": { "responsibility": "Runtime interpretation, deployment, review",    "cannot_redefine": "Runtime lineage continuity" }
+  },
+
+  "validation_checklist": {
+    "stage2_continuity_recoverable":          "Mandatory",
+    "runtime_realization_continuity_preserved":"Mandatory",
+    "assignment_continuity_preserved":        "Mandatory",
+    "runtime_traceability_recoverable":       "Mandatory",
+    "adaptation_lineage_preserved":           "Mandatory",
+    "divergence_visibility_preserved":        "Mandatory",
+    "runtime_reconstruction_continuity":      "Mandatory",
+    "runtime_serialization_continuity":       "Mandatory",
+    "runtime_portability_preserved":          "Mandatory",
+    "cts_compatibility_preserved":            "Mandatory",
+    "no_hidden_runtime_substitutions":        "Mandatory",
+    "no_runtime_black_box_execution":         "Mandatory"
+  }
+}

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DALE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #0e4c52;
+    --teal-light: #1a6b73;
+    --teal-dark: #071416;
+    --coral: #f65f54;
+    --bg: #071416;
+    --panel: rgba(14, 76, 82, 0.08);
+    --panel-strong: rgba(14, 76, 82, 0.15);
+    --text: #e8f0f1;
+    --text-muted: #93b4b9;
+    --text-dim: #5f8c93;
+    --border: rgba(127, 168, 174, 0.22);
+    --border-strong: rgba(246, 95, 84, 0.34);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Nunito", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; }
+
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem clamp(1.2rem, 4vw, 3rem);
+    background: rgba(7, 20, 22, 0.78);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(127, 168, 174, 0.14);
+  }
+
+  .nav-logo {
+    font-family: "Marcellus", serif;
+    font-size: 1.35rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--coral); }
+
+  .nav-links {
+    display: flex;
+    gap: clamp(1rem, 3vw, 2.4rem);
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    align-items: center;
+    padding: 8.5rem clamp(1.2rem, 5vw, 4rem) 5rem;
+    overflow: hidden;
+  }
+
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1120px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .eyebrow,
+  .section-eyebrow,
+  .card-kicker,
+  .tool-tag,
+  .partner-label {
+    color: var(--coral);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    max-width: 1040px;
+    margin: 1.1rem 0 1.5rem;
+    font-family: "Marcellus", serif;
+    font-size: clamp(2.65rem, 6.4vw, 6.6rem);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: 0;
+  }
+
+  .hero-sub {
+    max-width: 760px;
+    color: var(--text-muted);
+    font-size: clamp(1.02rem, 1.6vw, 1.22rem);
+    line-height: 1.85;
+  }
+
+  .hero-actions,
+  .section-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2.2rem;
+  }
+
+  .btn-primary,
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.9rem 1.45rem;
+    border-radius: 2px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--coral);
+    color: #fff;
+    border: 1px solid var(--coral);
+  }
+
+  .btn-primary:hover { background: #e74f44; }
+
+  .btn-ghost {
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .btn-ghost:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+
+  .section {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(4.5rem, 8vw, 7rem) clamp(1.2rem, 4vw, 2.5rem);
+  }
+
+  .section-header {
+    max-width: 780px;
+    margin-bottom: 2.2rem;
+  }
+
+  .section-title {
+    margin-top: 0.75rem;
+    font-family: "Marcellus", serif;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1.12;
+  }
+
+  .section-copy {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .challenge-grid,
+  .partners-grid,
+  .tools-grid {
+    display: grid;
+    gap: 1px;
+    border: 1px solid var(--border);
+    background: var(--border);
+  }
+
+  .challenge-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .partners-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tools-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+  .challenge-card,
+  .partner-card,
+  .tool-card {
+    background: rgba(7, 20, 22, 0.92);
+    padding: clamp(1.4rem, 2.4vw, 2.4rem);
+    min-width: 0;
+  }
+
+  .challenge-card {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-title,
+  .partner-title,
+  .tool-title {
+    margin: 1rem 0 0.9rem;
+    font-family: "Marcellus", serif;
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
+  .card-title { font-size: 1.55rem; }
+  .partner-title { font-size: 1.35rem; }
+  .tool-title { font-size: 1.18rem; }
+
+  .card-copy,
+  .partner-copy,
+  .tool-copy {
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    line-height: 1.8;
+  }
+
+  .card-copy + .card-copy { margin-top: 1rem; }
+
+  .visibility-list {
+    margin-top: 1rem;
+    padding-left: 1.1rem;
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    line-height: 1.75;
+  }
+
+  .visibility-list li + li { margin-top: 0.35rem; }
+
+  .partner-card {
+    min-height: 330px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-row {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: auto;
+    padding-top: 1.8rem;
+  }
+
+  .logo-placeholder {
+    min-height: 58px;
+    display: grid;
+    place-items: center;
+    border: 1px dashed rgba(147, 180, 185, 0.36);
+    color: var(--text-dim);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .partner-logo {
+    min-height: 58px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(147, 180, 185, 0.22);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.9rem;
+  }
+
+  .partner-logo img {
+    display: block;
+    max-width: 180px;
+    max-height: 42px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .tool-card {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s ease;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .tool-card:hover { background: var(--panel-strong); }
+
+  .tool-tag {
+    display: inline-flex;
+    align-self: flex-start;
+    border: 1px solid rgba(246, 95, 84, 0.22);
+    background: rgba(246, 95, 84, 0.07);
+    padding: 0.3rem 0.62rem;
+  }
+
+  .tool-copy { margin-bottom: 1.4rem; }
+
+  .tool-link {
+    margin-top: auto;
+    color: var(--teal-light);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .tool-link::after { content: " ->"; }
+
+  .research-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .research-copy {
+    background: rgba(7, 20, 22, 0.92);
+    padding: clamp(1.5rem, 3vw, 2.7rem);
+  }
+
+  .research-copy h3 {
+    font-family: "Marcellus", serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .research-copy p {
+    color: var(--text-muted);
+    line-height: 1.85;
+  }
+
+  footer {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 4rem clamp(1.2rem, 4vw, 2.5rem);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem 1.6rem;
+    justify-content: flex-end;
+  }
+
+  .footer-links a {
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .footer-links a:hover { color: var(--text); }
+
+  @media (max-width: 1060px) {
+    .tools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 820px) {
+    .site-nav {
+      position: absolute;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-direction: column;
+    }
+
+    .nav-links {
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 0.9rem 1.2rem;
+    }
+
+    .hero {
+      min-height: auto;
+      padding-top: 10rem;
+    }
+
+    .challenge-grid,
+    .partners-grid,
+    .tools-grid,
+    .research-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .challenge-card,
+    .partner-card,
+    .tool-card {
+      min-height: auto;
+    }
+
+    footer {
+      flex-direction: column;
+    }
+
+    .footer-links { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Primary navigation">
+  <a class="nav-logo" href="#top">dale<span>(a)</span></a>
+  <ul class="nav-links">
+    <li><a href="#state-review">State Review</a></li>
+    <li><a href="#partners">Partners</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#research">Research</a></li>
+  </ul>
+</nav>
+
+<main id="top">
+  <section class="hero" id="state-review">
+    <canvas class="hero-canvas" id="topoCanvas" aria-hidden="true"></canvas>
+    <div class="hero-content">
+      <p class="eyebrow">Design question</p>
+      <h1 class="hero-title">How might we ensure community observations, value, commitments, relationships, and context can survive institutional change without losing meaning?</h1>
+      <p class="hero-sub">DALE is a system for capturing, structuring, and tracing community intelligence so that knowledge, value, and commitments remain visible across time, teams, programs, and institutions.</p>
+      <div class="hero-actions">
+        <a href="https://app.dale.africa/state-review" class="btn-primary">Start with State Review</a>
+        <a href="research/" class="btn-ghost">Research</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="challenge-title">
+    <div class="section-header">
+      <p class="section-eyebrow">The visibility problem</p>
+      <h2 class="section-title" id="challenge-title">The Visibility Problem</h2>
+    </div>
+    <div class="challenge-grid">
+      <article class="challenge-card">
+        <p class="card-kicker">What happens</p>
+        <h3 class="card-title">Records fragment.</h3>
+        <p class="card-copy">Every system produces observations, relationships, commitments, exchanges, and outcomes.</p>
+        <p class="card-copy">Over time, those records become fragmented across people, organizations, platforms, and institutions.</p>
+        <p class="card-copy">The result is simple:</p>
+        <p class="card-copy">People cannot build on what already exists because they cannot reliably see it.</p>
+      </article>
+      <article class="challenge-card">
+        <p class="card-kicker">Why it matters</p>
+        <h3 class="card-title">Value becomes invisible.</h3>
+        <p class="card-copy">When value becomes invisible:</p>
+        <ul class="visibility-list">
+          <li>Decisions are made without context.</li>
+          <li>Relationships have to be rebuilt.</li>
+          <li>Commitments become difficult to trace.</li>
+          <li>Knowledge gets recreated instead of reused.</li>
+          <li>Systems spend energy recovering what was already known.</li>
+        </ul>
+      </article>
+      <article class="challenge-card">
+        <p class="card-kicker">Our approach</p>
+        <h3 class="card-title">Provenance becomes usable.</h3>
+        <p class="card-copy">DALE tests whether observations, value, commitments, relationships, and context can survive institutional change without losing meaning.</p>
+        <p class="card-copy">DALE provides a shared system for capturing, structuring, and interpreting provenance so that what people create remains visible, meaningful, and usable over time.</p>
+        <div class="section-actions">
+          <a href="#tools" class="btn-ghost">Explore the tools</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="partners" aria-labelledby="partners-title">
+    <div class="section-header">
+      <p class="section-eyebrow">Partners</p>
+      <h2 class="section-title" id="partners-title">Built and tested with real systems</h2>
+    </div>
+    <div class="partners-grid">
+      <article class="partner-card">
+        <p class="partner-label">Funding partners</p>
+        <h3 class="partner-title">Research and infrastructure support</h3>
+        <p class="partner-copy">Organizations supporting research, development, deployment, and infrastructure.</p>
+        <div class="logo-row">
+          <div class="logo-placeholder">Logo</div>
+          <div class="logo-placeholder">Logo</div>
+        </div>
+      </article>
+      <article class="partner-card">
+        <p class="partner-label">Testing partners</p>
+        <h3 class="partner-title">Validation in live environments</h3>
+        <p class="partner-copy">Programs and institutions helping validate DALE in real-world environments.</p>
+        <div class="logo-row">
+          <div class="logo-placeholder">Logo</div>
+          <div class="logo-placeholder">Logo</div>
+        </div>
+      </article>
+      <article class="partner-card">
+        <p class="partner-label">Community partners</p>
+        <h3 class="partner-title">Insight through everyday practice</h3>
+        <p class="partner-copy">Networks, organizations, and communities generating insight through everyday practice.</p>
+        <div class="logo-row">
+          <div class="partner-logo"><img src="assets/partners/kadana-foundation-logo-white.png" alt="Kadana Foundation"></div>
+          <div class="logo-placeholder">Logo</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="tools" aria-labelledby="tools-title">
+    <div class="section-header">
+      <p class="section-eyebrow">Tools</p>
+      <h2 class="section-title" id="tools-title">How DALE answers the question</h2>
+    </div>
+    <div class="tools-grid">
+      <article class="tool-card">
+        <span class="tool-tag">State Review</span>
+        <h3 class="tool-title">Understand where you are before deciding where to go.</h3>
+        <p class="tool-copy">Start by reading the current state of a community, program, or institution.</p>
+        <a class="tool-link" href="app/state-review/">Open State Review</a>
+      </article>
+      <article class="tool-card">
+        <span class="tool-tag">Community Operating System</span>
+        <h3 class="tool-title">Map the relationships, resources, patterns, and conditions shaping an environment.</h3>
+        <p class="tool-copy">Create a structured view of the system before action is taken.</p>
+        <a class="tool-link" href="app/cos/">Open CoS</a>
+      </article>
+      <article class="tool-card">
+        <span class="tool-tag">SEC</span>
+        <h3 class="tool-title">Test pathways for sustainability and value creation.</h3>
+        <p class="tool-copy">Examine whether value can hold together as an operating architecture.</p>
+        <a class="tool-link" href="app/sec/">Open SEC</a>
+      </article>
+      <article class="tool-card">
+        <span class="tool-tag">CBC</span>
+        <h3 class="tool-title">Design and trace commitments between communities and institutions.</h3>
+        <p class="tool-copy">Make commitments visible, accountable, and easier to follow over time.</p>
+        <a class="tool-link" href="app/cbc/">Open CBC</a>
+      </article>
+      <article class="tool-card">
+        <span class="tool-tag">Insights</span>
+        <h3 class="tool-title">Transform observations into evidence, learning, and action.</h3>
+        <p class="tool-copy">Turn structured observations into a basis for decisions and adaptation.</p>
+        <a class="tool-link" href="app/insights/">Open Insights</a>
+      </article>
+    </div>
+    <div class="section-actions">
+      <a href="app/" class="btn-primary">Open DALE App</a>
+    </div>
+  </section>
+
+  <section class="section" id="research" aria-labelledby="research-title">
+    <div class="section-header">
+      <p class="section-eyebrow">Testing and Research</p>
+      <h2 class="section-title" id="research-title">Testing and Research</h2>
+    </div>
+    <div class="research-panel">
+      <article class="research-copy">
+        <h3>Origin story</h3>
+        <p>DALE began with a simple observation: communities often retain knowledge longer than institutions retain memory. The challenge was not generating insight. The challenge was helping that insight survive long enough to remain useful.</p>
+      </article>
+      <article class="research-copy">
+        <h3>Validation</h3>
+        <p>DALE is being tested across fellowship ecosystems, social enterprise networks, grassroots communities, civic participation platforms, and community-led development programs.</p>
+      </article>
+    </div>
+    <div class="section-actions">
+      <a href="research/" class="btn-primary">Explore the research</a>
+      <a href="research/validation-environments/" class="btn-ghost">View validation environments</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div>
+    <div class="nav-logo">dale<span>(a)</span></div>
+    <p style="margin-top:.7rem;">Design · Adapt · Learn · Evolve</p>
+  </div>
+  <nav class="footer-links" aria-label="Footer navigation">
+    <a href="research/">Research</a>
+    <a href="#tools">Tools</a>
+    <a href="mailto:hello@dale.africa">Contact</a>
+    <a href="login/">Internal Login</a>
+  </nav>
+  <p>© 2026 DALE</p>
+</footer>
+
+<script>
+const canvas = document.getElementById("topoCanvas");
+const ctx = canvas.getContext("2d");
+let W = 0;
+let H = 0;
+let rings = [];
+let nodes = [];
+let lines = [];
+
+function resize() {
+  W = canvas.width = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+  buildScene();
+}
+
+function buildScene() {
+  rings = [];
+  nodes = [];
+  lines = [];
+  const cx = W * 0.56;
+  const cy = H * 0.44;
+  [70, 150, 250, 380, 540, 720].forEach((r, i) => {
+    rings.push({ cx, cy, r, phase: i * 0.7, speed: 0.00018 + i * 0.00003, alpha: 0.07 - i * 0.006 });
+  });
+
+  for (let i = 0; i < 30; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const rad = 70 + Math.random() * Math.min(W, 760);
+    nodes.push({
+      x: cx + Math.cos(angle) * rad,
+      y: cy + Math.sin(angle) * rad,
+      r: 1 + Math.random() * 1.5,
+      alpha: 0.08 + Math.random() * 0.18,
+      pulse: Math.random() * Math.PI * 2
+    });
+  }
+
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const d = Math.sqrt(dx * dx + dy * dy);
+      if (d < 170 && Math.random() > 0.58) lines.push({ a: i, b: j, d });
+    }
+  }
+}
+
+function draw(t) {
+  ctx.clearRect(0, 0, W, H);
+  const grad = ctx.createRadialGradient(W * 0.55, H * 0.45, 0, W * 0.55, H * 0.45, Math.max(W, H));
+  grad.addColorStop(0, "rgba(14,76,82,0.24)");
+  grad.addColorStop(0.5, "rgba(7,20,22,0.16)");
+  grad.addColorStop(1, "rgba(7,20,22,0)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  rings.forEach(r => {
+    ctx.beginPath();
+    ctx.arc(r.cx, r.cy, r.r + Math.sin(t * r.speed + r.phase) * 8, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(26,107,115,${Math.max(0.01, r.alpha)})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  lines.forEach(l => {
+    const a = nodes[l.a];
+    const b = nodes[l.b];
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = "rgba(26,107,115,0.08)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  nodes.forEach(n => {
+    const pulse = (Math.sin(t * 0.002 + n.pulse) + 1) / 2;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r + pulse * 1.2, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(246,95,84,${n.alpha + pulse * 0.1})`;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(draw);
+}
+
+window.addEventListener("resize", resize);
+resize();
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
