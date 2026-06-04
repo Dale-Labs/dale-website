@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Social Enterprise Canvas (SEC) — Canonical Specification | DALE · Kadana</title>
+<title>Social Enterprise Canvas (SEC) � Canonical Specification | DALE � Kadana</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
 
@@ -33,7 +33,7 @@
 html { scroll-behavior: smooth; }
 body { font-family: var(--sans); background: var(--paper); color: var(--ink); min-height: 100vh; }
 
-/* ── CONSTRAINT BANNER ── */
+/* -- CONSTRAINT BANNER -- */
 .constraint-banner {
   background: var(--ink); color: rgba(255,255,255,0.65);
   padding: 0.6rem 2rem; font-family: var(--mono);
@@ -41,7 +41,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 }
 .constraint-banner span { color: var(--amber-lite); }
 
-/* ── HEADER ── */
+/* -- HEADER -- */
 .site-header {
   background: var(--teal); color: var(--paper);
   position: sticky; top: 0; z-index: 100;
@@ -65,7 +65,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .nav-tab:hover { color: rgba(255,255,255,0.9); }
 .nav-tab.active { color: var(--amber-lite); border-bottom-color: var(--amber-lite); }
 
-/* ── HERO ── */
+/* -- HERO -- */
 .hero {
   background: var(--teal); color: var(--paper);
   padding: 3.5rem 2rem 2.75rem; position: relative; overflow: hidden;
@@ -88,7 +88,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .pill-act     { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); }
 .pill-version { background: var(--teal-mid); color: rgba(255,255,255,0.85); border: 1px solid #4aabaf; }
 
-/* ── PIPELINE BAR ── */
+/* -- PIPELINE BAR -- */
 .pipeline { background: var(--ink); padding: 0.85rem 2rem; overflow-x: auto; }
 .pipeline-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; gap: 0; }
 .pl-step {
@@ -101,18 +101,18 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .pl-step.active .pl-dot { background: var(--amber); }
 .pl-arrow { color: rgba(255,255,255,0.18); margin: 0 0.4rem; font-size: 0.75rem; }
 
-/* ── MAIN ── */
+/* -- MAIN -- */
 .main { max-width: 1300px; margin: 0 auto; padding: 0 2rem 4rem; }
 .panel { display: none; }
 .panel.active { display: block; }
 
-/* ── SECTIONS ── */
+/* -- SECTIONS -- */
 .section { margin: 2.75rem 0; }
 .sec-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--teal-mid); margin-bottom: 0.4rem; }
 .sec-title { font-family: var(--serif); font-size: 1.55rem; font-weight: 600; color: var(--teal); margin-bottom: 1.25rem; padding-bottom: 0.65rem; border-bottom: 1px solid var(--grid); }
 .sec-body { font-size: 0.92rem; color: #3a3a35; line-height: 1.75; }
 
-/* ── GRID ── */
+/* -- GRID -- */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
 @media (max-width: 900px) {
@@ -121,14 +121,14 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
   .hero-meta { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
 }
 
-/* ── CARDS ── */
+/* -- CARDS -- */
 .card { background: #fff; border: 1px solid var(--grid); border-radius: 3px; padding: 1.4rem; position: relative; }
 .card-accent { position: absolute; top: 0; left: 0; width: 3px; height: 100%; border-radius: 3px 0 0 3px; }
 .card-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.45rem; }
 .card-title { font-family: var(--serif); font-size: 1rem; font-weight: 600; margin-bottom: 0.65rem; color: var(--teal); }
 .card-body { font-size: 0.865rem; color: #4a4a45; line-height: 1.65; }
 
-/* ── NOTICE ── */
+/* -- NOTICE -- */
 .notice {
   border-radius: 2px; padding: 0.85rem 1.1rem;
   font-size: 0.865rem; line-height: 1.65; margin: 1rem 0;
@@ -140,7 +140,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .notice-red   { background: var(--rose-bg); border-left: 3px solid var(--rose); color: var(--rose); }
 .notice-green { background: var(--green-bg); border-left: 3px solid var(--green); color: var(--green); }
 
-/* ── PHASE CARDS ── */
+/* -- PHASE CARDS -- */
 .phase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; margin-top: 1.25rem; }
 @media (max-width: 700px) { .phase-grid { grid-template-columns: 1fr; } }
 
@@ -166,7 +166,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .pf-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal-mid); margin-bottom: 0.25rem; }
 .pf-value { font-size: 0.855rem; color: #3a3a35; line-height: 1.6; }
 
-/* ── COHERENCE STATE CHIPS ── */
+/* -- COHERENCE STATE CHIPS -- */
 .cstate-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
 .cstate { display: flex; align-items: center; gap: 0.45rem; padding: 0.4rem 0.75rem; border-radius: 2px; font-size: 0.78rem; }
 .cs-tag { font-family: var(--mono); font-size: 0.65rem; font-weight: 500; }
@@ -179,7 +179,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .cs-FD { background: rgba(184,82,82,0.08); color: var(--rose); }
 .cs-CR { background: rgba(184,82,82,0.15); color: var(--rose); }
 
-/* ── ACTIVATION LOGIC ── */
+/* -- ACTIVATION LOGIC -- */
 .activation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1rem 0; }
 @media (max-width: 700px) { .activation-grid { grid-template-columns: 1fr; } }
 
@@ -197,10 +197,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 }
 .act-list li:last-child { border-bottom: none; }
 .act-list li::before { font-size: 0.6rem; flex-shrink: 0; margin-top: 0.3rem; }
-.act-yes li::before { content: '✓'; color: var(--green); }
-.act-no  li::before { content: '→'; color: #aaa; }
+.act-yes li::before { content: '?'; color: var(--green); }
+.act-no  li::before { content: '?'; color: #aaa; }
 
-/* ── RT CHIPS ── */
+/* -- RT CHIPS -- */
 .rt-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0.75rem 0; }
 .rt-chip { padding: 0.45rem 0.9rem; border-radius: 2px; font-size: 0.82rem; display: flex; align-items: center; gap: 0.5rem; }
 .rt-tag { font-family: var(--mono); font-size: 0.65rem; font-weight: 500; }
@@ -209,7 +209,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .rt-h   { background: rgba(42,122,126,0.12); color: var(--teal-mid); }
 .rt-u   { background: var(--mist); color: #666; }
 
-/* ── FLOW DIAGRAM ── */
+/* -- FLOW DIAGRAM -- */
 .flow-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1rem 0; }
 @media (max-width: 700px) { .flow-grid { grid-template-columns: 1fr; } }
 
@@ -220,7 +220,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .flow-tag { font-family: var(--mono); font-size: 0.6rem; color: rgba(255,255,255,0.8); padding: 0.15rem 0.45rem; border-radius: 2px; margin-left: auto; }
 .flow-body { padding: 0.7rem 1rem; font-size: 0.845rem; color: #4a4a45; line-height: 1.6; border-top: 1px solid var(--mist); }
 
-/* ── PHASE CHAIN ── */
+/* -- PHASE CHAIN -- */
 .chain { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin: 1rem 0; }
 .chain-node {
   display: flex; flex-direction: column; align-items: center;
@@ -233,7 +233,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .chain-node .cn-name { font-size: 0.7rem; color: rgba(255,255,255,0.75); margin-top: 0.1rem; }
 .chain-arrow { color: var(--grid); font-size: 0.9rem; margin: 0 0.3rem; }
 
-/* ── RECORD GENERATOR ── */
+/* -- RECORD GENERATOR -- */
 .record-form { background: #fff; border: 1px solid var(--grid); border-radius: 3px; padding: 1.4rem; margin: 1.25rem 0; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 0.9rem; }
 @media (max-width: 700px) { .form-row { grid-template-columns: 1fr; } }
@@ -254,7 +254,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .record-out { display: none; margin-top: 1rem; }
 .record-out.visible { display: block; }
 
-/* ── CODE BLOCK ── */
+/* -- CODE BLOCK -- */
 .code-block {
   background: var(--ink); border-radius: 3px; padding: 1.1rem 1.4rem;
   font-family: var(--mono); font-size: 0.77rem; line-height: 1.7;
@@ -266,7 +266,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .cc { color: #558; font-style: italic; }
 .cn { color: #4aabaf; }
 
-/* ── CONSTRAINT TABLE ── */
+/* -- CONSTRAINT TABLE -- */
 .constraint-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
 @media (max-width: 700px) { .constraint-grid { grid-template-columns: 1fr; } }
 .constraint-col-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; padding: 0.38rem 0.75rem; border-radius: 2px 2px 0 0; }
@@ -275,10 +275,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .con-list { border: 1px solid var(--grid); border-top: none; border-radius: 0 0 2px 2px; overflow: hidden; list-style: none; }
 .con-list li { padding: 0.48rem 0.75rem; font-size: 0.845rem; border-bottom: 1px solid var(--mist); color: #3a3a35; display: flex; align-items: flex-start; gap: 0.5rem; }
 .con-list li:last-child { border-bottom: none; }
-.can-list  li::before { content: '✓'; color: var(--green); font-size: 0.65rem; margin-top: 0.2rem; flex-shrink: 0; }
-.cannot-list li::before { content: '✗'; color: var(--rose); font-size: 0.65rem; margin-top: 0.2rem; flex-shrink: 0; }
+.can-list  li::before { content: '?'; color: var(--green); font-size: 0.65rem; margin-top: 0.2rem; flex-shrink: 0; }
+.cannot-list li::before { content: '?'; color: var(--rose); font-size: 0.65rem; margin-top: 0.2rem; flex-shrink: 0; }
 
-/* ── DOWNLOAD ── */
+/* -- DOWNLOAD -- */
 .dl-bar { display: flex; gap: 0.7rem; flex-wrap: wrap; margin: 1.75rem 0; }
 .dl-btn {
   display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.2rem;
@@ -291,12 +291,12 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .dl-secondary { background: transparent; color: var(--teal); border: 1px solid var(--teal-mid); }
 .dl-secondary:hover { background: var(--mist); }
 
-/* ── FOOTER ── */
+/* -- FOOTER -- */
 .site-footer { background: var(--ink); color: rgba(255,255,255,0.45); padding: 1.75rem 2rem; margin-top: 4rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; }
 .footer-inner { max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
 .footer-right { color: var(--amber); }
 
-/* ── TABLE ── */
+/* -- TABLE -- */
 .data-table { width: 100%; border-collapse: collapse; font-size: 0.845rem; margin: 0.9rem 0; }
 .data-table th { background: var(--teal); color: #fff; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.55rem 0.75rem; text-align: left; font-weight: 400; }
 .data-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--mist); color: #3a3a35; vertical-align: top; }
@@ -304,20 +304,21 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 .data-table tr:hover td { background: rgba(42,122,126,0.05); }
 .mono-cell { font-family: var(--mono); font-size: 0.75rem; color: var(--teal-mid); }
 </style>
-
-</head>
+<link rel="icon" type="image/png" sizes="32x32" href="../../../../assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../../../assets/favicon-192x192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="../../../../assets/favicon-512x512.png"></head>
 <body>
 
 <div class="constraint-banner">
-  <span>SEC:</span> Synthesizes enterprise coherence &nbsp;·&nbsp;
-  <span>Does not invent it</span> &nbsp;·&nbsp;
-  Tools operate on structure, they do not create it &nbsp;·&nbsp;
+  <span>SEC:</span> Synthesizes enterprise coherence &nbsp;�&nbsp;
+  <span>Does not invent it</span> &nbsp;�&nbsp;
+  Tools operate on structure, they do not create it &nbsp;�&nbsp;
   <span>Activation:</span> Runner determines pathway
 </div>
 
 <header class="site-header">
   <div class="header-inner">
-    <div class="logo">DALE · Kadana</div>
+    <div class="logo">DALE � Kadana</div>
     <div class="hd"></div>
     <div class="tool-id">Social Enterprise Canvas (SEC) &nbsp;/&nbsp; v1.0.0</div>
     <nav class="header-nav">
@@ -334,24 +335,24 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 <div class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-eyebrow">Canonical Spec Sheet · Toolkit Bundle</div>
+      <div class="hero-eyebrow">Canonical Spec Sheet � Toolkit Bundle</div>
       <h1 class="hero-title">Social Enterprise Canvas<br>(SEC) Mapping Tool</h1>
       <p class="hero-sub">The Enterprise Synthesis & Coherence layer of the DALE architecture. Organizes traceable structural outputs from CoS, ECOA, ARA, and Runner into stewardable enterprise operating architectures.</p>
     </div>
     <div class="hero-meta">
       <span class="meta-pill pill-stage">Stage: Realize</span>
       <span class="meta-pill pill-act">Activation: Conditional</span>
-      <span class="meta-pill pill-version">v1.0.0 · April 2026</span>
+      <span class="meta-pill pill-version">v1.0.0 � April 2026</span>
     </div>
   </div>
 </div>
 
 <div class="pipeline">
   <div class="pipeline-inner">
-    <div class="pl-step"><span class="pl-dot"></span>CoS Mapping</div><span class="pl-arrow">→</span>
-    <div class="pl-step"><span class="pl-dot"></span>ECOA Observation</div><span class="pl-arrow">→</span>
-    <div class="pl-step"><span class="pl-dot"></span>ARA Resolution</div><span class="pl-arrow">→</span>
-    <div class="pl-step"><span class="pl-dot"></span>Runner Execution</div><span class="pl-arrow">→</span>
+    <div class="pl-step"><span class="pl-dot"></span>CoS Mapping</div><span class="pl-arrow">?</span>
+    <div class="pl-step"><span class="pl-dot"></span>ECOA Observation</div><span class="pl-arrow">?</span>
+    <div class="pl-step"><span class="pl-dot"></span>ARA Resolution</div><span class="pl-arrow">?</span>
+    <div class="pl-step"><span class="pl-dot"></span>Runner Execution</div><span class="pl-arrow">?</span>
     <div class="pl-step active"><span class="pl-dot"></span>SEC</div>
     <span class="pl-arrow">and/or</span>
     <div class="pl-step"><span class="pl-dot"></span>CBC</div>
@@ -360,7 +361,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 
 <main class="main">
 
-<!-- ═══ OVERVIEW ═══ -->
+<!-- --- OVERVIEW --- -->
 <div class="panel active" id="panel-overview">
   <div class="section">
     <div class="sec-label">What SEC is</div>
@@ -371,7 +372,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
         <br>
         <p class="sec-body">SEC does not begin with ideas. It begins with structured system signal already processed through CoS, ECOA, ARA, and Runner. Every enterprise structure it produces must be traceable to upstream system conditions.</p>
         <br>
-        <div class="notice notice-teal"><span class="notice-icon">ⓘ</span>"SEC does not invent coherence. It surfaces whether coherence exists, where it is fragile, and what remains unresolved."</div>
+        <div class="notice notice-teal"><span class="notice-icon">?</span>"SEC does not invent coherence. It surfaces whether coherence exists, where it is fragile, and what remains unresolved."</div>
       </div>
       <div>
         <div class="card">
@@ -412,13 +413,13 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
   <div class="section">
     <div class="sec-label">Why SEC exists</div>
     <div class="sec-title">Origin & Motivation</div>
-    <p class="sec-body" style="margin-bottom:1.25rem">SEC emerged from repeated observation that many enterprises — especially in social impact and localization contexts — fail not because of weak intentions, but because the relationship between value, impact, money, governance, leadership, delivery, and continuity is never structurally mapped.</p>
+    <p class="sec-body" style="margin-bottom:1.25rem">SEC emerged from repeated observation that many enterprises � especially in social impact and localization contexts � fail not because of weak intentions, but because the relationship between value, impact, money, governance, leadership, delivery, and continuity is never structurally mapped.</p>
     <div class="grid-2">
       <div class="card">
         <div class="card-accent" style="background:var(--rose)"></div>
         <div class="card-label" style="color:var(--rose)">Traditional failure pattern</div>
         <div class="card-title">What Gets Separated</div>
-        <div class="card-body">Revenue from impact &nbsp;·&nbsp; Delivery from governance &nbsp;·&nbsp; Growth from continuity &nbsp;·&nbsp; Data from decision-making. This creates systems that appear functional externally but become fragile under operational stress.</div>
+        <div class="card-body">Revenue from impact &nbsp;�&nbsp; Delivery from governance &nbsp;�&nbsp; Growth from continuity &nbsp;�&nbsp; Data from decision-making. This creates systems that appear functional externally but become fragile under operational stress.</div>
       </div>
       <div class="card">
         <div class="card-accent" style="background:var(--green)"></div>
@@ -443,16 +444,16 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
         <tr><td class="mono-cell">CBC</td><td>Formalizes negotiated value exchange</td><td>CBC formalizes governance and value exchange</td></tr>
       </tbody>
     </table>
-    <div class="notice notice-teal" style="margin-top:1rem"><span class="notice-icon">ⓘ</span>No layer substitutes another. SEC does not replace CoS, ECOA, ARA, or Runner — and CBC does not replace SEC.</div>
+    <div class="notice notice-teal" style="margin-top:1rem"><span class="notice-icon">?</span>No layer substitutes another. SEC does not replace CoS, ECOA, ARA, or Runner � and CBC does not replace SEC.</div>
     <div class="dl-bar">
-      <a class="dl-btn dl-primary" href="sec_schema.json" download>⬇ JSON Schema</a>
-      <a class="dl-btn dl-primary" href="sec_spec.yaml" download>⬇ YAML Spec</a>
-      <a class="dl-btn dl-secondary" onclick="window.print()">⎙ Print / PDF</a>
+      <a class="dl-btn dl-primary" href="sec_schema.json" download>? JSON Schema</a>
+      <a class="dl-btn dl-primary" href="sec_spec.yaml" download>? YAML Spec</a>
+      <a class="dl-btn dl-secondary" onclick="window.print()">? Print / PDF</a>
     </div>
   </div>
 </div>
 
-<!-- ═══ ACTIVATION ═══ -->
+<!-- --- ACTIVATION --- -->
 <div class="panel" id="panel-activation">
   <div class="section">
     <div class="sec-label">Activation logic</div>
@@ -465,10 +466,10 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
     <div class="sec-label">Realization types</div>
     <div class="sec-title">Runner Realization Type Tags</div>
     <div class="rt-row">
-      <div class="rt-chip rt-sec"><span class="rt-tag">RT-SEC</span> Enterprise realization required — SEC activates</div>
-      <div class="rt-chip rt-cbc"><span class="rt-tag">RT-CBC</span> Governance formalization required — go directly to CBC</div>
-      <div class="rt-chip rt-h"><span class="rt-tag">RT-H</span> Hybrid — both SEC and CBC required</div>
-      <div class="rt-chip rt-u"><span class="rt-tag">RT-U</span> Realization pathway unresolved — do not proceed</div>
+      <div class="rt-chip rt-sec"><span class="rt-tag">RT-SEC</span> Enterprise realization required � SEC activates</div>
+      <div class="rt-chip rt-cbc"><span class="rt-tag">RT-CBC</span> Governance formalization required � go directly to CBC</div>
+      <div class="rt-chip rt-h"><span class="rt-tag">RT-H</span> Hybrid � both SEC and CBC required</div>
+      <div class="rt-chip rt-u"><span class="rt-tag">RT-U</span> Realization pathway unresolved � do not proceed</div>
     </div>
   </div>
 
@@ -487,7 +488,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
         </ul>
       </div>
       <div class="activation-col">
-        <div class="act-header act-grey">Direct Runner → CBC (bypass SEC) when:</div>
+        <div class="act-header act-grey">Direct Runner ? CBC (bypass SEC) when:</div>
         <ul class="act-list act-no">
           <li>Resolution through negotiated governance without enterprise creation</li>
           <li>Resolution through benefit formalization without enterprise creation</li>
@@ -499,13 +500,13 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
   </div>
 </div>
 
-<!-- ═══ PHASES ═══ -->
+<!-- --- PHASES --- -->
 <div class="panel" id="panel-phases">
   <div class="section">
     <div class="sec-label">Process structure</div>
     <div class="sec-title">Seven-Phase Process Overview</div>
-    <p class="sec-body" style="margin-bottom:1rem">The SEC process moves through seven sequential phases. Each produces a named output that feeds the next phase. No phase produces free-form analysis — every output must be traceable to upstream structural inputs.</p>
-    <div class="notice notice-red"><span class="notice-icon">✗</span>Phases cannot be skipped. The CBC Transition Package (CTP) requires completion of Phases 1–6. No enterprise structures may be produced without traceable upstream inputs.</div>
+    <p class="sec-body" style="margin-bottom:1rem">The SEC process moves through seven sequential phases. Each produces a named output that feeds the next phase. No phase produces free-form analysis � every output must be traceable to upstream structural inputs.</p>
+    <div class="notice notice-red"><span class="notice-icon">?</span>Phases cannot be skipped. The CBC Transition Package (CTP) requires completion of Phases 1�6. No enterprise structures may be produced without traceable upstream inputs.</div>
     <div class="phase-grid" id="phase-grid"></div>
   </div>
 
@@ -526,7 +527,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
           <div class="flow-name">Money Flow</div>
           <span style="font-family:var(--mono);font-size:0.6rem;color:var(--teal-mid);margin-left:auto">v30</span>
         </div>
-        <div class="flow-body">Resource movement — how resources enter, move through, and exit the enterprise. Covers revenue, grants, in-kind contributions, redistribution.</div>
+        <div class="flow-body">Resource movement � how resources enter, move through, and exit the enterprise. Covers revenue, grants, in-kind contributions, redistribution.</div>
       </div>
       <div class="flow-card">
         <div class="flow-header" style="background:rgba(45,106,79,0.08)">
@@ -534,7 +535,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
           <div class="flow-name">Impact Flow</div>
           <span style="font-family:var(--mono);font-size:0.6rem;color:var(--green);margin-left:auto">v31</span>
         </div>
-        <div class="flow-body">Change movement — how the enterprise produces and sustains impact. Theory of change pathways, outcome chains.</div>
+        <div class="flow-body">Change movement � how the enterprise produces and sustains impact. Theory of change pathways, outcome chains.</div>
       </div>
       <div class="flow-card">
         <div class="flow-header" style="background:rgba(200,137,58,0.08)">
@@ -542,7 +543,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
           <div class="flow-name">Data Flow</div>
           <span style="font-family:var(--mono);font-size:0.6rem;color:var(--amber);margin-left:auto">v32</span>
         </div>
-        <div class="flow-body">Information movement — how information is captured, processed, used, and fed back into the enterprise system.</div>
+        <div class="flow-body">Information movement � how information is captured, processed, used, and fed back into the enterprise system.</div>
       </div>
       <div class="flow-card">
         <div class="flow-header" style="background:rgba(184,82,82,0.08)">
@@ -550,21 +551,21 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
           <div class="flow-name">Decision Flow</div>
           <span style="font-family:var(--mono);font-size:0.6rem;color:var(--rose);margin-left:auto">v33</span>
         </div>
-        <div class="flow-body">Authority movement — how decisions are made and by whom. Formal and informal decision structures. Where authority resides and how it moves.</div>
+        <div class="flow-body">Authority movement � how decisions are made and by whom. Formal and informal decision structures. Where authority resides and how it moves.</div>
       </div>
     </div>
-    <div class="notice notice-teal" style="margin-top:0.5rem"><span class="notice-icon">ⓘ</span>Flow intersections are where reinforcement or fracture occurs — both must be recorded. Flow tensions are structural findings, not problems to be eliminated at Phase 3.</div>
+    <div class="notice notice-teal" style="margin-top:0.5rem"><span class="notice-icon">?</span>Flow intersections are where reinforcement or fracture occurs � both must be recorded. Flow tensions are structural findings, not problems to be eliminated at Phase 3.</div>
   </div>
 </div>
 
-<!-- ═══ COHERENCE ═══ -->
+<!-- --- COHERENCE --- -->
 <div class="panel" id="panel-coherence">
   <div class="section">
     <div class="sec-label">Coherence assessment</div>
     <div class="sec-title">Eight Coherence States</div>
-    <p class="sec-body" style="margin-bottom:1rem">Every enterprise structure receives a coherence state. RES-F (Fragile) and RES-U (Unresolved) are valid and expected outputs — they must not be forced to RES-C (Coherent) where tensions exist.</p>
+    <p class="sec-body" style="margin-bottom:1rem">Every enterprise structure receives a coherence state. RES-F (Fragile) and RES-U (Unresolved) are valid and expected outputs � they must not be forced to RES-C (Coherent) where tensions exist.</p>
     <div class="cstate-grid" id="cstate-grid"></div>
-    <div class="notice notice-red" style="margin-top:0.75rem"><span class="notice-icon">✗</span>SEC does not fabricate coherence. Do not force RES-C where tensions are unresolved. Fragility is a structural finding — preserve it.</div>
+    <div class="notice notice-red" style="margin-top:0.75rem"><span class="notice-icon">?</span>SEC does not fabricate coherence. Do not force RES-C where tensions are unresolved. Fragility is a structural finding � preserve it.</div>
   </div>
 
   <div class="section">
@@ -610,7 +611,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
   </div>
 </div>
 
-<!-- ═══ OUTPUTS ═══ -->
+<!-- --- OUTPUTS --- -->
 <div class="panel" id="panel-outputs">
   <div class="section">
     <div class="sec-label">Output logic</div>
@@ -625,13 +626,13 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
         <div class="form-group">
           <label class="form-label">Phase</label>
           <select class="form-select" id="r-phase">
-            <option value="1">Phase 1 — Structural Intake (SIP)</option>
-            <option value="2">Phase 2 — Realization Framing (ESS)</option>
-            <option value="3" selected>Phase 3 — Enterprise Flow Synthesis (EFM)</option>
-            <option value="4">Phase 4 — Coherence Structuring (CSM)</option>
-            <option value="5">Phase 5 — Operating Architecture (OAE)</option>
-            <option value="6">Phase 6 — Continuity & Scale (CSM-2)</option>
-            <option value="7">Phase 7 — CBC Transition (CTP)</option>
+            <option value="1">Phase 1 � Structural Intake (SIP)</option>
+            <option value="2">Phase 2 � Realization Framing (ESS)</option>
+            <option value="3" selected>Phase 3 � Enterprise Flow Synthesis (EFM)</option>
+            <option value="4">Phase 4 � Coherence Structuring (CSM)</option>
+            <option value="5">Phase 5 � Operating Architecture (OAE)</option>
+            <option value="6">Phase 6 � Continuity & Scale (CSM-2)</option>
+            <option value="7">Phase 7 � CBC Transition (CTP)</option>
           </select>
         </div>
         <div class="form-group">
@@ -646,14 +647,14 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
         <div class="form-group">
           <label class="form-label">Coherence State</label>
           <select class="form-select" id="r-cstate">
-            <option value="RES-C">RES-C — Coherent</option>
-            <option value="RES-F" selected>RES-F — Fragile</option>
-            <option value="RES-U">RES-U — Unresolved</option>
-            <option value="RES-D">RES-D — Dependency exposed</option>
-            <option value="RES-B">RES-B — Bottleneck exposed</option>
-            <option value="RES-MD">RES-MD — Mission drift risk</option>
-            <option value="RES-FD">RES-FD — Founder dependent</option>
-            <option value="RES-CR">RES-CR — Continuity risk exposed</option>
+            <option value="RES-C">RES-C � Coherent</option>
+            <option value="RES-F" selected>RES-F � Fragile</option>
+            <option value="RES-U">RES-U � Unresolved</option>
+            <option value="RES-D">RES-D � Dependency exposed</option>
+            <option value="RES-B">RES-B � Bottleneck exposed</option>
+            <option value="RES-MD">RES-MD � Mission drift risk</option>
+            <option value="RES-FD">RES-FD � Founder dependent</option>
+            <option value="RES-CR">RES-CR � Continuity risk exposed</option>
           </select>
         </div>
         <div class="form-group">
@@ -682,7 +683,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
       <tbody>
         <tr><td class="mono-cell">ObservationID</td><td>SEC-YYYYMMDD-XXXXXX</td><td>Unique identifier linking to observation instance</td></tr>
         <tr><td class="mono-cell">SourceTool</td><td>"SEC"</td><td>Identifies the originating tool</td></tr>
-        <tr><td class="mono-cell">Phase</td><td>Integer 1–7</td><td>SEC phase that produced this record</td></tr>
+        <tr><td class="mono-cell">Phase</td><td>Integer 1�7</td><td>SEC phase that produced this record</td></tr>
         <tr><td class="mono-cell">Layer</td><td>synthesis / expression / transition</td><td>Architectural layer within SEC</td></tr>
         <tr><td class="mono-cell">Domain</td><td>Value / Impact / Resource / Delivery / Governance / Flow / Scale</td><td>Enterprise domain</td></tr>
         <tr><td class="mono-cell">EntityID</td><td>String</td><td>Identifies the observed entity or unit</td></tr>
@@ -691,7 +692,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
         <tr><td class="mono-cell">RealizationType</td><td>RT-SEC / RT-CBC / RT-H / RT-U</td><td>Realization type from Runner activation</td></tr>
         <tr><td class="mono-cell">Status</td><td>resolved / unresolved / fragile / missing</td><td>Synthesis status</td></tr>
         <tr><td class="mono-cell">TraceRef</td><td>String</td><td>Backward traceability to upstream source</td></tr>
-        <tr><td class="mono-cell">UsedPrinciples</td><td>Array: P1–P5</td><td>Fixed DALE principles governing the synthesis path</td></tr>
+        <tr><td class="mono-cell">UsedPrinciples</td><td>Array: P1�P5</td><td>Fixed DALE principles governing the synthesis path</td></tr>
         <tr><td class="mono-cell">ObservationCondition</td><td>String</td><td>Concrete observation condition from CoS</td></tr>
         <tr><td class="mono-cell">Timestamp</td><td>ISO 8601</td><td>When the record was produced</td></tr>
         <tr><td class="mono-cell">TracePath</td><td>String</td><td>Full synthesis path from source observation to this output</td></tr>
@@ -727,22 +728,22 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
   </div>
 </div>
 
-<!-- ═══ SCHEMAS ═══ -->
+<!-- --- SCHEMAS --- -->
 <div class="panel" id="panel-schemas">
   <div class="section">
     <div class="sec-label">Machine-readable</div>
     <div class="sec-title">JSON Schema Sample</div>
-    <div class="code-block"><span class="cc">// SEC Canonical Schema v1.0.0 — Phase 4 Coherence Structure Map example</span>
+    <div class="code-block"><span class="cc">// SEC Canonical Schema v1.0.0 � Phase 4 Coherence Structure Map example</span>
 <span class="ck">{</span>
   <span class="ck">"csm_id"</span>: <span class="cs">"CSM-2026-04-15-CHE-001"</span>,
   <span class="ck">"efm_ref"</span>: <span class="cs">"EFM-2026-04-15-CHE-001"</span>,
   <span class="ck">"value_coherence"</span>: <span class="ck">{</span>
-    <span class="ck">"state"</span>: <span class="cs">"RES-F"</span>,  <span class="cc">// Fragile — valid output, do not force RES-C</span>
+    <span class="ck">"state"</span>: <span class="cs">"RES-F"</span>,  <span class="cc">// Fragile � valid output, do not force RES-C</span>
     <span class="ck">"description"</span>: <span class="cs">"Value logic partially aligned with delivery but not fully operationally supported"</span>,
     <span class="ck">"findings"</span>: [<span class="cs">"Value proposition depends on informal knowledge transfer not yet formalized"</span>]
   <span class="ck">}</span>,
   <span class="ck">"governance_coherence"</span>: <span class="ck">{</span>
-    <span class="ck">"state"</span>: <span class="cs">"RES-FD"</span>,  <span class="cc">// Founder dependent — must be forwarded to CTP</span>
+    <span class="ck">"state"</span>: <span class="cs">"RES-FD"</span>,  <span class="cc">// Founder dependent � must be forwarded to CTP</span>
     <span class="ck">"description"</span>: <span class="cs">"Authority concentrated in founding team. No succession structure identified."</span>
   <span class="ck">}</span>,
   <span class="ck">"bottlenecks"</span>: [<span class="ck">{</span>
@@ -755,7 +756,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
     <span class="ck">"condition_id"</span>: <span class="cs">"UT-001"</span>,
     <span class="ck">"condition_type"</span>: <span class="cs">"tension"</span>,
     <span class="ck">"source_layer"</span>: <span class="cs">"SEC-Phase3"</span>,
-    <span class="ck">"description"</span>: <span class="cs">"Money flow and impact flow diverge at scale — revenue model weakens impact at higher volume"</span>,
+    <span class="ck">"description"</span>: <span class="cs">"Money flow and impact flow diverge at scale � revenue model weakens impact at higher volume"</span>,
     <span class="ck">"carried_forward_to"</span>: <span class="cs">"Phase 5, Phase 7 CTP"</span>
   <span class="ck">}</span>],
   <span class="ck">"overall_coherence_state"</span>: <span class="cs">"RES-F"</span>  <span class="cc">// Overall: Fragile</span>
@@ -765,7 +766,7 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
   <div class="section">
     <div class="sec-label">Human-readable</div>
     <div class="sec-title">YAML Spec Sample</div>
-    <div class="code-block"><span class="cc"># SEC — Phase 7 CBC Transition Package structure</span>
+    <div class="code-block"><span class="cc"># SEC � Phase 7 CBC Transition Package structure</span>
 <span class="ck">phase_7</span>:
   <span class="ck">name</span>: <span class="cs">CBC Transition Readiness</span>
   <span class="ck">output</span>: <span class="cs">CBC Transition Package (CTP)</span>
@@ -780,14 +781,14 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
     <span class="ck">stewardship_obligations</span>: <span class="cs">"Responsibility structures to be formalized"</span>
     <span class="ck">measurement_obligations</span>: <span class="cs">"Traceability requirements"</span>
     <span class="ck">continuity_protections</span>: <span class="cs">"Governance safeguards"</span>
-    <span class="ck">unresolved_conditions_forwarded</span>: <span class="cs">"All unresolved from Phases 1–6"</span>
+    <span class="ck">unresolved_conditions_forwarded</span>: <span class="cs">"All unresolved from Phases 1�6"</span>
 
 <span class="ck">architectural_constraints</span>:
   <span class="ck">not_permitted</span>:
     - <span class="cs">Activating SEC without Runner RT-SEC or RT-H</span>
     - <span class="cs">Fabricating coherence where tensions are unresolved</span>
     - <span class="cs">Collapsing unresolved conditions into resolved states</span>
-    - <span class="cs">Producing CTP without completing Phases 1–6</span></div>
+    - <span class="cs">Producing CTP without completing Phases 1�6</span></div>
   </div>
 
   <div class="section">
@@ -808,9 +809,9 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
       </div>
     </div>
     <div class="dl-bar" style="margin-top:1.5rem">
-      <a class="dl-btn dl-primary" href="sec_schema.json" download>⬇ JSON Schema</a>
-      <a class="dl-btn dl-primary" href="sec_spec.yaml" download>⬇ YAML Spec</a>
-      <a class="dl-btn dl-secondary" onclick="window.print()">⎙ Print / PDF</a>
+      <a class="dl-btn dl-primary" href="sec_schema.json" download>? JSON Schema</a>
+      <a class="dl-btn dl-primary" href="sec_spec.yaml" download>? YAML Spec</a>
+      <a class="dl-btn dl-secondary" onclick="window.print()">? Print / PDF</a>
     </div>
   </div>
 </div>
@@ -819,13 +820,13 @@ body { font-family: var(--sans); background: var(--paper); color: var(--ink); mi
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div>DALE · Kadana &nbsp;·&nbsp; Social Enterprise Canvas (SEC) Canonical Spec v1.0.0 &nbsp;·&nbsp; April 2026</div>
-    <div class="footer-right">SEC synthesizes enterprise coherence · CBC formalizes governance · No layer substitutes another</div>
+    <div>DALE � Kadana &nbsp;�&nbsp; Social Enterprise Canvas (SEC) Canonical Spec v1.0.0 &nbsp;�&nbsp; April 2026</div>
+    <div class="footer-right">SEC synthesizes enterprise coherence � CBC formalizes governance � No layer substitutes another</div>
   </div>
 </footer>
 
 <script>
-// ── NAV ──
+// -- NAV --
 function showPanel(id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -833,15 +834,15 @@ function showPanel(id) {
   event.target.classList.add('active');
 }
 
-// ── PHASES ──
+// -- PHASES --
 const phases = [
-  { num: 1, name: 'Structural Intake', abbr: 'SIP', analogy: 'Gathering resolved equation components', obj: 'Absorb and organize all traceable upstream structural outputs required for enterprise synthesis.', inputs: 'Actor Maps, Interaction Maps, Issue Landscapes (CoS) · Operational states, Fundamental variable assignments, absence conditions (ECOA) · Resolution states, dependency structures, balance conditions (ARA) · Execution pathways, realization type determination (Runner)', actions: ['Gather upstream outputs — assemble admissible structural records from all layers', 'Verify traceability — ensure all records maintain source paths', 'Verify realization pathway — confirm RT-SEC or RT-H activation', 'Identify active enterprise variables — determine activated synthesis domains', 'Preserve unresolved conditions — carry forward missingness and dependency states. Do not resolve artificially.', 'Organize synthesis intake — group records into seven enterprise domains', 'Build Structural Intake Package — finalize the SIP'], rule: 'Unresolved conditions from upstream layers must be preserved explicitly in the SIP. They are structural inputs, not gaps to be filled.' },
-  { num: 2, name: 'Realization Framing', abbr: 'ESS', analogy: 'Determining enterprise structure requirements', obj: 'Define the required enterprise operating structure based on Runner outputs.', inputs: 'Structural Intake Package (SIP)', actions: ['Define beneficiary structure — identify who experiences change', 'Define payer structure — identify resource-bearing actors, distinguish from beneficiary', 'Define value structure — organize value creation pathways (traceable to v27)', 'Define impact structure — organize impact pathways (traceable to v28)', 'Define offering structure — identify operational mechanisms', 'Define delivery structure — organize enterprise execution', 'Define resource structure — organize operational dependencies', 'Define stewardship structure — organize continuity responsibilities', 'Define enterprise boundaries — clarify operating scope'], rule: 'SEC does not assume enterprise complexity beyond what the system requires. Every domain output must be traceable to upstream SIP inputs.' },
-  { num: 3, name: 'Enterprise Flow Synthesis', abbr: 'EFM', analogy: 'Mapping movement through the enterprise', obj: 'Map movement through the enterprise system. All four mandatory flows must be mapped — absence of a flow is a structural finding, not a skip.', inputs: 'Enterprise Structure Set (ESS)', actions: ['Map money flow — identify all resource movement', 'Map impact flow — identify all change movement', 'Map data flow — identify all information movement', 'Map decision flow — identify all authority movement', 'Identify flow intersections — surface points of reinforcement and fracture', 'Capture flow tensions — record contradictions and disconnections as structural findings', 'Preserve flow dependencies — maintain traceable flow relationships'], rule: 'Flow tensions are structural findings — not problems to be eliminated at this stage. Both reinforcement and fracture intersections must be recorded.' },
-  { num: 4, name: 'Coherence Structuring', abbr: 'CSM', analogy: 'Checking whether the structure holds', obj: 'Determine whether the enterprise operating structure holds under real-world conditions. Surfaces tensions, bottlenecks, continuity risks, founder dependence, mission drift conditions, unresolved dependencies.', inputs: 'Enterprise Flow Map (EFM)', actions: ['Evaluate value coherence — does value logic align with delivery?', 'Evaluate impact coherence — does impact logic connect to operations?', 'Evaluate resource coherence — does resourcing support continuity?', 'Evaluate governance coherence — can authority function beyond founder dependence?', 'Evaluate flow coherence — do the four flows reinforce each other?', 'Identify bottlenecks — surface structural constraints (RES-B)', 'Identify continuity risks — surface survivability conditions (RES-CR)', 'Preserve unresolved tensions — explicitly record incompleteness and fragility'], rule: 'SEC does not fabricate coherence. RES-F and RES-U are valid and expected outputs. Do not force RES-C where tensions are unresolved.' },
-  { num: 5, name: 'Operating Architecture Expression', abbr: 'OAE', analogy: 'Writing the operating system', obj: 'Produce the structured enterprise operating architecture. Converts synthesized enterprise structures into readable architecture, traceable operating systems, and stewardship-ready representations.', inputs: 'Coherence Structure Map (CSM)', actions: ['Build architecture layers — organize into front-stage, back-stage, partnership, and leadership layers', 'Organize front-stage systems — capture visible enterprise structures', 'Organize back-stage systems — capture operational systems', 'Organize partnership architecture — capture dependency structures', 'Organize leadership architecture — capture authority structures', 'Preserve traceability — maintain synthesis paths to upstream phases', 'Preserve unresolved conditions — keep fragility and dependencies visible'], rule: 'No new enterprise ideas enter at this stage. Everything in the OAE must be traceable to Phase 1–4 synthesis outputs.' },
-  { num: 6, name: 'Continuity & Scale Expression', abbr: 'CSM-2', analogy: 'Stress-testing survivability', obj: 'Stress-test survivability under growth and operational pressure. Identify scale pathways, continuity risks, founder dependence, governance resilience, and scale breakpoints.', inputs: 'Operating Architecture Expression (OAE)', actions: ['Identify scale pathways — replication/network/franchise/policy/hybrid', 'Identify continuity risks — operational, financial, legitimacy, founder', 'Evaluate founder dependence — determine degree of authority concentration', 'Evaluate governance resilience — assess distributed authority structures', 'Identify scale breakpoints — surface where scaling creates fragility', 'Preserve survivability missingness — record all unresolved continuity conditions'], rule: 'Survivability missingness must be recorded explicitly and carried into the CBC Transition Package. Do not project resolution that has not been demonstrated.' },
-  { num: 7, name: 'CBC Transition Readiness', abbr: 'CTP', analogy: 'Determining governance formalization needs', obj: 'Identify what requires governance formalization, negotiated exchange, or accountability structuring. SEC identifies — CBC formalizes.', inputs: 'Continuity & Scale Map (CSM-2)', actions: ['Identify governance-bearing structures — determine formalization needs', 'Identify negotiated value exchange conditions — surface accountability dependencies', 'Identify stewardship obligations — determine responsibility structures', 'Identify measurement obligations — determine traceability requirements', 'Identify continuity protections — determine governance safeguards', 'Build CBC Transition Package — prepare complete downstream CBC intake'], rule: 'Governance formalization is the role of CBC. SEC prepares the downstream intake — it does not perform the formalization itself.' },
+  { num: 1, name: 'Structural Intake', abbr: 'SIP', analogy: 'Gathering resolved equation components', obj: 'Absorb and organize all traceable upstream structural outputs required for enterprise synthesis.', inputs: 'Actor Maps, Interaction Maps, Issue Landscapes (CoS) � Operational states, Fundamental variable assignments, absence conditions (ECOA) � Resolution states, dependency structures, balance conditions (ARA) � Execution pathways, realization type determination (Runner)', actions: ['Gather upstream outputs � assemble admissible structural records from all layers', 'Verify traceability � ensure all records maintain source paths', 'Verify realization pathway � confirm RT-SEC or RT-H activation', 'Identify active enterprise variables � determine activated synthesis domains', 'Preserve unresolved conditions � carry forward missingness and dependency states. Do not resolve artificially.', 'Organize synthesis intake � group records into seven enterprise domains', 'Build Structural Intake Package � finalize the SIP'], rule: 'Unresolved conditions from upstream layers must be preserved explicitly in the SIP. They are structural inputs, not gaps to be filled.' },
+  { num: 2, name: 'Realization Framing', abbr: 'ESS', analogy: 'Determining enterprise structure requirements', obj: 'Define the required enterprise operating structure based on Runner outputs.', inputs: 'Structural Intake Package (SIP)', actions: ['Define beneficiary structure � identify who experiences change', 'Define payer structure � identify resource-bearing actors, distinguish from beneficiary', 'Define value structure � organize value creation pathways (traceable to v27)', 'Define impact structure � organize impact pathways (traceable to v28)', 'Define offering structure � identify operational mechanisms', 'Define delivery structure � organize enterprise execution', 'Define resource structure � organize operational dependencies', 'Define stewardship structure � organize continuity responsibilities', 'Define enterprise boundaries � clarify operating scope'], rule: 'SEC does not assume enterprise complexity beyond what the system requires. Every domain output must be traceable to upstream SIP inputs.' },
+  { num: 3, name: 'Enterprise Flow Synthesis', abbr: 'EFM', analogy: 'Mapping movement through the enterprise', obj: 'Map movement through the enterprise system. All four mandatory flows must be mapped � absence of a flow is a structural finding, not a skip.', inputs: 'Enterprise Structure Set (ESS)', actions: ['Map money flow � identify all resource movement', 'Map impact flow � identify all change movement', 'Map data flow � identify all information movement', 'Map decision flow � identify all authority movement', 'Identify flow intersections � surface points of reinforcement and fracture', 'Capture flow tensions � record contradictions and disconnections as structural findings', 'Preserve flow dependencies � maintain traceable flow relationships'], rule: 'Flow tensions are structural findings � not problems to be eliminated at this stage. Both reinforcement and fracture intersections must be recorded.' },
+  { num: 4, name: 'Coherence Structuring', abbr: 'CSM', analogy: 'Checking whether the structure holds', obj: 'Determine whether the enterprise operating structure holds under real-world conditions. Surfaces tensions, bottlenecks, continuity risks, founder dependence, mission drift conditions, unresolved dependencies.', inputs: 'Enterprise Flow Map (EFM)', actions: ['Evaluate value coherence � does value logic align with delivery?', 'Evaluate impact coherence � does impact logic connect to operations?', 'Evaluate resource coherence � does resourcing support continuity?', 'Evaluate governance coherence � can authority function beyond founder dependence?', 'Evaluate flow coherence � do the four flows reinforce each other?', 'Identify bottlenecks � surface structural constraints (RES-B)', 'Identify continuity risks � surface survivability conditions (RES-CR)', 'Preserve unresolved tensions � explicitly record incompleteness and fragility'], rule: 'SEC does not fabricate coherence. RES-F and RES-U are valid and expected outputs. Do not force RES-C where tensions are unresolved.' },
+  { num: 5, name: 'Operating Architecture Expression', abbr: 'OAE', analogy: 'Writing the operating system', obj: 'Produce the structured enterprise operating architecture. Converts synthesized enterprise structures into readable architecture, traceable operating systems, and stewardship-ready representations.', inputs: 'Coherence Structure Map (CSM)', actions: ['Build architecture layers � organize into front-stage, back-stage, partnership, and leadership layers', 'Organize front-stage systems � capture visible enterprise structures', 'Organize back-stage systems � capture operational systems', 'Organize partnership architecture � capture dependency structures', 'Organize leadership architecture � capture authority structures', 'Preserve traceability � maintain synthesis paths to upstream phases', 'Preserve unresolved conditions � keep fragility and dependencies visible'], rule: 'No new enterprise ideas enter at this stage. Everything in the OAE must be traceable to Phase 1�4 synthesis outputs.' },
+  { num: 6, name: 'Continuity & Scale Expression', abbr: 'CSM-2', analogy: 'Stress-testing survivability', obj: 'Stress-test survivability under growth and operational pressure. Identify scale pathways, continuity risks, founder dependence, governance resilience, and scale breakpoints.', inputs: 'Operating Architecture Expression (OAE)', actions: ['Identify scale pathways � replication/network/franchise/policy/hybrid', 'Identify continuity risks � operational, financial, legitimacy, founder', 'Evaluate founder dependence � determine degree of authority concentration', 'Evaluate governance resilience � assess distributed authority structures', 'Identify scale breakpoints � surface where scaling creates fragility', 'Preserve survivability missingness � record all unresolved continuity conditions'], rule: 'Survivability missingness must be recorded explicitly and carried into the CBC Transition Package. Do not project resolution that has not been demonstrated.' },
+  { num: 7, name: 'CBC Transition Readiness', abbr: 'CTP', analogy: 'Determining governance formalization needs', obj: 'Identify what requires governance formalization, negotiated exchange, or accountability structuring. SEC identifies � CBC formalizes.', inputs: 'Continuity & Scale Map (CSM-2)', actions: ['Identify governance-bearing structures � determine formalization needs', 'Identify negotiated value exchange conditions � surface accountability dependencies', 'Identify stewardship obligations � determine responsibility structures', 'Identify measurement obligations � determine traceability requirements', 'Identify continuity protections � determine governance safeguards', 'Build CBC Transition Package � prepare complete downstream CBC intake'], rule: 'Governance formalization is the role of CBC. SEC prepares the downstream intake � it does not perform the formalization itself.' },
 ];
 
 const phaseGrid = document.getElementById('phase-grid');
@@ -854,7 +855,7 @@ phases.forEach(p => {
       <span class="phase-num">Phase ${p.num}</span>
       <span class="phase-name">${p.name}</span>
       <span class="phase-output-tag">${p.abbr}</span>
-      <span class="phase-chevron">▶</span>
+      <span class="phase-chevron">?</span>
     </div>
     <div class="phase-card-body">
       <div class="phase-field">
@@ -887,7 +888,7 @@ function togglePhase(num) {
   document.getElementById('phase-' + num).classList.toggle('open');
 }
 
-// ── PHASE CHAIN ──
+// -- PHASE CHAIN --
 const chain = document.getElementById('phase-chain');
 const chainData = [
   { n:1, a:'SIP', name:'Structural Intake' },
@@ -907,12 +908,12 @@ chainData.forEach((c, i) => {
   if (i < chainData.length - 1) {
     const arrow = document.createElement('span');
     arrow.className = 'chain-arrow';
-    arrow.textContent = '→';
+    arrow.textContent = '?';
     chain.appendChild(arrow);
   }
 });
 
-// ── COHERENCE STATES ──
+// -- COHERENCE STATES --
 const cstates = [
   { tag:'RES-C',  label:'Coherent',              cls:'cs-C'  },
   { tag:'RES-F',  label:'Fragile',                cls:'cs-F'  },
@@ -931,7 +932,7 @@ cstates.forEach(c => {
   csgrid.appendChild(el);
 });
 
-// ── COHERENCE DIMENSIONS TABLE ──
+// -- COHERENCE DIMENSIONS TABLE --
 const cdims = [
   ['Value coherence',    'Whether value logic aligns with delivery structure',  'Does value proposition have operational support?'],
   ['Impact coherence',   'Whether impact logic connects to operations',          'Is impact traceable through the enterprise?'],
@@ -946,7 +947,7 @@ cdims.forEach((r, i) => {
   cdTable.appendChild(tr);
 });
 
-// ── RECORD GENERATOR ──
+// -- RECORD GENERATOR --
 const stateIds = ['SIP','ESS','EFM','CSM','OAE','CSM-2','CTP'];
 const layers = ['synthesis','synthesis','synthesis','synthesis','expression','expression','transition'];
 
@@ -976,7 +977,7 @@ function generateRecord() {
     UsedPrinciples: ["P2", "P3", "P5"],
     ObservationCondition: "Level1_ClientProject",
     Timestamp: ts,
-    TracePath: `CoS→ECOA→ARA→Runner[${rt}]→SEC-Phase${phase}→${stateId}`
+    TracePath: `CoS?ECOA?ARA?Runner[${rt}]?SEC-Phase${phase}?${stateId}`
   };
 
   const json = JSON.stringify(record, null, 2);
