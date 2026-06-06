@@ -101,7 +101,9 @@
 <script>
   const params = new URLSearchParams(window.location.search);
   const next = params.get("next");
-  if (next && next.startsWith("/internal")) document.getElementById("next").value = next;
+  if (next && (next.startsWith("/internal") || next.startsWith("/admin/blog"))) {
+    document.getElementById("next").value = next;
+  }
   if (params.get("error")) document.getElementById("error").style.display = "block";
 </script>
 </body>

@@ -5,6 +5,17 @@
 /login*
   X-Robots-Tag: noindex, nofollow
 
+/admin/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: private, no-store
+
+/api/admin/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: private, no-store
+
+/assets/content/*
+  X-Robots-Tag: noindex, nofollow
+
 /internal/canons/*
   X-Robots-Tag: noindex, nofollow
 

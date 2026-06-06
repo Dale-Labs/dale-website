@@ -143,3 +143,7 @@ export function canAccess(user, pathname) {
   const role = user?.role || "viewer";
   return ROLE_ACCESS[role]?.includes(section) || false;
 }
+
+export function canEditBlog(user) {
+  return ["admin", "team"].includes(user?.role || "");
+}

@@ -22,7 +22,8 @@ export async function onRequestPost({ request, env }) {
   }
 
   const sessionCookie = await createSessionCookie(result.user, env);
-  return redirect(next.startsWith("/internal") ? next : "/internal/", {
+  const allowedNext = next.startsWith("/internal") || next.startsWith("/admin/blog");
+  return redirect(allowedNext ? next : "/internal/", {
     "Set-Cookie": sessionCookie,
   });
 }
