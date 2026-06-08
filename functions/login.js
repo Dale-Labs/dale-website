@@ -1,4 +1,4 @@
-import { createSessionCookie, verifyCredentials } from "./_lib/auth.js";
+import { createSessionCookie, isAllowedNext, verifyCredentials } from "./_lib/auth.js";
 
 function redirect(location, headers = {}) {
   return new Response(null, {
@@ -22,8 +22,7 @@ export async function onRequestPost({ request, env }) {
   }
 
   const sessionCookie = await createSessionCookie(result.user, env);
-  const allowedNext = next.startsWith("/internal") || next.startsWith("/admin/blog");
-  return redirect(allowedNext ? next : "/internal/", {
+  return redirect(isAllowedNext(next) ? next : "/internal/", {
     "Set-Cookie": sessionCookie,
   });
 }

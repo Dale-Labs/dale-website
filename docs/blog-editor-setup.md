@@ -20,8 +20,11 @@ The existing environment variables continue to control login:
 
 - `DALE_AUTH_SESSION_SECRET`
 - `DALE_AUTH_ALLOWED_EMAILS`
-- `DALE_AUTH_PASSWORD_SHA256`
 - `DALE_AUTH_ROLES_JSON`
+- `DALE_GOOGLE_CLIENT_ID`
+- `DALE_GOOGLE_CLIENT_SECRET`
+
+`DALE_AUTH_PASSWORD_SHA256` is optional and only enables the shared-password fallback.
 
 Users with the `admin` or `team` role can open `/admin/blog/`. Other roles remain restricted.
 

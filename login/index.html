@@ -42,6 +42,36 @@
   }
   p { color: #93b4b9; line-height: 1.7; }
   form { display: grid; gap: 1rem; margin-top: 1.7rem; }
+  .google {
+    display: grid;
+    place-items: center;
+    min-height: 48px;
+    margin-top: 1.7rem;
+    border: 1px solid #f65f54;
+    background: #f65f54;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 1.3rem 0 0;
+    color: #5f8c93;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid rgba(127, 168, 174, 0.24);
+  }
   label {
     display: grid;
     gap: 0.45rem;
@@ -89,7 +119,9 @@
   <a class="brand" href="../">dale<span>(a)</span></a>
   <h1>Internal Login</h1>
   <p>DALE internal access is for team members and approved validation partners.</p>
-  <p class="error" id="error">Login was not accepted. Check your email and password, or confirm that internal access has been configured.</p>
+  <p class="error" id="error">Login was not accepted. Use an authorized DALE Google Workspace account or confirm that access has been configured.</p>
+  <a class="google" id="googleLogin" href="/auth/google?next=/internal/">Continue with Google</a>
+  <p class="divider">Password fallback</p>
   <form method="post" action="/login">
     <input type="hidden" name="next" id="next" value="/internal/">
     <label>Email <input type="email" name="email" autocomplete="email" required></label>
@@ -101,8 +133,12 @@
 <script>
   const params = new URLSearchParams(window.location.search);
   const next = params.get("next");
-  if (next && (next.startsWith("/internal") || next.startsWith("/admin/blog"))) {
+  const allowedNext = next && ["/internal", "/research", "/admin"].some(
+    root => next === root || next === `${root}/` || next.startsWith(`${root}/`)
+  );
+  if (allowedNext) {
     document.getElementById("next").value = next;
+    document.getElementById("googleLogin").href = `/auth/google?next=${encodeURIComponent(next)}`;
   }
   if (params.get("error")) document.getElementById("error").style.display = "block";
 </script>
