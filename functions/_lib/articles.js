@@ -1,4 +1,4 @@
-const SCHEMA = `
+const CREATE_ARTICLES_TABLE = `
   CREATE TABLE IF NOT EXISTS articles (
     id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
@@ -12,13 +12,16 @@ const SCHEMA = `
     cover_image TEXT NOT NULL DEFAULT '',
     body_content TEXT NOT NULL DEFAULT '',
     reference_items TEXT NOT NULL DEFAULT '[]',
-    status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft', 'published')),
+    status TEXT NOT NULL DEFAULT 'draft' CHECK (status IN ('draft', 'published')),
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL,
     published_at TEXT
-  );
+  )
+`;
+
+const CREATE_ARTICLES_STATUS_INDEX = `
   CREATE INDEX IF NOT EXISTS idx_articles_status_date
-    ON articles(status, article_date DESC);
+  ON articles(status, article_date DESC)
 `;
 
 const ALLOWED_TAGS = new Set([
@@ -192,7 +195,8 @@ async function seedStructuralAmnesia(env, request) {
 
 export async function ensureArticleStore(env, request) {
   const db = database(env);
-  await db.exec(SCHEMA);
+  await db.prepare(CREATE_ARTICLES_TABLE).run();
+  await db.prepare(CREATE_ARTICLES_STATUS_INDEX).run();
   await seedStructuralAmnesia(env, request);
 }
 
