@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>DALE Audit Workspace</title>
+<style>body{margin:0;min-height:100vh;background:#071416;color:#e8f0f1;font-family:Arial,sans-serif}main{width:min(900px,calc(100% - 2rem));margin:0 auto;padding:4rem 0}h1,h2{font-family:Georgia,serif;font-weight:400}h2{margin:2.2rem 0 .8rem}p{color:#93b4b9;line-height:1.7}.notice{border-left:2px solid #c96a00;padding:1rem;background:#0a1c1f}.registers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}.register{border:1px solid rgba(147,180,185,.24);padding:1rem;text-decoration:none}.register strong{display:block;color:#e8f0f1;margin-bottom:.35rem}.register span{color:#93b4b9;font-size:.9rem;line-height:1.5}.placeholder{border-style:dashed}.links{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.5rem}a{color:#f65f54}@media(max-width:620px){.registers{grid-template-columns:1fr}}</style>
+<link rel="icon" type="image/png" sizes="32x32" href="../../../assets/favicon-32x32.png">
+</head>
+<body><main>
+  <h1>Audit Workspace</h1>
+  <p>For Strathmore and external reviewers: what exists, what is active, what is incomplete, what evidence exists, and what changed.</p>
+  <p class="notice">Compatibility location: <code>/internal/docs/audit/</code>. The final IA reserves <code>/internal/audit/</code> for the later route migration.</p>
+  <h2>Registers</h2>
+  <div class="registers">
+    <a class="register" href="../CTS_Coherence_Audit.md"><strong>Evidence Register</strong><span>Current coherence evidence and known gaps. Future entries will join Drive evidence references to registry IDs.</span></a>
+    <span class="register placeholder"><strong>Review Log</strong><span>Placeholder for reviewer, date, scope, finding, response, and disposition.</span></span>
+    <a class="register" href="../../canons/"><strong>Version Register</strong><span>Current canon versions and representation completeness; formal version history is pending.</span></a>
+    <a class="register" href="../../signal/"><strong>Artifact Registry</strong><span>Internal Signal reads current registry state. The underlying D1 register remains the coordination layer.</span></a>
+  </div>
+  <h2>Reviewer Path</h2>
+  <div class="registers">
+    <a class="register" href="../../canons/"><strong>1. Inspect Canons</strong><span>Human, Developer, Machine, Status, Evidence, and Change Log coverage.</span></a>
+    <a class="register" href="../../validation/"><strong>2. Inspect Validation</strong><span>Evidence organized only by AMMi / APE, SVE, and Foundation.</span></a>
+    <a class="register" href="../../signal/"><strong>3. Read Build State</strong><span>Current state, evidence, gaps, and recent movement.</span></a>
+    <a class="register" href="../../developer/"><strong>4. Inspect Implementation</strong><span>Architecture, status updates, implementation notes, and runtime notes.</span></a>
+  </div>
+  <div class="links"><a href="../../signal/">Internal Signal</a><a href="../">Research</a><a href="../../canons/">Canons</a><a href="/logout">Log out</a></div>
+</main></body>
+</html>

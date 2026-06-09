@@ -4,35 +4,112 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>DALE Tool Canons</title>
-<style>body{margin:0;background:#071416;color:#e8f0f1;font-family:Arial,sans-serif}main{width:min(900px,calc(100% - 2rem));margin:0 auto;padding:4rem 0}h1,h2{font-family:Georgia,serif;font-weight:400}h2{margin:2rem 0 .8rem;font-size:1.3rem}p{color:#93b4b9;line-height:1.7}.resources{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}.resource{border:1px solid rgba(147,180,185,.24);padding:1rem;text-decoration:none}.resource strong{display:block;color:#e8f0f1;margin-bottom:.35rem}.resource span{color:#93b4b9;font-size:.88rem;line-height:1.5}.links{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}a{color:#f65f54}@media(max-width:650px){.resources{grid-template-columns:1fr}}</style>
+<title>DALE Canon Register</title>
+<style>
+body{margin:0;background:#071416;color:#e8f0f1;font-family:Arial,sans-serif}main{width:min(1120px,calc(100% - 2rem));margin:0 auto;padding:4rem 0}h1,h2{font-family:Georgia,serif;font-weight:400}h2{margin:2.8rem 0 .8rem;font-size:1.4rem}p{color:#93b4b9;line-height:1.7}.legend,.links{display:flex;flex-wrap:wrap;gap:.7rem}.legend{margin:1.5rem 0}.legend span{border:1px solid rgba(147,180,185,.24);padding:.45rem .65rem;color:#93b4b9;font-size:.8rem}.canon{margin-top:1rem;border:1px solid rgba(147,180,185,.24);padding:1.2rem}.canon h3{margin:0 0 .35rem;font-family:Georgia,serif;font-weight:400}.canon-meta{margin:0 0 1rem;color:#6f9da3;font-size:.82rem}.representations{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.5rem}.representation{min-height:94px;border:1px solid rgba(147,180,185,.18);padding:.75rem;text-decoration:none}.representation strong{display:block;color:#e8f0f1;margin-bottom:.35rem;font-size:.86rem}.representation span{color:#93b4b9;font-size:.78rem;line-height:1.4}.representation.missing{border-style:dashed;color:#5f7d81}.representation.missing strong,.representation.missing span{color:#5f7d81}.links{margin-top:2.5rem}a{color:#f65f54}@media(max-width:900px){.representations{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:580px){.representations{grid-template-columns:1fr}}
+</style>
 <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="../../assets/favicon-192x192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="../../assets/favicon-512x512.png"></head>
+</head>
 <body><main>
-  <h1>Architectural Canons</h1>
-  <p>Toolkits and machine-readable artifacts for the DALE architectural canons.</p>
+  <h1>Canon Register</h1>
+  <p>One navigation surface for architectural canons, tool canons, and the Master Canon Output. Files remain in their current locations; this register exposes Human, Developer, Machine, Status, Evidence, and Change Log representations.</p>
+  <div class="legend"><span>Human = readable canon/source</span><span>Developer = toolkit/specification</span><span>Machine = schema</span><span>Dashed = not yet registered</span></div>
+  <p><a href="../tools/">Open the complete tool source-file index and consolidated canon workbook.</a></p>
 
-  <h2>Adaptive Response Architecture (ARA)</h2>
-  <div class="resources">
-    <a class="resource" href="Architectural%20Canons/ARA/ara_toolkit.html"><strong>ARA Toolkit</strong><span>Open the interactive toolkit.</span></a>
-    <a class="resource" href="Architectural%20Canons/ARA/ara_spec.yaml"><strong>ARA Specification</strong><span>View the YAML specification.</span></a>
-    <a class="resource" href="Architectural%20Canons/ARA/ara_schema.json"><strong>ARA Schema</strong><span>View the JSON schema.</span></a>
-  </div>
+  <h2>Architectural Canons</h2>
+  <section class="canon">
+    <h3>Adaptive Response Architecture (ARA)</h3><p class="canon-meta">Architectural canon</p>
+    <div class="representations">
+      <a class="representation" href="Architectural%20Canons/ARA/ara_toolkit.html"><strong>Human</strong><span>Interactive canon toolkit</span></a>
+      <a class="representation" href="Architectural%20Canons/ARA/ara_spec.yaml"><strong>Developer</strong><span>YAML specification</span></a>
+      <a class="representation" href="Architectural%20Canons/ARA/ara_schema.json"><strong>Machine</strong><span>JSON schema</span></a>
+      <span class="representation missing"><strong>Status</strong><span>Status file pending</span></span>
+      <span class="representation missing"><strong>Evidence</strong><span>Evidence link pending</span></span>
+      <span class="representation missing"><strong>Change Log</strong><span>Change log pending</span></span>
+    </div>
+  </section>
+  <section class="canon">
+    <h3>Community Traceability Sequence (CTS / URT)</h3><p class="canon-meta">Shared architectural canon</p>
+    <div class="representations">
+      <a class="representation" href="../docs/CTS_Coherence_Audit.md"><strong>Human</strong><span>Coherence audit and review</span></a>
+      <span class="representation missing"><strong>Developer</strong><span>Toolkit/specification pending</span></span>
+      <a class="representation" href="Architectural%20Canons/CTS/cts_urt_schema.json"><strong>Machine</strong><span>CTS / URT schema</span></a>
+      <span class="representation missing"><strong>Status</strong><span>Status file pending</span></span>
+      <a class="representation" href="../docs/CTS_Coherence_Audit.md"><strong>Evidence</strong><span>Current audit evidence</span></a>
+      <span class="representation missing"><strong>Change Log</strong><span>Change log pending</span></span>
+    </div>
+  </section>
+  <section class="canon">
+    <h3>Evidence Coherence and Outcome Architecture (ECOA)</h3><p class="canon-meta">Architectural canon</p>
+    <div class="representations">
+      <a class="representation" href="Architectural%20Canons/ECOA/ecoa_toolkit.html"><strong>Human</strong><span>Interactive canon toolkit</span></a>
+      <a class="representation" href="Architectural%20Canons/ECOA/ecoa_spec.yaml"><strong>Developer</strong><span>YAML specification</span></a>
+      <a class="representation" href="Architectural%20Canons/ECOA/ecoa_schema.json"><strong>Machine</strong><span>JSON schema</span></a>
+      <span class="representation missing"><strong>Status</strong><span>Status file pending</span></span>
+      <span class="representation missing"><strong>Evidence</strong><span>Evidence link pending</span></span>
+      <span class="representation missing"><strong>Change Log</strong><span>Change log pending</span></span>
+    </div>
+  </section>
+  <section class="canon">
+    <h3>Runner</h3><p class="canon-meta">Shared runtime architecture</p>
+    <div class="representations">
+      <span class="representation missing"><strong>Human</strong><span>Human canon pending</span></span>
+      <span class="representation missing"><strong>Developer</strong><span>Runtime notes pending</span></span>
+      <a class="representation" href="Architectural%20Canons/Runner/runner_schema.json"><strong>Machine</strong><span>Runner schema</span></a>
+      <span class="representation missing"><strong>Status</strong><span>Status file pending</span></span>
+      <span class="representation missing"><strong>Evidence</strong><span>Evidence link pending</span></span>
+      <span class="representation missing"><strong>Change Log</strong><span>Change log pending</span></span>
+    </div>
+  </section>
 
-  <h2>Evidence Coherence and Outcome Architecture (ECOA)</h2>
-  <div class="resources">
-    <a class="resource" href="Architectural%20Canons/ECOA/ecoa_toolkit.html"><strong>ECOA Toolkit</strong><span>Open the interactive toolkit.</span></a>
-    <a class="resource" href="Architectural%20Canons/ECOA/ecoa_spec.yaml"><strong>ECOA Specification</strong><span>View the YAML specification.</span></a>
-    <a class="resource" href="Architectural%20Canons/ECOA/ecoa_schema.json"><strong>ECOA Schema</strong><span>View the JSON schema.</span></a>
-  </div>
+  <h2>Tool Canons</h2>
+  <section class="canon">
+    <h3>Context of Situation (CoS)</h3><p class="canon-meta">Tool canon</p>
+    <div class="representations">
+      <a class="representation" href="../tools/Tools%20Canon/Cos/CoS_Mapping_Tool_Canonical_Spec%20.docx"><strong>Human</strong><span>Canonical source document</span></a>
+      <a class="representation" href="../tools/Tools%20Canon/Cos/cos_mapping_toolkit.html"><strong>Developer</strong><span>Toolkit</span></a>
+      <a class="representation" href="../tools/Tools%20Canon/Cos/cos_mapping_schema.json"><strong>Machine</strong><span>JSON schema</span></a>
+      <span class="representation missing"><strong>Status</strong><span>Status file pending</span></span>
+      <span class="representation missing"><strong>Evidence</strong><span>Evidence link pending</span></span>
+      <span class="representation missing"><strong>Change Log</strong><span>Change log pending</span></span>
+    </div>
+  </section>
+  <section class="canon">
+    <h3>Social Enterprise Canvas (SEC)</h3><p class="canon-meta">Tool canon</p>
+    <div class="representations">
+      <a class="representation" href="../tools/Tools%20Canon/SEC/SEC%20HCanon%20PDF.pdf"><strong>Human</strong><span>Human canon PDF</span></a>
+      <a class="representation" href="../tools/Tools%20Canon/SEC/sec_toolkit.html"><strong>Developer</strong><span>Toolkit and YAML specification</span></a>
+      <a class="representation" href="../tools/Tools%20Canon/SEC/sec_schema.json"><strong>Machine</strong><span>JSON schema</span></a>
+      <span class="representation missing"><strong>Status</strong><span>Status file pending</span></span>
+      <span class="representation missing"><strong>Evidence</strong><span>Evidence link pending</span></span>
+      <span class="representation missing"><strong>Change Log</strong><span>Change log pending</span></span>
+    </div>
+  </section>
+  <section class="canon">
+    <h3>Community-Based Collaboration (CBC)</h3><p class="canon-meta">Tool canon</p>
+    <div class="representations">
+      <a class="representation" href="../tools/Tools%20Canon/CBC/cbc_toolkit.html"><strong>Human</strong><span>Readable toolkit</span></a>
+      <a class="representation" href="../tools/Tools%20Canon/CBC/cbc_spec.yaml"><strong>Developer</strong><span>YAML specification</span></a>
+      <a class="representation" href="../tools/Tools%20Canon/CBC/cbc_schema.json"><strong>Machine</strong><span>JSON schema</span></a>
+      <span class="representation missing"><strong>Status</strong><span>Status file pending</span></span>
+      <span class="representation missing"><strong>Evidence</strong><span>Evidence link pending</span></span>
+      <span class="representation missing"><strong>Change Log</strong><span>Change log pending</span></span>
+    </div>
+  </section>
 
-  <h2>Shared Architecture</h2>
-  <div class="resources">
-    <a class="resource" href="Architectural%20Canons/CTS/cts_urt_schema.json"><strong>CTS / URT Schema</strong><span>View the shared canonical record schema.</span></a>
-    <a class="resource" href="Architectural%20Canons/Runner/runner_schema.json"><strong>Runner Schema</strong><span>View the canon runner schema.</span></a>
-  </div>
+  <h2>Master Canon Output</h2>
+  <section class="canon">
+    <h3>Master Canon Output</h3><p class="canon-meta">Shared output envelope</p>
+    <div class="representations">
+      <a class="representation" href="../developer/Master%20Canon%20Output/master_canon_output_toolkit.html"><strong>Human</strong><span>Output toolkit</span></a>
+      <a class="representation" href="../developer/Master%20Canon%20Output/master_canon_output_spec.yaml"><strong>Developer</strong><span>YAML specification</span></a>
+      <a class="representation" href="../developer/Master%20Canon%20Output/master_canon_output_schema.json"><strong>Machine</strong><span>JSON schema</span></a>
+      <span class="representation missing"><strong>Status</strong><span>Status file pending</span></span>
+      <a class="representation" href="../docs/CTS_Coherence_Audit.md"><strong>Evidence</strong><span>CTS coherence review</span></a>
+      <span class="representation missing"><strong>Change Log</strong><span>Change log pending</span></span>
+    </div>
+  </section>
 
-  <div class="links"><a href="../">Back to Internal Signal</a><a href="../docs/">Research</a><a href="/logout">Log out</a></div>
+  <div class="links"><a href="../signal/">Internal Signal</a><a href="../docs/">Research</a><a href="../validation/">Validation</a><a href="../docs/audit/">Audit</a><a href="/logout">Log out</a></div>
 </main></body>
 </html>

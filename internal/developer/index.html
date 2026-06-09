@@ -4,20 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>DALE Developer Resources</title>
-<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#071416;color:#e8f0f1;font-family:Arial,sans-serif}main{width:min(760px,calc(100% - 2rem));padding:2rem}h1,h2{font-family:Georgia,serif;font-weight:400}h2{margin:2rem 0 .8rem;font-size:1.25rem}p{color:#93b4b9;line-height:1.7}.resources,.links{display:grid;gap:.7rem}.resources{margin-top:1.4rem}.resource{border:1px solid rgba(147,180,185,.24);padding:1rem;text-decoration:none}.resource strong{display:block;color:#e8f0f1;margin-bottom:.35rem}.resource span{color:#93b4b9;font-size:.9rem;line-height:1.5}.links{margin-top:2rem}a{color:#f65f54}</style>
+<title>DALE Developer</title>
+<style>body{margin:0;min-height:100vh;background:#071416;color:#e8f0f1;font-family:Arial,sans-serif}main{width:min(900px,calc(100% - 2rem));margin:0 auto;padding:4rem 0}h1,h2{font-family:Georgia,serif;font-weight:400}h2{margin:2.2rem 0 .8rem}p{color:#93b4b9;line-height:1.7}.resources{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}.resource{border:1px solid rgba(147,180,185,.24);padding:1rem;text-decoration:none}.resource strong{display:block;color:#e8f0f1;margin-bottom:.35rem}.resource span{color:#93b4b9;font-size:.9rem;line-height:1.5}.links{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.5rem}a{color:#f65f54}@media(max-width:620px){.resources{grid-template-columns:1fr}}</style>
 <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="../../assets/favicon-192x192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="../../assets/favicon-512x512.png"></head>
+</head>
 <body><main>
-  <h1>Developer Resources</h1>
-  <p>Implementation resources and the shared CTS-compliant output envelope for DALE canons.</p>
+  <h1>Developer</h1>
+  <p>Implementation-facing architecture, status, runtime, and build notes.</p>
+  <h2>Architecture</h2>
   <div class="resources">
-    <a class="resource" href="Master%20Canon%20Output/master_canon_output_toolkit.html"><strong>Master Canon Output Toolkit</strong><span>Open the canonical output toolkit.</span></a>
-    <a class="resource" href="Master%20Canon%20Output/master_canon_output_spec.yaml"><strong>Master Canon Output Specification</strong><span>View the YAML specification.</span></a>
-    <a class="resource" href="Master%20Canon%20Output/master_canon_output_schema.json"><strong>Master Canon Output Schema</strong><span>View the JSON schema.</span></a>
-    <a class="resource" href="auth-setup.md"><strong>Internal Authentication Setup</strong><span>Cloudflare Pages access-control configuration notes.</span></a>
+    <a class="resource" href="Master%20Canon%20Output/master_canon_output_toolkit.html"><strong>Master Canon Output Toolkit</strong><span>Human-facing shared output envelope.</span></a>
+    <a class="resource" href="Master%20Canon%20Output/master_canon_output_spec.yaml"><strong>Master Canon Output Specification</strong><span>Developer YAML specification.</span></a>
+    <a class="resource" href="Master%20Canon%20Output/master_canon_output_schema.json"><strong>Master Canon Output Schema</strong><span>Machine-readable JSON schema.</span></a>
+    <a class="resource" href="../canons/"><strong>Canon Register</strong><span>Human, Developer, and Machine representations across all canons.</span></a>
   </div>
-  <div class="links"><a href="../">Back to Internal Signal</a><a href="../docs/">Research</a><a href="/logout">Log out</a></div>
+  <h2>Status Updates</h2>
+  <div class="resources">
+    <a class="resource" href="status-update-template.md"><strong>Status Update Template</strong><span>Standard component status structure for future GitHub ingestion.</span></a>
+  </div>
+  <h2>Implementation Notes</h2>
+  <div class="resources">
+    <a class="resource" href="../../docs/internal-signal-data-architecture.md"><strong>Signal Data Architecture</strong><span>D1, GitHub, and Google Drive adapter boundaries.</span></a>
+    <a class="resource" href="../../docs/internal-information-architecture.md"><strong>Internal Information Architecture</strong><span>Section ownership, route compatibility, and navigation rules.</span></a>
+  </div>
+  <h2>Runtime Notes</h2>
+  <div class="resources">
+    <a class="resource" href="auth-setup.md"><strong>Internal Authentication Setup</strong><span>Existing Cloudflare Pages access-control configuration notes.</span></a>
+  </div>
+  <div class="links"><a href="../signal/">Internal Signal</a><a href="../canons/">Canons</a><a href="../docs/">Research</a><a href="../docs/audit/">Audit</a><a href="/logout">Log out</a></div>
 </main></body>
 </html>
