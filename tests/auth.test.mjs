@@ -11,6 +11,7 @@ import {
   isAllowedNext,
 } from "../functions/_lib/auth.js";
 import { createGoogleAuthorization } from "../functions/_lib/google-auth.js";
+import { onRequest as protectInternal } from "../functions/internal/_middleware.js";
 import { onRequest as protectResearch } from "../functions/research/_middleware.js";
 
 const env = {
@@ -34,6 +35,7 @@ test("additional users receive configured roles and unknown users are rejected",
 
 test("protected return paths do not allow open redirects", () => {
   assert.equal(isAllowedNext("/internal/docs/"), true);
+  assert.equal(isAllowedNext("/internal/signal/"), true);
   assert.equal(isAllowedNext("/research/publications/"), true);
   assert.equal(isAllowedNext("/admin/blog/"), true);
   assert.equal(isAllowedNext("//evil.example"), false);
@@ -50,9 +52,34 @@ test("signed sessions preserve access rules", async () => {
   const session = await getSession(request, env);
 
   assert.equal(session.email, "awora@dale.africa");
+  assert.equal(canAccess(session, "/internal/signal/"), true);
   assert.equal(canAccess(session, "/internal/developer/"), true);
   assert.equal(canAccessResearch(session), true);
   assert.equal(canEditBlog(session), true);
+});
+
+test("Internal Signal redirects anonymous users and allows the initial admin", async () => {
+  const anonymous = await protectInternal({
+    request: new Request("https://dale.africa/internal/signal/"),
+    env,
+    next: () => new Response("signal"),
+  });
+  assert.equal(anonymous.status, 302);
+  assert.match(anonymous.headers.get("Location"), /\/login\/\?next=%2Finternal%2Fsignal%2F/);
+
+  const user = authorizeEmail("awora@dale.africa", env);
+  const cookie = await createSessionCookie(user, env);
+  const authorized = await protectInternal({
+    request: new Request("https://dale.africa/internal/signal/", {
+      headers: { Cookie: cookie.split(";")[0] },
+    }),
+    env,
+    next: () => new Response("signal"),
+  });
+
+  assert.equal(authorized.status, 200);
+  assert.equal(await authorized.text(), "signal");
+  assert.equal(authorized.headers.get("Cache-Control"), "private, no-store");
 });
 
 test("Google authorization requests only identity scopes and preserves a safe destination", () => {

@@ -6,10 +6,10 @@ const OAUTH_STATE_TTL_SECONDS = 60 * 10;
 const INITIAL_ADMIN_EMAILS = ["awora@dale.africa"];
 
 const ROLE_ACCESS = {
-  admin: ["docs", "canons", "tools", "developer", "validation"],
-  team: ["docs", "canons", "tools", "developer", "validation"],
-  validation_partner: ["docs", "canons", "tools", "validation"],
-  viewer: ["docs"],
+  admin: ["docs", "signal", "canons", "tools", "developer", "validation"],
+  team: ["docs", "signal", "canons", "tools", "developer", "validation"],
+  validation_partner: ["docs", "signal", "canons", "tools", "validation"],
+  viewer: ["docs", "signal"],
 };
 
 function getSecret(env) {
