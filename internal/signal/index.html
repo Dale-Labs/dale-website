@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Internal Signal | DALE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Syne:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../assets/favicon-192x192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="../../assets/favicon-512x512.png">
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   Internal Signal: field notebook register
+   Deep teal ground, amber accent, strict grid
+   ============================================================ */
+:root {
+  --ground:        #071416;
+  --surface-0:     #0a1c1f;
+  --surface-1:     #0e2428;
+  --surface-2:     #122b30;
+  --border:        rgba(255,255,255,0.07);
+  --border-active: rgba(0,192,160,0.25);
+
+  --teal:          #00c0a0;
+  --teal-dim:      rgba(0,192,160,0.15);
+  --teal-faint:    rgba(0,192,160,0.06);
+  --amber:         #c96a00;
+  --amber-dim:     rgba(201,106,0,0.15);
+  --amber-faint:   rgba(201,106,0,0.06);
+  --coral:         #f65f54;
+  --coral-dim:     rgba(246,95,84,0.12);
+  --green:         #3dba7e;
+  --green-dim:     rgba(61,186,126,0.12);
+
+  --text-0:        rgba(255,255,255,0.92);
+  --text-1:        rgba(255,255,255,0.55);
+  --text-2:        rgba(255,255,255,0.28);
+  --text-teal:     #00c0a0;
+  --text-amber:    #e07820;
+
+  --mono:   'DM Mono', monospace;
+  --sans:   'Syne', sans-serif;
+  --serif:  'Cormorant Garamond', serif;
+
+  --r:  2px;
+  --t:  0.2s ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ground);
+  color: var(--text-0);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+}
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.wordmark {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--text-1);
+  text-decoration: none;
+}
+.wordmark em {
+  color: var(--teal);
+  font-style: normal;
+}
+
+.badge-internal {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: var(--amber-faint);
+  border: 1px solid rgba(201,106,0,0.2);
+  padding: 3px 8px;
+  border-radius: var(--r);
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.last-read {
+  font-size: 10px;
+  color: var(--text-2);
+  letter-spacing: 0.1em;
+}
+
+.refresh-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--teal);
+  background: none;
+  border: 1px solid var(--border-active);
+  padding: 5px 12px;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: all var(--t);
+}
+.refresh-btn:hover {
+  background: var(--teal-faint);
+}
+
+/* ============================================================
+   INTERNAL SECTION NAVIGATION
+   ============================================================ */
+.resource-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -28px 0 40px;
+}
+
+.resource-link,
+.logout-link {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-1);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: var(--r);
+  transition: all var(--t);
+}
+
+.resource-link:hover,
+.resource-link:focus-visible,
+.logout-link:hover,
+.logout-link:focus-visible {
+  color: var(--teal);
+  border-color: var(--border-active);
+  background: var(--teal-faint);
+}
+
+/* ============================================================
+   THE READING — signature element
+   Plain text field-report block. No glow. No gradients.
+   Just the truth of the current state.
+   ============================================================ */
+.reading-block {
+  border-left: 2px solid var(--teal);
+  padding: 28px 32px;
+  background: var(--surface-0);
+  margin-bottom: 56px;
+  position: relative;
+}
+
+.reading-label {
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 20px;
+  font-family: var(--sans);
+}
+
+.reading-text {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--text-0);
+}
+
+.reading-text p { margin-bottom: 14px; }
+.reading-text p:last-child { margin-bottom: 0; }
+
+.reading-text .line-break {
+  display: block;
+  height: 10px;
+}
+
+.reading-text em {
+  font-style: italic;
+  color: var(--text-1);
+}
+
+.reading-stats {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.rstat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.rstat-n {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-0);
+}
+.rstat-n.risk { color: var(--coral); }
+.rstat-n.ok   { color: var(--teal); }
+.rstat-n.warn { color: var(--amber); }
+
+.rstat-l {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+/* ============================================================
+   NAV TABS
+   ============================================================ */
+.nav-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.tab {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all var(--t);
+  user-select: none;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.tab:hover { color: var(--text-1); }
+.tab.active {
+  color: var(--teal);
+  border-bottom-color: var(--teal);
+}
+
+/* ============================================================
+   TAB PANELS
+   ============================================================ */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ============================================================
+   CURRENT PANEL
+   ============================================================ */
+.current-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.section-block {
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.section-block.full-width {
+  grid-column: 1 / -1;
+}
+
+.block-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-1);
+}
+
+.block-title {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-1);
+}
+
+.block-count {
+  font-size: 10px;
+  color: var(--text-2);
+  letter-spacing: 0.1em;
+}
+
+.block-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Canon item */
+.canon-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: all var(--t);
+}
+.canon-item:hover {
+  border-color: var(--border-active);
+  background: var(--teal-faint);
+}
+
+.canon-name {
+  font-size: 12px;
+  color: var(--text-0);
+  letter-spacing: 0.05em;
+}
+
+.canon-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-pill {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.status-pill.active     { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(61,186,126,0.25); }
+.status-pill.incomplete { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(201,106,0,0.3); }
+.status-pill.inprogress { background: var(--teal-dim);   color: var(--teal);   border: 1px solid rgba(0,192,160,0.3); }
+.status-pill.design     { background: var(--coral-dim);  color: var(--coral);  border: 1px solid rgba(246,95,84,0.25); }
+.status-pill.present    { background: rgba(255,255,255,0.05); color: var(--text-1); border: 1px solid var(--border); }
+
+.env-badge {
+  font-size: 9px;
+  color: var(--text-2);
+  letter-spacing: 0.15em;
+}
+
+/* Validation environments */
+.env-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+
+.env-name {
+  font-size: 12px;
+  color: var(--text-0);
+}
+
+.env-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.env-type {
+  font-size: 9px;
+  color: var(--text-2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Research / dev items */
+.count-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.count-label { font-size: 12px; color: var(--text-1); }
+.count-n {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-0);
+}
+
+/* ============================================================
+   EVIDENCE PANEL
+   ============================================================ */
+.evidence-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.evidence-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: start;
+  padding: 14px 16px;
+  background: var(--surface-0);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: all var(--t);
+}
+.evidence-item:hover {
+  border-color: var(--border-active);
+  background: var(--teal-faint);
+}
+
+.ev-marker {
+  font-size: 14px;
+  color: var(--teal);
+  margin-top: 1px;
+  font-weight: 300;
+  font-family: var(--serif);
+}
+.ev-marker.amber { color: var(--amber); }
+.ev-marker.coral { color: var(--coral); }
+
+.ev-body { }
+
+.ev-title {
+  font-size: 13px;
+  color: var(--text-0);
+  margin-bottom: 3px;
+}
+
+.ev-meta {
+  font-size: 10px;
+  color: var(--text-2);
+  letter-spacing: 0.1em;
+  display: flex;
+  gap: 12px;
+}
+
+.ev-type {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  align-self: start;
+  margin-top: 3px;
+}
+
+/* Evidence detail drawer */
+.ev-drawer {
+  display: none;
+  margin-top: 8px;
+  padding: 14px 16px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  border-left: 2px solid var(--teal);
+}
+.ev-drawer.open { display: block; }
+
+.drawer-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.drawer-link {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--teal);
+  text-decoration: none;
+  border: 1px solid var(--border-active);
+  padding: 4px 10px;
+  border-radius: var(--r);
+  transition: all var(--t);
+  cursor: pointer;
+  background: none;
+  font-family: var(--mono);
+}
+.drawer-link:hover {
+  background: var(--teal-faint);
+}
+
+.drawer-note {
+  font-size: 11px;
+  color: var(--text-1);
+  margin-top: 10px;
+  line-height: 1.6;
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+/* ============================================================
+   GAPS PANEL
+   ============================================================ */
+.gaps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gap-item {
+  display: grid;
+  grid-template-columns: 3px 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.gap-stripe {
+  background: var(--coral);
+}
+.gap-stripe.warn  { background: var(--amber); }
+.gap-stripe.info  { background: var(--teal); }
+
+.gap-content {
+  padding: 12px 16px;
+  background: var(--surface-0);
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.gap-left { flex: 1; }
+
+.gap-type {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 4px;
+}
+.gap-type.warn { color: var(--amber); }
+.gap-type.info { color: var(--teal); }
+
+.gap-title {
+  font-size: 13px;
+  color: var(--text-0);
+  margin-bottom: 3px;
+}
+
+.gap-desc {
+  font-size: 11px;
+  color: var(--text-1);
+  line-height: 1.55;
+}
+
+.gap-artifact {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-2);
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   MOVEMENT PANEL
+   ============================================================ */
+.movement-header {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 20px;
+  font-family: var(--sans);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 24px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 24px;
+  padding-left: 20px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -19px;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.timeline-item.teal::before  { background: var(--teal);  border-color: var(--teal);  box-shadow: 0 0 6px rgba(0,192,160,0.4); }
+.timeline-item.amber::before { background: var(--amber); border-color: var(--amber); }
+.timeline-item.coral::before { background: var(--coral); border-color: var(--coral); }
+
+.tl-date {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--text-2);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.tl-artifact {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-0);
+  margin-bottom: 2px;
+}
+
+.tl-change {
+  font-size: 12px;
+  color: var(--text-1);
+  margin-bottom: 4px;
+}
+
+.tl-env {
+  display: inline-flex;
+  gap: 6px;
+}
+.tl-env-tag {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--teal);
+  background: var(--teal-faint);
+  padding: 1px 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,192,160,0.15);
+}
+.tl-env-tag.amber {
+  color: var(--amber);
+  background: var(--amber-faint);
+  border-color: rgba(201,106,0,0.15);
+}
+
+/* ============================================================
+   SIGNAL OBJECT DRAWER (modal)
+   ============================================================ */
+.object-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(7,20,22,0.92);
+  z-index: 100;
+  align-items: start;
+  justify-content: center;
+  padding-top: 60px;
+  backdrop-filter: blur(4px);
+}
+.object-overlay.open { display: flex; }
+
+.object-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border-active);
+  border-radius: var(--r);
+  width: 540px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.object-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.object-name {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-0);
+}
+
+.object-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: color var(--t);
+  line-height: 1;
+  padding: 2px 6px;
+}
+.object-close:hover { color: var(--text-0); }
+
+.object-body {
+  padding: 20px;
+}
+
+.object-field {
+  display: flex;
+  align-items: start;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+.object-field:last-child { border-bottom: none; }
+
+.field-key {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  width: 140px;
+  flex-shrink: 0;
+  padding-top: 1px;
+  font-family: var(--sans);
+}
+
+.field-val {
+  font-size: 12px;
+  color: var(--text-0);
+  line-height: 1.6;
+}
+
+.field-val .multi {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   SECTION DIVIDERS
+   ============================================================ */
+.section-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 40px 0;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.page-footer {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-note {
+  font-size: 10px;
+  color: var(--text-2);
+  letter-spacing: 0.1em;
+}
+
+.seed-badge {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: var(--amber-faint);
+  border: 1px solid rgba(201,106,0,0.2);
+  padding: 3px 10px;
+  border-radius: var(--r);
+}
+
+@media (max-width: 720px) {
+  .shell { padding: 0 18px 48px; }
+  .topbar { align-items: flex-start; margin-bottom: 38px; }
+  .topbar-right { align-items: flex-end; gap: 10px; flex-direction: column; }
+  .resource-nav { margin-top: -22px; }
+  .reading-block { padding: 22px 20px; margin-bottom: 40px; }
+  .reading-text { font-size: 19px; }
+  .nav-tabs { overflow-x: auto; }
+  .tab { flex: 0 0 auto; padding: 10px 14px; }
+  .current-grid { grid-template-columns: 1fr; }
+  .section-block.full-width { grid-column: auto; }
+  .gap-content,
+  .page-footer { align-items: flex-start; flex-direction: column; }
+  .gap-artifact { white-space: normal; }
+  .object-overlay { padding: 20px 12px; }
+  .object-card { width: 100%; max-height: calc(100vh - 40px); }
+}
+
+@media (max-width: 440px) {
+  .topbar { gap: 16px; flex-direction: column; }
+  .topbar-right { align-items: flex-start; }
+  .resource-link { flex: 1 1 calc(50% - 8px); }
+  .reading-stats { gap: 20px; }
+  .rstat { flex: 1 1 calc(50% - 20px); }
+  .evidence-item { grid-template-columns: auto 1fr; }
+  .ev-type { grid-column: 2; }
+  .object-field { flex-direction: column; gap: 4px; }
+  .field-key { width: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <a href="/" class="wordmark">dale<em>(a)</em></a>
+      <span class="badge-internal">Build Signal</span>
+    </div>
+    <div class="topbar-right">
+      <span class="last-read" id="lastRead">Reading as of —</span>
+      <button class="refresh-btn" onclick="refreshReading()">↻ Refresh reading</button>
+      <a class="logout-link" href="/logout">Log out</a>
+    </div>
+  </div>
+
+  <nav class="resource-nav" aria-label="Internal sections">
+    <a class="resource-link" href="/internal/">Internal Home</a>
+    <a class="resource-link" href="/internal/canons/">Canons</a>
+    <a class="resource-link" href="/internal/docs/">Research Docs</a>
+    <a class="resource-link" href="/internal/tools/">Tool Canon</a>
+    <a class="resource-link" href="/internal/validation/">Validation Infrastructure</a>
+    <a class="resource-link" href="/internal/developer/">Developer Notes</a>
+    <a class="resource-link" href="/admin/blog/">Blog CMS</a>
+  </nav>
+
+  <!-- THE READING -->
+  <div class="reading-block">
+    <div class="reading-label">Current</div>
+    <div class="reading-text" id="readingText">
+      <!-- populated by JS -->
+    </div>
+    <div class="reading-stats" id="readingStats">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+  <!-- NAV TABS -->
+  <div class="nav-tabs">
+    <button class="tab active" onclick="showPanel('current', this)">Current</button>
+    <button class="tab" onclick="showPanel('evidence', this)">Evidence</button>
+    <button class="tab" onclick="showPanel('gaps', this)">Gaps</button>
+    <button class="tab" onclick="showPanel('movement', this)">Movement</button>
+  </div>
+
+  <!-- CURRENT PANEL -->
+  <div class="panel active" id="panel-current">
+    <div class="current-grid">
+
+      <!-- Canons -->
+      <div class="section-block">
+        <div class="block-header">
+          <span class="block-title">Canons</span>
+          <span class="block-count" id="canon-count">—</span>
+        </div>
+        <div class="block-body" id="canon-list"></div>
+      </div>
+
+      <!-- Validation Environments -->
+      <div class="section-block">
+        <div class="block-header">
+          <span class="block-title">Validation Environments</span>
+          <span class="block-count">3 active</span>
+        </div>
+        <div class="block-body" id="env-list"></div>
+      </div>
+
+      <!-- Research -->
+      <div class="section-block">
+        <div class="block-header">
+          <span class="block-title">Research</span>
+          <span class="block-count" id="research-count">—</span>
+        </div>
+        <div class="block-body" id="research-list"></div>
+      </div>
+
+      <!-- Developer -->
+      <div class="section-block">
+        <div class="block-header">
+          <span class="block-title">Developer</span>
+          <span class="block-count" id="dev-count">—</span>
+        </div>
+        <div class="block-body" id="dev-list"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EVIDENCE PANEL -->
+  <div class="panel" id="panel-evidence">
+    <div class="evidence-list" id="evidence-list"></div>
+  </div>
+
+  <!-- GAPS PANEL -->
+  <div class="panel" id="panel-gaps">
+    <div class="gaps-list" id="gaps-list"></div>
+  </div>
+
+  <!-- MOVEMENT PANEL -->
+  <div class="panel" id="panel-movement">
+    <div class="movement-header">Last 7 Days</div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <span class="footer-note">Internal Signal — DALE Build Provenance · /internal/signal/</span>
+    <span class="seed-badge">Seed data · static</span>
+  </div>
+
+</div>
+
+<!-- SIGNAL OBJECT OVERLAY -->
+<div class="object-overlay" id="objectOverlay">
+  <div class="object-card">
+    <div class="object-header">
+      <span class="object-name" id="objectName">—</span>
+      <button class="object-close" onclick="closeObject()">×</button>
+    </div>
+    <div class="object-body" id="objectBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   SEED DATA
+   Replace with live reads from files, commits, CMS, or D1.
+   Each object is the canonical Signal Object for that artifact.
+
+   Future versions should read from canon.yaml, canon.json, status.md,
+   changelog.md, evidence.md, Git commits, D1/CMS records, and the
+   Google Drive document registry.
+
+   Planned registry source: D1 artifact_registry joined through
+   artifact_environments and validation_environments.
+   ============================================================ */
+
+const SIGNAL_OBJECTS = [
+  {
+    id: "state-review",
+    name: "State Review",
+    category: "canon",
+    state: "active",
+    h: "present",
+    developer: "present",
+    machine: "present",
+    status: "current",
+    evidence: "available",
+    lastChange: "2026-06-05",
+    envImpact: ["AMMi", "SVE", "Foundation"],
+    note: "Entry tool. Produces the initial state reading and recommends tool path."
+  },
+  {
+    id: "cos",
+    name: "CoS",
+    category: "canon",
+    state: "active",
+    h: "present",
+    developer: "present",
+    machine: "present",
+    status: "current",
+    evidence: "available",
+    lastChange: "2026-06-03",
+    envImpact: ["AMMi", "SVE"],
+    note: "Conditions of Satisfaction. Lens tool. Maps how the market works."
+  },
+  {
+    id: "sec",
+    name: "SEC",
+    category: "canon",
+    state: "active",
+    h: "present",
+    developer: "present",
+    machine: "present",
+    status: "current",
+    evidence: "available",
+    lastChange: "2026-06-07",
+    envImpact: ["AMMi", "SVE", "Foundation"],
+    note: "Social Enterprise Canvas. Weave tool. Translates value into offering."
+  },
+  {
+    id: "cbc",
+    name: "CBC",
+    category: "canon",
+    state: "incomplete",
+    h: "present",
+    developer: "present",
+    machine: "draft",
+    status: "draft",
+    evidence: "partial",
+    lastChange: "2026-05-28",
+    envImpact: ["AMMi"],
+    note: "Community Benefit Contract. Thread tool. Machine canon incomplete — JSON schema pending."
+  },
+  {
+    id: "signal-public",
+    name: "Signal (Public)",
+    category: "canon",
+    state: "inprogress",
+    h: "present",
+    developer: "present",
+    machine: "present",
+    status: "current",
+    evidence: "available",
+    lastChange: "2026-06-09",
+    envImpact: ["SVE", "Foundation"],
+    note: "Public-facing Signal. Live kernel mirror. Frontend complete. Backend pending."
+  },
+  {
+    id: "signal-internal",
+    name: "Internal Signal",
+    category: "canon",
+    state: "design",
+    h: "present",
+    developer: "present",
+    machine: "none",
+    status: "in design",
+    evidence: "none",
+    lastChange: "2026-06-09",
+    envImpact: [],
+    note: "This page. DALE's own state review. Frontend in active build."
+  },
+  {
+    id: "research-doc",
+    name: "Research Documentation",
+    category: "research",
+    state: "active",
+    h: "present",
+    developer: "present",
+    machine: "n/a",
+    status: "current",
+    evidence: "available",
+    lastChange: "2026-06-04",
+    envImpact: ["Foundation"],
+    note: "Primary research documentation suite."
+  },
+  {
+    id: "cts-audit",
+    name: "CTS Audit",
+    category: "research",
+    state: "active",
+    h: "present",
+    developer: "present",
+    machine: "n/a",
+    status: "current",
+    evidence: "available",
+    lastChange: "2026-06-06",
+    envImpact: ["Foundation", "AMMi"],
+    note: "Community Traceable Sequence audit. Added this cycle."
+  },
+  {
+    id: "tools-canon",
+    name: "Tools Canon",
+    category: "research",
+    state: "active",
+    h: "present",
+    developer: "present",
+    machine: "present",
+    status: "current",
+    evidence: "available",
+    lastChange: "2026-06-01",
+    envImpact: ["AMMi", "SVE", "Foundation"],
+    note: "Master canonical documentation for all DALE tools."
+  },
+  {
+    id: "master-canon",
+    name: "Master Canon Output",
+    category: "research",
+    state: "active",
+    h: "present",
+    developer: "present",
+    machine: "present",
+    status: "current",
+    evidence: "available",
+    lastChange: "2026-06-08",
+    envImpact: ["AMMi", "SVE", "Foundation"],
+    note: "Unified canonical output. Integrates all canon streams."
+  }
+];
+
+const VALIDATION_ENVIRONMENTS = [
+  { name: "AMMi / APE", type: "Canon evidence", status: "active" },
+  { name: "SVE", type: "Validation evidence", status: "active" },
+  { name: "Foundation", type: "Observation evidence", status: "active" }
+];
+
+const RESEARCH_ITEMS = [
+  { label: "CTS Audit", added: "this cycle" },
+  { label: "ECOA First Test Integration", added: "this cycle" },
+  { label: "ARA Stage 2 Guide", added: "this cycle" }
+];
+
+const DEV_ITEMS = [
+  { label: "Google Auth integration", status: "shipped" },
+  { label: "Signal frontend", status: "shipped" },
+  { label: "Android OAuth fix", status: "shipped" },
+  { label: "SEC schema revision", status: "shipped" },
+  { label: "Internal Signal design", status: "in progress" },
+  { label: "CMS activation", status: "shipped" },
+  { label: "Backend scaffold", status: "pending" }
+];
+
+const EVIDENCE_ITEMS = [
+  {
+    id: "ev-sec-schema",
+    title: "SEC Schema Revision",
+    type: "Developer",
+    date: "2026-06-07",
+    env: ["AMMi", "SVE"],
+    note: "Schema updated to reflect revised value–impact–enterprise state variables. Aligned with ECOA v1 operational layer.",
+    links: ["status.md", "changelog.md", "commit"]
+  },
+  {
+    id: "ev-signal-auth",
+    title: "Signal Auth Implementation",
+    type: "Developer",
+    date: "2026-06-09",
+    env: ["SVE"],
+    note: "Google OAuth implemented across public Signal. Login flow validated on web and Android.",
+    links: ["status.md", "commit"]
+  },
+  {
+    id: "ev-android-oauth",
+    title: "Android OAuth Fix",
+    type: "Developer",
+    date: "2026-06-08",
+    env: ["SVE"],
+    note: "Resolved redirect URI mismatch on Android. OAuth now consistent across platforms.",
+    links: ["status.md", "commit", "validation record"]
+  },
+  {
+    id: "ev-sve-obs",
+    title: "SVE Observation Package",
+    type: "Validation",
+    date: "2026-06-06",
+    env: ["SVE"],
+    note: "New observation package submitted by SVE. Includes structured field notes and signed-state records.",
+    links: ["validation record", "research note"]
+  },
+  {
+    id: "ev-cts-audit",
+    title: "CTS Audit Added",
+    type: "Research",
+    date: "2026-06-06",
+    env: ["Foundation", "AMMi"],
+    note: "Community Traceable Sequence audit entered into research documentation. First complete CTS record in the system.",
+    links: ["research note", "status.md"]
+  },
+  {
+    id: "ev-foundation-obs",
+    title: "Foundation Observation Log",
+    type: "Validation",
+    date: "2026-06-04",
+    env: ["Foundation"],
+    note: "Observation log formalised for Foundation environment. Establishes baseline provenance record.",
+    links: ["validation record", "status.md"]
+  },
+  {
+    id: "ev-signal-frontend",
+    title: "Signal Frontend Complete",
+    type: "Developer",
+    date: "2026-06-09",
+    env: ["SVE", "Foundation"],
+    note: "Public Signal frontend shipped. Single-file HTML. Claude API integration live. Session history as reservoir placeholder.",
+    links: ["status.md", "changelog.md", "commit"]
+  },
+  {
+    id: "ev-cms",
+    title: "CMS Activated",
+    type: "Developer",
+    date: "2026-06-05",
+    env: [],
+    note: "CMS layer activated. Content update pipeline now operational for dale.africa.",
+    links: ["status.md", "commit"]
+  }
+];
+
+const GAPS = [
+  {
+    severity: "critical",
+    type: "Missing Machine Canon",
+    title: "CBC machine canon incomplete",
+    desc: "JSON schema for Community Benefit Contract is in draft. Machine-readable canon does not yet exist. Blocks automated validation against the Thread tool.",
+    artifact: "cbc"
+  },
+  {
+    severity: "critical",
+    type: "No Evidence",
+    title: "Internal Signal has no evidence record",
+    desc: "This tool is in build. No status.md, changelog, or validation record exists yet. Evidence chain starts on first commit.",
+    artifact: "signal-internal"
+  },
+  {
+    severity: "warning",
+    type: "Outdated Status",
+    title: "Backend scaffold status not current",
+    desc: "Backend scaffold is listed as pending. No updated estimate, no owner assigned, no blocking issue filed.",
+    artifact: "dev"
+  },
+  {
+    severity: "warning",
+    type: "Missing JSON",
+    title: "Signal Internal has no machine object",
+    desc: "The Signal Object for Internal Signal does not yet have a machine-readable JSON representation. Required before the internal build pipeline can read its own state.",
+    artifact: "signal-internal"
+  },
+  {
+    severity: "info",
+    type: "Unreviewed Change",
+    title: "ECOA First Test Integration — not yet tagged in canon",
+    desc: "The ECOA document is present in research but has not been formally tagged against the operational variable layer. Tagging required for ARA integration.",
+    artifact: "research-doc"
+  }
+];
+
+const MOVEMENT = [
+  {
+    date: "2026-06-09",
+    artifact: "Signal (Public)",
+    change: "v0.3 → v0.4 · Frontend complete",
+    env: ["SVE", "Foundation"],
+    color: "teal"
+  },
+  {
+    date: "2026-06-09",
+    artifact: "Internal Signal",
+    change: "Design initiated · Frontend in build",
+    env: [],
+    color: "amber"
+  },
+  {
+    date: "2026-06-08",
+    artifact: "OAuth",
+    change: "Android OAuth fix shipped",
+    env: ["SVE"],
+    color: "teal"
+  },
+  {
+    date: "2026-06-07",
+    artifact: "SEC",
+    change: "Schema revision complete",
+    env: ["AMMi", "SVE"],
+    color: "teal"
+  },
+  {
+    date: "2026-06-06",
+    artifact: "CTS Audit",
+    change: "Added to research documentation",
+    env: ["Foundation", "AMMi"],
+    color: "teal"
+  },
+  {
+    date: "2026-06-05",
+    artifact: "CMS",
+    change: "Activated · Content pipeline live",
+    env: [],
+    color: "teal"
+  },
+  {
+    date: "2026-06-04",
+    artifact: "Foundation",
+    change: "Observation log formalised",
+    env: ["Foundation"],
+    color: "teal"
+  }
+];
+
+/* ============================================================
+   READING GENERATION
+   Derives the plain-text reading from the seed data state.
+   In future: replace with live read from D1 or CMS.
+   ============================================================ */
+function generateReading() {
+  const canons = SIGNAL_OBJECTS.filter(o => o.category === "canon");
+  const activeCanons = canons.filter(o => o.state === "active");
+  const incompleteCanons = canons.filter(o => ["incomplete","design","inprogress"].includes(o.state));
+  const openGaps = GAPS.filter(g => g.severity !== "info");
+  const criticalGaps = GAPS.filter(g => g.severity === "critical");
+  const newArtifacts = MOVEMENT.length;
+  const activeEnvs = VALIDATION_ENVIRONMENTS.filter(e => e.status === "active");
+
+  // Build the reading text
+  const paragraphs = [];
+
+  // Line 1: overall coherence
+  if (activeCanons.length >= 3 && criticalGaps.length <= 2) {
+    paragraphs.push("The DALE build is coherent.");
+  } else {
+    paragraphs.push("The DALE build is in active transition.");
+  }
+
+  // Line 2: evidence environments
+  const envNames = activeEnvs.map(e => e.name);
+  if (envNames.length > 0) {
+    const envLines = envNames.map(n => `${n} is producing ${VALIDATION_ENVIRONMENTS.find(e=>e.name===n)?.type.toLowerCase()}.`).join(" ");
+    paragraphs.push(envLines);
+  }
+
+  // Line 3: canon alignment
+  const aligned = activeCanons.filter(c => c.envImpact.length > 0).map(c => c.name);
+  const misaligned = incompleteCanons.map(c => c.name);
+  if (aligned.length > 0 && misaligned.length > 0) {
+    paragraphs.push(`${aligned.slice(0,2).join(" and ")} ${aligned.length > 2 ? "and others are" : "are"} aligned.\n${misaligned.join(" and ")} ${misaligned.length === 1 ? "is" : "are"} incomplete.`);
+  }
+
+  return paragraphs.join("\n\n");
+}
+
+function generateStats() {
+  const openGaps = GAPS.filter(g => g.severity !== "info").length;
+  const openDeps = GAPS.filter(g => g.severity === "info").length;
+  const newArts = EVIDENCE_ITEMS.filter(e => {
+    const d = new Date(e.date);
+    const now = new Date("2026-06-09");
+    return (now - d) / (1000*60*60*24) <= 7;
+  }).length;
+  const activeEnvs = VALIDATION_ENVIRONMENTS.filter(e => e.status === "active").length;
+
+  return [
+    { n: openGaps, label: "open risks", cls: openGaps > 2 ? "risk" : "warn" },
+    { n: openDeps, label: "open dependencies", cls: "warn" },
+    { n: newArts,  label: "new artifacts this week", cls: "ok" },
+    { n: activeEnvs, label: "active environments", cls: "ok" }
+  ];
+}
+
+/* ============================================================
+   RENDER FUNCTIONS
+   ============================================================ */
+function renderReading() {
+  const text = generateReading();
+  const el = document.getElementById("readingText");
+  el.innerHTML = text.split("\n\n").map(p =>
+    `<p>${p.replace(/\n/g, "<br>")}</p>`
+  ).join("");
+
+  const stats = generateStats();
+  const se = document.getElementById("readingStats");
+  se.innerHTML = stats.map(s =>
+    `<div class="rstat">
+      <span class="rstat-n ${s.cls}">${s.n}</span>
+      <span class="rstat-l">${s.label}</span>
+    </div>`
+  ).join("");
+
+  document.getElementById("lastRead").textContent =
+    "Reading as of " + new Date("2026-06-09T09:00:00").toLocaleString("en-GB", {
+      day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit"
+    });
+}
+
+function renderCurrent() {
+  // Canons
+  const canons = SIGNAL_OBJECTS.filter(o => o.category === "canon");
+  const cl = document.getElementById("canon-list");
+  document.getElementById("canon-count").textContent =
+    canons.filter(c => c.state === "active").length + " active / " + canons.length + " total";
+
+  cl.innerHTML = canons.map(c => `
+    <div class="canon-item" onclick="openObject('${c.id}')">
+      <span class="canon-name">${c.name}</span>
+      <div class="canon-right">
+        <span class="status-pill ${c.state}">${c.status}</span>
+      </div>
+    </div>
+  `).join("");
+
+  // Validation Environments
+  const el = document.getElementById("env-list");
+  el.innerHTML = VALIDATION_ENVIRONMENTS.map(e => `
+    <div class="env-row">
+      <span class="env-name">${e.name}</span>
+      <div class="env-meta">
+        <span class="status-pill active">${e.status}</span>
+        <span class="env-type">${e.type}</span>
+      </div>
+    </div>
+  `).join("");
+
+  // Research
+  const rl = document.getElementById("research-list");
+  document.getElementById("research-count").textContent = RESEARCH_ITEMS.length + " items";
+  rl.innerHTML = RESEARCH_ITEMS.map(r => `
+    <div class="count-row">
+      <span class="count-label">${r.label}</span>
+      <span class="status-pill present">${r.added}</span>
+    </div>
+  `).join("");
+
+  // Developer
+  const dl = document.getElementById("dev-list");
+  document.getElementById("dev-count").textContent =
+    DEV_ITEMS.filter(d => d.status === "shipped").length + " shipped";
+  dl.innerHTML = DEV_ITEMS.map(d => `
+    <div class="count-row">
+      <span class="count-label">${d.label}</span>
+      <span class="status-pill ${d.status === 'shipped' ? 'active' : d.status === 'in progress' ? 'inprogress' : 'incomplete'}">${d.status}</span>
+    </div>
+  `).join("");
+}
+
+function renderEvidence() {
+  const el = document.getElementById("evidence-list");
+  el.innerHTML = EVIDENCE_ITEMS.map((e, i) => {
+    const markerClass = e.type === "Research" ? "amber" : e.type === "Validation" ? "coral" : "";
+    const envTags = e.env.map(v => `<span class="tl-env-tag">${v}</span>`).join("");
+    const linkBtns = e.links.map(l =>
+      `<span class="drawer-link">${l}</span>`
+    ).join("");
+    return `
+      <div>
+        <div class="evidence-item" onclick="toggleDrawer('drawer-${i}')">
+          <span class="ev-marker ${markerClass}">+</span>
+          <div class="ev-body">
+            <div class="ev-title">${e.title}</div>
+            <div class="ev-meta">
+              <span>${e.date}</span>
+              <span>${e.env.join(", ") || "—"}</span>
+            </div>
+          </div>
+          <span class="ev-type">${e.type}</span>
+        </div>
+        <div class="ev-drawer" id="drawer-${i}">
+          <div class="drawer-links">${linkBtns}</div>
+          <div class="drawer-note">${e.note}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderGaps() {
+  const el = document.getElementById("gaps-list");
+  el.innerHTML = GAPS.map(g => {
+    const stripeClass = g.severity === "warning" ? "warn" : g.severity === "info" ? "info" : "";
+    const typeClass = g.severity === "warning" ? "warn" : g.severity === "info" ? "info" : "";
+    return `
+      <div class="gap-item">
+        <div class="gap-stripe ${stripeClass}"></div>
+        <div class="gap-content">
+          <div class="gap-left">
+            <div class="gap-type ${typeClass}">${g.type}</div>
+            <div class="gap-title">${g.title}</div>
+            <div class="gap-desc">${g.desc}</div>
+          </div>
+          <div class="gap-artifact">${g.artifact}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderMovement() {
+  const el = document.getElementById("timeline");
+  el.innerHTML = MOVEMENT.map(m => {
+    const envTags = m.env.map(e =>
+      `<span class="tl-env-tag">${e}</span>`
+    ).join("");
+    return `
+      <div class="timeline-item ${m.color}">
+        <div class="tl-date">${m.date}</div>
+        <div class="tl-artifact">${m.artifact}</div>
+        <div class="tl-change">${m.change}</div>
+        ${m.env.length ? `<div class="tl-env">${envTags}</div>` : ""}
+      </div>
+    `;
+  }).join("");
+}
+
+/* ============================================================
+   SIGNAL OBJECT DRAWER
+   ============================================================ */
+function openObject(id) {
+  const obj = SIGNAL_OBJECTS.find(o => o.id === id);
+  if (!obj) return;
+
+  document.getElementById("objectName").textContent = obj.name;
+
+  const envTags = obj.envImpact.length
+    ? obj.envImpact.map(e => `<span class="tl-env-tag">${e}</span>`).join(" ")
+    : "—";
+
+  const fields = [
+    { key: "State",            val: `<span class="status-pill ${obj.state}">${obj.state}</span>` },
+    { key: "H (Human Canon)",  val: obj.h },
+    { key: "Developer",        val: obj.developer },
+    { key: "Machine",          val: obj.machine },
+    { key: "Status",           val: obj.status },
+    { key: "Evidence",         val: obj.evidence },
+    { key: "Last Change",      val: obj.lastChange },
+    { key: "Environment Impact", val: `<div class="multi">${envTags}</div>` },
+    { key: "Note",             val: `<em style="color:var(--text-1);font-style:italic">${obj.note}</em>` }
+  ];
+
+  document.getElementById("objectBody").innerHTML = fields.map(f => `
+    <div class="object-field">
+      <span class="field-key">${f.key}</span>
+      <span class="field-val">${f.val}</span>
+    </div>
+  `).join("");
+
+  document.getElementById("objectOverlay").classList.add("open");
+}
+
+function closeObject() {
+  document.getElementById("objectOverlay").classList.remove("open");
+}
+
+document.getElementById("objectOverlay").addEventListener("click", function(e) {
+  if (e.target === this) closeObject();
+});
+
+/* ============================================================
+   TAB NAVIGATION
+   ============================================================ */
+function showPanel(name, btn) {
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.getElementById("panel-" + name).classList.add("active");
+  btn.classList.add("active");
+}
+
+/* ============================================================
+   EVIDENCE DRAWER TOGGLE
+   ============================================================ */
+function toggleDrawer(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle("open");
+}
+
+/* ============================================================
+   REFRESH
+   In future: re-fetch from D1 / CMS / GitHub API.
+   For now: re-renders from static seed.
+   ============================================================ */
+function refreshReading() {
+  renderReading();
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderReading();
+renderCurrent();
+renderEvidence();
+renderGaps();
+renderMovement();
+</script>
+</body>
+</html>
