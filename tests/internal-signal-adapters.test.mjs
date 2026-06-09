@@ -9,6 +9,7 @@ import {
   createGitHubBuildAdapter,
   createGoogleDriveKnowledgeAdapter,
 } from "../functions/_lib/internal-signal/index.js";
+import { createSeededD1 } from "./helpers/d1-test-db.mjs";
 
 test("external source placeholders make no live calls", async () => {
   const github = await createGitHubBuildAdapter().read();
@@ -29,6 +30,25 @@ test("D1 adapter is inert until a registry binding is provided", async () => {
   assert.equal(result.source, SIGNAL_SOURCE.REGISTRY);
   assert.equal(result.status, ADAPTER_STATUS.NOT_CONFIGURED);
   assert.deepEqual(result.records, []);
+});
+
+test("D1 registry adapter reads the current migration and seed records", async () => {
+  const result = await createD1RegistryAdapter({ db: createSeededD1() }).read();
+
+  assert.equal(result.status, ADAPTER_STATUS.READY);
+  assert.equal(result.records.length, 7);
+
+  const signal = result.records.find(record => record.artifactId === "artifact-internal-signal");
+  assert.equal(signal.title, "Internal Signal");
+  assert.equal(signal.internalRoute, "/internal/signal/");
+  assert.equal(signal.sourceProvider, "repository");
+  assert.deepEqual(signal.environments, []);
+
+  const tools = result.records.find(record => record.artifactId === "artifact-dale-tools-canons-v1");
+  assert.deepEqual(
+    tools.environments.map(environment => environment.name).sort(),
+    ["AMMi / APE", "Foundation", "SVE"],
+  );
 });
 
 test("Signal Objects use D1 identity and enrich it with Drive and GitHub records", () => {
@@ -89,4 +109,3 @@ test("unregistered source observations do not create implicit Signal Objects", (
 
   assert.deepEqual(objects, []);
 });
-

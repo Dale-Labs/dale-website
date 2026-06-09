@@ -1317,19 +1317,168 @@ const MOVEMENT = [
   }
 ];
 
+let CURRENT_SIGNAL_OBJECTS = SIGNAL_OBJECTS;
+let CURRENT_VALIDATION_ENVIRONMENTS = VALIDATION_ENVIRONMENTS;
+let CURRENT_RESEARCH_ITEMS = RESEARCH_ITEMS;
+let CURRENT_DEV_ITEMS = DEV_ITEMS;
+let CURRENT_EVIDENCE_ITEMS = EVIDENCE_ITEMS;
+let CURRENT_GAPS = GAPS;
+let CURRENT_MOVEMENT = MOVEMENT;
+let readingTimestamp = "2026-06-09T09:00:00";
+let readingSource = "static seed";
+
+function normalizedState(value) {
+  return String(value || "incomplete").replaceAll("_", "");
+}
+
+function displayState(value) {
+  return String(value || "incomplete").replaceAll("_", " ");
+}
+
+function objectCategory(object) {
+  const taxonomy = String(object.metadata?.taxonomy_type || "").toLowerCase();
+  if (taxonomy === "canon") return "canon";
+  if (["research", "validation", "evidence", "publication", "decision"].includes(taxonomy)) {
+    return "research";
+  }
+  if (taxonomy === "implementation") return "developer";
+
+  if (["canon_source", "schema", "specification", "spreadsheet", "toolkit"].includes(object.artifactType)) {
+    return "canon";
+  }
+  if (["research_document", "document", "evidence", "image"].includes(object.artifactType)) {
+    return "research";
+  }
+  return "developer";
+}
+
+function representationState(object, representation) {
+  const type = object.artifactType;
+  if (representation === "machine") return type === "schema" ? "present" : "n/a";
+  if (representation === "developer") {
+    return ["schema", "specification", "toolkit", "application", "build_artifact"].includes(type)
+      ? "present"
+      : "n/a";
+  }
+  return ["canon_source", "document", "research_document", "spreadsheet", "toolkit"].includes(type)
+    ? "present"
+    : "n/a";
+}
+
+function liveObjectForDisplay(object) {
+  return {
+    ...object,
+    category: objectCategory(object),
+    state: normalizedState(object.state),
+    h: representationState(object, "human"),
+    developer: representationState(object, "developer"),
+    machine: representationState(object, "machine"),
+    status: displayState(object.reviewStatus || object.status || object.state),
+    envImpact: (object.environments || []).map(environment => environment.name),
+    note: object.notes || `${object.artifactType} registry record owned by ${object.owner}.`,
+  };
+}
+
+function buildLiveProjections(payload) {
+  const objects = payload.signalObjects.map(liveObjectForDisplay);
+  const environments = ["AMMi / APE", "SVE", "Foundation"].map(name => {
+    const linked = objects.filter(object => object.envImpact.includes(name)).length;
+    return {
+      name,
+      type: `${linked} linked artifact${linked === 1 ? "" : "s"}`,
+      status: "active",
+    };
+  });
+  const research = objects
+    .filter(object => object.category === "research")
+    .map(object => ({ label: object.name, added: displayState(object.state) }));
+  const developer = objects
+    .filter(object => object.category === "developer")
+    .map(object => ({
+      label: object.name,
+      status: object.state === "active" ? "shipped" : displayState(object.state),
+    }));
+  const evidence = objects
+    .filter(object => object.evidence !== "not_applicable")
+    .map(object => ({
+      id: `registry-${object.id}`,
+      title: object.name,
+      type: object.category === "developer" ? "Developer" : object.category === "research" ? "Research" : "Canon",
+      date: object.lastChange || payload.generatedAt,
+      env: object.envImpact,
+      note: `${object.note} Evidence status: ${displayState(object.evidence)}.`,
+      links: [object.internalRoute].filter(Boolean),
+    }));
+  const gaps = objects
+    .filter(object =>
+      ["none", "partial", "pending"].includes(object.evidence)
+      || ["draft", "incomplete", "inprogress"].includes(object.state)
+    )
+    .map(object => ({
+      severity: object.evidence === "none" ? "critical" : "warning",
+      type: object.evidence === "none" ? "No Evidence" : "Registry Gap",
+      title: `${object.name}: ${displayState(object.state)}`,
+      desc: `Evidence is ${displayState(object.evidence)} and review status is ${object.status}.`,
+      artifact: object.id,
+    }));
+  const movement = [...objects]
+    .filter(object => object.lastChange)
+    .sort((left, right) => Date.parse(right.lastChange) - Date.parse(left.lastChange))
+    .map(object => ({
+      date: object.lastChange,
+      artifact: object.name,
+      change: `${displayState(object.state)} · ${object.version || "version not set"}`,
+      env: object.envImpact,
+      color: object.state === "active" ? "teal" : "amber",
+    }));
+
+  return { objects, environments, research, developer, evidence, gaps, movement };
+}
+
+function applyLiveSignal(payload) {
+  if (!payload?.ready || !Array.isArray(payload.signalObjects)) {
+    throw new Error("Internal Signal API did not return ready registry data.");
+  }
+
+  const live = buildLiveProjections(payload);
+  CURRENT_SIGNAL_OBJECTS = live.objects;
+  CURRENT_VALIDATION_ENVIRONMENTS = live.environments;
+  CURRENT_RESEARCH_ITEMS = live.research;
+  CURRENT_DEV_ITEMS = live.developer;
+  CURRENT_EVIDENCE_ITEMS = live.evidence;
+  CURRENT_GAPS = live.gaps;
+  CURRENT_MOVEMENT = live.movement;
+  readingTimestamp = payload.generatedAt;
+  readingSource = "live D1 registry";
+  renderAll();
+}
+
+async function loadLiveSignal() {
+  try {
+    const response = await fetch("/api/internal/signal", {
+      credentials: "same-origin",
+      cache: "no-store",
+      headers: { Accept: "application/json" },
+    });
+    if (!response.ok) throw new Error(`Internal Signal API returned ${response.status}.`);
+    applyLiveSignal(await response.json());
+  } catch (error) {
+    console.warn("Internal Signal is using static seed data.", error);
+  }
+}
+
 /* ============================================================
    READING GENERATION
-   Derives the plain-text reading from the seed data state.
-   In future: replace with live read from D1 or CMS.
+   Derives the plain-text reading from live D1 data or the static seed fallback.
    ============================================================ */
 function generateReading() {
-  const canons = SIGNAL_OBJECTS.filter(o => o.category === "canon");
+  const canons = CURRENT_SIGNAL_OBJECTS.filter(o => o.category === "canon");
   const activeCanons = canons.filter(o => o.state === "active");
   const incompleteCanons = canons.filter(o => ["incomplete","design","inprogress"].includes(o.state));
-  const openGaps = GAPS.filter(g => g.severity !== "info");
-  const criticalGaps = GAPS.filter(g => g.severity === "critical");
-  const newArtifacts = MOVEMENT.length;
-  const activeEnvs = VALIDATION_ENVIRONMENTS.filter(e => e.status === "active");
+  const openGaps = CURRENT_GAPS.filter(g => g.severity !== "info");
+  const criticalGaps = CURRENT_GAPS.filter(g => g.severity === "critical");
+  const newArtifacts = CURRENT_MOVEMENT.length;
+  const activeEnvs = CURRENT_VALIDATION_ENVIRONMENTS.filter(e => e.status === "active");
 
   // Build the reading text
   const paragraphs = [];
@@ -1344,7 +1493,7 @@ function generateReading() {
   // Line 2: evidence environments
   const envNames = activeEnvs.map(e => e.name);
   if (envNames.length > 0) {
-    const envLines = envNames.map(n => `${n} is producing ${VALIDATION_ENVIRONMENTS.find(e=>e.name===n)?.type.toLowerCase()}.`).join(" ");
+    const envLines = envNames.map(n => `${n} is producing ${CURRENT_VALIDATION_ENVIRONMENTS.find(e=>e.name===n)?.type.toLowerCase()}.`).join(" ");
     paragraphs.push(envLines);
   }
 
@@ -1359,14 +1508,14 @@ function generateReading() {
 }
 
 function generateStats() {
-  const openGaps = GAPS.filter(g => g.severity !== "info").length;
-  const openDeps = GAPS.filter(g => g.severity === "info").length;
-  const newArts = EVIDENCE_ITEMS.filter(e => {
+  const openGaps = CURRENT_GAPS.filter(g => g.severity !== "info").length;
+  const openDeps = CURRENT_GAPS.filter(g => g.severity === "info").length;
+  const newArts = CURRENT_EVIDENCE_ITEMS.filter(e => {
     const d = new Date(e.date);
-    const now = new Date("2026-06-09");
+    const now = new Date(readingTimestamp);
     return (now - d) / (1000*60*60*24) <= 7;
   }).length;
-  const activeEnvs = VALIDATION_ENVIRONMENTS.filter(e => e.status === "active").length;
+  const activeEnvs = CURRENT_VALIDATION_ENVIRONMENTS.filter(e => e.status === "active").length;
 
   return [
     { n: openGaps, label: "open risks", cls: openGaps > 2 ? "risk" : "warn" },
@@ -1396,14 +1545,14 @@ function renderReading() {
   ).join("");
 
   document.getElementById("lastRead").textContent =
-    "Reading as of " + new Date("2026-06-09T09:00:00").toLocaleString("en-GB", {
+    `${readingSource} · ` + new Date(readingTimestamp).toLocaleString("en-GB", {
       day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit"
     });
 }
 
 function renderCurrent() {
   // Canons
-  const canons = SIGNAL_OBJECTS.filter(o => o.category === "canon");
+  const canons = CURRENT_SIGNAL_OBJECTS.filter(o => o.category === "canon");
   const cl = document.getElementById("canon-list");
   document.getElementById("canon-count").textContent =
     canons.filter(c => c.state === "active").length + " active / " + canons.length + " total";
@@ -1419,7 +1568,7 @@ function renderCurrent() {
 
   // Validation Environments
   const el = document.getElementById("env-list");
-  el.innerHTML = VALIDATION_ENVIRONMENTS.map(e => `
+  el.innerHTML = CURRENT_VALIDATION_ENVIRONMENTS.map(e => `
     <div class="env-row">
       <span class="env-name">${e.name}</span>
       <div class="env-meta">
@@ -1431,8 +1580,8 @@ function renderCurrent() {
 
   // Research
   const rl = document.getElementById("research-list");
-  document.getElementById("research-count").textContent = RESEARCH_ITEMS.length + " items";
-  rl.innerHTML = RESEARCH_ITEMS.map(r => `
+  document.getElementById("research-count").textContent = CURRENT_RESEARCH_ITEMS.length + " items";
+  rl.innerHTML = CURRENT_RESEARCH_ITEMS.map(r => `
     <div class="count-row">
       <span class="count-label">${r.label}</span>
       <span class="status-pill present">${r.added}</span>
@@ -1442,8 +1591,8 @@ function renderCurrent() {
   // Developer
   const dl = document.getElementById("dev-list");
   document.getElementById("dev-count").textContent =
-    DEV_ITEMS.filter(d => d.status === "shipped").length + " shipped";
-  dl.innerHTML = DEV_ITEMS.map(d => `
+    CURRENT_DEV_ITEMS.filter(d => d.status === "shipped").length + " shipped";
+  dl.innerHTML = CURRENT_DEV_ITEMS.map(d => `
     <div class="count-row">
       <span class="count-label">${d.label}</span>
       <span class="status-pill ${d.status === 'shipped' ? 'active' : d.status === 'in progress' ? 'inprogress' : 'incomplete'}">${d.status}</span>
@@ -1453,7 +1602,7 @@ function renderCurrent() {
 
 function renderEvidence() {
   const el = document.getElementById("evidence-list");
-  el.innerHTML = EVIDENCE_ITEMS.map((e, i) => {
+  el.innerHTML = CURRENT_EVIDENCE_ITEMS.map((e, i) => {
     const markerClass = e.type === "Research" ? "amber" : e.type === "Validation" ? "coral" : "";
     const envTags = e.env.map(v => `<span class="tl-env-tag">${v}</span>`).join("");
     const linkBtns = e.links.map(l =>
@@ -1483,7 +1632,7 @@ function renderEvidence() {
 
 function renderGaps() {
   const el = document.getElementById("gaps-list");
-  el.innerHTML = GAPS.map(g => {
+  el.innerHTML = CURRENT_GAPS.map(g => {
     const stripeClass = g.severity === "warning" ? "warn" : g.severity === "info" ? "info" : "";
     const typeClass = g.severity === "warning" ? "warn" : g.severity === "info" ? "info" : "";
     return `
@@ -1504,7 +1653,7 @@ function renderGaps() {
 
 function renderMovement() {
   const el = document.getElementById("timeline");
-  el.innerHTML = MOVEMENT.map(m => {
+  el.innerHTML = CURRENT_MOVEMENT.map(m => {
     const envTags = m.env.map(e =>
       `<span class="tl-env-tag">${e}</span>`
     ).join("");
@@ -1523,7 +1672,7 @@ function renderMovement() {
    SIGNAL OBJECT DRAWER
    ============================================================ */
 function openObject(id) {
-  const obj = SIGNAL_OBJECTS.find(o => o.id === id);
+  const obj = CURRENT_SIGNAL_OBJECTS.find(o => o.id === id);
   if (!obj) return;
 
   document.getElementById("objectName").textContent = obj.name;
@@ -1581,23 +1730,27 @@ function toggleDrawer(id) {
   el.classList.toggle("open");
 }
 
+function renderAll() {
+  renderReading();
+  renderCurrent();
+  renderEvidence();
+  renderGaps();
+  renderMovement();
+}
+
 /* ============================================================
    REFRESH
-   In future: re-fetch from D1 / CMS / GitHub API.
-   For now: re-renders from static seed.
+   Re-reads D1 when available and retains the static seed on failure.
    ============================================================ */
-function refreshReading() {
-  renderReading();
+async function refreshReading() {
+  await loadLiveSignal();
 }
 
 /* ============================================================
    INIT
    ============================================================ */
-renderReading();
-renderCurrent();
-renderEvidence();
-renderGaps();
-renderMovement();
+renderAll();
+loadLiveSignal();
 </script>
 </body>
 </html>

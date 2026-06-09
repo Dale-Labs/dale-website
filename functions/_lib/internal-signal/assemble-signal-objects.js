@@ -36,10 +36,16 @@ export function assembleSignalObjects({
       canonTool: artifact.canonTool,
       state: artifact.state,
       status: artifact.reviewStatus,
+      reviewStatus: artifact.reviewStatus,
       evidence: artifact.evidenceStatus,
       owner: artifact.owner,
       version: artifact.version,
       internalRoute: artifact.internalRoute,
+      sourceProvider: artifact.sourceProvider,
+      sourceUrl: artifact.sourceUrl,
+      mimeType: artifact.mimeType,
+      notes: artifact.notes,
+      metadata: artifact.metadata || {},
       environments: artifact.environments || [],
       lastChange: latestTimestamp([
         artifact.lastUpdated,
@@ -56,4 +62,3 @@ export function assembleSignalObjects({
     };
   });
 }
-
