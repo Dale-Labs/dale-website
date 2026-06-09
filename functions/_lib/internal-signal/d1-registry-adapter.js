@@ -95,4 +95,3 @@ export function createD1RegistryAdapter({ db } = {}) {
     },
   };
 }
-
