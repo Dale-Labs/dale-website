@@ -69,7 +69,7 @@ test("Google authorization requests only identity scopes and preserves a safe de
   assert.equal(url.searchParams.get("scope"), "openid email");
   assert.equal(url.searchParams.get("hd"), "dale.africa");
   assert.equal(url.searchParams.get("login_hint"), "awora@dale.africa");
-  assert.equal(url.searchParams.get("prompt"), "select_account");
+  assert.equal(url.searchParams.has("prompt"), false);
   assert.equal(authorization.state.next, "/research/");
   assert.ok(authorization.state.state);
   assert.ok(authorization.state.nonce);
@@ -85,7 +85,7 @@ test("Google authorization omits login_hint when it is not configured", () => {
   const url = new URL(authorization.url);
 
   assert.equal(url.searchParams.has("login_hint"), false);
-  assert.equal(url.searchParams.get("prompt"), "select_account");
+  assert.equal(url.searchParams.has("prompt"), false);
   assert.equal(url.searchParams.get("hd"), "dale.africa");
 });
 

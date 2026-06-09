@@ -61,7 +61,6 @@ export function createGoogleAuthorization({ clientId, redirectUri, next, hostedD
     scope: "openid email",
     state,
     nonce,
-    prompt: "select_account",
   });
   if (hostedDomain) params.set("hd", hostedDomain);
   if (loginHint) params.set("login_hint", loginHint);
