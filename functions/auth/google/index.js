@@ -15,6 +15,7 @@ export async function onRequestGet({ request, env }) {
     redirectUri,
     next,
     hostedDomain: env.DALE_GOOGLE_HOSTED_DOMAIN || "dale.africa",
+    loginHint: env.DALE_GOOGLE_LOGIN_HINT || "",
   });
   const stateCookie = await createOAuthStateCookie(authorization.state, env);
 

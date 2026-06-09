@@ -51,7 +51,7 @@ function assertWorkspaceIdentity(claims) {
   }
 }
 
-export function createGoogleAuthorization({ clientId, redirectUri, next, hostedDomain }) {
+export function createGoogleAuthorization({ clientId, redirectUri, next, hostedDomain, loginHint }) {
   const state = randomToken();
   const nonce = randomToken();
   const params = new URLSearchParams({
@@ -64,6 +64,7 @@ export function createGoogleAuthorization({ clientId, redirectUri, next, hostedD
     prompt: "select_account",
   });
   if (hostedDomain) params.set("hd", hostedDomain);
+  if (loginHint) params.set("login_hint", loginHint);
 
   return {
     state: { state, nonce, next },

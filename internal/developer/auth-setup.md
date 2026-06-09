@@ -44,6 +44,8 @@ In **Workers & Pages > DALE website > Settings > Variables and Secrets**, config
 Optional variables:
 
 - `DALE_GOOGLE_HOSTED_DOMAIN`: Google Workspace domain hint. Defaults to `dale.africa`.
+- `DALE_GOOGLE_LOGIN_HINT`: email address Google should show or prefill during account selection.
+  For the current production admin, set this to `awora@dale.africa`.
 - `DALE_AUTH_ALLOWED_EMAILS`: additional approved email addresses.
 - `DALE_AUTH_ROLES_JSON`: role assignments for additional users.
 - `DALE_AUTH_PASSWORD_SHA256`: enables the existing shared-password form as a fallback.
