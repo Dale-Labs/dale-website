@@ -160,8 +160,8 @@ VALUES
     'Internal Signal',
     'in_progress',
     'repository',
-    'repo://internal/index.html',
-    '/internal/',
+    'repo://internal/signal/index.html',
+    '/internal/signal/',
     'pending',
     '2026-06-09T12:09:57+03:00',
     'DALE Systems Lab',
@@ -169,7 +169,7 @@ VALUES
     'in_review',
     'text/html',
     'Authenticated internal build observability landing page. Future reads should query this registry.',
-    '{"repository_path":"internal/index.html","future_data_source":"artifact_registry"}',
+    '{"repository_path":"internal/signal/index.html","future_data_source":"three_source_signal_reader"}',
     CURRENT_TIMESTAMP
   )
 ON CONFLICT(id) DO UPDATE SET
@@ -213,4 +213,3 @@ VALUES
   ('artifact-master-canon-spec', 'sve', 'applies_to'),
   ('artifact-master-canon-spec', 'foundation', 'applies_to')
 ON CONFLICT(artifact_id, environment_id, relationship) DO NOTHING;
-

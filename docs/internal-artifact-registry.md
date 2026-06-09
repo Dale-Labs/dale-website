@@ -52,10 +52,11 @@ The internal site exposes authenticated routes such as `/internal/docs/` and
 The internal route may be a rendered reading copy, a restricted download, or a toolkit. It does
 not make the internal site the canonical source store.
 
-### Internal Signal: registry consumer
+### Internal Signal: multi-source reader
 
-Internal Signal will eventually query registry records rather than maintaining duplicated static
-arrays. It can derive:
+Internal Signal will eventually combine D1 registry records with Google Drive knowledge metadata
+and GitHub build activity rather than maintaining duplicated static arrays. D1 remains the join
+spine and coordination layer; it is not the whole reading. Internal Signal can derive:
 
 - current artifacts grouped by canon, tool, type, or environment
 - missing or partial evidence
@@ -63,35 +64,30 @@ arrays. It can derive:
 - recently updated artifacts
 - links to authenticated internal routes
 
-Internal Signal should read registry state. It should not fetch and parse large Drive files during
-normal page loads.
+Internal Signal should read registry state, Drive knowledge references, and GitHub activity through
+separate adapters. It should not fetch and parse large Drive files during normal page loads.
+
+The full adapter and assembly design is documented in
+`docs/internal-signal-data-architecture.md`.
 
 ## Data flow
 
 ```text
-Google Drive or repository source
-              |
-              | source_url + source metadata
-              v
-Cloudflare D1 artifact registry
-              |
-              | internal_route + state + environment links
-              v
-Authenticated internal site route
-              |
-              | registry query and aggregation
-              v
-Internal Signal reading
+Google Drive knowledge ----+
+                           |
+GitHub build activity -----+--> Signal Object assembly --> Internal Signal
+                           |
+D1 registry state ---------+
+       |
+       +--> authenticated internal_route
 ```
 
-1. A source file is created or updated in Google Drive. Application/build artifacts may remain
-   repository-owned.
-2. A registry row is inserted or updated with stable identity, source pointer, state, review,
-   evidence, ownership, and version metadata.
-3. The row points to an existing authenticated route where the team can read or download the
-   artifact.
-4. Internal Signal queries D1 and turns registry rows into its Current, Evidence, Gaps, and
-   Movement readings.
+1. A source file is created or updated in Google Drive, or build activity occurs in GitHub.
+2. A D1 registry row provides stable identity, source pointers, state, review, evidence,
+   ownership, version, and environment metadata.
+3. The row points to an authenticated route where the team can read or download the artifact.
+4. Internal Signal joins the registry row with Drive knowledge references and GitHub activity,
+   then derives its Current, Evidence, Gaps, and Movement readings.
 
 ## Environment rule
 
@@ -136,15 +132,16 @@ the blog schema.
 
 ## Future integration boundary
 
-The next application phase can add a protected read-only registry endpoint for Internal Signal.
+The next application phase can add a protected read-only Signal endpoint.
 That endpoint should:
 
 1. use the existing authenticated `/internal/` access model;
 2. query D1 for registry metadata and environment relationships;
-3. return only fields needed by Internal Signal;
-4. never expose Drive credentials or private source tokens;
-5. keep Drive synchronization as a separate ingestion process.
+3. call Drive and GitHub through separate adapters;
+4. assemble records by stable artifact ID;
+5. return only fields needed by Internal Signal;
+6. never expose Drive or GitHub credentials;
+7. keep source synchronization separate from page rendering.
 
 Google Drive synchronization can later replace placeholder `source_url` values and update
 metadata, but Drive remains file storage and D1 remains the live registry/state layer.
-
