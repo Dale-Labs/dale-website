@@ -3,6 +3,7 @@ const {
   existsSync,
   mkdirSync,
   readdirSync,
+  rmSync,
   statSync,
 } = require("node:fs");
 const path = require("node:path");
@@ -27,6 +28,22 @@ function copyEntry(source, destination) {
   });
 }
 
+const REQUIRED_FUNCTION_FILES = [
+  path.join("api", "internal", "_middleware.js"),
+  path.join("api", "internal", "signal.js"),
+  path.join("_lib", "internal-signal", "read-signal.js"),
+];
+
+function requireFunctionFiles(functionsRoot, phase) {
+  for (const relativePath of REQUIRED_FUNCTION_FILES) {
+    if (!existsSync(path.join(functionsRoot, relativePath))) {
+      throw new Error(
+        `Internal Signal ${relativePath} is missing from the ${phase}.`,
+      );
+    }
+  }
+}
+
 function buildCloudflare({
   sourceRoot = PROJECT_ROOT,
   outputRoot = DEFAULT_OUTPUT,
@@ -38,6 +55,20 @@ function buildCloudflare({
     throw new Error("Cloudflare build output cannot be the project root.");
   }
 
+  const sourceFromOutput = path.relative(resolvedOutput, resolvedSource);
+  if (sourceFromOutput && !sourceFromOutput.startsWith("..") && !path.isAbsolute(sourceFromOutput)) {
+    throw new Error("Cloudflare build output cannot contain the project source.");
+  }
+
+  const functionsSource = path.join(resolvedSource, "functions");
+  if (!existsSync(functionsSource)) {
+    throw new Error("Cloudflare Functions source directory is missing.");
+  }
+  requireFunctionFiles(functionsSource, "source tree");
+
+  if (existsSync(resolvedOutput)) {
+    rmSync(resolvedOutput, { recursive: true, force: true });
+  }
   mkdirSync(resolvedOutput, { recursive: true });
 
   for (const entry of readdirSync(resolvedSource)) {
@@ -48,24 +79,10 @@ function buildCloudflare({
     );
   }
 
-  const functionsSource = path.join(resolvedSource, "functions");
-  if (!existsSync(functionsSource)) {
-    throw new Error("Cloudflare Functions source directory is missing.");
-  }
-
   // Copy the complete tree so nested shared modules remain available to Pages Functions.
-  copyEntry(functionsSource, path.join(resolvedOutput, "functions"));
-
-  const signalReader = path.join(
-    resolvedOutput,
-    "functions",
-    "_lib",
-    "internal-signal",
-    "read-signal.js",
-  );
-  if (!existsSync(signalReader)) {
-    throw new Error("Internal Signal shared modules were not copied into the build output.");
-  }
+  const functionsOutput = path.join(resolvedOutput, "functions");
+  copyEntry(functionsSource, functionsOutput);
+  requireFunctionFiles(functionsOutput, "build output");
 
   return resolvedOutput;
 }
