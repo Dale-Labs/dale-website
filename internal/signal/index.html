@@ -957,7 +957,7 @@ body {
   <!-- FOOTER -->
   <div class="page-footer">
     <span class="footer-note">Internal Signal — DALE Build Provenance · /internal/signal/</span>
-    <span class="seed-badge">Seed data · static</span>
+    <span class="seed-badge" id="signalDataStatus">FALLBACK DATA</span>
   </div>
 
 </div>
@@ -1327,6 +1327,10 @@ let CURRENT_MOVEMENT = MOVEMENT;
 let readingTimestamp = "2026-06-09T09:00:00";
 let readingSource = "static seed";
 
+function setSignalDataStatus(status) {
+  document.getElementById("signalDataStatus").textContent = status;
+}
+
 function normalizedState(value) {
   return String(value || "incomplete").replaceAll("_", "");
 }
@@ -1437,7 +1441,8 @@ function buildLiveProjections(payload) {
 
 function applyLiveSignal(payload) {
   if (!payload?.ready || !Array.isArray(payload.signalObjects)) {
-    throw new Error("Internal Signal API did not return ready registry data.");
+    setSignalDataStatus("FALLBACK DATA");
+    return false;
   }
 
   const live = buildLiveProjections(payload);
@@ -1450,7 +1455,12 @@ function applyLiveSignal(payload) {
   CURRENT_MOVEMENT = live.movement;
   readingTimestamp = payload.generatedAt;
   readingSource = "live D1 registry";
+  const recordCount = Number.isFinite(payload.adapters?.registry?.recordCount)
+    ? payload.adapters.registry.recordCount
+    : payload.signalObjects.length;
+  setSignalDataStatus(recordCount > 0 ? "LIVE REGISTRY" : "EMPTY REGISTRY");
   renderAll();
+  return true;
 }
 
 async function loadLiveSignal() {
@@ -1463,6 +1473,7 @@ async function loadLiveSignal() {
     if (!response.ok) throw new Error(`Internal Signal API returned ${response.status}.`);
     applyLiveSignal(await response.json());
   } catch (error) {
+    setSignalDataStatus("API ERROR");
     console.warn("Internal Signal is using static seed data.", error);
   }
 }

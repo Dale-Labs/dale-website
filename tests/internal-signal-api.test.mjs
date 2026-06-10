@@ -78,5 +78,8 @@ test("Internal Signal frontend retains static seed data when its API request fai
   assert.match(html, /const SIGNAL_OBJECTS = \[/);
   assert.match(html, /fetch\("\/api\/internal\/signal"/);
   assert.match(html, /console\.warn\("Internal Signal is using static seed data\."/);
+  assert.match(html, /id="signalDataStatus">FALLBACK DATA</);
+  assert.match(html, /recordCount > 0 \? "LIVE REGISTRY" : "EMPTY REGISTRY"/);
+  assert.match(html, /setSignalDataStatus\("API ERROR"\)/);
   assert.match(html, /renderAll\(\);\s*loadLiveSignal\(\);/);
 });
