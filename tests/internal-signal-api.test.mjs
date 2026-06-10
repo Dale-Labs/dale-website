@@ -14,6 +14,15 @@ const authEnv = {
   DALE_AUTH_SESSION_SECRET: "test-session-secret",
 };
 
+function githubFetch(commits, detailsBySha) {
+  return async url => {
+    const parsed = new URL(url);
+    const match = parsed.pathname.match(/\/commits\/([^/]+)$/);
+    const body = match ? detailsBySha[match[1]] : commits;
+    return Response.json(body, { status: body ? 200 : 404 });
+  };
+}
+
 test("Internal Signal API rejects unauthenticated requests", async () => {
   const response = await protectInternalApi({
     request: new Request("https://dale.africa/api/internal/signal"),
@@ -67,6 +76,55 @@ test("Internal Signal reports unavailable live data when D1 is not configured", 
   assert.equal(body.adapters.registry.status, "not_configured");
   assert.equal(body.adapters.build.status, "not_configured");
   assert.equal(body.adapters.knowledge.status, "not_configured");
+});
+
+test("Internal Signal API reports matched and unmatched GitHub build activity", async () => {
+  const token = "github-token-must-not-leak";
+  const commits = [
+    {
+      sha: "matched-sha",
+      html_url: "https://github.com/Dale-Labs/dale-website/commit/matched-sha",
+      commit: {
+        message: "Update artifact-internal-signal",
+        author: { name: "DALE", date: "2026-06-10T08:00:00Z" },
+      },
+    },
+    {
+      sha: "unmatched-sha",
+      html_url: "https://github.com/Dale-Labs/dale-website/commit/unmatched-sha",
+      commit: {
+        message: "Update unrelated asset",
+        author: { name: "DALE", date: "2026-06-10T09:00:00Z" },
+      },
+    },
+  ];
+  const env = {
+    ...authEnv,
+    DALE_ARTIFACT_DB: createSeededD1(),
+    DALE_GITHUB_TOKEN: token,
+    DALE_GITHUB_OWNER: "Dale-Labs",
+    DALE_GITHUB_REPO: "dale-website",
+    DALE_GITHUB_BRANCH: "feature/internal-ia",
+    DALE_GITHUB_FETCH: githubFetch(commits, {
+      "matched-sha": { files: [{ filename: "internal/signal/index.html" }] },
+      "unmatched-sha": { files: [{ filename: "assets/site.css" }] },
+    }),
+  };
+
+  const response = await getInternalSignal({ env });
+  const body = await response.json();
+  const signal = body.signalObjects.find(object => object.id === "artifact-internal-signal");
+
+  assert.equal(response.status, 200);
+  assert.equal(body.adapters.build.source, "github_build");
+  assert.equal(body.adapters.build.status, "ready");
+  assert.equal(body.adapters.build.recordCount, 1);
+  assert.equal(body.adapters.build.unmatchedCount, 1);
+  assert.equal(body.adapters.build.observations[0].activityId, "unmatched-sha");
+  assert.match(body.adapters.build.warnings[0], /Unregistered GitHub activity/);
+  assert.equal(signal.buildActivity.length, 1);
+  assert.equal(signal.buildActivity[0].activityId, "matched-sha");
+  assert.equal(JSON.stringify(body).includes(token), false);
 });
 
 test("Internal Signal frontend retains static seed data when its API request fails", () => {

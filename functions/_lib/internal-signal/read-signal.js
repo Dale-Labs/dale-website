@@ -12,6 +12,8 @@ function adapterSummary(result) {
     status: result.status,
     observedAt: result.observedAt,
     recordCount: result.records.length,
+    unmatchedCount: result.unmatchedRecords?.length || 0,
+    observations: result.unmatchedRecords || [],
     warnings: result.warnings,
   };
 }
@@ -21,9 +23,18 @@ export function registryDatabase(env) {
 }
 
 export async function readInternalSignal(env) {
-  const [registry, build, knowledge] = await Promise.all([
-    createD1RegistryAdapter({ db: registryDatabase(env) }).read(),
-    createGitHubBuildAdapter().read(),
+  const registry = await createD1RegistryAdapter({
+    db: registryDatabase(env),
+  }).read();
+  const [build, knowledge] = await Promise.all([
+    createGitHubBuildAdapter({
+      token: env.DALE_GITHUB_TOKEN,
+      owner: env.DALE_GITHUB_OWNER,
+      repo: env.DALE_GITHUB_REPO,
+      branch: env.DALE_GITHUB_BRANCH,
+      registry: registry.records,
+      fetchImpl: env.DALE_GITHUB_FETCH || globalThis.fetch,
+    }).read(),
     createGoogleDriveKnowledgeAdapter().read(),
   ]);
 
