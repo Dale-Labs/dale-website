@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A Kenyan Fruit Calendar — A DALE Labs / APE Experiment</title>
 <meta name="description" content="A Kenyan Fruit Calendar remembers Kenya's fruit seasons, one story and one jar at a time.">
+<meta property="og:image" content="/assets/akfc/akfc-logo-web.jpg">
+<meta name="twitter:image" content="/assets/akfc/akfc-logo-web.jpg">
+<link rel="preload" as="image" href="/assets/akfc/akfc-logo-web.jpg">
 <link rel="preload" as="image" href="/assets/akfc/akfc-fruit-stamp.svg">
 <link rel="preload" as="image" href="/assets/akfc/mutiso.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,14 +74,21 @@
     gap:24px;
   }
   .nav-brand{
-    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
-    font-weight:500;
-    font-size:18px;
-    letter-spacing:0.01em;
-    white-space:nowrap;
+    display:inline-flex;
+    align-items:center;
     text-decoration:none;
   }
+  .nav-logo{
+    display:block;
+    width:92px;
+    height:92px;
+    object-fit:contain;
+    border-radius:50%;
+    mix-blend-mode:multiply;
+  }
   .dale-home{
+    display:block;
+    margin-top:4px;
     font-family:'Space Mono', 'Courier New', monospace;
     font-size:10px;
     letter-spacing:0.12em;
@@ -920,6 +930,7 @@
     .about-grid .stamp-mini{max-width:180px;}
     .nav-links{display:none;}
     .nav-toggle{display:block;}
+    .nav-logo{width:74px;height:74px;}
     .nav.open .nav-links{
       display:flex;
       flex-direction:column;
@@ -946,7 +957,9 @@
     .ask-options{gap:10px;}
     .ask-option{font-size:14px; padding:9px 18px;}
     section{padding:56px 0;}
-    .dale-home{display:none;}
+    .nav{padding:12px 18px;}
+    .nav-logo{width:62px;height:62px;}
+    .dale-home{font-size:9px;max-width:180px;}
   }
 </style>
 </head>
@@ -955,7 +968,9 @@
 <header>
   <nav class="nav" id="mainNav">
     <div>
-      <a href="/akfc/" class="nav-brand">A Kenyan Fruit Calendar</a>
+      <a href="/akfc/" class="nav-brand">
+        <img class="nav-logo" src="/assets/akfc/akfc-logo-web.jpg" alt="A Kenyan Fruit Calendar - Your Memories in a Jar">
+      </a>
       <a href="/" class="dale-home">An APE experiment by DALE Labs</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
