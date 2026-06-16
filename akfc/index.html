@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Kenyan Fruit Calendar — A DALE Labs / APE Experiment</title>
+<meta name="description" content="A Kenyan Fruit Calendar remembers Kenya's fruit seasons, one story and one jar at a time.">
+<link rel="preload" as="image" href="/assets/akfc/akfc-fruit-stamp.svg">
+<link rel="preload" as="image" href="/assets/akfc/mutiso.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Lora:ital,wght@0,400..600;1,400..500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#F5EFE3;
+    --parchment-deep:#ECE2D0;
+    --paper:#FBF8F1;
+    --olive:#3D4A33;
+    --olive-soft:#5C6B4E;
+    --terracotta:#A33B2E;
+    --tamarind:#8B6F47;
+    --gold:#C9A876;
+    --ink:#2A2520;
+    --paper-edge: rgba(42,37,32,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'Lora', Georgia, 'Times New Roman', serif;
+    line-height:1.6;
+  }
+
+  a{color:inherit;}
+
+  :focus-visible{
+    outline:2px solid var(--terracotta);
+    outline-offset:3px;
+  }
+  .sr-only{
+    position:absolute;
+    width:1px;
+    height:1px;
+    padding:0;
+    margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(245,239,227,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--paper-edge);
+  }
+  .nav{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 24px;
+    gap:24px;
+  }
+  .nav-brand{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:500;
+    font-size:18px;
+    letter-spacing:0.01em;
+    white-space:nowrap;
+    text-decoration:none;
+  }
+  .dale-home{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--tamarind);
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    list-style:none;
+    flex-wrap:wrap;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--olive-soft);
+    transition:color 0.2s ease;
+    padding:4px 2px;
+    border-bottom:1px solid transparent;
+    white-space:nowrap;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{
+    color:var(--terracotta);
+    border-bottom-color:var(--terracotta);
+  }
+  .nav-links a.cta-link{
+    color:var(--ink);
+    border:1px solid var(--ink);
+    padding:6px 12px;
+    border-radius:2px;
+  }
+  .nav-links a.cta-link:hover{
+    background:var(--ink);
+    color:var(--parchment);
+  }
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:1px solid var(--ink);
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:8px 12px;
+    border-radius:2px;
+    cursor:pointer;
+    color:var(--ink);
+  }
+
+  /* ===== LAYOUT HELPERS ===== */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  section{padding:80px 0;}
+  .section-label{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    color:var(--olive-soft);
+    margin-bottom:28px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .section-label::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--paper-edge);
+  }
+  .divider{
+    height:1px;
+    background:var(--paper-edge);
+    max-width:1180px;
+    margin:0 auto;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:64px 0 48px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:minmax(0,0.95fr) minmax(320px,1.05fr);
+    gap:clamp(32px,6vw,72px);
+    align-items:center;
+  }
+  .hero-copy{
+    text-align:left;
+  }
+  .hero-kicker{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:11px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--tamarind);
+    margin-bottom:22px;
+  }
+  .banter{
+    font-family:'Lora', serif;
+    font-style:italic;
+    font-size:clamp(17px,2.4vw,23px);
+    color:var(--olive);
+    max-width:640px;
+    margin:0;
+    opacity:0;
+    transform:translateY(10px);
+    animation: rise 0.7s ease forwards;
+  }
+  .banter + .banter{margin-top:14px;}
+  .banter.punch{
+    font-weight:600;
+    color:var(--terracotta);
+    font-style:normal;
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-size:clamp(20px,3vw,28px);
+  }
+
+  .banter:nth-of-type(1){animation-delay:0.05s;}
+  .banter:nth-of-type(2){animation-delay:0.5s;}
+  .banter:nth-of-type(3){animation-delay:0.95s;}
+  .banter:nth-of-type(4){animation-delay:1.4s;}
+
+  @keyframes rise{
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .stamp-wrap{
+    margin:42px 0 28px;
+    max-width:340px;
+    opacity:0;
+    transform:scale(0.85) rotate(-8deg);
+    animation: stamp-down 0.6s cubic-bezier(.2,1.4,.4,1) forwards;
+    animation-delay:1.9s;
+  }
+  .stamp-wrap img{
+    width:100%;
+    display:block;
+    filter: drop-shadow(0 6px 18px rgba(42,37,32,0.18));
+  }
+  @keyframes stamp-down{
+    to{opacity:1; transform:scale(1) rotate(-2deg);}
+  }
+
+  .hero-after{
+    opacity:0;
+    animation: rise 0.7s ease forwards;
+    animation-delay:2.5s;
+  }
+  .hero-after .banter:nth-of-type(1){animation:none; opacity:1; transform:none;}
+  .hero-after .banter{animation:none; opacity:1; transform:none;}
+
+  .hero-tagline{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:11px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--tamarind);
+    margin-top:48px;
+  }
+  .market-scene{
+    position:relative;
+    min-height:620px;
+  }
+  .market-poster{
+    position:absolute;
+    display:block;
+    border:10px solid var(--paper);
+    box-shadow:0 18px 36px rgba(42,37,32,0.18);
+    overflow:hidden;
+    background:var(--paper);
+  }
+  .market-poster img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    filter:saturate(0.92) contrast(0.98);
+  }
+  .market-poster.primary{
+    width:54%;
+    height:78%;
+    right:19%;
+    top:3%;
+    transform:rotate(1.5deg);
+    z-index:2;
+  }
+  .market-poster.left{
+    width:38%;
+    height:52%;
+    left:0;
+    top:22%;
+    transform:rotate(-4deg);
+    z-index:1;
+  }
+  .market-poster.right{
+    width:35%;
+    height:50%;
+    right:0;
+    bottom:1%;
+    transform:rotate(4deg);
+    z-index:3;
+  }
+  .jar-note{
+    position:absolute;
+    left:8%;
+    bottom:8%;
+    z-index:4;
+    max-width:250px;
+    padding:18px 20px;
+    background:var(--paper);
+    border:1px solid var(--paper-edge);
+    box-shadow:0 12px 24px rgba(42,37,32,0.13);
+    transform:rotate(-2deg);
+  }
+  .jar-note strong{
+    display:block;
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-size:22px;
+    line-height:1.1;
+    color:var(--terracotta);
+  }
+  .jar-note span{
+    display:block;
+    margin-top:8px;
+    font-size:14px;
+    color:var(--olive);
+    font-style:italic;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .banter, .stamp-wrap, .hero-after{animation:none !important; opacity:1 !important; transform:none !important;}
+  }
+
+  /* ===== PARTICIPATION PROMPT ===== */
+  .ask-section{
+    text-align:center;
+    padding-top:8px;
+  }
+  .ask-section .ask-head{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:330;
+    font-size:clamp(22px,3.4vw,32px);
+    margin-bottom:24px;
+  }
+  .ask-options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+    max-width:560px;
+    margin:0 auto;
+  }
+  .ask-option{
+    font-family:'Lora', Georgia, 'Times New Roman', serif;
+    font-size:15px;
+    border:1.5px solid var(--ink);
+    border-radius:999px;
+    padding:10px 22px;
+    background:transparent;
+    color:var(--ink);
+    cursor:pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  }
+  .ask-option:hover{
+    transform: translateY(-2px);
+  }
+  .ask-option.active{
+    background:var(--terracotta);
+    border-color:var(--terracotta);
+    color:var(--parchment);
+  }
+  .ask-reaction{
+    margin-top:24px;
+    min-height:32px;
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:18px;
+    color:var(--olive);
+    opacity:0;
+    transform:translateY(6px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .ask-reaction.show{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .ask-share{
+    margin-top:10px;
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:10px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--olive-soft);
+    opacity:0;
+    transition: opacity 0.35s ease;
+  }
+  .ask-share.show{opacity:1;}
+
+  /* ===== FRUIT COURT ===== */
+  .court-section{
+    background:var(--parchment-deep);
+  }
+  .memory-strip{
+    background:var(--paper);
+  }
+  .memory-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(320px,0.95fr);
+    gap:36px;
+    align-items:center;
+  }
+  .memory-copy h2{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:330;
+    font-size:clamp(28px,4.5vw,48px);
+    line-height:1.12;
+    margin-bottom:18px;
+  }
+  .memory-copy p{
+    max-width:58ch;
+    font-size:16px;
+    margin-bottom:16px;
+  }
+  .season-reel{
+    position:relative;
+    border:10px solid var(--parchment);
+    background:var(--parchment-deep);
+    box-shadow:0 18px 34px rgba(42,37,32,0.14);
+    transform:rotate(1deg);
+  }
+  .season-reel video{
+    display:block;
+    width:100%;
+    aspect-ratio:4 / 3;
+    object-fit:cover;
+  }
+  .season-reel figcaption{
+    padding:12px 14px 14px;
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--olive-soft);
+  }
+  .court-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  .court-card{
+    background:var(--paper);
+    border:1px solid var(--paper-edge);
+    border-radius:3px;
+    padding:24px 22px;
+    position:relative;
+    transform: rotate(var(--tilt,0deg));
+  }
+  .court-card:nth-child(1){--tilt:-1deg;}
+  .court-card:nth-child(2){--tilt:0.8deg;}
+  .court-card:nth-child(3){--tilt:-0.6deg;}
+  .court-card:nth-child(4){--tilt:1deg;}
+  .court-card:nth-child(5){--tilt:-0.4deg;}
+  .court-card:nth-child(6){--tilt:0.6deg;}
+  .court-card .pin{
+    position:absolute;
+    top:-8px; left:50%;
+    transform:translateX(-50%);
+    width:14px; height:14px;
+    border-radius:50%;
+    background:var(--terracotta);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .court-card .topic{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:10px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--tamarind);
+    margin-bottom:10px;
+  }
+  .court-card p{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:340;
+    font-size:18px;
+    line-height:1.35;
+  }
+  .court-card .opts{
+    margin-top:12px;
+    font-family:'Lora', Georgia, 'Times New Roman', serif;
+    font-size:13.5px;
+    color:var(--olive-soft);
+    font-style:italic;
+  }
+
+  /* ===== LEAGUE TABLE FRUIT CARDS ===== */
+  .league-card{
+    background:var(--paper);
+    border:1px solid var(--paper-edge);
+    border-radius:4px;
+    padding:24px 20px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .league-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(42,37,32,0.08);
+  }
+  .league-card .lc-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .league-card .lc-emoji{font-size:28px; line-height:1;}
+  .league-card h3{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:500;
+    font-size:19px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .league-card .lc-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:13px;
+    padding:7px 0;
+    border-top:1px solid var(--paper-edge);
+  }
+  .league-card .lc-row:first-of-type{border-top:none; padding-top:0;}
+  .league-card .lc-label{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:10px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--olive-soft);
+  }
+  .league-card .lc-value{
+    font-family:'Lora', Georgia, 'Times New Roman', serif;
+    font-style:italic;
+    text-align:right;
+  }
+  .league-card .lc-value.accent{color:var(--terracotta); font-weight:600; font-style:normal;}
+
+  .released-pill{
+    font-family:'Lora', Georgia, 'Times New Roman', serif;
+    font-size:13px;
+    font-style:italic;
+    color:var(--tamarind);
+    border:1px solid var(--paper-edge);
+    border-radius:999px;
+    padding:8px 18px;
+    background:var(--parchment-deep);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    text-align:center;
+  }
+  .released-pill .rp-fruit{display:flex; align-items:center; gap:6px;}
+  .released-pill svg{width:16px;height:16px;stroke:var(--tamarind); opacity:0.7;}
+  .released-pill .rp-status{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:9px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    opacity:0.65;
+    font-style:normal;
+  }
+
+  /* ===== FRUIT ALERT ===== */
+  .alert-form{
+    max-width:420px;
+    margin:28px auto 14px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .alert-form input[type="email"]{
+    flex:1;
+    min-width:200px;
+    font-family:'Lora', Georgia, 'Times New Roman', serif;
+    font-size:14px;
+    padding:13px 16px;
+    border:1.5px solid var(--ink);
+    border-radius:2px;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .alert-form input[type="email"]::placeholder{
+    color:var(--olive-soft);
+    font-style:italic;
+  }
+  .alert-form button{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    background:var(--terracotta);
+    color:var(--parchment);
+    border:none;
+    padding:13px 24px;
+    border-radius:2px;
+    cursor:pointer;
+    transition: background 0.2s ease;
+  }
+  .alert-form button:hover{background:#8a2f24;}
+  .alert-note{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--olive-soft);
+    opacity:0.7;
+  }
+
+
+  .season-head{
+    text-align:center;
+    margin-bottom:48px;
+  }
+  .season-head .eyebrow{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:11px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--olive-soft);
+    margin-bottom:10px;
+  }
+  .season-head h2{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:330;
+    font-size:clamp(28px,4.5vw,44px);
+  }
+  .season-head h2 em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--terracotta);
+  }
+
+  .fruit-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-bottom:44px;
+  }
+  .fruit-card{
+    background:var(--paper);
+    border:1px solid var(--paper-edge);
+    border-radius:4px;
+    padding:28px 20px;
+    text-align:center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .fruit-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(42,37,32,0.08);
+  }
+  .fruit-card svg{
+    width:64px;
+    height:64px;
+    margin:0 auto 14px;
+    display:block;
+    stroke:var(--olive);
+  }
+  .fruit-card h3{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:500;
+    font-size:19px;
+    margin-bottom:4px;
+  }
+  .fruit-card .status{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:10px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--olive-soft);
+  }
+
+  .exited-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+  }
+  .exited-label{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--olive-soft);
+    margin-right:6px;
+  }
+  .exited-pill{
+    font-family:'Lora', serif;
+    font-size:13px;
+    font-style:italic;
+    color:var(--tamarind);
+    border:1px solid var(--paper-edge);
+    border-radius:999px;
+    padding:6px 16px;
+    background:var(--parchment-deep);
+    opacity:0.75;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .exited-pill svg{width:18px;height:18px;stroke:var(--tamarind); opacity:0.7;}
+
+  /* ===== CALENDAR ===== */
+  .calendar-section{
+    background:var(--olive);
+    color:var(--parchment);
+  }
+  .calendar-section .section-label{color:rgba(245,239,227,0.6);}
+  .calendar-section .section-label::after{background:rgba(245,239,227,0.18);}
+
+  .calendar-inner{
+    display:grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .calendar-inner h2{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:320;
+    font-size:clamp(26px,4vw,38px);
+    margin-bottom:18px;
+    line-height:1.2;
+  }
+  .calendar-inner p{
+    font-size:16px;
+    max-width:46ch;
+    color:rgba(245,239,227,0.85);
+    margin-bottom:28px;
+  }
+  .ripe-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    background:var(--terracotta);
+    color:var(--parchment);
+    padding:14px 24px;
+    border-radius:2px;
+    text-decoration:none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .ripe-cta:hover{
+    background:#8a2f24;
+    transform: translateY(-2px);
+  }
+  .ripe-cta svg{width:16px;height:16px;}
+
+  .calendar-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+  }
+  .month-cell{
+    aspect-ratio:1;
+    border:1px solid rgba(245,239,227,0.18);
+    border-radius:3px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:rgba(245,239,227,0.5);
+    position:relative;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .month-cell.now{
+    border-color:var(--gold);
+    color:var(--parchment);
+    background:rgba(201,168,118,0.12);
+  }
+  .month-cell.now::after{
+    content:'';
+    position:absolute;
+    top:6px; right:6px;
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--gold);
+  }
+  .month-cell .dot-fruit{
+    font-size:16px;
+    line-height:1;
+  }
+
+  .calendar-note{
+    grid-column: 1 / -1;
+    font-family:'Lora', serif;
+    font-style:italic;
+    font-size:13px;
+    color:rgba(245,239,227,0.55);
+    margin-top:6px;
+    text-align:center;
+  }
+
+  /* ===== PRODUCTS LOADING ===== */
+  .loading-section{
+    text-align:center;
+  }
+  .loading-section h2{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:330;
+    font-size:clamp(26px,4vw,40px);
+    margin-bottom:16px;
+  }
+  .loading-bar{
+    max-width:360px;
+    margin:28px auto 18px;
+    height:6px;
+    border-radius:999px;
+    background:var(--parchment-deep);
+    border:1px solid var(--paper-edge);
+    overflow:hidden;
+  }
+  .loading-bar .fill{
+    height:100%;
+    width:38%;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+    border-radius:999px;
+    animation: loading-pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes loading-pulse{
+    0%, 100%{width:32%;}
+    50%{width:46%;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .loading-bar .fill{animation:none; width:38%;}
+  }
+  .loading-section .deal{
+    font-family:'Lora', serif;
+    font-style:italic;
+    font-size:17px;
+    color:var(--olive-soft);
+  }
+
+  /* ===== ABOUT ===== */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap:48px;
+    align-items:start;
+  }
+  .about-grid .stamp-mini{
+    max-width:240px;
+    margin:0 auto;
+  }
+  .about-grid .stamp-mini img{
+    width:100%;
+    display:block;
+    filter: drop-shadow(0 4px 12px rgba(42,37,32,0.12));
+  }
+  .about-copy h2{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:320;
+    font-size:clamp(26px,4vw,38px);
+    margin-bottom:6px;
+  }
+  .about-copy .tagline{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:18px;
+    color:var(--terracotta);
+    margin-bottom:24px;
+  }
+  .about-copy p{
+    margin-bottom:18px;
+    font-size:15.5px;
+    max-width:62ch;
+  }
+  .about-copy .closing{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:17px;
+    color:var(--olive);
+    border-left:2px solid var(--gold);
+    padding-left:18px;
+    margin-top:8px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    border-top:2px solid var(--ink);
+    padding:32px 0;
+  }
+  .footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--olive-soft);
+  }
+  footer .principle{
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--ink);
+    text-transform:none;
+    letter-spacing:0.01em;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-copy{text-align:center;}
+    .hero-copy .banter, .hero-copy .stamp-wrap{margin-left:auto;margin-right:auto;}
+    .market-scene{min-height:500px; max-width:620px; margin:0 auto;}
+    .memory-grid{grid-template-columns:1fr;}
+    .fruit-grid{grid-template-columns:repeat(2,1fr);}
+    .court-grid{grid-template-columns:repeat(2,1fr);}
+    .calendar-inner{grid-template-columns:1fr;}
+    .calendar-grid{grid-template-columns:repeat(4,1fr);}
+    .about-grid{grid-template-columns:1fr;}
+    .about-grid .stamp-mini{max-width:180px;}
+    .nav-links{display:none;}
+    .nav-toggle{display:block;}
+    .nav.open .nav-links{
+      display:flex;
+      flex-direction:column;
+      position:absolute;
+      top:100%; left:0; right:0;
+      background:var(--parchment);
+      border-bottom:1px solid var(--paper-edge);
+      padding:16px 24px 24px;
+      gap:16px;
+    }
+  }
+  @media (max-width:560px){
+    .hero{padding-top:42px;}
+    .market-scene{min-height:430px;}
+    .market-poster{border-width:7px;}
+    .market-poster.primary{width:60%;height:70%;right:17%;}
+    .market-poster.left{width:43%;height:45%;top:28%;}
+    .market-poster.right{width:40%;height:43%;}
+    .jar-note{left:4%;bottom:5%;max-width:210px;padding:14px 15px;}
+    .jar-note strong{font-size:19px;}
+    .fruit-grid{grid-template-columns:1fr;}
+    .court-grid{grid-template-columns:1fr;}
+    .calendar-grid{grid-template-columns:repeat(3,1fr);}
+    .ask-options{gap:10px;}
+    .ask-option{font-size:14px; padding:9px 18px;}
+    section{padding:56px 0;}
+    .dale-home{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav" id="mainNav">
+    <div>
+      <a href="/akfc/" class="nav-brand">A Kenyan Fruit Calendar</a>
+      <a href="/" class="dale-home">An APE experiment by DALE Labs</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#season">Season</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products Loading</a></li>
+      <li><a href="mailto:hello@akenyanfruitcalendar.co.ke?subject=What's%20ripe%20near%20you" class="cta-link">Tell Us What's Ripe</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="hero-kicker">Your Memories in a Jar</p>
+        <h1 class="sr-only">A Kenyan Fruit Calendar</h1>
+      <p class="banter">Mlidhani Mutiso ameenda na maembe?</p>
+      <p class="banter">Ngoja muone machungwa.</p>
+      <p class="banter">Alafu sasa ukiongeza Omwoyo na avocado, Kantai na watermelon&hellip;</p>
+      <p class="banter punch">Roster imewezaaaaa.</p>
+
+      <div class="stamp-wrap">
+        <img src="/assets/akfc/akfc-fruit-stamp.svg" alt="A Kenyan Fruit Calendar — Your Memories in a Jar. Harvested in Kenya.">
+      </div>
+
+      <div class="hero-after">
+        <p class="banter">By the way my guy&hellip; umekula ata ka machungwa leo?</p>
+        <p class="banter punch">Usikue hivo. Tembelea mathe. Shika mbili kwa bill yetu.</p>
+      </div>
+
+        <p class="hero-tagline">We work with the land.</p>
+      </div>
+      <div class="market-scene" aria-label="Illustrated Kenyan fruit market characters">
+        <figure class="market-poster left">
+          <img src="/assets/akfc/kantai.png" alt="Kantai carrying a watermelon">
+        </figure>
+        <figure class="market-poster primary">
+          <img src="/assets/akfc/mutiso.png" alt="Mutiso carrying a basket of mangoes">
+        </figure>
+        <figure class="market-poster right">
+          <img src="/assets/akfc/nyaboke.png" alt="Nyaboke carrying avocados">
+        </figure>
+        <p class="jar-note"><strong>Seasonal, not sorry.</strong><span>When the fruit is done, the jar waits for next year.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHICH FRUIT ARE YOU WAITING FOR -->
+  <section class="ask-section">
+    <div class="wrap">
+      <p class="ask-head">Which fruit are you waiting for?</p>
+      <div class="ask-options" role="group" aria-label="Which fruit are you waiting for">
+        <button class="ask-option" data-fruit="mango">Mangoes</button>
+        <button class="ask-option" data-fruit="avocado">Avocados</button>
+        <button class="ask-option" data-fruit="tamarind">Tamarind</button>
+        <button class="ask-option" data-fruit="jamun">Jamun</button>
+        <button class="ask-option" data-fruit="surprise">Surprise me</button>
+      </div>
+      <p class="ask-reaction" id="askReaction" aria-live="polite"></p>
+      <p class="ask-share" id="askShare">Screenshot this. Send it to the person who knows exactly why.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- MEMORIES IN A JAR -->
+  <section class="memory-strip" aria-labelledby="memory-title">
+    <div class="wrap memory-grid">
+      <div class="memory-copy">
+        <div class="section-label">Your Memories in a Jar</div>
+        <h2 id="memory-title">A preserve for the season you almost forgot.</h2>
+        <p>The first mango stolen from the basin. The orange passed through a bus window. The avocado mathe said was ready, even when it clearly needed one more day.</p>
+        <p>A Kenyan Fruit Calendar is a warm little record of those seasons: what was ripe, who had the plug, and which jar should come back only when the land says so.</p>
+      </div>
+      <figure class="season-reel">
+        <video src="/assets/akfc/akfc-storyboard.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Animated storyboard for A Kenyan Fruit Calendar"></video>
+        <figcaption>Season notes, market jokes, and jars worth waiting for.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FRUIT COURT -->
+  <section class="court-section">
+    <div class="wrap">
+      <div class="section-label">National Discussion</div>
+      <div class="court-grid">
+        <div class="court-card">
+          <div class="pin"></div>
+          <div class="topic">Unresolved Grievance</div>
+          <p>Which fruit never reached the house?</p>
+          <div class="opts">It was finished at the gate. Every time.</div>
+        </div>
+        <div class="court-card">
+          <div class="pin"></div>
+          <div class="topic">Heated Debate</div>
+          <p>Best mangoes:</p>
+          <div class="opts">Kitui &middot; Makueni &middot; Machakos. Choose wisely. This will be remembered.</div>
+        </div>
+        <div class="court-card">
+          <div class="pin"></div>
+          <div class="topic">Confession</div>
+          <p>Who else got caught in the neighbour's tree&hellip; and cried while full?</p>
+          <div class="opts">Asking for a friend. The friend is everyone.</div>
+        </div>
+        <div class="court-card">
+          <div class="pin"></div>
+          <div class="topic">Naming Rights</div>
+          <p>What did you call jamun growing up?</p>
+          <div class="opts">Not what's on the jar. We know.</div>
+        </div>
+        <div class="court-card">
+          <div class="pin"></div>
+          <div class="topic">Transfer Window</div>
+          <p>Which fruit do you trust completely, no inspection needed?</p>
+          <div class="opts">One bite, eyes closed, no regrets.</div>
+        </div>
+        <div class="court-card">
+          <div class="pin"></div>
+          <div class="topic">Hot Take</div>
+          <p>Which "fruit" do you refuse to count as a fruit?</p>
+          <div class="opts">Say it. We'll wait.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CURRENT SEASON -->
+  <section id="season">
+    <div class="wrap">
+      <div class="season-head">
+        <div class="eyebrow">Right Now</div>
+        <h2>June &ndash; September &middot; <em>Dry Season</em></h2>
+      </div>
+
+      <div class="fruit-grid">
+        <div class="league-card">
+          <div class="lc-head">
+            <span class="lc-emoji">&#x1F34A;</span>
+            <h3>Oranges</h3>
+          </div>
+          <div class="lc-row">
+            <span class="lc-label">Current Form</span>
+            <span class="lc-value accent">Excellent</span>
+          </div>
+          <div class="lc-row">
+            <span class="lc-label">Contract</span>
+            <span class="lc-value">Signed until September</span>
+          </div>
+          <div class="lc-row">
+            <span class="lc-label">Squad Role</span>
+            <span class="lc-value">Starting XI</span>
+          </div>
+        </div>
+        <div class="league-card">
+          <div class="lc-head">
+            <span class="lc-emoji">&#x1F951;</span>
+            <h3>Avocado</h3>
+          </div>
+          <div class="lc-row">
+            <span class="lc-label">Contract Extension</span>
+            <span class="lc-value accent">Approved</span>
+          </div>
+          <div class="lc-row">
+            <span class="lc-label">Market Value</span>
+            <span class="lc-value">Don't ask</span>
+          </div>
+          <div class="lc-row">
+            <span class="lc-label">Squad Role</span>
+            <span class="lc-value">Plays every position</span>
+          </div>
+        </div>
+        <div class="league-card">
+          <div class="lc-head">
+            <span class="lc-emoji">&#x1F349;</span>
+            <h3>Watermelon</h3>
+          </div>
+          <div class="lc-row">
+            <span class="lc-label">Current Form</span>
+            <span class="lc-value accent">Peaking</span>
+          </div>
+          <div class="lc-row">
+            <span class="lc-label">Contract</span>
+            <span class="lc-value">Until the heat breaks</span>
+          </div>
+          <div class="lc-row">
+            <span class="lc-label">Squad Role</span>
+            <span class="lc-value">Crowd favourite</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exited-row">
+        <span class="exited-label">Released This Window</span>
+        <span class="released-pill">
+          <span class="rp-fruit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5 C8 5 6 10 7 15 C8 19 10 21 12 21 C14 21 16 19 17 15 C18 10 16 5 12 5Z"/><path d="M11 5 C10 3 12 2 14 3"/></svg>
+            Mango
+          </span>
+          <span class="rp-status">Back next season</span>
+        </span>
+        <span class="released-pill">
+          <span class="rp-fruit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 18 C6 10 12 5 18 5 C18 11 14 17 6 18Z"/></svg>
+            Banana
+          </span>
+          <span class="rp-status">On loan, technically</span>
+        </span>
+        <span class="released-pill">
+          <span class="rp-fruit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="7"/><path d="M12 5 C10 3 13 1 15 3"/></svg>
+            Passion Fruit
+          </span>
+          <span class="rp-status">Cult favourite, gone quiet</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section id="calendar" class="calendar-section">
+    <div class="wrap">
+      <div class="section-label">The Calendar</div>
+      <div class="calendar-inner">
+        <div>
+          <h2>A living record &mdash; not yet finished, and that's the point.</h2>
+          <p>We're building Kenya's fruit calendar season by season. Some of this is a guess. Some of it depends on where you are. Help us get it right.</p>
+          <a class="ripe-cta" href="mailto:hello@akenyanfruitcalendar.co.ke?subject=What's%20ripe%20near%20me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 7l9 6 9-6"/><path d="M3 7v10h18V7"/></svg>
+            Tell Us What's Ripe
+          </a>
+        </div>
+        <div class="calendar-grid">
+          <div class="month-cell"><span class="dot-fruit">&#x1F34B;</span>Jan</div>
+          <div class="month-cell"><span class="dot-fruit">&#x1F34B;</span>Feb</div>
+          <div class="month-cell">Mar</div>
+          <div class="month-cell">Apr</div>
+          <div class="month-cell">May</div>
+          <div class="month-cell now"><span class="dot-fruit">&#x1F34A;</span>Jun</div>
+          <div class="month-cell"><span class="dot-fruit">&#x1F34A;</span>Jul</div>
+          <div class="month-cell"><span class="dot-fruit">&#x1F349;</span>Aug</div>
+          <div class="month-cell"><span class="dot-fruit">&#x1F349;</span>Sep</div>
+          <div class="month-cell">Oct</div>
+          <div class="month-cell">Nov</div>
+          <div class="month-cell"><span class="dot-fruit">&#x1F96D;</span>Dec</div>
+          <div class="calendar-note">First-pass guesses, marked with what we think is ripe. The June cell is highlighted because, well, that's now. Tell us what we got wrong.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PRODUCTS LOADING -->
+  <section id="products" class="loading-section">
+    <div class="wrap">
+      <div class="section-label" style="justify-content:center;">Products</div>
+      <h2>Products loading&hellip;</h2>
+      <div class="loading-bar"><div class="fill"></div></div>
+      <p class="deal">Kuna deal ingine mwecheche inaivana.</p>
+      <p class="deal" style="margin-top:6px;">Ikishakua, tukushtue?</p>
+
+      <form class="alert-form" id="alertForm" action="#" onsubmit="return false;">
+        <label for="alertEmail" class="sr-only">Email address</label>
+        <input type="email" id="alertEmail" name="email" placeholder="you@example.com" required>
+        <button type="submit">Nishtue</button>
+      </form>
+      <p class="alert-note" id="alertNote">We'll open your mail app — no account, no spam, just the alert.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-label">About</div>
+      <div class="about-grid">
+        <div class="stamp-mini">
+          <img src="/assets/akfc/akfc-fruit-stamp.svg" alt="A Kenyan Fruit Calendar seal">
+        </div>
+        <div class="about-copy">
+          <h2>A Kenyan Fruit Calendar</h2>
+          <p class="tagline">Your Memories in a Jar</p>
+          <p>Remember what it felt like to wait for a fruit season?</p>
+          <p>To spend weeks watching a tree slowly fill out. To hear whispers that the mangoes were finally ready. To wake up in the morning, walk to fetch water, and reach up for that first ripe fruit. The anticipation, the abundance, and the satisfaction of that very first bite were all part of the experience.</p>
+          <p>A Kenyan Fruit Calendar was created to preserve that feeling.</p>
+          <p>We work with the land and its seasons, never against them. Each preserve is made from fruit harvested at the height of its season, when nature decides it is ready. When the season ends, so does the preserve, until the fruit returns the following year.</p>
+          <p>Like keeping a shell from a trip to the coast, a pebble from a safari, or a photograph from a special day, our preserves are a way of holding onto a moment a little longer.</p>
+          <p>Every jar captures the bounty of a Kenyan fruit season and the memories that come with it&mdash;without asking the land to abandon its natural rhythm.</p>
+          <p class="closing">Because some things are worth waiting for.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span class="principle">We work with the land.</span>
+    <span>An APE experiment by <a href="/">DALE Labs</a></span>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const nav = document.getElementById('mainNav');
+  navToggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // ===== "Which fruit are you waiting for" — participation prompt =====
+  const reactions = {
+    mango: "Of course it's mango. It's always mango. We respect it.",
+    avocado: "Bold choice in this economy. We see you.",
+    tamarind: "An acquired loyalty. The sour ones know who they are.",
+    jamun: "Purple hands, no regrets. Western Kenya salutes you.",
+    surprise: "Brave. The land will decide. We'll let you know."
+  };
+
+  const askOptions = document.querySelectorAll('.ask-option');
+  const askReaction = document.getElementById('askReaction');
+  const askShare = document.getElementById('askShare');
+
+  askOptions.forEach(btn => {
+    btn.addEventListener('click', () => {
+      askOptions.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      askReaction.textContent = reactions[btn.dataset.fruit] || '';
+      askReaction.classList.add('show');
+      askShare.classList.add('show');
+    });
+  });
+
+  // ===== Fruit alert — mailto-based "notify me" =====
+  const alertForm = document.getElementById('alertForm');
+  const alertEmail = document.getElementById('alertEmail');
+  const alertNote = document.getElementById('alertNote');
+
+  alertForm.addEventListener('submit', () => {
+    const email = alertEmail.value.trim();
+    if (!email) return;
+    const subject = encodeURIComponent('Nishtue — fruit alert sign-up');
+    const body = encodeURIComponent(
+      `Add me to the fruit alert list.\n\nMy email: ${email}`
+    );
+    window.location.href = `mailto:hello@akenyanfruitcalendar.co.ke?subject=${subject}&body=${body}`;
+    alertNote.textContent = "Opening your mail app — just hit send.";
+  });
+</script>
+
+</body>
+</html>
