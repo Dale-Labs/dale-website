@@ -85,16 +85,6 @@
     border-radius:50%;
     mix-blend-mode:multiply;
   }
-  .dale-home{
-    display:block;
-    margin-top:4px;
-    font-family:'Space Mono', 'Courier New', monospace;
-    font-size:10px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    text-decoration:none;
-    color:var(--tamarind);
-  }
   .nav-links{
     display:flex;
     gap:28px;
@@ -902,6 +892,13 @@
     text-transform:uppercase;
     color:var(--olive-soft);
   }
+  .footer-attribution{
+    font-family:'Lora', Georgia, 'Times New Roman', serif;
+    font-size:13px;
+    letter-spacing:0;
+    text-transform:none;
+    color:var(--olive-soft);
+  }
   footer .principle{
     font-family:'Fraunces', Georgia, 'Times New Roman', serif;
     font-style:italic;
@@ -955,7 +952,6 @@
     section{padding:56px 0;}
     .nav{padding:12px 18px;}
     .nav-logo{width:62px;height:62px;}
-    .dale-home{font-size:9px;max-width:180px;}
   }
 </style>
 </head>
@@ -967,7 +963,6 @@
       <a href="/akfc/" class="nav-brand">
         <img class="nav-logo" src="/assets/akfc/akfc-logo-web.jpg" alt="A Kenyan Fruit Calendar - Your Memories in a Jar">
       </a>
-      <a href="/" class="dale-home">An APE experiment by DALE Labs</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
     <ul class="nav-links" id="navLinks">
@@ -1275,7 +1270,7 @@
 <footer>
   <div class="wrap footer-inner">
     <span class="principle">We work with the land.</span>
-    <span>An APE experiment by <a href="/">DALE Labs</a></span>
+    <span class="footer-attribution">An APE / DALE Labs seasonal market experiment.</span>
   </div>
 </footer>
 
