@@ -8,7 +8,6 @@
 <meta property="og:image" content="/assets/akfc/akfc-logo-web.jpg">
 <meta name="twitter:image" content="/assets/akfc/akfc-logo-web.jpg">
 <link rel="preload" as="image" href="/assets/akfc/akfc-logo-web.jpg">
-<link rel="preload" as="image" href="/assets/akfc/akfc-fruit-stamp.svg">
 <link rel="preload" as="image" href="/assets/akfc/mutiso.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -564,7 +563,7 @@
     font-style:normal;
   }
 
-  /* ===== FRUIT ALERT ===== */
+  /* ===== WAITLIST CTA ===== */
   .alert-form{
     max-width:420px;
     margin:28px auto 14px;
@@ -573,22 +572,7 @@
     flex-wrap:wrap;
     justify-content:center;
   }
-  .alert-form input[type="email"]{
-    flex:1;
-    min-width:200px;
-    font-family:'Lora', Georgia, 'Times New Roman', serif;
-    font-size:14px;
-    padding:13px 16px;
-    border:1.5px solid var(--ink);
-    border-radius:2px;
-    background:var(--paper);
-    color:var(--ink);
-  }
-  .alert-form input[type="email"]::placeholder{
-    color:var(--olive-soft);
-    font-style:italic;
-  }
-  .alert-form button{
+  .alert-form .waitlist-link{
     font-family:'Space Mono', 'Courier New', monospace;
     font-size:12px;
     letter-spacing:0.14em;
@@ -600,8 +584,12 @@
     border-radius:2px;
     cursor:pointer;
     transition: background 0.2s ease;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
   }
-  .alert-form button:hover{background:#8a2f24;}
+  .alert-form .waitlist-link:hover{background:#8a2f24;}
   .alert-note{
     font-family:'Space Mono', 'Courier New', monospace;
     font-size:10px;
@@ -987,7 +975,7 @@
       <li><a href="#calendar">Calendar</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#products">Products Loading</a></li>
-      <li><a href="https://forms.gle/N4YfwuTvFN83tD6S6" target="_blank" rel="noopener noreferrer" class="cta-link">Tell Us What's Ripe</a></li>
+      <li><a href="https://forms.gle/EuPrvr8RRnywHELe8" target="_blank" rel="noopener noreferrer" class="cta-link">Tell Us What's Ripe</a></li>
     </ul>
   </nav>
 </header>
@@ -1214,7 +1202,7 @@
         <div>
           <h2>A living record &mdash; not yet finished, and that's the point.</h2>
           <p>We're building Kenya's fruit calendar season by season. Some of this is a guess. Some of it depends on where you are. Help us get it right.</p>
-          <a class="ripe-cta" href="https://forms.gle/N4YfwuTvFN83tD6S6" target="_blank" rel="noopener noreferrer">
+          <a class="ripe-cta" href="https://forms.gle/EuPrvr8RRnywHELe8" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 7l9 6 9-6"/><path d="M3 7v10h18V7"/></svg>
             Tell Us What's Ripe
           </a>
@@ -1250,12 +1238,10 @@
       <p class="deal">Kuna deal ingine mwecheche inaivana.</p>
       <p class="deal" style="margin-top:6px;">Ikishakua, tukushtue?</p>
 
-      <form class="alert-form" id="alertForm" action="#" onsubmit="return false;">
-        <label for="alertEmail" class="sr-only">Email address</label>
-        <input type="email" id="alertEmail" name="email" placeholder="you@example.com" required>
-        <button type="submit">Nishtue</button>
-      </form>
-      <p class="alert-note" id="alertNote">We'll open your mail app — no account, no spam, just the alert.</p>
+      <div class="alert-form">
+        <a class="waitlist-link" href="https://forms.gle/EuPrvr8RRnywHELe8" target="_blank" rel="noopener noreferrer">Nishtue</a>
+      </div>
+      <p class="alert-note" id="alertNote">Join the waitlist for seasonal releases.</p>
     </div>
   </section>
 
@@ -1267,7 +1253,7 @@
       <div class="section-label">About</div>
       <div class="about-grid">
         <div class="stamp-mini">
-          <img src="/assets/akfc/akfc-fruit-stamp.svg" alt="A Kenyan Fruit Calendar seal">
+          <img src="/assets/akfc/akfc-logo-web.jpg" alt="A Kenyan Fruit Calendar - Your Memories in a Jar">
         </div>
         <div class="about-copy">
           <h2>A Kenyan Fruit Calendar</h2>
@@ -1324,21 +1310,6 @@
     });
   });
 
-  // ===== Fruit alert — mailto-based "notify me" =====
-  const alertForm = document.getElementById('alertForm');
-  const alertEmail = document.getElementById('alertEmail');
-  const alertNote = document.getElementById('alertNote');
-
-  alertForm.addEventListener('submit', () => {
-    const email = alertEmail.value.trim();
-    if (!email) return;
-    const subject = encodeURIComponent('Nishtue — fruit alert sign-up');
-    const body = encodeURIComponent(
-      `Add me to the fruit alert list.\n\nMy email: ${email}`
-    );
-    window.location.href = `mailto:hello@akenyanfruitcalendar.co.ke?subject=${subject}&body=${body}`;
-    alertNote.textContent = "Opening your mail app — just hit send.";
-  });
 </script>
 
 </body>
