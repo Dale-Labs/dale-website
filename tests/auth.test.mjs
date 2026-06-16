@@ -33,6 +33,21 @@ test("additional users receive configured roles and unknown users are rejected",
   assert.equal(authorizeEmail("unknown@dale.africa", env), null);
 });
 
+test("Workspace users receive non-admin internal access roles", () => {
+  const productManager = authorizeEmail("EKIM@DALE.AFRICA", env);
+  const infrastructureEngineer = authorizeEmail("nshakya@dale.africa", env);
+
+  assert.equal(productManager.role, "product_manager");
+  assert.equal(canAccess(productManager, "/internal/"), true);
+  assert.equal(canAccess(productManager, "/internal/signal/"), true);
+  assert.equal(canEditBlog(productManager), false);
+
+  assert.equal(infrastructureEngineer.role, "infrastructure_engineer");
+  assert.equal(canAccess(infrastructureEngineer, "/internal/"), true);
+  assert.equal(canAccess(infrastructureEngineer, "/internal/signal/"), true);
+  assert.equal(canEditBlog(infrastructureEngineer), false);
+});
+
 test("protected return paths do not allow open redirects", () => {
   assert.equal(isAllowedNext("/internal/docs/"), true);
   assert.equal(isAllowedNext("/internal/signal/"), true);

@@ -4,10 +4,16 @@ const OAUTH_STATE_COOKIE = "dale_oauth_state";
 const OAUTH_STATE_TTL_SECONDS = 60 * 10;
 
 const INITIAL_ADMIN_EMAILS = ["awora@dale.africa"];
+const WORKSPACE_USERS = {
+  "ekim@dale.africa": "product_manager",
+  "nshakya@dale.africa": "infrastructure_engineer",
+};
 
 const ROLE_ACCESS = {
   admin: ["docs", "signal", "canons", "tools", "developer", "validation"],
   team: ["docs", "signal", "canons", "tools", "developer", "validation"],
+  product_manager: ["docs", "signal"],
+  infrastructure_engineer: ["docs", "signal"],
   validation_partner: ["docs", "signal", "canons", "tools", "validation"],
   viewer: ["docs", "signal"],
 };
@@ -20,6 +26,7 @@ function getAllowedEmails(env) {
   return [
     ...new Set([
       ...INITIAL_ADMIN_EMAILS,
+      ...Object.keys(WORKSPACE_USERS),
       ...(env.DALE_AUTH_ALLOWED_EMAILS || "")
         .split(",")
         .map((email) => email.trim().toLowerCase())
@@ -108,6 +115,7 @@ function parseCookies(request) {
 
 function roleForEmail(email, env) {
   if (INITIAL_ADMIN_EMAILS.includes(email)) return "admin";
+  if (WORKSPACE_USERS[email]) return WORKSPACE_USERS[email];
   const roleMap = getRoleMap(env);
   if (roleMap[email]) return roleMap[email];
   return "team";
