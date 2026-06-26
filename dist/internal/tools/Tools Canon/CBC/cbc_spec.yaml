@@ -1,0 +1,522 @@
+# ============================================================
+# Community Benefit Contract (CBC) — Canonical YAML Specification
+# DALE Architecture | Kadana | Version 1.0.0 | April 2026
+# Tool Position: Governance Reconciliation & Adaptive Value Exchange | Stage: Formalize
+# ============================================================
+
+metadata:
+  tool_id: CBC
+  tool_name: Community Benefit Contract (CBC)
+  version: "1.0.0"
+  dale_stage: Formalize
+  architectural_layer: Governance Reconciliation & Adaptive Value Exchange
+  architectural_role: Exchange Tool
+  activation: Conditional — Runner determines realization pathway
+  receives_from: [CoS, ECOA, ARA, Runner, SEC (where RT-H)]
+  feeds_into: [Master Dataset, Institutional Partners, Community Governance]
+  schema_ref: cbc_schema.json
+  canonical_rules:
+    - "Tools operate on structure. They do not create it."
+    - "CBC formalizes governance and value exchange. It does not invent them."
+    - "CBC does not invent legitimacy. It surfaces how legitimacy operates,
+       where governance disconnects emerge, and what remains unresolved
+       across actors and scales."
+    - "No layer substitutes another."
+
+# ============================================================
+# PURPOSE
+# ============================================================
+purpose:
+  primary: >
+    Organize and structure how value exchange, legitimacy, obligations,
+    participation, trust, adaptation, and accountability operate across
+    actors within real systems. CBC reconciles governance from traceable
+    system conditions — not from idealized contract drafting.
+  determines:
+    - whether a value exchange system can maintain legitimacy
+    - whether governance can be reconciled across scales
+    - whether coherence between actors can be preserved
+    - whether trust can be sustained over time
+    - whether the system can adapt under changing conditions
+    - whether alignment between value, obligations, participation, and accountability is retained
+  not_purpose:
+    - imposing governance detached from system reality
+    - producing symbolic participation structures
+    - treating compliance as legitimacy
+    - replacing CoS, ECOA, ARA, Runner, or SEC
+    - hiding instability behind reporting frameworks
+    - treating negotiated agreement as structural resolution
+
+# ============================================================
+# CROSS-SCALE GOVERNANCE RECOGNITION
+# ============================================================
+cross_scale_governance:
+  description: >
+    CBC recognizes that actors operating within the same system often
+    govern through different realities. CBC functions as the reconciliation
+    infrastructure between these governance realities — its role is not to
+    replace either system, but to create traceable coordination between them.
+
+  macro_level_realities:
+    - metrics
+    - compliance
+    - reporting structures
+    - operational controls
+    - financial accountability
+    - institutional governance
+
+  micro_level_realities:
+    - relational legitimacy
+    - trust
+    - lived participation
+    - social memory
+    - informal coordination
+    - adaptive community governance
+
+  reconciliation_principle: >
+    Governance breakdown often occurs when upstream abstractions lose
+    coherence with downstream legitimacy structures. CBC's purpose is to
+    preserve governance continuity across macro, meso, and micro
+    operational realities.
+
+# ============================================================
+# ACTIVATION LOGIC
+# ============================================================
+activation:
+  not_automatic: true
+  description: >
+    Runner determines the required realization pathway. CBC does not
+    activate by practitioner decision. No practitioner decision overrides
+    the realization type determination from Runner.
+
+  realization_types:
+    RT-SEC:
+      meaning: Enterprise realization required — SEC activates, CBC may follow
+    RT-CBC:
+      meaning: Governance reconciliation required — CBC activates directly
+      condition: >
+        Negotiated governance, benefit formalization, participation agreements,
+        adaptive accountability, institutional reconciliation, resource stewardship,
+        or contractual coordination — all without enterprise creation
+    RT-H:
+      meaning: Hybrid — SEC activates first, then CBC receives SEC outputs via CTP
+      note: In RT-H, CBC Phase 1 (GIP) absorbs the CBC Transition Package (CTP) from SEC Phase 7
+    RT-U:
+      meaning: Realization pathway unresolved — do not proceed until Runner resolves
+
+  cbc_activates_when:
+    - value realization requires formalization of negotiated value exchange architecture
+    - participation continuity requires governance coordination
+    - governance coordination requires formal reconciliation structures
+    - institutional legitimacy requires traceable accountability architecture
+    - benefit accountability requires formal governance structures
+    - stewardship alignment requires negotiated obligation systems
+    - trust verification requires observable governance continuity
+    - adaptive obligation structures require formal coordination
+
+  sec_first_when:
+    - enterprise operating structures required before governance formalization
+    - coordinated delivery systems require enterprise architecture first
+    - operational continuity mechanisms require enterprise formation first
+
+  direct_to_cbc_when:
+    - negotiated governance without enterprise creation
+    - benefit formalization without enterprise creation
+    - participation agreements without enterprise creation
+    - adaptive accountability without enterprise creation
+    - institutional reconciliation without enterprise creation
+    - resource stewardship without enterprise creation
+    - contractual coordination without enterprise creation
+
+# ============================================================
+# PIPELINE POSITION
+# ============================================================
+pipeline:
+  sequence: "CoS Mapping → ECOA Observation → ARA Resolution → Runner Execution → SEC and/or CBC"
+  layer_roles:
+    CoS:    "Captures governance and value signal — CoS captures reality"
+    ECOA:   "Assigns observational structure — ECOA structures observation"
+    ARA:    "Resolves structural conditions — ARA resolves coherence"
+    Runner: "Produces operational emergence states — Runner executes realization logic"
+    SEC:    "Synthesizes enterprise coherence — SEC synthesizes enterprise coherence"
+    CBC:    "Reconciles governance and value exchange continuity"
+  canonical_statement: >
+    CoS captures reality. ECOA structures observation. ARA resolves coherence.
+    Runner executes realization logic. SEC synthesizes enterprise coherence.
+    CBC reconciles governance and value exchange continuity.
+    No layer substitutes another.
+  terminal_position: >
+    CBC is the terminal governance layer of the DALE architecture.
+    Its outputs feed the master dataset, institutional partners, and
+    community governance — not another DALE tool.
+
+# ============================================================
+# SEVEN-PHASE PROCESS
+# ============================================================
+phases:
+
+  phase_1:
+    name: Governance Intake
+    analogy: Gathering resolved governance components
+    objective: >
+      Absorb and organize all traceable upstream governance outputs required
+      for governance reconciliation. CBC begins with observed governance
+      structures, resolved legitimacy conditions, operational emergence states,
+      and admissible coordination conditions — not with contract drafting.
+    output: Governance Intake Package (GIP)
+    entry_condition: RT-CBC or RT-H confirmed from Runner
+
+    inputs:
+      from_cos:
+        - actor_maps
+        - interaction_maps
+        - issue_landscapes
+        - system_pattern_maps
+        - visibility_layers
+      from_ecoa:
+        - operational_variables (X1-X12)
+        - fundamental_variable_assignments (v1-v40)
+        - informational_absence_conditions
+        - structural_absence_conditions
+        - balance_relevant_missingness
+      from_ara:
+        - resolution_states
+        - structural_contradictions
+        - dependency_structures
+        - adaptive_configurations
+        - balance_conditions
+      from_runner:
+        - execution_pathways
+        - governance_logic
+        - transition_pathways
+        - realization_type_determination (RT-CBC or RT-H)
+      from_sec (RT-H only):
+        - cbc_transition_package (CTP from SEC Phase 7)
+        - governance_bearing_structures
+        - stewardship_obligations
+        - negotiated_value_exchange_conditions
+        - measurement_obligations
+        - continuity_protections
+
+    governance_domains:
+      Legitimacy Domain:    "Participation and authority structures"
+      Obligation Domain:    "Responsibility and accountability pathways"
+      Value Domain:         "Negotiated exchange structures"
+      Trust Domain:         "Verification and confidence structures"
+      Governance Domain:    "Coordination and authority systems"
+      Participation Domain: "Representation and inclusion systems"
+      Adaptation Domain:    "Continuity and resilience structures"
+
+    process_actions:
+      1: "Gather upstream outputs — assemble admissible governance records from CoS, ECOA, ARA, Runner, and SEC where applicable"
+      2: "Verify traceability — ensure all records maintain source paths to original observations"
+      3: "Verify realization pathway — confirm RT-CBC or RT-H activation"
+      4: "Identify active governance variables — determine activated governance domains"
+      5: "Preserve unresolved conditions — carry forward missingness, dependency states, and unresolved governance tensions. Do not resolve artificially."
+      6: "Organize governance intake — group records into seven governance domains"
+      7: "Build Governance Intake Package — finalize the GIP"
+
+    critical_rule: >
+      Unresolved conditions from all upstream layers (including SEC CTP in RT-H)
+      must be preserved explicitly. They are structural inputs, not gaps to be filled.
+
+  phase_2:
+    name: Governance Framing
+    analogy: Determining governance structure requirements
+    objective: >
+      Define the required governance coordination structure based on Runner
+      outputs and inherited structural conditions.
+    output: Governance Structure Set (GSS)
+    input: GIP
+
+    determines:
+      - whether governance coordination is required
+      - how legitimacy is organized
+      - what structures are necessary for continuity
+      - what governance boundaries exist
+
+    structures_defined:
+      actor_structure:          "Participating governance actors — from CoS Actor Maps and SEC stewardship structures"
+      legitimacy_structure:     "Authority and participation pathways — traceable to X5, X12, v16–v25"
+      obligation_structure:     "Accountability pathways — traceable to SEC governance-bearing structures"
+      value_exchange_structure: "Negotiated value pathways — traceable to v27–v34 and SEC flow states"
+      trust_structure:          "Verification conditions — traceable to visibility layers and observability conditions"
+      stewardship_structure:    "Continuity responsibilities and accountability protections"
+      governance_boundaries:    "Operational governance scope"
+      adaptation_structure:     "Renegotiation and governance continuity pathways"
+
+    process_actions:
+      1: "Define actor structure — identify participating governance actors"
+      2: "Define legitimacy structure — organize authority and participation pathways (X5, X12, v16–v25)"
+      3: "Define obligation structure — organize accountability pathways from SEC governance-bearing structures"
+      4: "Define value exchange structure — organize negotiated value pathways (v27–v34, SEC EFM)"
+      5: "Define trust structure — organize verification conditions from visibility layers"
+      6: "Define stewardship structure — organize continuity responsibilities and accountability protections"
+      7: "Define governance boundaries — clarify operational governance scope"
+      8: "Define adaptation structure — organize renegotiation and governance continuity pathways"
+
+    critical_rule: >
+      CBC does not assume governance complexity beyond what the system requires.
+      Every structure must be traceable to upstream GIP inputs.
+
+  phase_3:
+    name: Governance Flow Synthesis
+    analogy: Mapping negotiated movement through governance systems
+    objective: Map movement through the governance coordination system
+    output: Governance Flow Map (GFM)
+    input: GSS
+
+    mandatory_governance_flows:
+      value_flow:
+        description: "Benefit and negotiated exchange movement — traceable to v27–v34 and SEC EFM"
+        required: true
+      obligation_flow:
+        description: "Accountability and responsibility movement across governance actors"
+        required: true
+      trust_flow:
+        description: "Verification, legitimacy, and observability movement"
+        required: true
+      authority_flow:
+        description: "Governance and decision movement — traceable to X5, X12, v16, v20"
+        required: true
+
+    note: >
+      All four flows must be mapped. Absence of a flow is a structural finding,
+      not a skip. Flow coherence is required for governance continuity.
+      Governance tensions are structural findings — record them, do not eliminate.
+
+    process_actions:
+      1: "Map value flow — identify negotiated value movement (v27–v34, SEC EFM)"
+      2: "Map obligation flow — identify accountability movement across governance actors"
+      3: "Map trust flow — identify verification, legitimacy, and observability movement"
+      4: "Map authority flow — identify governance and decision movement (X5, X12, v16, v20)"
+      5: "Identify flow intersections — surface reinforcement and fracture points"
+      6: "Capture governance tensions — record contradictions and disconnections"
+      7: "Preserve flow dependencies — maintain traceable governance relationships"
+
+  phase_4:
+    name: Governance Coherence Structuring
+    analogy: Checking whether governance coherence holds
+    objective: >
+      Determine whether the governance coordination structure holds under
+      real-world conditions. CBC does not fabricate legitimacy.
+    output: Governance Coherence Map (GCM)
+    input: GFM
+
+    what_this_phase_surfaces:
+      - legitimacy tensions
+      - accountability gaps
+      - governance asymmetries
+      - continuity risks
+      - concentrated authority
+      - trust fragility
+      - unresolved governance dependencies
+
+    governance_coherence_states:
+      RES-C:  "Coherent"
+      RES-F:  "Fragile"
+      RES-U:  "Unresolved"
+      RES-D:  "Dependency exposed"
+      RES-B:  "Bottleneck exposed"
+      RES-LR: "Legitimacy risk exposed"
+      RES-AR: "Authority risk exposed"
+      RES-TR: "Trust risk exposed"
+      RES-CR: "Continuity risk exposed"
+
+    coherence_dimensions:
+      legitimacy_coherence:    "Does participation align with governance reality?"
+      accountability_coherence:"Are obligations structurally enforceable?"
+      trust_coherence:         "Can verification remain operationally credible?"
+      authority_coherence:     "Can governance function beyond concentrated authority risk?"
+      flow_coherence:          "Do governance flows reinforce each other?"
+
+    process_actions:
+      1: "Evaluate legitimacy coherence — does participation align with governance reality?"
+      2: "Evaluate accountability coherence — are obligations structurally enforceable?"
+      3: "Evaluate trust coherence — can verification remain operationally credible?"
+      4: "Evaluate authority coherence — can governance function beyond concentrated authority risk?"
+      5: "Evaluate flow coherence — do governance flows reinforce each other?"
+      6: "Identify governance bottlenecks — surface structural governance constraints (RES-B)"
+      7: "Identify governance continuity risks — surface survivability conditions (RES-LR, RES-AR, RES-TR, RES-CR)"
+      8: "Preserve unresolved tensions — explicitly record incompleteness and fragility"
+
+    critical_rule: >
+      CBC does not fabricate legitimacy. RES-LR, RES-AR, RES-TR, RES-F, and RES-U
+      are valid and expected outputs. Do not force RES-C where governance tensions
+      are unresolved.
+
+  phase_5:
+    name: Governance Architecture Expression
+    analogy: Writing the governance system
+    objective: >
+      Produce the structured governance coordination architecture. Converts
+      governance structures into readable governance systems, traceable
+      governance architectures, and stewardship-ready representations.
+    output: Governance Architecture Expression (GAE)
+    input: GCM
+
+    architecture_layers:
+      upstream_governance_systems:
+        scale: macro
+        description: "Institutional coordination structures — metrics, compliance, reporting, financial accountability"
+      localized_governance_systems:
+        scale: micro
+        description: "Downstream legitimacy structures — relational trust, lived participation, social memory, adaptive governance"
+      stewardship_architecture:
+        scale: meso
+        description: "Accountability and continuity structures"
+      verification_architecture:
+        scale: cross-scale
+        description: "Observability and trust systems"
+
+    cross_scale_reconciliation: >
+      This phase must explicitly address how governance operates across
+      macro, meso, and micro realities. Do not collapse upstream institutional
+      logic into downstream legitimacy structures — or vice versa.
+
+    process_actions:
+      1: "Build governance layers — organize into macro (upstream), meso (stewardship), micro (localized) structures"
+      2: "Organize upstream governance systems — capture institutional coordination structures"
+      3: "Organize localized governance systems — capture downstream legitimacy structures"
+      4: "Organize stewardship architecture — capture accountability and continuity structures"
+      5: "Organize verification architecture — capture observability and trust systems"
+      6: "Preserve traceability — maintain synthesis paths to upstream phases"
+      7: "Preserve unresolved conditions — keep fragility and dependency visibility intact"
+
+    critical_rule: >
+      No new governance logic enters at this stage. Everything in the GAE
+      must be traceable to Phase 1–4 governance synthesis outputs.
+
+  phase_6:
+    name: Continuity & Adaptation Expression
+    analogy: Stress-testing governance survivability
+    objective: >
+      Stress-test governance survivability under operational pressure and
+      changing conditions. Identify adaptation pathways, legitimacy risks,
+      authority resilience, trust resilience, and governance breakpoints.
+    output: Governance Continuity & Adaptation Map (GCAM)
+    input: GAE
+
+    process_actions:
+      1: "Identify governance adaptation pathways — determine renegotiation and continuity structures"
+      2: "Identify legitimacy risks — surface governance instability conditions (RES-LR)"
+      3: "Evaluate authority resilience — assess distributed governance survivability"
+      4: "Evaluate trust resilience — assess observability continuity"
+      5: "Identify governance breakpoints — surface adaptation fragility"
+      6: "Preserve continuity missingness — record all unresolved governance continuity conditions"
+
+    critical_rule: >
+      Continuity missingness must be recorded explicitly and carried into
+      the Governance Accessibility Package. Do not project resolution that
+      has not been demonstrated.
+
+  phase_7:
+    name: Accessibility & Operational Formalization
+    analogy: Determining governance usability across scales
+    objective: >
+      Determine how governance outputs remain operationally legible across
+      governance scales. CBC recognizes that governance asymmetry often
+      emerges through comprehension asymmetry — institutional outputs may
+      be legible at macro scale but illegible at the last mile, and vice versa.
+    output: Governance Accessibility Package (GAP)
+    input: GCAM
+
+    output_types:
+      governance_summaries:             "Readable governance coordination outputs for all audiences"
+      institutional_governance_outputs: "Upstream operational requirements — macro-scale legibility"
+      community_facing_outputs:         "Downstream interpretability — micro-scale legitimacy"
+      stewardship_outputs:              "Responsibility visibility"
+      observability_outputs:            "Traceability access"
+
+    process_actions:
+      1: "Produce governance summaries — create readable governance coordination outputs"
+      2: "Produce institutional governance outputs — capture upstream operational requirements"
+      3: "Produce community-facing outputs — preserve downstream interpretability"
+      4: "Produce stewardship outputs — organize responsibility visibility"
+      5: "Produce observability outputs — organize traceability access"
+      6: "Build Governance Accessibility Package — finalize governance access layers"
+
+    critical_rule: >
+      Both institutional and community-facing outputs are required. Governance
+      asymmetry emerges through comprehension asymmetry — producing only
+      institutional outputs reproduces the structural problem CBC exists to address.
+
+# ============================================================
+# OUTPUT RECORD FORMAT
+# ============================================================
+output_record_format:
+  description: >
+    Every CBC output record passed to the unified DALE master dataset
+    must carry these fields.
+  fields:
+    ObservationID:        "String — CBC-YYYYMMDD-XXXXXX"
+    SourceTool:           "\"CBC\""
+    Phase:                "Integer 1–7"
+    Layer:                "intake | framing | synthesis | coherence | expression | continuity | formalization"
+    Domain:               "Legitimacy | Obligation | Value | Trust | Governance | Participation | Adaptation"
+    EntityID:             "String — identifies observed entity"
+    StateID:              "GIP | GSS | GFM | GCM | GAE | GCAM | GAP"
+    GovernanceState:      "RES-C | RES-F | RES-U | RES-D | RES-B | RES-LR | RES-AR | RES-TR | RES-CR"
+    RealizationType:      "RT-SEC | RT-CBC | RT-H | RT-U"
+    GovernanceScale:      "macro | meso | micro | cross-scale"
+    Status:               "reconciled | unresolved | fragile | missing"
+    TraceRef:             "Backward traceability to upstream source"
+    UsedPrinciples:       "Array: P1–P5"
+    ObservationCondition: "Concrete observation condition from CoS"
+    Timestamp:            "ISO 8601 datetime"
+    TracePath:            "Full reconciliation path from source to this output"
+
+# ============================================================
+# PHASE OUTPUT CHAIN
+# ============================================================
+phase_output_chain:
+  - { phase: 1, output: "Governance Intake Package",             abbreviation: "GIP",  feeds_into: "Phase 2" }
+  - { phase: 2, output: "Governance Structure Set",              abbreviation: "GSS",  feeds_into: "Phase 3" }
+  - { phase: 3, output: "Governance Flow Map",                   abbreviation: "GFM",  feeds_into: "Phase 4" }
+  - { phase: 4, output: "Governance Coherence Map",              abbreviation: "GCM",  feeds_into: "Phase 5" }
+  - { phase: 5, output: "Governance Architecture Expression",    abbreviation: "GAE",  feeds_into: "Phase 6" }
+  - { phase: 6, output: "Governance Continuity & Adaptation Map",abbreviation: "GCAM", feeds_into: "Phase 7" }
+  - { phase: 7, output: "Governance Accessibility Package",      abbreviation: "GAP",  feeds_into: "Master Dataset + Partners" }
+
+# ============================================================
+# ARCHITECTURAL CONSTRAINTS
+# ============================================================
+architectural_constraints:
+  not_permitted:
+    - Activating CBC without Runner RT-CBC or RT-H determination
+    - Fabricating legitimacy where governance tensions are unresolved
+    - Collapsing unresolved governance conditions into reconciled states
+    - Generating governance structures without traceable upstream inputs
+    - Treating compliance as legitimacy
+    - Skipping phases in the 7-phase sequence
+    - Producing GAP without completing Phases 1-6
+    - Using CBC to replace CoS, ECOA, ARA, Runner, or SEC
+    - Producing only institutional outputs in Phase 7 without community-facing equivalents
+
+  preservation_rules:
+    - All unresolved conditions from upstream layers preserved in GIP and carried through all phases
+    - RES-F, RES-U, RES-LR, RES-AR, RES-TR are valid expected outputs — do not force RES-C
+    - Governance tensions and asymmetries are structural findings — preserve them
+    - Cross-scale reconciliation must distinguish macro from micro realities
+    - Comprehension asymmetry must be explicitly addressed in Phase 7
+    - No CBC structure may exist without traceable inputs, identifiable reconciliation logic, explicit governance state, visible dependency conditions, preserved absence conditions, and traceable realization pathways
+
+# ============================================================
+# VALIDATION SIGNALS
+# ============================================================
+validation_signals:
+  inspect_for:
+    - All GIP inputs are traceable to upstream CoS/ECOA/ARA/Runner/SEC records
+    - Unresolved governance conditions preserved — not resolved prematurely
+    - Governance coherence states reflect actual findings (RES-LR, RES-TR, RES-F, RES-U are valid)
+    - Cross-scale reconciliation is explicit — macro and micro realities distinguished
+    - Phase 7 produces both institutional and community-facing outputs
+    - Comprehension asymmetry is addressed — not assumed equal across scales
+    - Continuity missingness carried from GCAM into GAP
+
+  structural_insufficiency_indicators:
+    - Upstream governance signal insufficient for GIP formation
+    - Governance flows cannot be mapped from available structural conditions
+    - Coherence assessment reveals systemic absence of observable governance data
+    - Cross-scale reconciliation cannot be achieved due to fundamentally incompatible governance realities
+    - Phase 7 accessibility cannot be achieved without additional community engagement

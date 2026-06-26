@@ -1,0 +1,396 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kadana.org/schemas/ecoa/v1.0.0",
+  "title": "Empirical Concept Observation Architecture (ECOA) — Canonical Schema",
+  "description": "ECOA is the observational realization architecture of DALE. Its role is to transform admissible abstract system observations into structured empirical observation states while preserving observational admissibility, structural coherence, traceability, readable reconstruction, and architectural continuity. ECOA operationalizes observation — it does not redefine DALE, replace DALE, or function independently from DALE foundational architecture.",
+  "version": "1.0.0",
+  "architectural_position": {
+    "type": "Architecture Layer",
+    "note": "ECOA is not a tool. It is the observational realization architecture that tools operate within.",
+    "position_in_dale": "DALE → ECOA → Observable System Realization → Readable Operational Structures → Tool Layer",
+    "observation_only": true,
+    "canonical_law": "DALE foundational architecture remains invariant. ECOA observational realization may adapt only within the admissible observational boundary defined by DALE."
+  },
+
+  "foundational_laws": {
+    "observation_only_law": {
+      "status": "Fixed — invariant",
+      "statement": "ECOA remains observation-only throughout execution.",
+      "not_permitted": [
+        "recommendation engine",
+        "prediction engine",
+        "ranking engine",
+        "scoring engine detached from traceability",
+        "prescriptive intervention engine",
+        "best-solution optimization engine"
+      ]
+    },
+    "structural_continuity_law": {
+      "status": "Fixed — invariant",
+      "statement": "Every observational layer must remain recoverable from the layer beneath it.",
+      "recovery_chain": [
+        "Readable Return — recoverable from Operational Reconstruction",
+        "Operational Reconstruction — recoverable from Empirical Assignment",
+        "Empirical Assignment — recoverable from Variable Realization",
+        "Variable Realization — recoverable from Recursive Decomposition",
+        "Recursive Decomposition — recoverable from Observation Formation"
+      ]
+    },
+    "traceability_law": {
+      "status": "Fixed — invariant",
+      "statement": "Every ECOA observational output must remain recoverable from the observational structures, decomposition pathways, assignment states, and reconstruction layers that generated it."
+    },
+    "adaptation_law": {
+      "status": "Fixed — invariant",
+      "statement": "Observable realization may adapt. Foundational observational architecture may not."
+    },
+    "integration_law": {
+      "status": "Fixed — invariant",
+      "statement": "Tools may expose, organize, store, and operationalize ECOA realization, but may not replace, redefine, or obscure the architectural continuity that generates observational outputs."
+    },
+    "governance_law": {
+      "status": "Fixed — invariant",
+      "statement": "Observational realizations may evolve only through traceable, structurally validated, canon-governed adaptation that preserves foundational DALE architectural continuity."
+    },
+    "variable_architecture_law": {
+      "status": "Fixed — invariant",
+      "statement": "Variables remain structurally dependent realization layers through which admissible observations become empirically assignable and operationally reconstructible within traceable ECOA architecture."
+    },
+    "reconstruction_law": {
+      "status": "Fixed — invariant",
+      "statement": "Readable operational return must remain reconstructible from empirical realization through traceable reconstruction continuity across all observational layers."
+    },
+    "structural_status_law": {
+      "status": "Fixed — invariant",
+      "statement": "ECOA must preserve explicit distinguishability between observational realization, informational absence, structural absence, inactivity, non-observability, and balance-relevant missingness across all observational layers."
+    }
+  },
+
+  "invariant_layers": {
+    "description": "These layers constitute protected DALE foundational architecture. They may not be modified during ordinary implementation, tool realization, or client adaptation.",
+    "layers": {
+      "observation_only_law":       { "status": "Fixed", "protected": true },
+      "admissibility_logic":        { "status": "Fixed", "protected": true },
+      "recursive_decomposition":    { "status": "Fixed", "protected": true },
+      "principle_model_hierarchy":  { "status": "Fixed", "protected": true },
+      "signed_state_logic":         { "status": "Fixed", "protected": true },
+      "empirical_assignment_logic": { "status": "Fixed", "protected": true },
+      "reconstruction_dependence":  { "status": "Fixed", "protected": true },
+      "structural_status_logic":    { "status": "Fixed", "protected": true },
+      "traceability_law":           { "status": "Fixed", "protected": true },
+      "architectural_continuity_law":{ "status": "Fixed", "protected": true }
+    }
+  },
+
+  "adaptable_layers": {
+    "description": "These layers may adapt within canon-governed architectural constraints.",
+    "layers": {
+      "fundamental_variable_universes": { "permitted": true },
+      "operational_variable_structures":{ "permitted": true },
+      "family_organizations":           { "permitted": true },
+      "reconstruction_mappings":        { "permitted": true },
+      "readable_reporting_structures":  { "permitted": true },
+      "dataset_structures":             { "permitted": true },
+      "contextual_observational_realizations": { "permitted": true }
+    }
+  },
+
+  "definitions": {
+
+    "ObservationPackage": {
+      "type": "object",
+      "description": "Structured transfer package preserving observational continuity. Observations must enter ECOA through structured observation packages.",
+      "properties": {
+        "observation_package_id":   { "type": "string" },
+        "observation_id":           { "type": "string" },
+        "observation_condition":    { "$ref": "#/definitions/ObservationCondition" },
+        "observation_scope":        { "type": "string", "description": "Active observational boundary" },
+        "variable_activation_map":  { "type": "array", "items": { "$ref": "#/definitions/VariableActivationRecord" } },
+        "assignment_states":        { "type": "array", "items": { "$ref": "#/definitions/AssignmentRecord" } },
+        "structural_statuses":      { "type": "array", "items": { "$ref": "#/definitions/StructuralStatusRecord" } },
+        "reconstruction_path":      { "$ref": "#/definitions/ReconstructionPath" },
+        "trace_path":               { "type": "string" },
+        "timestamp":                { "type": "string", "format": "date-time" },
+        "source_tool":              { "type": "string" }
+      },
+      "required": ["observation_package_id", "observation_id", "observation_condition", "timestamp"]
+    },
+
+    "ObservationCondition": {
+      "type": "object",
+      "description": "The active contextual condition under which realization occurs. Observation conditions influence activation pathways, empirical realizability, and reconstruction behavior. They do not redefine foundational architecture.",
+      "properties": {
+        "condition_id":          { "type": "string" },
+        "description":           { "type": "string" },
+        "observation_boundary":  { "type": "string" },
+        "active_principles":     { "type": "array", "items": { "type": "string" } },
+        "active_models":         { "type": "array", "items": { "type": "string" } },
+        "context":               { "type": "string" },
+        "timestamp":             { "type": "string", "format": "date-time" }
+      },
+      "required": ["condition_id", "timestamp"]
+    },
+
+    "StructuralStatus": {
+      "type": "string",
+      "enum": [
+        "assigned",
+        "informational_absence",
+        "structural_absence",
+        "structural_non_observability",
+        "inactive",
+        "balance_relevant_missingness"
+      ],
+      "description": "Canonical structural statuses. These distinctions must remain explicit throughout realization and must not collapse into neutral values or silent omissions. assigned=empirical realization exists | informational_absence=information unavailable | structural_absence=structure does not exist | structural_non_observability=structure cannot currently be observed | inactive=admissible but not activated | balance_relevant_missingness=missingness materially affects observational integrity"
+    },
+
+    "FundamentalVariable": {
+      "type": "object",
+      "description": "A lower-level observational realization structure supporting empirical assignment, decomposition realization, signed-state continuity, and reconstruction dependence. Variables remain principle-dependent, model-dependent, decomposition-dependent, reconstruction-dependent, and observation-dependent.",
+      "properties": {
+        "variable_id":          { "type": "string" },
+        "variable_name":        { "type": "string" },
+        "structural_status":    { "$ref": "#/definitions/StructuralStatus" },
+        "assignment_value":     {
+          "oneOf": [
+            { "type": "number", "minimum": -1, "maximum": 1 },
+            { "type": "null" }
+          ],
+          "description": "Signed empirical state in [-1, 1] or null for non-assigned statuses. Neither extreme is a universal good/bad label."
+        },
+        "signed_state":         { "type": "number", "minimum": -1, "maximum": 1 },
+        "observation_condition_ref": { "type": "string" },
+        "active_principles":    { "type": "array", "items": { "type": "string" } },
+        "active_models":        { "type": "array", "items": { "type": "string" } },
+        "decomposition_source": { "type": "string" },
+        "trace_ref":            { "type": "string" }
+      },
+      "required": ["variable_id", "variable_name", "structural_status"]
+    },
+
+    "OperationalVariable": {
+      "type": "object",
+      "description": "A readable reconstructed operational observation structure. Operational variables are not detached labels, arbitrary reporting categories, or UI abstractions. They remain reconstructible from lower-level realization structures.",
+      "properties": {
+        "variable_id":             { "type": "string" },
+        "variable_name":           { "type": "string" },
+        "structural_status":       { "$ref": "#/definitions/StructuralStatus" },
+        "reconstructed_value":     {
+          "oneOf": [
+            { "type": "number", "minimum": -1, "maximum": 1 },
+            { "type": "null" }
+          ]
+        },
+        "family_id":               { "type": "string" },
+        "contributing_fundamental_variables": { "type": "array", "items": { "type": "string" } },
+        "inactive_fundamental_variables":     { "type": "array", "items": { "type": "string" } },
+        "reconstruction_path":     { "type": "string" },
+        "active_principles":       { "type": "array", "items": { "type": "string" } },
+        "active_models":           { "type": "array", "items": { "type": "string" } },
+        "observation_condition_ref":{ "type": "string" },
+        "trace_ref":               { "type": "string" }
+      },
+      "required": ["variable_id", "variable_name", "structural_status"]
+    },
+
+    "FamilyStructure": {
+      "type": "object",
+      "description": "Organizational grouping of operational variables preserving readable coherence. Family organization must remain reconstruction-grounded, not presentation-driven.",
+      "properties": {
+        "family_id":         { "type": "string" },
+        "family_name":       { "type": "string" },
+        "family_state":      { "$ref": "#/definitions/StructuralStatus" },
+        "member_variables":  { "type": "array", "items": { "type": "string" } },
+        "family_value":      {
+          "oneOf": [
+            { "type": "number", "minimum": -1, "maximum": 1 },
+            { "type": "null" }
+          ]
+        },
+        "reconstruction_path":{ "type": "string" },
+        "trace_ref":         { "type": "string" }
+      },
+      "required": ["family_id", "family_name", "family_state"]
+    },
+
+    "VariableActivationRecord": {
+      "type": "object",
+      "description": "Preserves variable participation. Variable activation depends on observation condition, decomposition pathway, realizability, structural relevance, and admissible visibility. Inactive variables remain distinct from absent variables.",
+      "properties": {
+        "variable_id":          { "type": "string" },
+        "variable_layer":       { "type": "string", "enum": ["fundamental", "operational"] },
+        "activation_status":    { "type": "string", "enum": ["activated", "inactive", "not_in_scope"] },
+        "observation_condition":{ "type": "string" },
+        "activation_reason":    { "type": "string" }
+      },
+      "required": ["variable_id", "variable_layer", "activation_status"]
+    },
+
+    "AssignmentRecord": {
+      "type": "object",
+      "description": "Preserves empirical assignment continuity. Assignment occurs only after admissible realization, decomposition continuity, and variable activation. Assignment does not prescribe action, optimize systems, rank outcomes, or generate normative evaluation.",
+      "properties": {
+        "variable_id":       { "type": "string" },
+        "assignment_state":  { "$ref": "#/definitions/StructuralStatus" },
+        "assignment_value":  {
+          "oneOf": [
+            { "type": "number", "minimum": -1, "maximum": 1 },
+            { "type": "null" }
+          ]
+        },
+        "local_signed_states":{ "type": "array", "items": { "type": "number" } },
+        "aggregation_logic": { "type": "string" },
+        "observation_condition": { "type": "string" },
+        "trace_ref":         { "type": "string" }
+      },
+      "required": ["variable_id", "assignment_state"]
+    },
+
+    "StructuralStatusRecord": {
+      "type": "object",
+      "description": "Preserves missingness visibility. These statuses must not collapse into neutral values or silent omissions.",
+      "properties": {
+        "variable_id":       { "type": "string" },
+        "structural_status": { "$ref": "#/definitions/StructuralStatus" },
+        "status_reason":     { "type": "string" },
+        "balance_impact":    { "type": "boolean", "description": "True if this status materially affects observational integrity" },
+        "trace_ref":         { "type": "string" }
+      },
+      "required": ["variable_id", "structural_status"]
+    },
+
+    "ReconstructionPath": {
+      "type": "object",
+      "description": "Preserves reconstruction continuity. Readable outputs may not detach from realization architecture. Readable interpretation without recoverability is structurally invalid.",
+      "properties": {
+        "path_id":           { "type": "string" },
+        "source_layer":      { "type": "string", "enum": ["fundamental", "operational", "family", "readable_return"] },
+        "target_layer":      { "type": "string", "enum": ["operational", "family", "readable_return", "tool_exposure"] },
+        "reconstruction_logic": { "type": "string" },
+        "recovery_verified": { "type": "boolean" }
+      },
+      "required": ["path_id", "source_layer", "target_layer"]
+    },
+
+    "ReadableReturnRecord": {
+      "type": "object",
+      "description": "Preserves readable output continuity. The final observational output layer of ECOA. Must remain architecture-dependent, observation-dependent, and traceability-bound.",
+      "properties": {
+        "output_id":              { "type": "string" },
+        "observation_id":         { "type": "string" },
+        "operational_variables":  { "type": "array", "items": { "$ref": "#/definitions/OperationalVariable" } },
+        "family_structures":      { "type": "array", "items": { "$ref": "#/definitions/FamilyStructure" } },
+        "structural_statuses":    { "type": "array", "items": { "$ref": "#/definitions/StructuralStatusRecord" } },
+        "activated_variables":    { "type": "array", "items": { "type": "string" } },
+        "inactive_variables":     { "type": "array", "items": { "type": "string" } },
+        "activated_principles":   { "type": "array", "items": { "type": "string" } },
+        "activated_models":       { "type": "array", "items": { "type": "string" } },
+        "observation_condition":  { "type": "string" },
+        "trace_path":             { "type": "string" },
+        "reconstruction_path":    { "type": "string" },
+        "timestamp":              { "type": "string", "format": "date-time" }
+      },
+      "required": ["output_id", "observation_id", "trace_path", "timestamp"]
+    },
+
+    "AdaptationRecord": {
+      "type": "object",
+      "description": "Preserves realization evolution continuity. Adapted architectures become official ECOA realizations only after canonization.",
+      "properties": {
+        "adaptation_id":        { "type": "string" },
+        "version_id":           { "type": "string" },
+        "canonization_status":  { "type": "string", "enum": ["canonical", "experimental", "under_review", "deprecated"] },
+        "adaptation_origin":    { "type": "string" },
+        "variable_modifications":{ "type": "array", "items": { "type": "string" } },
+        "reconstruction_modifications": { "type": "array", "items": { "type": "string" } },
+        "family_modifications": { "type": "array", "items": { "type": "string" } },
+        "validation_pathway":   { "type": "string" },
+        "traceability_continuity_verified": { "type": "boolean" },
+        "foundational_architecture_preserved": { "type": "boolean" },
+        "timestamp":            { "type": "string", "format": "date-time" }
+      },
+      "required": ["adaptation_id", "canonization_status", "foundational_architecture_preserved"]
+    }
+  },
+
+  "canonical_observation_flow": {
+    "description": "The canonical ECOA observation flow. This sequence remains invariant across observational realizations.",
+    "sequence": [
+      "Abstract System Condition",
+      "Admissible Observation Formation",
+      "Observation Condition Declaration",
+      "Recursive Structural Decomposition",
+      "Variable Realization",
+      "Empirical Assignment",
+      "Operational Reconstruction",
+      "Readable Observation Return"
+    ]
+  },
+
+  "structural_status_reference": {
+    "assigned":                    { "assignment_exists": true,  "traceable": true,  "recoverable": true,  "reconstruction_impact": "Direct reconstruction",            "admissible": true },
+    "informational_absence":        { "assignment_exists": false, "traceable": true,  "recoverable": true,  "reconstruction_impact": "Reconstruction incomplete",        "admissible": true },
+    "structural_absence":           { "assignment_exists": false, "traceable": true,  "recoverable": true,  "reconstruction_impact": "Structure omitted explicitly",     "admissible": true },
+    "structural_non_observability": { "assignment_exists": false, "traceable": true,  "recoverable": true,  "reconstruction_impact": "Reconstruction conditionally limited","admissible": true },
+    "inactive":                     { "assignment_exists": false, "traceable": true,  "recoverable": true,  "reconstruction_impact": "No direct reconstruction participation","admissible": true },
+    "balance_relevant_missingness": { "assignment_exists": "partial","traceable": true,"recoverable": true,"reconstruction_impact": "Reconstruction integrity impacted","admissible": true },
+    "silent_omission":              { "assignment_exists": false, "traceable": false, "recoverable": false, "reconstruction_impact": "Reconstruction corrupted",         "admissible": false },
+    "neutralized_missingness":      { "assignment_exists": "false","traceable": false,"recoverable": false,"reconstruction_impact": "False coherence introduced",       "admissible": false },
+    "hidden_substitution":          { "assignment_exists": "false","traceable": false,"recoverable": false,"reconstruction_impact": "Traceability broken",              "admissible": false }
+  },
+
+  "traceability_reference": {
+    "required_trace_objects": {
+      "ObservationTraceObject":     { "fields": ["ObservationID", "ObservationCondition", "Timestamp"] },
+      "VariableActivationRecord":   { "fields": ["VariableID", "ActivationStatus", "ObservationCondition"] },
+      "AssignmentRecord":           { "fields": ["VariableID", "AssignmentState", "AssignmentValue"] },
+      "StructuralStatusRecord":     { "fields": ["VariableID", "StructuralStatus"] },
+      "ReconstructionPath":         { "fields": ["SourceLayer", "TargetLayer", "ReconstructionLogic"] },
+      "FamilyTraceRecord":          { "fields": ["FamilyID", "MemberVariables"] },
+      "PrincipleActivationRecord":  { "fields": ["PrincipleID", "ActivationState"] },
+      "ModelActivationRecord":      { "fields": ["ModelID", "ActivationState"] },
+      "ObservationPackageRecord":   { "fields": ["ObservationPackageID", "ObservationID"] },
+      "TracePath":                  { "fields": ["SourceLayer", "TargetLayer", "TransitionPath"] },
+      "ReadableReturnRecord":       { "fields": ["OutputID", "ReconstructionPath"] },
+      "AdaptationTraceRecord":      { "fields": ["AdaptationID", "VersionID"] }
+    }
+  },
+
+  "observation_flows": {
+    "observational_realization_flow": "Observation Formation → Decomposition → Variable Activation → Assignment → Reconstruction → Readable Return",
+    "variable_realization_flow":      "Decomposition → Terminal Realization → Variable Activation → Assignment",
+    "reconstruction_flow":            "Assignment → Operational Reconstruction → Family Organization → Readable Return",
+    "traceability_flow":              "Observation Condition → Variable Activation → Assignment → Reconstruction → Trace Path",
+    "adaptation_flow":                "Observation Need → Variable Design → Validation → Canonization",
+    "integration_flow":               "Observation Package → ECOA Realization → Readable Return → Tool Exposure"
+  },
+
+  "adaptation_validation_checklist": {
+    "admissibility_integrity":    { "requirement": "Observation-only law preserved" },
+    "structural_continuity":      { "requirement": "Decomposition continuity preserved" },
+    "assignment_integrity":       { "requirement": "Signed-state continuity preserved" },
+    "reconstruction_continuity":  { "requirement": "Readable return recoverable" },
+    "traceability_visibility":    { "requirement": "Observational lineage visible" },
+    "status_distinguishability":  { "requirement": "Missingness preserved explicitly" },
+    "variable_coherence":         { "requirement": "Variables structurally grounded" },
+    "family_coherence":           { "requirement": "Organizational continuity preserved" },
+    "operational_readability":    { "requirement": "Outputs operationally interpretable" },
+    "dataset_continuity":         { "requirement": "Required trace fields preserved" },
+    "integration_integrity":      { "requirement": "Tool layer not replacing architecture" },
+    "governance_compliance":      { "requirement": "Canonization process followed" }
+  },
+
+  "non_admissible_patterns": {
+    "reconstruction": ["Executive-only summaries — break realization continuity", "Detached dashboards — lose reconstruction dependence", "Flattened scoring systems — collapse structural states", "UI-generated interpretation — break traceability", "Narrative-only reporting — removes recoverability", "KPI substitution — detaches from realization architecture"],
+    "variable":       ["Arbitrary KPI collections", "Detached indicator dashboards", "Untraceable reporting categories", "Collapsed status layers", "Hidden assignment substitution", "Purely UI-defined operational structures", "Facilitator-generated interpretation variables", "Variables detached from decomposition continuity"],
+    "integration":    ["UI-driven architectural substitution", "Hidden scoring conversion", "Flattened dashboards", "Silent status collapse", "Narrative-only outputs", "Tool-defined variable substitution"],
+    "governance":     ["Silent variable drift", "Tool-defined canonization", "Untraceable adaptation", "Hidden reconstruction changes", "Status simplification removing distinguishability", "Experimental realization treated as canonical without review"]
+  },
+
+  "integration_modes": {
+    "embedded_integration":  "Tool-contained realization",
+    "external_runner":       "Separate execution environment",
+    "hybrid_service":        "Shared service execution",
+    "manual_assisted":       "Human-assisted realization support"
+  }
+}

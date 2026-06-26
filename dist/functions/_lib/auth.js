@@ -3,16 +3,11 @@ const SESSION_TTL_SECONDS = 60 * 60 * 8;
 const OAUTH_STATE_COOKIE = "dale_oauth_state";
 const OAUTH_STATE_TTL_SECONDS = 60 * 10;
 
-const WORKSPACE_DOMAIN = "dale.africa";
-const ADMIN_EMAILS = ["awora@dale.africa", "ekim@dale.africa", "nshakya@dale.africa", "cricha@dale.africa"];
-const WORKSPACE_USERS = {};
+const INITIAL_ADMIN_EMAILS = ["awora@dale.africa"];
 
 const ROLE_ACCESS = {
   admin: ["docs", "signal", "canons", "tools", "developer", "validation"],
   team: ["docs", "signal", "canons", "tools", "developer", "validation"],
-  product_manager: ["docs", "signal"],
-  infrastructure_engineer: ["docs", "signal"],
-  solutions_architect: ["docs", "signal"],
   validation_partner: ["docs", "signal", "canons", "tools", "validation"],
   viewer: ["docs", "signal"],
 };
@@ -21,8 +16,16 @@ function getSecret(env) {
   return env.DALE_AUTH_SESSION_SECRET || "";
 }
 
-function isWorkspaceEmail(email) {
-  return String(email || "").trim().toLowerCase().endsWith(`@${WORKSPACE_DOMAIN}`);
+function getAllowedEmails(env) {
+  return [
+    ...new Set([
+      ...INITIAL_ADMIN_EMAILS,
+      ...(env.DALE_AUTH_ALLOWED_EMAILS || "")
+        .split(",")
+        .map((email) => email.trim().toLowerCase())
+        .filter(Boolean),
+    ]),
+  ];
 }
 
 function getRoleMap(env) {
@@ -104,11 +107,10 @@ function parseCookies(request) {
 }
 
 function roleForEmail(email, env) {
-  if (ADMIN_EMAILS.includes(email)) return "admin";
-  if (WORKSPACE_USERS[email]) return WORKSPACE_USERS[email];
+  if (INITIAL_ADMIN_EMAILS.includes(email)) return "admin";
   const roleMap = getRoleMap(env);
   if (roleMap[email]) return roleMap[email];
-  return "viewer";
+  return "team";
 }
 
 function createUser(email, env) {
@@ -155,7 +157,7 @@ export function isAllowedNext(next) {
 
 export function authorizeEmail(email, env) {
   const normalizedEmail = String(email || "").trim().toLowerCase();
-  if (!isWorkspaceEmail(normalizedEmail)) return null;
+  if (!getAllowedEmails(env).includes(normalizedEmail)) return null;
   return createUser(normalizedEmail, env);
 }
 
@@ -222,7 +224,7 @@ export function canAccess(user, pathname) {
 }
 
 export function canEditBlog(user) {
-  return user?.role === "admin";
+  return ["admin", "team"].includes(user?.role || "");
 }
 
 export function canAccessResearch(user) {

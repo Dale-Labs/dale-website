@@ -1,0 +1,625 @@
+# ============================================================
+# Empirical Concept Observation Architecture (ECOA) — Canonical YAML Specification
+# DALE Architecture | Kadana | Version 1.0.0 | April 2026
+# Position: Observational Realization Architecture (not a tool)
+# ============================================================
+
+metadata:
+  name: Empirical Concept Observation Architecture (ECOA)
+  version: "1.0.0"
+  type: Architecture Layer
+  position: Observational Realization Architecture of DALE
+  schema_ref: ecoa_schema.json
+  canonical_law: >
+    DALE foundational architecture remains invariant.
+    ECOA observational realization may adapt only within the admissible
+    observational boundary defined by DALE.
+
+  important_distinction: >
+    ECOA is not a tool. Tools are downstream observational containers that
+    expose, capture, organize, display, and store already-canonized
+    observational realizations. ECOA is the architecture within which
+    tools operate.
+
+# ============================================================
+# PART I — FOUNDATIONAL ARCHITECTURAL POSITION
+# ============================================================
+part_1_foundational_position:
+
+  core_definition: >
+    ECOA (Empirical Concept Observation Architecture) is the observational
+    realization architecture of DALE. Its role is to transform admissible
+    abstract system observations into structured empirical observation states
+    while preserving: observational admissibility, structural coherence,
+    traceability, readable reconstruction, and architectural continuity.
+
+  what_ecoa_is_not:
+    - "ECOA does not redefine DALE"
+    - "ECOA does not replace DALE"
+    - "ECOA does not function independently from DALE foundational architecture"
+
+  position_in_architecture:
+    sequence: "DALE → ECOA → Observable System Realization → Readable Operational Structures → Tool Layer"
+    meaning: "ECOA exists downstream from DALE foundational logic and upstream from DALE tool execution"
+
+  observation_only_constraint:
+    status: Fixed — non-negotiable
+    statement: "ECOA remains observation-only throughout execution"
+    not_permitted:
+      - recommendation engine
+      - prediction engine
+      - ranking engine
+      - scoring engine detached from traceability
+      - prescriptive intervention engine
+      - best-solution optimization engine
+
+  five_foundational_functions:
+    1_admissible_observation_handling: "Determines valid observational entry"
+    2_structural_decomposition:        "Recursively decomposes admissible systems"
+    3_empirical_assignment:            "Generates observation-bound empirical states"
+    4_reconstruction:                  "Returns readable operational structures"
+    5_traceability_preservation:       "Maintains recoverable observational lineage"
+
+# ============================================================
+# PART II — FIXED FOUNDATIONAL ARCHITECTURE LAYERS
+# ============================================================
+part_2_fixed_architecture:
+
+  note: >
+    These layers remain fixed and invariant under all admissible ECOA
+    realizations. They constitute protected DALE foundational architecture
+    and may not be modified during ordinary implementation, tool realization,
+    or client adaptation.
+
+  invariant_layers:
+    admissibility_logic:
+      status: Fixed
+      defines: ["what may enter observation", "admissible observation boundaries", "admissible system formation", "admissible observational conditions"]
+
+    recursive_decomposition_logic:
+      status: Fixed
+      defines: ["how systems decompose structurally", "decomposition continuity", "decomposition admissibility", "terminal realization conditions"]
+
+    principle_model_variable_hierarchy:
+      status: Fixed — invariant
+      hierarchy: "System → Principles → Models → Variables → Empirical Observation States"
+
+    signed_state_logic:
+      status: Fixed
+      defines: ["empirical assignment behavior", "structural state representation", "state polarity", "continuity of observation states"]
+
+    reconstruction_logic:
+      status: Fixed
+      defines: ["readable operational return", "operational reconstruction dependence", "family-level readable organization", "continuity between lower and higher observational layers"]
+
+    traceability_logic:
+      status: Fixed — architectural, not cosmetic
+      defines: ["recoverability of observational pathways", "visibility of activated variables", "visibility of activated principles", "visibility of activated models", "observation-condition continuity"]
+
+# ============================================================
+# PART III — OBSERVATIONAL REALIZATION ARCHITECTURE
+# ============================================================
+part_3_observational_realization:
+
+  canonical_observation_flow:
+    description: "This sequence remains invariant across observational realizations."
+    sequence:
+      1: "Abstract System Condition"
+      2: "Admissible Observation Formation"
+      3: "Observation Condition Declaration"
+      4: "Recursive Structural Decomposition"
+      5: "Variable Realization"
+      6: "Empirical Assignment"
+      7: "Operational Reconstruction"
+      8: "Readable Observation Return"
+
+  admissible_observation_formation:
+    description: >
+      Defines how a system becomes eligible for observational realization.
+    requirements:
+      - refer to a bounded system
+      - contain structurally coherent observational intent
+      - remain internally interpretable
+      - permit recursive decomposition
+      - preserve observational continuity
+      - remain traceable through execution
+
+  observation_conditions:
+    influence: [activation pathways, empirical realizability, decomposition pathways, structural visibility, reconstruction behavior]
+    do_not_redefine: [foundational architecture, admissibility logic, decomposition laws, empirical assignment laws]
+    rule: "Observation conditions affect realization. They do not alter the architecture itself."
+
+  recursive_decomposition:
+    description: "ECOA realizes systems through recursive decomposition"
+    proceeds_from: "higher-level system structures"
+    to: "progressively realizable observational units"
+    not: ["thematic categorization", "facilitator grouping", "arbitrary abstraction", "reporting organization"]
+    is: "a structural realization process"
+
+  terminal_realization:
+    description: "Recursive decomposition continues until admissible terminal observational units are reached"
+    terminal_unit_must:
+      - permit empirical assignment
+      - remain structurally interpretable
+      - preserve traceability
+      - remain reconstructible within the inherited architecture
+
+  structural_continuity_law:
+    statement: "Every observational layer must remain recoverable from the layer beneath it"
+    recovery_chain:
+      - "Readable Return ← recoverable from Operational Reconstruction"
+      - "Operational Reconstruction ← recoverable from Empirical Assignment"
+      - "Empirical Assignment ← recoverable from Variable Realization"
+      - "Variable Realization ← recoverable from Recursive Decomposition"
+      - "Recursive Decomposition ← recoverable from Observation Formation"
+
+# ============================================================
+# PART IV — ADAPTATION BOUNDARY AND VARIABLE GOVERNANCE
+# ============================================================
+part_4_adaptation_boundary:
+
+  governing_adaptation_law: >
+    Observable realization may adapt.
+    Foundational observational architecture may not.
+
+  adaptation_exists_because: >
+    Different systems require different observational visibility.
+    Healthcare systems, governance systems, enterprise systems, localization systems,
+    climate systems, education systems, and community systems may require different
+    observable variables, operational structures, family organizations, reconstruction
+    layers, and readable outputs.
+
+  what_may_adapt:
+    fundamental_variable_universes:    true
+    operational_variable_structures:   true
+    family_organization:               true
+    readable_terminology:              true
+    dataset_structure:                 true
+    reporting_structure:               true
+
+  what_may_not_adapt:
+    admissibility_logic:       false
+    decomposition_law:         false
+    assignment_logic:          false
+    reconstruction_law:        false
+    structural_status_law:     false
+    traceability_law:          false
+
+  admissible_variable_adaptation:
+    description: "An adapted variable architecture remains admissible only if it preserves:"
+    requirements:
+      structural_continuity:  "Variables remain architecture-grounded"
+      decomposition_continuity:"Variables remain decomposition-recoverable"
+      reconstruction_continuity:"Variables remain operationally reconstructible"
+      traceability:           "Variable lineage remains visible"
+      observational_coherence:"Variables remain structurally interpretable"
+      status_preservation:    "Missingness and absence remain explicit"
+      assignment_continuity:  "Signed-state logic remains preserved"
+
+  non_admissible_adaptation:
+    - converts ECOA into prescription
+    - breaks decomposition continuity
+    - introduces detached scoring systems
+    - collapses absence into neutrality
+    - removes traceability
+    - bypasses reconstruction dependence
+    - introduces arbitrary variables detached from structure
+    - replaces architectural logic with implementation convenience
+
+  practical_adaptation_rule: >
+    Clients, implementers, and tool builders do not modify DALE foundational architecture.
+    They may adapt: observable variables, operational reconstruction variables, readable
+    reporting structures, observational datasets, contextual observational mappings, and
+    family organization structures — only if traceability, admissibility, observational
+    continuity, reconstruction dependence, structural status recoverability, and
+    foundational DALE laws remain intact.
+
+# ============================================================
+# PART V — VARIABLE ARCHITECTURE
+# ============================================================
+part_5_variable_architecture:
+
+  governing_law: >
+    Variables remain structurally dependent realization layers through which
+    admissible observations become empirically assignable and operationally
+    reconstructible within traceable ECOA architecture.
+
+  variables_are_not: "independent from architecture"
+  variables_remain:
+    - principle-dependent
+    - model-dependent
+    - decomposition-dependent
+    - reconstruction-dependent
+    - observation-dependent
+
+  canonical_variable_hierarchy:
+    sequence: "Principles → Models → Fundamental Variables → Empirical Assignment → Operational Variables → Family Structures → Readable Observation Return"
+
+  fundamental_variables:
+    definition: "Lower-level observational realization structures"
+    support: ["empirical assignment", "decomposition realization", "signed-state continuity", "reconstruction dependence"]
+    closest_to: "terminal observational realization"
+    admissibility_requirements:
+      structurally_realizable: "Observable through decomposition"
+      assignment_compatible:   "Supports signed-state assignment"
+      preserve_continuity:     "Recoverable from decomposition"
+      remain_traceable:        "Lineage remains visible"
+      support_reconstruction:  "Contributes to operational readability"
+      observation_dependent:   "Assignment tied to observation condition"
+
+  variable_universes: >
+    A variable universe defines the active lower-level observational realization space
+    for a given ECOA realization. Different observational realizations may use different
+    variable universes provided foundational architecture remains preserved.
+
+  variable_activation:
+    depends_on: [observation condition, decomposition pathway, realizability, structural relevance, admissible visibility]
+    rule: "Inactive variables remain distinct from absent variables — this distinction is architecturally required"
+
+  signed_state_logic:
+    metric_domain: "[-1, 1]"
+    preserves: ["directional continuity", "structural coherence", "observational comparability", "reconstruction consistency"]
+    is: "architecture-governed"
+    is_not: "implementation-defined"
+
+  operational_variables:
+    definition: "Readable reconstructed observational structures"
+    purpose: "Return observational realization in operationally interpretable form"
+    not: ["detached labels", "arbitrary reporting categories", "UI abstractions"]
+    remains: "reconstructible from lower-level realization structures"
+
+  family_structures:
+    definition: "Organizational grouping of operational variables"
+    support: ["readable organization", "structural grouping", "family-anchor realization", "operational interpretability"]
+    must_remain: "reconstruction-grounded not presentation-driven"
+
+  variable_assignment_states:
+    assigned:                    "Empirical observation realized"
+    informational_absence:       "Insufficient information"
+    structural_absence:          "Structure does not exist"
+    structural_non_observability:"Structure cannot currently be observed"
+    inactive:                    "Variable admissible but not activated"
+    balance_relevant_missingness:"Missingness materially affects realization integrity"
+
+  non_admissible_variable_structures:
+    - arbitrary KPI collections
+    - detached indicator dashboards
+    - untraceable reporting categories
+    - collapsed status layers
+    - hidden assignment substitution
+    - purely UI-defined operational structures
+    - facilitator-generated interpretation variables
+    - variables detached from decomposition continuity
+
+# ============================================================
+# PART VI — RECONSTRUCTION LOGIC
+# ============================================================
+part_6_reconstruction_logic:
+
+  governing_law: >
+    Readable operational return must remain reconstructible from empirical
+    realization through traceable reconstruction continuity across all
+    observational layers.
+
+  reconstruction_is_not: "summarization"
+  reconstruction_is: "the architecture-governed readable return of observational realization"
+
+  key_rule: >
+    Readable outputs remain dependent on lower-level realization.
+    Operational structures remain reconstruction-dependent.
+    Readable return remains traceable to observational generation.
+
+  canonical_reconstruction_flow:
+    sequence: "Empirical Assignment → Lower-Level Realization State → Operational Reconstruction → Operational Variables → Family Organization → Readable Observation Return"
+    note: "This pathway remains structurally recoverable"
+
+  reconstruction_layers:
+    fundamental_reconstruction:  "Lower-level empirical continuity"
+    operational_reconstruction:  "Readable operational visibility"
+    family_reconstruction:       "Organizational grouping"
+    readable_return:             "DALE-facing exposure layer"
+
+  valid_reconstruction_requirements:
+    assignment_continuity:    "Recoverable empirical lineage"
+    decomposition_continuity: "Structural pathway recoverable"
+    variable_continuity:      "Operational variables remain grounded"
+    observation_dependency:   "Reconstruction tied to observation condition"
+    traceability:             "Readable return remains recoverable"
+    status_visibility:        "Missingness remains explicit"
+
+  readable_return_exposes:
+    - operational_variables (readable reconstructed structures)
+    - family_structures (organizational groupings)
+    - structural_statuses (missingness and absence visibility)
+    - activated_variables (participating realization structures)
+    - activated_principles (active architectural principles)
+    - activated_models (active observational models)
+    - observation_conditions (active observation context)
+    - trace_path (recoverable realization lineage)
+
+  non_admissible_reconstruction:
+    executive_only_summaries: "Break realization continuity"
+    detached_dashboards:      "Lose reconstruction dependence"
+    flattened_scoring:        "Collapse structural states"
+    ui_generated_interpretation: "Break traceability"
+    narrative_only_reporting: "Remove recoverability"
+    kpi_substitution:         "Detach from realization architecture"
+
+  reconstruction_recoverability_law:
+    readable_return: "recoverable from Family Reconstruction"
+    family_reconstruction: "recoverable from Operational Reconstruction"
+    operational_reconstruction: "recoverable from Empirical Assignment"
+    empirical_assignment: "recoverable from Variable Realization"
+
+# ============================================================
+# PART VII — STRUCTURAL STATUS LOGIC AND MISSINGNESS
+# ============================================================
+part_7_structural_status:
+
+  governing_law: >
+    ECOA must preserve explicit distinguishability between observational
+    realization, informational absence, structural absence, inactivity,
+    non-observability, and balance-relevant missingness across all
+    observational layers.
+
+  foundational_principle: >
+    ECOA does not treat missingness as neutral. Missingness itself may
+    contain structural meaning, observational meaning, balance implications,
+    and traceability implications.
+    Silence ≠ absence. Absence ≠ inactivity. Non-observability ≠ missing data.
+
+  canonical_structural_statuses:
+    assigned:
+      meaning: "Empirical realization exists"
+      assignment_exists: true
+      must_not_collapse_to: "default neutral value"
+
+    informational_absence:
+      meaning: "Information unavailable — architecture cannot realize assignment from available observation"
+      must_remain: "explicit"
+      must_not_collapse_to: ["neutral defaults", "hidden omission", "silent substitution"]
+
+    structural_absence:
+      meaning: "The relevant structure does not exist within the observed system"
+      differs_from: "informational absence — this is absence of the structure itself, not absence of information about it"
+
+    structural_non_observability:
+      meaning: "Structure may exist but cannot currently be observed under active observational condition"
+      may_result_from: ["visibility limitations", "inaccessible system regions", "observational restrictions", "power barriers", "timing constraints", "observational boundary conditions"]
+      not_equivalent_to: ["absence", "inactivity", "missing information"]
+
+    inactive:
+      meaning: "Variable admissible but not activated under the active observation"
+      remains: ["structurally valid", "recoverable", "architecture-visible"]
+      must_not_be_treated_as: "absent structures"
+
+    balance_relevant_missingness:
+      meaning: "Missingness materially affects realization integrity, reconstruction continuity, or downstream architectural admissibility"
+      importance: "One of the most important structural states in ECOA — not all missingness threatens validity, but some materially affects observational coherence"
+
+  mandatory_distinctions:
+    absence_vs_inactivity:         required
+    absence_vs_non_observability:  required
+    missingness_vs_neutrality:     required
+    informational_vs_structural_absence: required
+    non_observability_vs_unresolvedness: required
+    assignment_vs_assumption:      required
+
+  non_admissible_status_handling:
+    converting_missingness_to_neutral: "Destroys integrity"
+    silent_omission:                   "Breaks traceability"
+    ui_based_status_collapse:          "Removes distinguishability"
+    default_substitution:              "Creates false coherence"
+    hidden_inference:                  "Breaks observation-only law"
+    reporting_simplification:          "Breaks continuity"
+
+# ============================================================
+# PART VIII — TRACEABILITY LOGIC
+# ============================================================
+part_8_traceability:
+
+  governing_law: >
+    Every ECOA observational output must remain recoverable from the
+    observational structures, decomposition pathways, assignment states,
+    and reconstruction layers that generated it.
+
+  foundational_principle: >
+    Traceability is not reporting metadata.
+    Traceability is an architectural continuity requirement.
+    Without traceability, ECOA ceases to function as architecture.
+
+  observation_lineage_must_preserve:
+    - the active observation condition
+    - the admissible observation boundary
+    - the decomposition pathway
+    - the activated variables
+    - the activated principles
+    - the activated models
+    - the reconstruction pathway
+
+  traceability_layers:
+    observation_formation:  "Recoverable"
+    observation_condition:  "Visible"
+    decomposition_pathway:  "Recoverable"
+    variable_realization:   "Recoverable"
+    assignment_state:       "Explicit"
+    structural_status:      "Explicit"
+    reconstruction_pathway: "Recoverable"
+    readable_return:        "Architecture-linked"
+
+  traceability_and_missingness:
+    must_preserve:
+      - where missingness occurred
+      - why assignment failed
+      - where structures became inactive
+      - where non-observability emerged
+    rule: "Missingness without lineage visibility is structurally invalid"
+
+  non_admissible_traceability:
+    hidden_reconstruction:        "Breaks recoverability"
+    detached_reporting_summaries: "Removes lineage"
+    collapsed_assignment_history: "Breaks continuity"
+    silent_variable_omission:     "Removes structural visibility"
+    non_recoverable_dashboards:   "Breaks architecture continuity"
+    narrative_only_reporting:     "Removes observational lineage"
+
+  dataset_traceability_requirements:
+    ObservationID:         "Required"
+    ObservationCondition:  "Required"
+    VariableActivation:    "Required"
+    StructuralStatus:      "Required"
+    ActivatedPrinciples:   "Required"
+    ActivatedModels:       "Required"
+    ReconstructionPath:    "Required"
+    TracePath:             "Required"
+    Timestamp:             "Required"
+
+  tool_layer_traceability:
+    tools_may: ["expose", "organize", "display", "export", "visualize traceability structures"]
+    tools_may_not: ["replace traceability logic", "collapse lineage", "hide missingness", "substitute interpretation for recoverability"]
+
+# ============================================================
+# PART IX — INTEGRATION LOGIC AND TOOL BOUNDARY
+# ============================================================
+part_9_integration:
+
+  governing_law: >
+    Tools may expose, organize, store, and operationalize ECOA realization,
+    but may not replace, redefine, or obscure the architectural continuity
+    that generates observational outputs.
+
+  foundational_principle: >
+    Tools are not the architecture.
+    Tools are: downstream observational containers, interaction environments,
+    storage layers, readability layers, and execution interfaces.
+    ECOA remains the observational realization architecture.
+
+  tool_boundary:
+    tools_may:
+      - capture observations
+      - trigger execution
+      - display outputs
+      - store outputs
+      - organize readable structures
+      - export datasets
+      - support interoperability
+    tools_may_not:
+      - redefine admissibility
+      - replace decomposition
+      - replace assignment logic
+      - collapse structural statuses
+      - break traceability continuity
+      - substitute interpretation for architecture
+
+  observation_package_requirements:
+    observation_identity:   "Recoverable"
+    observation_condition:  "Visible"
+    structural_scope:       "Recoverable"
+    variable_continuity:    "Preserved"
+    traceability_continuity:"Preserved"
+    status_continuity:      "Preserved"
+
+  integration_modes:
+    external_runner:        "Separate execution layer"
+    embedded_integration:   "Tool-contained execution"
+    hybrid_service:         "Shared execution services"
+    manual_assisted:        "Human-supported execution"
+    note: "These modes are implementation variations. They do not alter foundational observational architecture."
+
+  human_operator_boundary:
+    may:     ["formulate admissible observations", "inspect outputs", "interpret observations", "validate readability"]
+    may_not: ["silently alter realization logic during execution", "redefine assignment logic", "replace architecture with interpretation"]
+
+  integration_invariants:
+    observation_only_law:      "Preserved"
+    structural_continuity:     "Preserved"
+    assignment_continuity:     "Preserved"
+    reconstruction_continuity: "Preserved"
+    status_visibility:         "Preserved"
+    traceability:              "Preserved"
+    architectural_recoverability: "Preserved"
+
+# ============================================================
+# PART X — ADAPTATION GOVERNANCE AND CANONIZATION
+# ============================================================
+part_10_adaptation_governance:
+
+  governing_law: >
+    Observational realizations may evolve only through traceable,
+    structurally validated, canon-governed adaptation that preserves
+    foundational DALE architectural continuity.
+
+  foundational_principle: >
+    Adaptation is permitted. Architectural drift is not.
+    Governance exists to preserve this distinction.
+
+  canonical_governance_flow:
+    sequence:
+      1: "Observation Need"
+      2: "Adaptation Proposal"
+      3: "Variable Architecture Design"
+      4: "Reconstruction Mapping"
+      5: "Traceability Validation"
+      6: "Structural Coherence Validation"
+      7: "Canon Review"
+      8: "Canonization"
+      9: "Operational Realization"
+    note: "Adaptation becomes official only after canonization"
+
+  canonization_requirements:
+    explicit_variable_definitions: "Variables formally declared"
+    structural_grounding:          "Variables remain architecture-dependent"
+    reconstruction_continuity:     "Operational return recoverable"
+    traceability_continuity:       "Lineage preserved"
+    status_preservation:           "Missingness remains explicit"
+    assignment_compatibility:      "Signed-state continuity preserved"
+    operational_readability:       "Readable return remains interpretable"
+
+  experimental_realizations:
+    permitted_for: ["pilot testing", "sector adaptation", "observational exploration", "variable experimentation"]
+    remain: "architecture-bound even before canonization"
+    are_not: "official ECOA realizations"
+
+  version_governance:
+    variable_lineage:           "Recoverable"
+    structural_changes:         "Explicit — silent drift prohibited"
+    reconstruction_changes:     "Explicit"
+    family_changes:             "Explicit"
+    traceability_compatibility: "Preserved"
+    status_continuity:          "Preserved"
+
+  tools_and_canonization:
+    tools_may:    ["operationalize realizations", "expose realizations", "support experimentation", "support implementation"]
+    tools_may_not:["canonize architecture"]
+    rule:         "Canonical approval remains architecture-governed"
+
+# ============================================================
+# FINAL CANON STATEMENT
+# ============================================================
+final_canon_statement: >
+  The ECOA Canon defines the observational realization architecture of DALE,
+  the distinction between foundational architecture and observational adaptation,
+  the laws governing realization, the laws governing reconstruction, the laws
+  governing missingness and traceability, the integration boundary between
+  architecture and tooling, and the governance structure through which
+  observational realizations evolve.
+
+  ECOA therefore serves as: the canon-governed empirical realization architecture
+  through which DALE observes structurally admissible systems while preserving
+  continuity, traceability, and architectural integrity across contextual
+  observational realizations.
+
+# ============================================================
+# APPENDIX REFERENCES
+# ============================================================
+appendices:
+  A: "Canonical Definitions — see ecoa_schema.json definitions section"
+  B: "Structural Status Reference — see structural_status_reference in ecoa_schema.json"
+  C: "Traceability Reference — see traceability_reference in ecoa_schema.json"
+  D: "Variable Architecture Reference — see variable architecture sections above"
+  E: "Reconstruction Reference — see part_6_reconstruction_logic above"
+  F: "Integration Reference — see part_9_integration above"
+  G: "Adaptation Validation Checklist — see adaptation_validation_checklist in ecoa_schema.json"
+  H: "Machine Schema Reference — see ecoa_schema.json definitions"
+  I: "Observational Flow Reference — see observation_flows in ecoa_schema.json"
+  J: "Glossary Reference — see canonical definitions in ecoa_schema.json"

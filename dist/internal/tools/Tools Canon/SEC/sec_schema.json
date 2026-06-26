@@ -1,0 +1,478 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kadana.org/schemas/sec/v1.0.0",
+  "title": "Social Enterprise Canvas (SEC) — Canonical Schema",
+  "description": "SEC is the enterprise synthesis and coherence layer of the DALE architecture. It organizes traceable structural outputs from CoS, ECOA, ARA, and Runner into enterprise operating architectures. SEC activates conditionally — only when Runner determines enterprise realization is required.",
+  "version": "1.0.0",
+  "tool_id": "SEC",
+  "dale_stage": "Realize",
+  "architectural_position": {
+    "layer": "Enterprise Synthesis & Coherence",
+    "role": "Pathway Tool",
+    "activation": "Conditional — Runner determines realization pathway",
+    "receives_from": ["CoS", "ECOA", "ARA", "Runner"],
+    "feeds_into": ["CBC", "Master Dataset"],
+    "canonical_rule": "Tools operate on structure, they do not create it",
+    "sec_rule": "SEC organizes enterprise coherence. It does not invent it."
+  },
+
+  "activation_logic": {
+    "sec_activates_when": [
+      "value realization requires formation or restructuring of an enterprise operating architecture",
+      "impact continuity requires enterprise operating architecture",
+      "operational coordination requires enterprise operating architecture",
+      "resourcing requires enterprise operating architecture",
+      "stewardship or delivery requires enterprise operating architecture"
+    ],
+    "direct_to_cbc_when": [
+      "resolution can occur through negotiated governance without enterprise creation",
+      "resolution can occur through benefit formalization without enterprise creation",
+      "resolution can occur through contractual accountability without enterprise creation",
+      "resolution can occur through institutional restructuring without enterprise creation"
+    ],
+    "realization_types": {
+      "RT-SEC": "Enterprise realization required — SEC activates",
+      "RT-CBC": "Governance formalization required — bypass SEC, go directly to CBC",
+      "RT-H":   "Hybrid — both SEC and CBC required",
+      "RT-U":   "Realization pathway unresolved — do not proceed until Runner resolves"
+    }
+  },
+
+  "definitions": {
+
+    "CoherenceState": {
+      "type": "string",
+      "enum": ["RES-C", "RES-F", "RES-U", "RES-D", "RES-B", "RES-MD", "RES-FD", "RES-CR"],
+      "description": "RES-C=Coherent | RES-F=Fragile | RES-U=Unresolved | RES-D=Dependency exposed | RES-B=Bottleneck exposed | RES-MD=Mission drift risk | RES-FD=Founder dependent | RES-CR=Continuity risk exposed"
+    },
+
+    "UnresolvedCondition": {
+      "type": "object",
+      "description": "An explicitly preserved unresolved structural condition. Never collapsed into a resolved state. Must be carried forward through all subsequent phases.",
+      "properties": {
+        "condition_id":       { "type": "string" },
+        "condition_type":     { "type": "string", "enum": ["informational_absence", "structural_absence", "dependency", "tension", "missingness", "fragility"] },
+        "source_layer":       { "type": "string", "enum": ["CoS", "ECOA", "ARA", "Runner", "SEC-Phase1", "SEC-Phase2", "SEC-Phase3", "SEC-Phase4", "SEC-Phase5", "SEC-Phase6"] },
+        "description":        { "type": "string" },
+        "carried_forward_to": { "type": "string" }
+      },
+      "required": ["condition_id", "condition_type", "source_layer", "description"]
+    },
+
+    "FlowRecord": {
+      "type": "object",
+      "properties": {
+        "flow_type":   { "type": "string", "enum": ["money", "impact", "data", "decision"] },
+        "description": { "type": "string" },
+        "actors":      { "type": "array", "items": { "type": "string" } },
+        "direction":   { "type": "string" },
+        "state":       { "$ref": "#/definitions/CoherenceState" },
+        "trace_ref":   { "type": "string" }
+      },
+      "required": ["flow_type", "state"]
+    },
+
+    "CoherenceAssessment": {
+      "type": "object",
+      "properties": {
+        "state":       { "$ref": "#/definitions/CoherenceState" },
+        "description": { "type": "string" },
+        "findings":    { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["state"]
+    },
+
+    "ArchitectureLayer": {
+      "type": "object",
+      "properties": {
+        "layer_id":    { "type": "string" },
+        "description": { "type": "string" },
+        "elements":    { "type": "array", "items": { "type": "string" } },
+        "state":       { "$ref": "#/definitions/CoherenceState" },
+        "source_phase":{ "type": "integer" },
+        "trace_ref":   { "type": "string" }
+      },
+      "required": ["layer_id", "state"]
+    },
+
+    "EnterpriseDomainOutput": {
+      "type": "object",
+      "properties": {
+        "structure":   { "type": "string" },
+        "description": { "type": "string" },
+        "state":       { "$ref": "#/definitions/CoherenceState" },
+        "trace_ref":   { "type": "string" }
+      },
+      "required": ["state"]
+    },
+
+    "StructuralIntakePackage": {
+      "type": "object",
+      "description": "Phase 1 output. Complete enterprise synthesis intake assembled from all upstream layers.",
+      "properties": {
+        "sip_id":           { "type": "string" },
+        "observation_id":   { "type": "string" },
+        "realization_type": { "type": "string", "enum": ["RT-SEC", "RT-H"] },
+        "cos_inputs": {
+          "type": "object",
+          "properties": {
+            "actor_maps":          { "type": "array", "items": { "type": "string" } },
+            "interaction_maps":    { "type": "array", "items": { "type": "string" } },
+            "issue_landscapes":    { "type": "array", "items": { "type": "string" } },
+            "system_pattern_maps": { "type": "array", "items": { "type": "string" } },
+            "visibility_layers":   { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "ecoa_inputs": {
+          "type": "object",
+          "properties": {
+            "admissible_variables":            { "type": "array", "items": { "type": "string" } },
+            "operational_states":              { "type": "array", "items": { "type": "string" } },
+            "fundamental_variable_assignments":{ "type": "array", "items": { "type": "string" } },
+            "informational_absence_conditions":{ "type": "array", "items": { "type": "string" } },
+            "structural_absence_conditions":   { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "ara_inputs": {
+          "type": "object",
+          "properties": {
+            "resolution_states":        { "type": "array", "items": { "type": "string" } },
+            "structural_contradictions":{ "type": "array", "items": { "type": "string" } },
+            "adaptive_configurations":  { "type": "array", "items": { "type": "string" } },
+            "dependency_structures":    { "type": "array", "items": { "type": "string" } },
+            "balance_conditions":       { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "runner_inputs": {
+          "type": "object",
+          "properties": {
+            "execution_pathways":            { "type": "array", "items": { "type": "string" } },
+            "delivery_logic":                { "type": "array", "items": { "type": "string" } },
+            "transition_pathways":           { "type": "array", "items": { "type": "string" } },
+            "operational_conditions":        { "type": "array", "items": { "type": "string" } },
+            "realization_type_determination":{ "type": "string", "enum": ["RT-SEC", "RT-CBC", "RT-H", "RT-U"] }
+          }
+        },
+        "enterprise_domains_activated": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["Value", "Impact", "Resource", "Delivery", "Governance", "Flow", "Scale"] }
+        },
+        "unresolved_conditions_carried_forward": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/UnresolvedCondition" }
+        },
+        "traceability_verified": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["sip_id", "observation_id", "realization_type", "traceability_verified", "timestamp"]
+    },
+
+    "EnterpriseStructureSet": {
+      "type": "object",
+      "description": "Phase 2 output. First enterprise synthesis layer defining the required operating structure.",
+      "properties": {
+        "ess_id":             { "type": "string" },
+        "sip_ref":            { "type": "string" },
+        "beneficiary_domain": { "$ref": "#/definitions/EnterpriseDomainOutput" },
+        "payer_domain":       { "$ref": "#/definitions/EnterpriseDomainOutput" },
+        "value_domain":       { "$ref": "#/definitions/EnterpriseDomainOutput" },
+        "impact_domain":      { "$ref": "#/definitions/EnterpriseDomainOutput" },
+        "offering_domain":    { "$ref": "#/definitions/EnterpriseDomainOutput" },
+        "delivery_domain":    { "$ref": "#/definitions/EnterpriseDomainOutput" },
+        "resource_domain":    { "$ref": "#/definitions/EnterpriseDomainOutput" },
+        "stewardship_domain": { "$ref": "#/definitions/EnterpriseDomainOutput" },
+        "enterprise_boundaries": {
+          "type": "object",
+          "properties": {
+            "operating_scope":   { "type": "string" },
+            "exclusions":        { "type": "array", "items": { "type": "string" } },
+            "boundary_rationale":{ "type": "string" }
+          }
+        },
+        "unresolved_conditions": { "type": "array", "items": { "$ref": "#/definitions/UnresolvedCondition" } }
+      },
+      "required": ["ess_id", "sip_ref"]
+    },
+
+    "EnterpriseFlowMap": {
+      "type": "object",
+      "description": "Phase 3 output. All four mandatory flows with intersections and tensions recorded.",
+      "properties": {
+        "efm_id":      { "type": "string" },
+        "ess_ref":     { "type": "string" },
+        "money_flow":  { "$ref": "#/definitions/FlowRecord" },
+        "impact_flow": { "$ref": "#/definitions/FlowRecord" },
+        "data_flow":   { "$ref": "#/definitions/FlowRecord" },
+        "decision_flow":{ "$ref": "#/definitions/FlowRecord" },
+        "flow_intersections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "flows_involved":   { "type": "array", "items": { "type": "string", "enum": ["money", "impact", "data", "decision"] } },
+              "intersection_type":{ "type": "string", "enum": ["reinforcement", "fracture"] },
+              "description":      { "type": "string" }
+            }
+          }
+        },
+        "flow_tensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tension_id":    { "type": "string" },
+              "flows_involved":{ "type": "array", "items": { "type": "string" } },
+              "description":   { "type": "string" },
+              "status":        { "type": "string", "const": "unresolved" }
+            }
+          },
+          "description": "Flow tensions are structural findings — not problems to eliminate at this stage."
+        },
+        "flow_coherence_state": { "$ref": "#/definitions/CoherenceState" }
+      },
+      "required": ["efm_id", "ess_ref", "money_flow", "impact_flow", "data_flow", "decision_flow", "flow_coherence_state"]
+    },
+
+    "CoherenceStructureMap": {
+      "type": "object",
+      "description": "Phase 4 output. Assessment of whether the enterprise structure holds under real-world conditions.",
+      "properties": {
+        "csm_id":               { "type": "string" },
+        "efm_ref":              { "type": "string" },
+        "value_coherence":      { "$ref": "#/definitions/CoherenceAssessment" },
+        "impact_coherence":     { "$ref": "#/definitions/CoherenceAssessment" },
+        "resource_coherence":   { "$ref": "#/definitions/CoherenceAssessment" },
+        "governance_coherence": { "$ref": "#/definitions/CoherenceAssessment" },
+        "flow_coherence":       { "$ref": "#/definitions/CoherenceAssessment" },
+        "bottlenecks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bottleneck_id":{ "type": "string" },
+              "domain":       { "type": "string" },
+              "description":  { "type": "string" },
+              "state":        { "type": "string", "const": "RES-B" }
+            }
+          }
+        },
+        "continuity_risks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "risk_id":    { "type": "string" },
+              "risk_type":  { "type": "string", "enum": ["operational", "financial", "legitimacy", "founder"] },
+              "description":{ "type": "string" },
+              "state":      { "type": "string", "const": "RES-CR" }
+            }
+          }
+        },
+        "unresolved_tensions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/UnresolvedCondition" }
+        },
+        "overall_coherence_state": { "$ref": "#/definitions/CoherenceState" }
+      },
+      "required": ["csm_id", "efm_ref", "overall_coherence_state"]
+    },
+
+    "OperatingArchitectureExpression": {
+      "type": "object",
+      "description": "Phase 5 output. Structured enterprise operating architecture with full synthesis traceability.",
+      "properties": {
+        "oae_id":                      { "type": "string" },
+        "csm_ref":                     { "type": "string" },
+        "front_stage_systems":         { "type": "array", "items": { "$ref": "#/definitions/ArchitectureLayer" } },
+        "back_stage_systems":          { "type": "array", "items": { "$ref": "#/definitions/ArchitectureLayer" } },
+        "partnership_architecture":    { "type": "array", "items": { "$ref": "#/definitions/ArchitectureLayer" } },
+        "leadership_architecture":     { "type": "array", "items": { "$ref": "#/definitions/ArchitectureLayer" } },
+        "unresolved_conditions_visible":{ "type": "array", "items": { "$ref": "#/definitions/UnresolvedCondition" } },
+        "traceability_paths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "element_id":  { "type": "string" },
+              "source_phase":{ "type": "integer", "minimum": 1, "maximum": 4 },
+              "source_ref":  { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["oae_id", "csm_ref"]
+    },
+
+    "ContinuityScaleMap": {
+      "type": "object",
+      "description": "Phase 6 output. Survivability assessment under growth and operational pressure.",
+      "properties": {
+        "csm2_id":  { "type": "string" },
+        "oae_ref":  { "type": "string" },
+        "scale_pathways": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pathway_type": { "type": "string", "enum": ["replication", "network", "franchise", "policy", "hybrid"] },
+              "applicability":{ "type": "string", "enum": ["applicable", "not_applicable", "unresolved"] },
+              "conditions":   { "type": "string" },
+              "breakpoints":  { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "continuity_risks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "risk_id":    { "type": "string" },
+              "category":   { "type": "string", "enum": ["operational", "financial", "legitimacy", "founder"] },
+              "description":{ "type": "string" },
+              "severity":   { "type": "string", "enum": ["critical", "significant", "moderate", "low"] }
+            }
+          }
+        },
+        "founder_dependence":    { "$ref": "#/definitions/CoherenceAssessment" },
+        "governance_resilience": { "$ref": "#/definitions/CoherenceAssessment" },
+        "survivability_missingness": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/UnresolvedCondition" },
+          "description": "Must be forwarded to CTP. Do not project resolution that has not been demonstrated."
+        }
+      },
+      "required": ["csm2_id", "oae_ref"]
+    },
+
+    "CBCTransitionPackage": {
+      "type": "object",
+      "description": "Phase 7 output. Complete downstream intake for CBC. SEC identifies — CBC formalizes.",
+      "properties": {
+        "ctp_id":   { "type": "string" },
+        "csm2_ref": { "type": "string" },
+        "governance_bearing_structures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "structure_id":       { "type": "string" },
+              "description":        { "type": "string" },
+              "formalization_need": { "type": "string" },
+              "source_phase":       { "type": "integer" },
+              "source_ref":         { "type": "string" }
+            }
+          }
+        },
+        "negotiated_value_exchange_conditions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "condition_id":   { "type": "string" },
+              "description":    { "type": "string" },
+              "actors_involved":{ "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "stewardship_obligations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "obligation_id":          { "type": "string" },
+              "holder":                 { "type": "string" },
+              "description":            { "type": "string" },
+              "formalization_required": { "type": "boolean" }
+            }
+          }
+        },
+        "measurement_obligations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "measurement_id":      { "type": "string" },
+              "what_is_measured":    { "type": "string" },
+              "reporting_requirement":{ "type": "string" }
+            }
+          }
+        },
+        "continuity_protections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "protection_id":       { "type": "string" },
+              "description":         { "type": "string" },
+              "governance_mechanism":{ "type": "string" }
+            }
+          }
+        },
+        "unresolved_conditions_forwarded": { "type": "array", "items": { "$ref": "#/definitions/UnresolvedCondition" } },
+        "cbc_intake_complete": { "type": "boolean" }
+      },
+      "required": ["ctp_id", "csm2_ref", "cbc_intake_complete"]
+    },
+
+    "SECOutputRecord": {
+      "type": "object",
+      "description": "Canonical output record for master dataset integration.",
+      "properties": {
+        "observation_id":       { "type": "string" },
+        "source_tool":          { "type": "string", "const": "SEC" },
+        "phase":                { "type": "integer", "minimum": 1, "maximum": 7 },
+        "layer":                { "type": "string", "enum": ["synthesis", "expression", "transition"] },
+        "domain":               { "type": "string", "enum": ["Value", "Impact", "Resource", "Delivery", "Governance", "Flow", "Scale"] },
+        "entity_id":            { "type": "string" },
+        "state_id":             { "type": "string", "enum": ["SIP", "ESS", "EFM", "CSM", "OAE", "CSM-2", "CTP"] },
+        "coherence_state":      { "$ref": "#/definitions/CoherenceState" },
+        "realization_type":     { "type": "string", "enum": ["RT-SEC", "RT-CBC", "RT-H", "RT-U"] },
+        "status":               { "type": "string", "enum": ["resolved", "unresolved", "fragile", "missing"] },
+        "trace_ref":            { "type": "string" },
+        "used_principles":      { "type": "array", "items": { "type": "string", "enum": ["P1", "P2", "P3", "P4", "P5"] } },
+        "observation_condition":{ "type": "string" },
+        "timestamp":            { "type": "string", "format": "date-time" },
+        "trace_path":           { "type": "string" }
+      },
+      "required": ["observation_id", "source_tool", "phase", "state_id", "coherence_state", "realization_type", "status", "timestamp"]
+    }
+  },
+
+  "phase_output_chain": [
+    { "phase": 1, "output": "StructuralIntakePackage",         "abbreviation": "SIP",   "feeds_into": "Phase 2" },
+    { "phase": 2, "output": "EnterpriseStructureSet",          "abbreviation": "ESS",   "feeds_into": "Phase 3" },
+    { "phase": 3, "output": "EnterpriseFlowMap",               "abbreviation": "EFM",   "feeds_into": "Phase 4" },
+    { "phase": 4, "output": "CoherenceStructureMap",           "abbreviation": "CSM",   "feeds_into": "Phase 5" },
+    { "phase": 5, "output": "OperatingArchitectureExpression", "abbreviation": "OAE",   "feeds_into": "Phase 6" },
+    { "phase": 6, "output": "ContinuityScaleMap",              "abbreviation": "CSM-2", "feeds_into": "Phase 7" },
+    { "phase": 7, "output": "CBCTransitionPackage",            "abbreviation": "CTP",   "feeds_into": "CBC tool" }
+  ],
+
+  "architectural_constraints": {
+    "not_permitted": [
+      "activating SEC without Runner RT-SEC or RT-H determination",
+      "fabricating coherence where tensions are unresolved",
+      "collapsing unresolved conditions into resolved states",
+      "generating enterprise structures without traceable upstream inputs",
+      "overriding realization type determination from Runner",
+      "skipping phases in the 7-phase sequence",
+      "producing CTP without completing Phases 1-6"
+    ],
+    "preservation_rules": [
+      "All unresolved conditions from upstream layers must be preserved in SIP and carried through all phases",
+      "RES-F and RES-U are valid and expected coherence outputs — do not force RES-C",
+      "Flow tensions are structural findings, not problems to eliminate",
+      "Survivability missingness must be recorded in CSM-2 and forwarded in CTP"
+    ]
+  },
+
+  "integration": {
+    "master_dataset_fields": [
+      "ObservationID", "SourceTool", "Phase", "Layer", "Domain",
+      "EntityID", "StateID", "CoherenceState", "RealizationType",
+      "Status", "TraceRef", "UsedPrinciples", "ObservationCondition",
+      "Timestamp", "TracePath"
+    ],
+    "downstream_tool": { "tool": "CBC", "intake": "CBCTransitionPackage (CTP)", "handoff_condition": "cbc_intake_complete = true" }
+  }
+}

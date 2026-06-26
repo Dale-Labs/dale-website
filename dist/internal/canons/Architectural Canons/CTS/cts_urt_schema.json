@@ -1,0 +1,626 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kadana.org/schemas/cts-urt/v1.0.0",
+  "title": "Canonical Trace Standard (CTS) and Unified Runtime Taxonomy (URT) — Canonical Schema",
+  "description": "CTS is the persistent runtime traceability architecture that maintains structural continuity, lineage integrity, propagation visibility, governance attribution, and reconstructable system evolution across the DALE architecture. URT is the shared runtime classification system that standardizes how DALE names, interprets, maps, and operationalizes system states across all canonical layers. CTS tracks lineage and preserves continuity. URT defines shared runtime meaning.",
+  "version": "1.0.0",
+
+  "architectural_position": {
+    "cts_role": "Horizontal continuity infrastructure connecting all canonical systems — not a standalone layer",
+    "urt_role": "Shared semantic backbone of DALE runtime operations",
+    "cts_does_not": "generate observations, execute balancing logic, or implement operational processes",
+    "cts_does": "maintain continuity and integrity of structural memory across the DALE architecture",
+    "canonical_sequence": "CoS → ECOA → ARA → Runner → SEC / CBC → Observed Outcomes",
+    "cts_canonical_definition": "The persistent runtime traceability architecture that maintains structural continuity, lineage integrity, propagation visibility, governance attribution, and reconstructable system evolution across the DALE architecture.",
+    "urt_canonical_definition": "The shared runtime classification system that standardizes how DALE names, interprets, maps, and operationalizes system states across all canonical layers."
+  },
+
+  "cts_core_functions": {
+    "identity_persistence": "Maintains stable object lineage",
+    "state_recording":      "Records condition transitions",
+    "propagation":          "Preserves inherited conditions",
+    "runtime_continuity":   "Maintains evolving system truth",
+    "reconstruction":       "Enables backward traceability"
+  },
+
+  "cts_foundational_principles": {
+    "traceability_over_compression":   "No simplification may destroy lineage continuity",
+    "runtime_truth_over_snapshot":     "CTS records evolving state rather than static state — all objects are temporally contextual",
+    "contradictions_are_structural":   "Contradictions are observable system conditions — not implementation noise",
+    "missingness_is_data":             "Unknown conditions remain visible — absence itself carries operational meaning",
+    "all_outputs_reconstructable":     "Every outcome must be traceable backward through implementation, governance, balancing, variable formation, and observation origin"
+  },
+
+  "cts_prevents": [
+    "orphan outputs",
+    "untraceable adaptations",
+    "hidden contradictions",
+    "unverifiable governance actions",
+    "disconnected implementation states",
+    "black-box system evolution"
+  ],
+
+  "canonical_id_structure": {
+    "format": "CTS-[LAYER]-[OBJECT]-[SEQUENCE]",
+    "examples": {
+      "observation":     "CTS-COS-OBS-0001",
+      "variable":        "CTS-ECOA-VAR-0042",
+      "regime":          "CTS-ARA-REG-0011",
+      "runtime_state":   "CTS-RUN-STATE-0204",
+      "decision":        "CTS-DEC-0021",
+      "adaptation":      "CTS-ADAPT-0004",
+      "contradiction":   "CTS-CONTRA-0011",
+      "missingness":     "CTS-MISS-0008",
+      "authority":       "CTS-AUTH-0003",
+      "outcome":         "CTS-OUTCOME-0081",
+      "temporal_event":  "CTS-TEMP-0009",
+      "cbc_clause":      "CTS-CBC-CLAUSE-0008"
+    },
+    "identity_persistence_rule": "Identity must remain stable across updates, propagation, adaptations, and runtime transitions. State changes do not create new lineage identity unless structural decomposition, object bifurcation, or canonical transformation creating a distinct object class occurs."
+  },
+
+  "definitions": {
+
+    "RuntimeState": {
+      "type": "string",
+      "enum": ["ACTIVE", "STABLE", "ADAPTING", "DEGRADED", "FRAGILE", "BLOCKED", "CONTESTED", "ESCALATING", "STALLED", "COLLAPSED", "SUPERSEDED", "ARCHIVED"],
+      "description": "ACTIVE=operational | STABLE=coherent and sustainable | ADAPTING=undergoing modification | DEGRADED=reduced effectiveness | FRAGILE=high instability risk | BLOCKED=progress prevented | CONTESTED=governance disagreement | ESCALATING=instability increasing | STALLED=movement paused | COLLAPSED=continuity failed | SUPERSEDED=replaced by newer state | ARCHIVED=retained for continuity"
+    },
+
+    "ContradictionClass": {
+      "type": "string",
+      "enum": ["RESOURCE", "GOVERNANCE", "STRUCTURAL", "OPERATIONAL", "TEMPORAL", "INCENTIVE", "INFORMATIONAL", "REGULATORY", "CULTURAL", "ENVIRONMENTAL"],
+      "description": "RESOURCE=resource scarcity or imbalance | GOVERNANCE=authority conflict | STRUCTURAL=architectural incompatibility | OPERATIONAL=execution instability | TEMPORAL=timing inconsistency | INCENTIVE=misaligned motivations | INFORMATIONAL=conflicting knowledge | REGULATORY=policy conflict | CULTURAL=normative incompatibility | ENVIRONMENTAL=external instability"
+    },
+
+    "ContradictionSeverity": {
+      "type": "string",
+      "enum": ["LOW", "MODERATE", "HIGH", "CRITICAL", "TERMINAL"],
+      "description": "LOW=minor friction | MODERATE=noticeable instability | HIGH=significant viability threat | CRITICAL=severe continuity risk | TERMINAL=collapse imminent"
+    },
+
+    "ContradictionRuntimeState": {
+      "type": "string",
+      "enum": ["ACTIVE", "ESCALATING", "STABILIZING", "MITIGATED", "RESOLVED", "INVALIDATED"],
+      "description": "ACTIVE=contradiction present | ESCALATING=severity increasing | STABILIZING=pressure reducing | MITIGATED=partial resolution | RESOLVED=structural incompatibility removed | INVALIDATED=no longer operationally relevant"
+    },
+
+    "MissingnessClass": {
+      "type": "string",
+      "enum": ["UNOBSERVED", "INACCESSIBLE", "CONFLICTING", "TEMPORAL_GAP", "INVALIDATED", "SUPPRESSED", "DEGRADED", "UNKNOWN_SOURCE"],
+      "description": "UNOBSERVED=never captured | INACCESSIBLE=cannot currently observe | CONFLICTING=inconsistent evidence | TEMPORAL_GAP=chronology incomplete | INVALIDATED=observation unreliable | SUPPRESSED=intentionally withheld | DEGRADED=reduced quality | UNKNOWN_SOURCE=origin unclear"
+    },
+
+    "MissingnessRuntimeState": {
+      "type": "string",
+      "enum": ["ACTIVE", "PARTIAL", "STABILIZING", "RESOLVED", "PERSISTENT"],
+      "description": "ACTIVE=missingness unresolved | PARTIAL=some uncertainty resolved | STABILIZING=confidence improving | RESOLVED=sufficient clarity achieved | PERSISTENT=missingness likely ongoing"
+    },
+
+    "ConfidenceState": {
+      "type": "string",
+      "enum": ["HIGH_CONFIDENCE", "MODERATE_CONFIDENCE", "LOW_CONFIDENCE", "CONTESTED_CONFIDENCE", "UNVERIFIABLE"],
+      "description": "HIGH_CONFIDENCE=strong reliability | MODERATE_CONFIDENCE=acceptable reliability | LOW_CONFIDENCE=significant uncertainty | CONTESTED_CONFIDENCE=interpretation disputed | UNVERIFIABLE=insufficient evidence"
+    },
+
+    "GovernanceState": {
+      "type": "string",
+      "enum": ["LEGITIMATE", "CONTESTED", "FRAGMENTED", "DELEGATED", "CENTRALIZED", "DISTRIBUTED", "COLLAPSED"],
+      "description": "LEGITIMATE=recognized authority | CONTESTED=legitimacy disputed | FRAGMENTED=authority split | DELEGATED=authority transferred | CENTRALIZED=concentrated authority | DISTRIBUTED=shared authority | COLLAPSED=governance failure"
+    },
+
+    "AdaptationClass": {
+      "type": "string",
+      "enum": ["CORRECTIVE", "RESPONSIVE", "PREVENTIVE", "STRUCTURAL", "GOVERNANCE", "OPERATIONAL", "TEMPORAL", "EMERGENT"],
+      "description": "CORRECTIVE=resolves instability | RESPONSIVE=reacts to environmental change | PREVENTIVE=reduces anticipated risk | STRUCTURAL=alters architecture | GOVERNANCE=changes authority structure | OPERATIONAL=modifies execution logic | TEMPORAL=alters sequencing or timing | EMERGENT=arises spontaneously during runtime"
+    },
+
+    "AdaptationRuntimeState": {
+      "type": "string",
+      "enum": ["INITIATED", "ACTIVE", "STABILIZING", "COMPLETED", "FAILED", "REVERSED"],
+      "description": "INITIATED=triggered | ACTIVE=underway | STABILIZING=effects normalizing | COMPLETED=operational | FAILED=unsuccessful | REVERSED=rolled back"
+    },
+
+    "DependencyState": {
+      "type": "string",
+      "enum": ["STABLE", "CONDITIONAL", "VOLATILE", "BLOCKED", "DEGRADED", "COLLAPSED"],
+      "description": "STABLE=reliable | CONDITIONAL=depends on runtime conditions | VOLATILE=highly unstable | BLOCKED=dependency inaccessible | DEGRADED=reduced reliability | COLLAPSED=dependency failed"
+    },
+
+    "TemporalState": {
+      "type": "string",
+      "enum": ["CURRENT", "SUPERSEDED", "HISTORICAL", "EXPIRED", "FUTURE_CONDITIONAL", "ARCHIVED"],
+      "description": "CURRENT=operationally active | SUPERSEDED=replaced | HISTORICAL=retained for continuity | EXPIRED=no longer valid | FUTURE_CONDITIONAL=pending activation | ARCHIVED=preserved for reconstruction"
+    },
+
+    "OutcomeState": {
+      "type": "string",
+      "enum": ["EMERGENT", "STABILIZED", "DEGRADED", "CONTESTED", "FAILED", "TRANSFORMED"],
+      "description": "EMERGENT=beginning to appear | STABILIZED=sustained | DEGRADED=weakening | CONTESTED=interpretation disputed | FAILED=intended result not achieved | TRANSFORMED=evolved into new condition"
+    },
+
+    "ObjectValidityState": {
+      "type": "string",
+      "enum": ["ACTIVE", "SUPERSEDED", "INVALIDATED", "ARCHIVED", "CONTESTED"],
+      "description": "ACTIVE=operationally valid | SUPERSEDED=replaced by newer state | INVALIDATED=no longer reliable | ARCHIVED=historical continuity retained | CONTESTED=governance disagreement active"
+    },
+
+    "PropagationType": {
+      "type": "string",
+      "enum": ["DIRECT", "CONDITIONAL", "ESCALATED", "DEFERRED", "FORKED"],
+      "description": "DIRECT=passed unchanged | CONDITIONAL=passed under constraints | ESCALATED=severity increased | DEFERRED=delayed activation | FORKED=diverges into parallel branches"
+    },
+
+    "EventType": {
+      "type": "string",
+      "enum": ["STATE_CHANGED", "CONTRADICTION_ESCALATED", "GOVERNANCE_CHANGED", "ADAPTATION_TRIGGERED", "CONFIDENCE_DEGRADED", "OUTCOME_EMERGED", "VALIDITY_CHANGED", "MISSINGNESS_DETECTED"],
+      "description": "STATE_CHANGED=runtime transition | CONTRADICTION_ESCALATED=severity increase | GOVERNANCE_CHANGED=authority modification | ADAPTATION_TRIGGERED=runtime adjustment | CONFIDENCE_DEGRADED=reliability reduction | OUTCOME_EMERGED=observable result | VALIDITY_CHANGED=runtime confidence shift | MISSINGNESS_DETECTED=uncertainty identified"
+    },
+
+    "TraceObject": {
+      "type": "object",
+      "description": "Root continuity container for all lineage-bearing entities. Establishes identity persistence, root ancestry, and reconstruction continuity. No anonymous objects are permitted.",
+      "properties": {
+        "id":                  { "type": "string", "pattern": "^CTS-[A-Z]+-[A-Z]+-[0-9]+$" },
+        "type":                { "type": "string", "const": "TRACE_OBJECT" },
+        "layer":               { "type": "string", "enum": ["COS", "ECOA", "ARA", "RUNNER", "SEC", "CBC", "CTS"] },
+        "root_id":             { "type": "string" },
+        "parent_id":           { "type": ["string", "null"] },
+        "runtime_state":       { "$ref": "#/definitions/RuntimeState" },
+        "governance_state":    { "$ref": "#/definitions/GovernanceState" },
+        "confidence_state":    { "$ref": "#/definitions/ConfidenceState" },
+        "validity_status":     { "$ref": "#/definitions/ObjectValidityState" },
+        "authority_reference": { "type": "string" },
+        "contradictions":      { "type": "array", "items": { "type": "string" } },
+        "missingness":         { "type": "array", "items": { "type": "string" } },
+        "created_at":          { "type": "string", "format": "date-time" },
+        "updated_at":          { "type": "string", "format": "date-time" },
+        "lineage_depth":       { "type": "integer", "minimum": 0 },
+        "child_references":    { "type": "array", "items": { "type": "string" } },
+        "trace_status":        { "type": "string" },
+        "metadata":            { "type": "object" }
+      },
+      "required": ["id", "type", "layer", "root_id", "runtime_state", "created_at"]
+    },
+
+    "ObservationObject": {
+      "type": "object",
+      "description": "Raw observed system conditions originating from CoS or runtime sensing. Observations are non-evaluative, context-bound, and temporally situated.",
+      "properties": {
+        "id":                { "type": "string" },
+        "type":              { "type": "string", "const": "OBSERVATION_OBJECT" },
+        "source":            { "type": "string" },
+        "observation_domain":{ "type": "string" },
+        "observation_method":{ "type": "string" },
+        "observed_condition":{ "type": "object" },
+        "temporal_context":  { "type": "string", "format": "date-time" },
+        "observer_reference":{ "type": "string" },
+        "confidence_level":  { "$ref": "#/definitions/ConfidenceState" },
+        "missingness":       { "type": "array", "items": { "type": "string" } },
+        "runtime_state":     { "$ref": "#/definitions/RuntimeState" },
+        "parent_id":         { "type": ["string", "null"] },
+        "root_id":           { "type": "string" },
+        "created_at":        { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "source", "observed_condition", "confidence_level", "created_at"]
+    },
+
+    "VariableObject": {
+      "type": "object",
+      "description": "ECOA-decomposed operational variables. Transforms observations into structured observable system elements. Must preserve decomposition lineage, observable linkage, and dependency structure.",
+      "properties": {
+        "id":                    { "type": "string" },
+        "type":                  { "type": "string", "const": "VARIABLE_OBJECT" },
+        "parent_observation":    { "type": "string" },
+        "variable_class":        { "type": "string" },
+        "decomposition_path":    { "type": "string" },
+        "measurement_logic":     { "type": "string" },
+        "dependency_references": { "type": "array", "items": { "type": "string" } },
+        "runtime_conditions":    { "type": "object" },
+        "contradictions":        { "type": "array", "items": { "type": "string" } },
+        "runtime_state":         { "$ref": "#/definitions/RuntimeState" },
+        "confidence_state":      { "$ref": "#/definitions/ConfidenceState" },
+        "root_id":               { "type": "string" },
+        "parent_id":             { "type": "string" },
+        "temporal":              { "type": "object", "properties": { "created_at": { "type": "string", "format": "date-time" } } }
+      },
+      "required": ["id", "type", "parent_observation", "variable_class", "runtime_state"]
+    },
+
+    "RegimeObject": {
+      "type": "object",
+      "description": "ARA balancing structures. Contains resolved structural configurations, balancing logic, and operational coherence states. Must preserve balancing rationale, dependency inheritance, and structural viability continuity.",
+      "properties": {
+        "id":                      { "type": "string" },
+        "type":                    { "type": "string", "const": "REGIME_OBJECT" },
+        "parent_variables":        { "type": "array", "items": { "type": "string" } },
+        "balance_conditions":      { "type": "object" },
+        "structural_dependencies": { "type": "array", "items": { "type": "string" } },
+        "regime_state":            { "$ref": "#/definitions/RuntimeState" },
+        "viability_status":        { "type": "string", "enum": ["VIABLE", "FRAGILE", "CONTESTED", "COLLAPSED"] },
+        "active_contradictions":   { "type": "array", "items": { "type": "string" } },
+        "adaptation_requirements": { "type": "array", "items": { "type": "string" } },
+        "root_id":                 { "type": "string" },
+        "parent_id":               { "type": "string" },
+        "created_at":              { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "parent_variables", "regime_state", "viability_status"]
+    },
+
+    "StateObject": {
+      "type": "object",
+      "description": "Runner execution states. Maintains runtime truth continuity. Must preserve prior runtime states, expose transition logic, and maintain execution chronology.",
+      "properties": {
+        "id":                   { "type": "string" },
+        "type":                 { "type": "string", "const": "STATE_OBJECT" },
+        "previous_state":       { "type": ["string", "null"] },
+        "current_conditions":   { "type": "object" },
+        "execution_status":     { "$ref": "#/definitions/RuntimeState" },
+        "adaptation_history":   { "type": "array", "items": { "type": "string" } },
+        "runtime_validity":     { "$ref": "#/definitions/ObjectValidityState" },
+        "active_constraints":   { "type": "array", "items": { "type": "string" } },
+        "state_transitions":    { "type": "array", "items": { "type": "string" } },
+        "root_id":              { "type": "string" },
+        "parent_id":            { "type": "string" },
+        "created_at":           { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "execution_status", "runtime_validity", "created_at"]
+    },
+
+    "DecisionObject": {
+      "type": "object",
+      "description": "Governance actions and authority interventions. Must preserve authority attribution, governance legitimacy, and structural impact continuity.",
+      "properties": {
+        "id":                  { "type": "string" },
+        "type":                { "type": "string", "const": "DECISION_OBJECT" },
+        "decision_authority":  { "type": "string" },
+        "decision_scope":      { "type": "string" },
+        "decision_trigger":    { "type": "string" },
+        "affected_objects":    { "type": "array", "items": { "type": "string" } },
+        "decision_rationale":  { "type": "string" },
+        "governance_status":   { "$ref": "#/definitions/GovernanceState" },
+        "escalation_reference":{ "type": ["string", "null"] },
+        "runtime_effect":      { "type": "string" },
+        "temporal_reference":  { "type": "string", "format": "date-time" },
+        "root_id":             { "type": "string" },
+        "parent_id":           { "type": "string" }
+      },
+      "required": ["id", "type", "decision_authority", "decision_scope", "governance_status"]
+    },
+
+    "AdaptationObject": {
+      "type": "object",
+      "description": "Structural or runtime changes. Must preserve transformation continuity, adaptation rationale, and pre/post traceability.",
+      "properties": {
+        "id":                  { "type": "string" },
+        "type":                { "type": "string", "const": "ADAPTATION_OBJECT" },
+        "trigger_condition":   { "type": "string" },
+        "pre_state":           { "type": "string" },
+        "post_state":          { "type": "string" },
+        "adaptation_logic":    { "type": "string" },
+        "adaptation_class":    { "$ref": "#/definitions/AdaptationClass" },
+        "adaptation_state":    { "$ref": "#/definitions/AdaptationRuntimeState" },
+        "reversibility_status":{ "type": "string", "enum": ["REVERSIBLE", "PARTIAL", "IRREVERSIBLE", "UNKNOWN"] },
+        "affected_lineage":    { "type": "array", "items": { "type": "string" } },
+        "runtime_effects":     { "type": "string" },
+        "root_id":             { "type": "string" },
+        "parent_id":           { "type": "string" },
+        "created_at":          { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "trigger_condition", "pre_state", "post_state", "adaptation_class", "adaptation_state"]
+    },
+
+    "ContradictionObject": {
+      "type": "object",
+      "description": "Unresolved structural tensions. Treated as persistent operational conditions — not errors. Cannot silently disappear. Must possess persistent identity, maintain origin lineage, remain visible during runtime, and preserve escalation continuity.",
+      "properties": {
+        "id":                       { "type": "string" },
+        "type":                     { "type": "string", "const": "CONTRADICTION_OBJECT" },
+        "contradiction_class":      { "$ref": "#/definitions/ContradictionClass" },
+        "origin_reference":         { "type": "string" },
+        "severity_level":           { "$ref": "#/definitions/ContradictionSeverity" },
+        "runtime_state":            { "$ref": "#/definitions/ContradictionRuntimeState" },
+        "affected_objects":         { "type": "array", "items": { "type": "string" } },
+        "propagation_status":       { "$ref": "#/definitions/PropagationType" },
+        "resolution_requirements":  { "type": "string" },
+        "runtime_impact":           { "type": "string" },
+        "authority_visibility":     { "type": "string" },
+        "temporal_status":          { "$ref": "#/definitions/TemporalState" },
+        "root_id":                  { "type": "string" },
+        "parent_id":                { "type": "string" },
+        "created_at":               { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "contradiction_class", "severity_level", "runtime_state", "origin_reference"]
+    },
+
+    "MissingnessObject": {
+      "type": "object",
+      "description": "Uncertainty and absence conditions. Must remain explicit, preserve temporal continuity, and propagate uncertainty impact through runtime lineage. CTS prohibits hidden uncertainty.",
+      "properties": {
+        "id":                 { "type": "string" },
+        "type":               { "type": "string", "const": "MISSINGNESS_OBJECT" },
+        "missingness_class":  { "$ref": "#/definitions/MissingnessClass" },
+        "runtime_state":      { "$ref": "#/definitions/MissingnessRuntimeState" },
+        "affected_field":     { "type": "string" },
+        "cause":              { "type": "string" },
+        "confidence_impact":  { "$ref": "#/definitions/ConfidenceState" },
+        "runtime_risk":       { "type": "string" },
+        "resolution_status":  { "type": "string" },
+        "temporal_scope":     { "type": "string" },
+        "root_id":            { "type": "string" },
+        "parent_id":          { "type": "string" },
+        "created_at":         { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "missingness_class", "affected_field", "cause"]
+    },
+
+    "AuthorityObject": {
+      "type": "object",
+      "description": "Governance legitimacy and decision rights. Must maintain traceable origin, expose legitimacy basis, preserve runtime scope, and record delegation continuity.",
+      "properties": {
+        "id":                   { "type": "string" },
+        "type":                 { "type": "string", "const": "AUTHORITY_OBJECT" },
+        "authority_type":       { "type": "string", "enum": ["FORMAL", "COMMUNITY", "OPERATIONAL", "REGULATORY", "TECHNICAL", "DELEGATED", "EMERGENT", "CONTESTED"] },
+        "authority_holder":     { "type": "string" },
+        "governance_scope":     { "type": "string" },
+        "delegation_origin":    { "type": ["string", "null"] },
+        "runtime_constraints":  { "type": "array", "items": { "type": "string" } },
+        "validity_status":      { "$ref": "#/definitions/GovernanceState" },
+        "temporal_scope":       { "type": "string" },
+        "legitimacy_basis":     { "type": "string" },
+        "recognition_scope":    { "type": "string" },
+        "validation_method":    { "type": "string" },
+        "contestation_status":  { "type": ["string", "null"] },
+        "confidence_level":     { "$ref": "#/definitions/ConfidenceState" },
+        "root_id":              { "type": "string" },
+        "parent_id":            { "type": "string" },
+        "created_at":           { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "authority_type", "authority_holder", "governance_scope", "legitimacy_basis"]
+    },
+
+    "OutcomeObject": {
+      "type": "object",
+      "description": "Observable system results. Must remain reconstructable back to runtime states, regimes, variables, and observations.",
+      "properties": {
+        "id":                   { "type": "string" },
+        "type":                 { "type": "string", "const": "OUTCOME_OBJECT" },
+        "origin_lineage":       { "type": "string" },
+        "observed_result":      { "type": "object" },
+        "measurement_context":  { "type": "string" },
+        "runtime_conditions":   { "type": "object" },
+        "impact_scope":         { "type": "string" },
+        "outcome_state":        { "$ref": "#/definitions/OutcomeState" },
+        "confidence_status":    { "$ref": "#/definitions/ConfidenceState" },
+        "root_id":              { "type": "string" },
+        "parent_id":            { "type": "string" },
+        "created_at":           { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "origin_lineage", "observed_result", "outcome_state"]
+    },
+
+    "TemporalObject": {
+      "type": "object",
+      "description": "Runtime chronology and sequencing continuity. Every canonical object must exist within traceable chronology.",
+      "properties": {
+        "id":                    { "type": "string" },
+        "type":                  { "type": "string", "const": "TEMPORAL_OBJECT" },
+        "timestamp":             { "type": "string", "format": "date-time" },
+        "runtime_phase":         { "type": "string" },
+        "validity_window":       { "type": "object", "properties": { "valid_from": { "type": "string", "format": "date-time" }, "valid_until": { "type": ["string", "null"], "format": "date-time" } } },
+        "sequence_dependencies": { "type": "array", "items": { "type": "string" } },
+        "temporal_status":       { "$ref": "#/definitions/TemporalState" },
+        "event_sequence":        { "type": "integer" },
+        "root_id":               { "type": "string" },
+        "parent_id":             { "type": "string" }
+      },
+      "required": ["id", "type", "timestamp", "temporal_status"]
+    },
+
+    "RuntimeEventObject": {
+      "type": "object",
+      "description": "Machine-readable runtime events generated by all state transitions, adaptations, contradiction escalations, and governance actions.",
+      "properties": {
+        "event_id":            { "type": "string" },
+        "event_type":          { "$ref": "#/definitions/EventType" },
+        "source_object":       { "type": "string" },
+        "target_object":       { "type": "string" },
+        "trigger_condition":   { "type": "string" },
+        "runtime_effect":      { "type": "string" },
+        "timestamp":           { "type": "string", "format": "date-time" },
+        "authority_reference": { "type": "string" }
+      },
+      "required": ["event_id", "event_type", "source_object", "timestamp"]
+    },
+
+    "PropagationObject": {
+      "type": "object",
+      "description": "Preserves propagation continuity across canonical layers.",
+      "properties": {
+        "propagation_id":    { "type": "string" },
+        "origin_condition":  { "type": "string" },
+        "propagated_to":     { "type": "array", "items": { "type": "string" } },
+        "propagation_type":  { "$ref": "#/definitions/PropagationType" },
+        "severity_change":   { "type": "string" },
+        "runtime_impact":    { "type": "string" },
+        "timestamp":         { "type": "string", "format": "date-time" }
+      },
+      "required": ["propagation_id", "origin_condition", "propagation_type"]
+    },
+
+    "TraceObjectMinimumStructure": {
+      "type": "object",
+      "description": "Minimum required fields for any CTS-compliant canonical object.",
+      "properties": {
+        "id":                  { "type": "string" },
+        "type":                { "type": "string" },
+        "layer":               { "type": "string" },
+        "root_id":             { "type": "string" },
+        "parent_id":           { "type": ["string", "null"] },
+        "runtime_state":       { "$ref": "#/definitions/RuntimeState" },
+        "governance_state":    { "$ref": "#/definitions/GovernanceState" },
+        "confidence_state":    { "$ref": "#/definitions/ConfidenceState" },
+        "contradictions":      { "type": "array", "items": { "type": "string" } },
+        "missingness":         { "type": "array", "items": { "type": "string" } },
+        "created_at":          { "type": "string", "format": "date-time" },
+        "updated_at":          { "type": "string", "format": "date-time" },
+        "authority_reference": { "type": "string" }
+      },
+      "required": ["id", "type", "layer", "root_id", "runtime_state", "governance_state", "confidence_state", "created_at"]
+    }
+  },
+
+  "urt_core_runtime_states": {
+    "ACTIVE":     { "definition": "Operational and executing normally", "characteristics": { "execution": "Running", "governance": "Valid", "contradictions": "Manageable", "confidence": "Acceptable", "viability": "Operational" } },
+    "STABLE":     { "definition": "Coherent and sustainable under current conditions", "characteristics": { "viability": "Strong", "adaptation_need": "Minimal", "governance": "Coherent", "runtime_risk": "Low" } },
+    "ADAPTING":   { "definition": "Undergoing runtime modification, structural adjustment, or governance transition", "characteristics": { "runtime_change": "Active", "continuity": "Preserved", "stability": "Transitional" } },
+    "DEGRADED":   { "definition": "Operational but with reduced effectiveness or reliability", "characteristics": { "execution": "Partial", "viability": "Reduced", "contradictions": "Increasing", "confidence": "Lowered" } },
+    "FRAGILE":    { "definition": "High instability risk — may fail under additional stress", "characteristics": { "stability": "Weak", "dependency_risk": "High", "adaptation_pressure": "High", "contradictions": "Significant" } },
+    "BLOCKED":    { "definition": "Unable to progress due to unresolved constraints", "characteristics": { "execution": "Halted", "dependencies": "Unresolved", "governance": "May be pending", "runtime_movement": "Prevented" } },
+    "CONTESTED":  { "definition": "Active governance or operational disagreement", "characteristics": { "governance": "Disputed", "runtime_stability": "Uncertain", "authority": "Conflicted", "adaptation_pressure": "Elevated" } },
+    "ESCALATING": { "definition": "Increasing instability or contradiction severity", "characteristics": { "contradictions": "Intensifying", "runtime_risk": "Rising", "governance_pressure": "Increasing", "viability": "Deteriorating" } },
+    "STALLED":    { "definition": "Runtime movement paused without resolution", "characteristics": { "execution": "Paused", "adaptation": "Incomplete", "contradictions": "Persistent", "resolution": "Unclear" } },
+    "COLLAPSED":  { "definition": "Operational continuity failed", "characteristics": { "execution": "Failed", "governance": "Broken", "continuity": "Lost", "viability": "Invalid" } },
+    "SUPERSEDED": { "definition": "Replaced by a newer valid runtime state", "characteristics": { "historical_validity": "Preserved", "current_authority": "Replaced", "runtime_activity": "Inactive" } },
+    "ARCHIVED":   { "definition": "Retained for historical continuity and reconstruction", "characteristics": { "runtime_activity": "None", "historical_integrity": "Preserved", "reconstruction": "Available" } }
+  },
+
+  "urt_runtime_transition_priority": {
+    "1": "COLLAPSED",
+    "2": "ESCALATING",
+    "3": "CONTESTED",
+    "4": "FRAGILE",
+    "5": "BLOCKED",
+    "6": "DEGRADED",
+    "7": "ADAPTING",
+    "8": "ACTIVE",
+    "9": "STABLE"
+  },
+
+  "urt_state_transition_rules": [
+    { "from": "ACTIVE",    "to": "DEGRADED",   "allowed": true },
+    { "from": "DEGRADED",  "to": "FRAGILE",    "allowed": true },
+    { "from": "FRAGILE",   "to": "ESCALATING", "allowed": true },
+    { "from": "ESCALATING","to": "COLLAPSED",  "allowed": true },
+    { "from": "ADAPTING",  "to": "STABLE",     "allowed": true },
+    { "from": "COLLAPSED", "to": "ACTIVE",     "allowed": "CONDITIONAL" },
+    { "from": "ARCHIVED",  "to": "ACTIVE",     "allowed": false }
+  ],
+
+  "urt_cross_canon_semantic_mappings": {
+    "CoS": {
+      "Community coordination functioning":  "ACTIVE",
+      "Trust weakening":                     "FRAGILE",
+      "Local conflict emerging":             "CONTESTED",
+      "Participation halted":                "BLOCKED",
+      "Leadership fragmentation":            "ESCALATING"
+    },
+    "ECOA": {
+      "Variable coherence maintained":       "STABLE",
+      "Dependency instability increasing":   "DEGRADED",
+      "Contradictory observations detected": "CONTESTED",
+      "Variable confidence collapse":        "FRAGILE",
+      "Dependency chain broken":             "COLLAPSED"
+    },
+    "ARA": {
+      "Regime coherence achieved":           "STABLE",
+      "Balancing adjustment ongoing":        "ADAPTING",
+      "Regime under stress":                 "DEGRADED",
+      "Contradictions destabilizing regime": "ESCALATING",
+      "Regime failure":                      "COLLAPSED"
+    },
+    "Runner": {
+      "Execution progressing normally":      "ACTIVE",
+      "Runtime adaptation underway":         "ADAPTING",
+      "Operational delays increasing":       "DEGRADED",
+      "Execution halted by dependency":      "BLOCKED",
+      "Runtime execution failure":           "COLLAPSED"
+    },
+    "SEC": {
+      "Revenue pathway functioning":         "STABLE",
+      "Enterprise under pressure":           "DEGRADED",
+      "Sustainability risk increasing":      "FRAGILE",
+      "Enterprise governance dispute":       "CONTESTED",
+      "Enterprise continuity failure":       "COLLAPSED"
+    },
+    "CBC": {
+      "Agreement functioning":               "ACTIVE",
+      "Renegotiation underway":              "ADAPTING",
+      "Accountability weakening":            "DEGRADED",
+      "Benefit dispute emerging":            "CONTESTED",
+      "Agreement breakdown":                 "COLLAPSED"
+    },
+    "CTS": {
+      "Trace continuity preserved":          "STABLE",
+      "Runtime uncertainty increasing":      "DEGRADED",
+      "Contradiction propagation active":    "ESCALATING",
+      "Lineage broken":                      "COLLAPSED",
+      "Governance attribution disputed":     "CONTESTED"
+    }
+  },
+
+  "excel_minimum_columns": {
+    "Object_ID":           "Persistent lineage",
+    "Parent_ID":           "Structural ancestry",
+    "Runtime_State":       "Current operational condition",
+    "Governance_State":    "Legitimacy condition",
+    "Confidence_State":    "Reliability condition",
+    "Contradiction_Class": "Active tension",
+    "Missingness_Class":   "Uncertainty state",
+    "Adaptation_State":    "Runtime modification",
+    "Dependency_State":    "Relationship stability",
+    "Outcome_State":       "Result continuity",
+    "Timestamp":           "Temporal continuity",
+    "Authority_Reference": "Governance attribution"
+  },
+
+  "reconstruction_pathway": [
+    "Outcome",
+    "→ Runtime State",
+    "→ Adaptation",
+    "→ Governance Decision",
+    "→ Regime",
+    "→ Variables",
+    "→ Observations"
+  ],
+
+  "cross_canon_flow": {
+    "CoS":    "observations",
+    "ECOA":   "variables",
+    "ARA":    "balancing regimes",
+    "Runner": "runtime execution",
+    "SEC":    "enterprise realization",
+    "CBC":    "negotiated exchange",
+    "CTS":    "continuity + traceability",
+    "URT":    "shared runtime language"
+  },
+
+  "validation_domains": {
+    "Lineage_Integrity":        "Reconstruction continuity",
+    "Runtime_Continuity":       "State evolution coherence",
+    "Contradiction_Persistence":"Structural visibility",
+    "Missingness_Continuity":   "Uncertainty preservation",
+    "Governance_Attribution":   "Accountability traceability",
+    "Temporal_Integrity":       "Chronological continuity",
+    "Adaptation_Coherence":     "Runtime modification validity",
+    "Cross_Canonical_Coherence":"Architecture interoperability",
+    "Machine_Representation":   "Serialization consistency",
+    "Reconstruction_Capability":"Backward traceability"
+  },
+
+  "implementation_principles": {
+    "Non_Destructive_Updates":    "Preserve runtime history",
+    "Persistent_IDs":             "Maintain lineage continuity",
+    "Controlled_Enums":           "Prevent semantic drift",
+    "Timestamp_Discipline":       "Preserve chronology",
+    "Contradiction_Visibility":   "Preserve instability",
+    "Missingness_Visibility":     "Preserve uncertainty",
+    "Governance_Attribution":     "Preserve accountability",
+    "Reconstruction_Capability":  "Enable backward tracing"
+  },
+
+  "canonical_runtime_loop": [
+    "Observe", "→ Structure", "→ Balance", "→ Execute",
+    "→ Detect", "→ Adapt", "→ Re-State", "→ Reconstruct", "→ Learn"
+  ]
+}

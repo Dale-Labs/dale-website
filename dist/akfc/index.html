@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A Kenyan Fruit Calendar — A DALE Labs / APE Experiment</title>
 <meta name="description" content="A Kenyan Fruit Calendar remembers Kenya's fruit seasons, one story and one jar at a time.">
-<meta property="og:image" content="/assets/akfc/akfc-logo-web.jpg">
-<meta name="twitter:image" content="/assets/akfc/akfc-logo-web.jpg">
-<link rel="preload" as="image" href="/assets/akfc/akfc-logo-web.jpg">
-<link rel="preload" as="image" href="/assets/akfc/mutiso.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Lora:ital,wght@0,400..600;1,400..500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -42,17 +38,6 @@
     outline:2px solid var(--terracotta);
     outline-offset:3px;
   }
-  .sr-only{
-    position:absolute;
-    width:1px;
-    height:1px;
-    padding:0;
-    margin:-1px;
-    overflow:hidden;
-    clip:rect(0,0,0,0);
-    white-space:nowrap;
-    border:0;
-  }
 
   /* ===== NAV ===== */
   header{
@@ -73,17 +58,20 @@
     gap:24px;
   }
   .nav-brand{
-    display:inline-flex;
-    align-items:center;
+    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight:500;
+    font-size:18px;
+    letter-spacing:0.01em;
+    white-space:nowrap;
     text-decoration:none;
   }
-  .nav-logo{
-    display:block;
-    width:92px;
-    height:92px;
-    object-fit:contain;
-    border-radius:50%;
-    mix-blend-mode:multiply;
+  .dale-home{
+    font-family:'Space Mono', 'Courier New', monospace;
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--tamarind);
   }
   .nav-links{
     display:flex;
@@ -160,25 +148,8 @@
 
   /* ===== HERO ===== */
   .hero{
-    padding:64px 0 48px;
-    overflow:hidden;
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns:minmax(0,0.95fr) minmax(320px,1.05fr);
-    gap:clamp(32px,6vw,72px);
-    align-items:center;
-  }
-  .hero-copy{
-    text-align:left;
-  }
-  .hero-kicker{
-    font-family:'Space Mono', 'Courier New', monospace;
-    font-size:11px;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    color:var(--tamarind);
-    margin-bottom:22px;
+    padding:64px 0 40px;
+    text-align:center;
   }
   .banter{
     font-family:'Lora', serif;
@@ -186,7 +157,7 @@
     font-size:clamp(17px,2.4vw,23px);
     color:var(--olive);
     max-width:640px;
-    margin:0;
+    margin:0 auto;
     opacity:0;
     transform:translateY(10px);
     animation: rise 0.7s ease forwards;
@@ -210,7 +181,7 @@
   }
 
   .stamp-wrap{
-    margin:42px 0 28px;
+    margin:48px auto 32px;
     max-width:340px;
     opacity:0;
     transform:scale(0.85) rotate(-8deg);
@@ -241,75 +212,6 @@
     text-transform:uppercase;
     color:var(--tamarind);
     margin-top:48px;
-  }
-  .market-scene{
-    position:relative;
-    min-height:620px;
-  }
-  .market-poster{
-    position:absolute;
-    display:block;
-    border:10px solid var(--paper);
-    box-shadow:0 18px 36px rgba(42,37,32,0.18);
-    overflow:hidden;
-    background:var(--paper);
-  }
-  .market-poster img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    filter:saturate(0.92) contrast(0.98);
-  }
-  .market-poster.primary{
-    width:54%;
-    height:78%;
-    right:19%;
-    top:3%;
-    transform:rotate(1.5deg);
-    z-index:2;
-  }
-  .market-poster.left{
-    width:38%;
-    height:52%;
-    left:0;
-    top:22%;
-    transform:rotate(-4deg);
-    z-index:1;
-  }
-  .market-poster.right{
-    width:35%;
-    height:50%;
-    right:0;
-    bottom:1%;
-    transform:rotate(4deg);
-    z-index:3;
-  }
-  .jar-note{
-    position:absolute;
-    left:8%;
-    bottom:8%;
-    z-index:4;
-    max-width:250px;
-    padding:18px 20px;
-    background:var(--paper);
-    border:1px solid var(--paper-edge);
-    box-shadow:0 12px 24px rgba(42,37,32,0.13);
-    transform:rotate(-2deg);
-  }
-  .jar-note strong{
-    display:block;
-    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
-    font-size:22px;
-    line-height:1.1;
-    color:var(--terracotta);
-  }
-  .jar-note span{
-    display:block;
-    margin-top:8px;
-    font-size:14px;
-    color:var(--olive);
-    font-style:italic;
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -385,48 +287,6 @@
   /* ===== FRUIT COURT ===== */
   .court-section{
     background:var(--parchment-deep);
-  }
-  .memory-strip{
-    background:var(--paper);
-  }
-  .memory-grid{
-    display:grid;
-    grid-template-columns:minmax(0,1.05fr) minmax(320px,0.95fr);
-    gap:36px;
-    align-items:center;
-  }
-  .memory-copy h2{
-    font-family:'Fraunces', Georgia, 'Times New Roman', serif;
-    font-weight:330;
-    font-size:clamp(28px,4.5vw,48px);
-    line-height:1.12;
-    margin-bottom:18px;
-  }
-  .memory-copy p{
-    max-width:58ch;
-    font-size:16px;
-    margin-bottom:16px;
-  }
-  .season-reel{
-    position:relative;
-    border:10px solid var(--parchment);
-    background:var(--parchment-deep);
-    box-shadow:0 18px 34px rgba(42,37,32,0.14);
-    transform:rotate(1deg);
-  }
-  .season-reel video{
-    display:block;
-    width:100%;
-    aspect-ratio:4 / 3;
-    object-fit:cover;
-  }
-  .season-reel figcaption{
-    padding:12px 14px 14px;
-    font-family:'Space Mono', 'Courier New', monospace;
-    font-size:10px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--olive-soft);
   }
   .court-grid{
     display:grid;
@@ -553,7 +413,7 @@
     font-style:normal;
   }
 
-  /* ===== WAITLIST CTA ===== */
+  /* ===== FRUIT ALERT ===== */
   .alert-form{
     max-width:420px;
     margin:28px auto 14px;
@@ -562,7 +422,22 @@
     flex-wrap:wrap;
     justify-content:center;
   }
-  .alert-form .waitlist-link{
+  .alert-form input[type="email"]{
+    flex:1;
+    min-width:200px;
+    font-family:'Lora', Georgia, 'Times New Roman', serif;
+    font-size:14px;
+    padding:13px 16px;
+    border:1.5px solid var(--ink);
+    border-radius:2px;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .alert-form input[type="email"]::placeholder{
+    color:var(--olive-soft);
+    font-style:italic;
+  }
+  .alert-form button{
     font-family:'Space Mono', 'Courier New', monospace;
     font-size:12px;
     letter-spacing:0.14em;
@@ -574,12 +449,8 @@
     border-radius:2px;
     cursor:pointer;
     transition: background 0.2s ease;
-    text-decoration:none;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
   }
-  .alert-form .waitlist-link:hover{background:#8a2f24;}
+  .alert-form button:hover{background:#8a2f24;}
   .alert-note{
     font-family:'Space Mono', 'Courier New', monospace;
     font-size:10px;
@@ -730,14 +601,6 @@
     transform: translateY(-2px);
   }
   .ripe-cta svg{width:16px;height:16px;}
-  .cta-note{
-    margin-top:12px;
-    font-family:'Space Mono', 'Courier New', monospace;
-    font-size:10px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:rgba(245,239,227,0.62);
-  }
 
   .calendar-grid{
     display:grid;
@@ -892,13 +755,6 @@
     text-transform:uppercase;
     color:var(--olive-soft);
   }
-  .footer-attribution{
-    font-family:'Lora', Georgia, 'Times New Roman', serif;
-    font-size:13px;
-    letter-spacing:0;
-    text-transform:none;
-    color:var(--olive-soft);
-  }
   footer .principle{
     font-family:'Fraunces', Georgia, 'Times New Roman', serif;
     font-style:italic;
@@ -910,11 +766,6 @@
 
   /* ===== RESPONSIVE ===== */
   @media (max-width:880px){
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-copy{text-align:center;}
-    .hero-copy .banter, .hero-copy .stamp-wrap{margin-left:auto;margin-right:auto;}
-    .market-scene{min-height:500px; max-width:620px; margin:0 auto;}
-    .memory-grid{grid-template-columns:1fr;}
     .fruit-grid{grid-template-columns:repeat(2,1fr);}
     .court-grid{grid-template-columns:repeat(2,1fr);}
     .calendar-inner{grid-template-columns:1fr;}
@@ -923,7 +774,6 @@
     .about-grid .stamp-mini{max-width:180px;}
     .nav-links{display:none;}
     .nav-toggle{display:block;}
-    .nav-logo{width:74px;height:74px;}
     .nav.open .nav-links{
       display:flex;
       flex-direction:column;
@@ -936,22 +786,13 @@
     }
   }
   @media (max-width:560px){
-    .hero{padding-top:42px;}
-    .market-scene{min-height:430px;}
-    .market-poster{border-width:7px;}
-    .market-poster.primary{width:60%;height:70%;right:17%;}
-    .market-poster.left{width:43%;height:45%;top:28%;}
-    .market-poster.right{width:40%;height:43%;}
-    .jar-note{left:4%;bottom:5%;max-width:210px;padding:14px 15px;}
-    .jar-note strong{font-size:19px;}
     .fruit-grid{grid-template-columns:1fr;}
     .court-grid{grid-template-columns:1fr;}
     .calendar-grid{grid-template-columns:repeat(3,1fr);}
     .ask-options{gap:10px;}
     .ask-option{font-size:14px; padding:9px 18px;}
     section{padding:56px 0;}
-    .nav{padding:12px 18px;}
-    .nav-logo{width:62px;height:62px;}
+    .dale-home{display:none;}
   }
 </style>
 </head>
@@ -960,9 +801,8 @@
 <header>
   <nav class="nav" id="mainNav">
     <div>
-      <a href="/akfc/" class="nav-brand">
-        <img class="nav-logo" src="/assets/akfc/akfc-logo-web.jpg" alt="A Kenyan Fruit Calendar - Your Memories in a Jar">
-      </a>
+      <a href="/akfc/" class="nav-brand">A Kenyan Fruit Calendar</a>
+      <a href="/" class="dale-home">An APE experiment by DALE Labs</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
     <ul class="nav-links" id="navLinks">
@@ -970,7 +810,7 @@
       <li><a href="#calendar">Calendar</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#products">Products Loading</a></li>
-      <li><a href="https://forms.gle/EuPrvr8RRnywHELe8" target="_blank" rel="noopener noreferrer" class="cta-link">Tell Us What's Ripe</a></li>
+      <li><a href="mailto:hello@akenyanfruitcalendar.co.ke?subject=What's%20ripe%20near%20you" class="cta-link">Tell Us What's Ripe</a></li>
     </ul>
   </nav>
 </header>
@@ -979,17 +819,14 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <p class="hero-kicker">Your Memories in a Jar</p>
-        <h1 class="sr-only">A Kenyan Fruit Calendar</h1>
+    <div class="wrap">
       <p class="banter">Mlidhani Mutiso ameenda na maembe?</p>
       <p class="banter">Ngoja muone machungwa.</p>
       <p class="banter">Alafu sasa ukiongeza Omwoyo na avocado, Kantai na watermelon&hellip;</p>
       <p class="banter punch">Roster imewezaaaaa.</p>
 
       <div class="stamp-wrap">
-        <img src="/assets/akfc/akfc-logo-web.jpg" alt="A Kenyan Fruit Calendar - Your Memories in a Jar">
+        <img src="/assets/akfc/akfc-fruit-stamp.svg" alt="A Kenyan Fruit Calendar — Your Memories in a Jar. Harvested in Kenya.">
       </div>
 
       <div class="hero-after">
@@ -997,20 +834,7 @@
         <p class="banter punch">Usikue hivo. Tembelea mathe. Shika mbili kwa bill yetu.</p>
       </div>
 
-        <p class="hero-tagline">We work with the land.</p>
-      </div>
-      <div class="market-scene" aria-label="Illustrated Kenyan fruit market characters">
-        <figure class="market-poster left">
-          <img src="/assets/akfc/kantai.png" alt="Kantai carrying a watermelon">
-        </figure>
-        <figure class="market-poster primary">
-          <img src="/assets/akfc/mutiso.png" alt="Mutiso carrying a basket of mangoes">
-        </figure>
-        <figure class="market-poster right">
-          <img src="/assets/akfc/nyaboke.png" alt="Nyaboke carrying avocados">
-        </figure>
-        <p class="jar-note"><strong>Seasonal, not sorry.</strong><span>When the fruit is done, the jar waits for next year.</span></p>
-      </div>
+      <p class="hero-tagline">We work with the land.</p>
     </div>
   </section>
 
@@ -1027,24 +851,6 @@
       </div>
       <p class="ask-reaction" id="askReaction" aria-live="polite"></p>
       <p class="ask-share" id="askShare">Screenshot this. Send it to the person who knows exactly why.</p>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- MEMORIES IN A JAR -->
-  <section class="memory-strip" aria-labelledby="memory-title">
-    <div class="wrap memory-grid">
-      <div class="memory-copy">
-        <div class="section-label">Your Memories in a Jar</div>
-        <h2 id="memory-title">A preserve for the season you almost forgot.</h2>
-        <p>The first mango stolen from the basin. The orange passed through a bus window. The avocado mathe said was ready, even when it clearly needed one more day.</p>
-        <p>A Kenyan Fruit Calendar is a warm little record of those seasons: what was ripe, who had the plug, and which jar should come back only when the land says so.</p>
-      </div>
-      <figure class="season-reel">
-        <video src="/assets/akfc/akfc-storyboard.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Animated storyboard for A Kenyan Fruit Calendar"></video>
-        <figcaption>Season notes, market jokes, and jars worth waiting for.</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -1197,11 +1003,10 @@
         <div>
           <h2>A living record &mdash; not yet finished, and that's the point.</h2>
           <p>We're building Kenya's fruit calendar season by season. Some of this is a guess. Some of it depends on where you are. Help us get it right.</p>
-          <a class="ripe-cta" href="https://forms.gle/EuPrvr8RRnywHELe8" target="_blank" rel="noopener noreferrer">
+          <a class="ripe-cta" href="mailto:hello@akenyanfruitcalendar.co.ke?subject=What's%20ripe%20near%20me">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 7l9 6 9-6"/><path d="M3 7v10h18V7"/></svg>
             Tell Us What's Ripe
           </a>
-          <p class="cta-note">Join the waitlist for seasonal releases.</p>
         </div>
         <div class="calendar-grid">
           <div class="month-cell"><span class="dot-fruit">&#x1F34B;</span>Jan</div>
@@ -1233,10 +1038,12 @@
       <p class="deal">Kuna deal ingine mwecheche inaivana.</p>
       <p class="deal" style="margin-top:6px;">Ikishakua, tukushtue?</p>
 
-      <div class="alert-form">
-        <a class="waitlist-link" href="https://forms.gle/EuPrvr8RRnywHELe8" target="_blank" rel="noopener noreferrer">Nishtue</a>
-      </div>
-      <p class="alert-note" id="alertNote">Join the waitlist for seasonal releases.</p>
+      <form class="alert-form" id="alertForm" action="#" onsubmit="return false;">
+        <label for="alertEmail" class="sr-only" style="position:absolute; left:-9999px;">Email address</label>
+        <input type="email" id="alertEmail" name="email" placeholder="you@example.com" required>
+        <button type="submit">Nishtue</button>
+      </form>
+      <p class="alert-note" id="alertNote">We'll open your mail app — no account, no spam, just the alert.</p>
     </div>
   </section>
 
@@ -1248,7 +1055,7 @@
       <div class="section-label">About</div>
       <div class="about-grid">
         <div class="stamp-mini">
-          <img src="/assets/akfc/akfc-logo-web.jpg" alt="A Kenyan Fruit Calendar - Your Memories in a Jar">
+          <img src="/assets/akfc/akfc-fruit-stamp.svg" alt="A Kenyan Fruit Calendar seal">
         </div>
         <div class="about-copy">
           <h2>A Kenyan Fruit Calendar</h2>
@@ -1270,7 +1077,7 @@
 <footer>
   <div class="wrap footer-inner">
     <span class="principle">We work with the land.</span>
-    <span class="footer-attribution">An APE / DALE Labs seasonal market experiment.</span>
+    <span>An APE experiment by <a href="/">DALE Labs</a></span>
   </div>
 </footer>
 
@@ -1305,6 +1112,21 @@
     });
   });
 
+  // ===== Fruit alert — mailto-based "notify me" =====
+  const alertForm = document.getElementById('alertForm');
+  const alertEmail = document.getElementById('alertEmail');
+  const alertNote = document.getElementById('alertNote');
+
+  alertForm.addEventListener('submit', () => {
+    const email = alertEmail.value.trim();
+    if (!email) return;
+    const subject = encodeURIComponent('Nishtue — fruit alert sign-up');
+    const body = encodeURIComponent(
+      `Add me to the fruit alert list.\n\nMy email: ${email}`
+    );
+    window.location.href = `mailto:hello@akenyanfruitcalendar.co.ke?subject=${subject}&body=${body}`;
+    alertNote.textContent = "Opening your mail app — just hit send.";
+  });
 </script>
 
 </body>

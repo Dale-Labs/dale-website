@@ -10,42 +10,46 @@ import {
   getSession,
   isAllowedNext,
 } from "../functions/_lib/auth.js";
-import { createGoogleAuthorization } from "../functions/_lib/google-auth.js";
+import { createGoogleAuthorization, isDaleWorkspaceIdentity } from "../functions/_lib/google-auth.js";
 import { onRequest as protectInternal } from "../functions/internal/_middleware.js";
 import { onRequest as protectResearch } from "../functions/research/_middleware.js";
 
 const env = {
   DALE_AUTH_SESSION_SECRET: "test-session-secret",
-  DALE_AUTH_ALLOWED_EMAILS: "team@dale.africa, partner@example.org",
   DALE_AUTH_ROLES_JSON: JSON.stringify({
     "team@dale.africa": "team",
-    "partner@example.org": "validation_partner",
   }),
 };
 
-test("initial owner is always an authorized admin", () => {
+test("explicit admin emails are authorized admins", () => {
   assert.deepEqual(authorizeEmail("AWORA@DALE.AFRICA", env).role, "admin");
+  assert.deepEqual(authorizeEmail("ekim@dale.africa", env).role, "admin");
+  assert.deepEqual(authorizeEmail("nshakya@dale.africa", env).role, "admin");
+  assert.deepEqual(authorizeEmail("cricha@dale.africa", env).role, "admin");
   assert.equal(canEditBlog(authorizeEmail("awora@dale.africa", env)), true);
+  assert.equal(canEditBlog(authorizeEmail("ekim@dale.africa", env)), true);
+  assert.equal(canEditBlog(authorizeEmail("nshakya@dale.africa", env)), true);
+  assert.equal(canEditBlog(authorizeEmail("cricha@dale.africa", env)), true);
 });
 
-test("additional users receive configured roles and unknown users are rejected", () => {
-  assert.equal(authorizeEmail("partner@example.org", env).role, "validation_partner");
-  assert.equal(authorizeEmail("unknown@dale.africa", env), null);
+test("DALE Workspace users can sign in and non-DALE emails are rejected", () => {
+  const user = authorizeEmail("unknown@dale.africa", env);
+
+  assert.equal(user.role, "viewer");
+  assert.equal(canAccess(user, "/internal/"), true);
+  assert.equal(canAccess(user, "/internal/signal/"), true);
+  assert.equal(canAccess(user, "/internal/developer/"), false);
+  assert.equal(canEditBlog(user), false);
+  assert.equal(authorizeEmail("partner@example.org", env), null);
 });
 
 test("Workspace users receive non-admin internal access roles", () => {
-  const productManager = authorizeEmail("EKIM@DALE.AFRICA", env);
-  const infrastructureEngineer = authorizeEmail("nshakya@dale.africa", env);
+  const configuredTeamUser = authorizeEmail("team@dale.africa", env);
 
-  assert.equal(productManager.role, "product_manager");
-  assert.equal(canAccess(productManager, "/internal/"), true);
-  assert.equal(canAccess(productManager, "/internal/signal/"), true);
-  assert.equal(canEditBlog(productManager), false);
-
-  assert.equal(infrastructureEngineer.role, "infrastructure_engineer");
-  assert.equal(canAccess(infrastructureEngineer, "/internal/"), true);
-  assert.equal(canAccess(infrastructureEngineer, "/internal/signal/"), true);
-  assert.equal(canEditBlog(infrastructureEngineer), false);
+  assert.equal(configuredTeamUser.role, "team");
+  assert.equal(canAccess(configuredTeamUser, "/internal/"), true);
+  assert.equal(canAccess(configuredTeamUser, "/internal/signal/"), true);
+  assert.equal(canEditBlog(configuredTeamUser), false);
 });
 
 test("protected return paths do not allow open redirects", () => {
@@ -129,6 +133,32 @@ test("Google authorization omits login_hint when it is not configured", () => {
   assert.equal(url.searchParams.has("login_hint"), false);
   assert.equal(url.searchParams.has("prompt"), false);
   assert.equal(url.searchParams.get("hd"), "dale.africa");
+});
+
+test("Google identity must be an active DALE Workspace domain identity", () => {
+  assert.equal(
+    isDaleWorkspaceIdentity({
+      email: "richa@dale.africa",
+      email_verified: true,
+      hd: "dale.africa",
+    }),
+    true,
+  );
+  assert.equal(
+    isDaleWorkspaceIdentity({
+      email: "richa@dale.africa",
+      email_verified: true,
+    }),
+    false,
+  );
+  assert.equal(
+    isDaleWorkspaceIdentity({
+      email: "richa@example.org",
+      email_verified: true,
+      hd: "example.org",
+    }),
+    false,
+  );
 });
 
 test("research routes redirect anonymous users and allow signed-in users", async () => {

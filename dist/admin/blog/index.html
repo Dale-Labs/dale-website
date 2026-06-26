@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>DALE Blog Editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+<style>
+*{box-sizing:border-box}:root{--bg:#071416;--panel:#0b2023;--text:#e8f0f1;--muted:#93b4b9;--dim:#5f8c93;--coral:#f65f54;--border:rgba(127,168,174,.26);--paper:#f4f0e8;--ink:#1a1612}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Nunito",Arial,sans-serif}.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.2rem clamp(1rem,4vw,3rem);border-bottom:1px solid var(--border)}.brand{font-family:"Marcellus",serif;font-size:1.35rem;text-decoration:none}.brand span,.kicker{color:var(--coral)}.toplinks{display:flex;gap:1rem}.toplinks a{color:var(--muted);font-size:.75rem;font-weight:800;letter-spacing:.1em;text-decoration:none;text-transform:uppercase}
+main{width:min(1240px,calc(100% - 2rem));margin:0 auto;padding:3rem 0 6rem}.view[hidden]{display:none}.hero{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:2rem}.kicker,label>span,.field-label{font-size:.72rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}h1,h2,h3{font-family:"Marcellus",serif;font-weight:400}h1{margin:.5rem 0 0;font-size:clamp(2.4rem,6vw,4.5rem)}button,.button{min-height:42px;padding:.7rem 1rem;border:1px solid var(--border);background:transparent;color:var(--text);font:inherit;font-size:.76rem;font-weight:800;letter-spacing:.06em;text-decoration:none;text-transform:uppercase;cursor:pointer}.primary{border-color:var(--coral);background:var(--coral);color:#fff}.danger{border-color:rgba(246,95,84,.5);color:#ffd2cf}.actions{display:flex;flex-wrap:wrap;gap:.65rem}
+.article-list{display:grid;gap:1px;border:1px solid var(--border);background:var(--border)}.article-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem;padding:1.3rem;background:var(--bg)}.article-row h2{margin:0 0 .35rem;font-size:1.35rem}.meta{color:var(--muted);font-size:.82rem}.status{display:inline-block;margin-right:.6rem;padding:.18rem .45rem;border:1px solid var(--border);font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.status.published{border-color:#1a6b73;color:#8bd1d8}.row-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem}
+.editor-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:1.5rem}.panel{border:1px solid var(--border);background:var(--panel);padding:1.2rem}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.wide{grid-column:1/-1}label{display:grid;gap:.45rem;color:var(--muted)}input,textarea,select{width:100%;min-height:44px;padding:.7rem .8rem;border:1px solid var(--border);background:#071416;color:var(--text);font:inherit}textarea{min-height:100px;resize:vertical}.toolbar{display:flex;flex-wrap:wrap;gap:.35rem;padding:.6rem;border:1px solid var(--border);border-bottom:0;background:#071416}.toolbar button{min-height:34px;padding:.4rem .6rem;font-size:.68rem;text-transform:none}.editor{min-height:520px;padding:2rem;border:1px solid var(--border);background:var(--paper);color:var(--ink);font-family:Georgia,serif;font-size:18px;line-height:1.7;outline:none}.editor h2{font-family:Georgia,serif}.editor blockquote,.editor .pull-quote{margin:2rem 0;padding:1rem 1.2rem;border-left:3px solid #c8841a;background:#e8dfc0}.editor .chain{margin:2rem 0;padding:1.2rem;border:1px solid #d4c9b0}.editor .chain::before{content:"CHAIN OF EVIDENCE";display:block;color:#c8841a;font-family:monospace;font-size:.7rem}.side{display:grid;align-content:start;gap:1rem}.notice{display:none;margin-bottom:1rem;padding:.8rem 1rem;border:1px solid var(--border);color:var(--muted)}.notice.show{display:block}.notice.error{border-color:rgba(246,95,84,.5);color:#ffd2cf}.help{color:var(--muted);font-size:.82rem;line-height:1.6}.empty{padding:2rem;border:1px solid var(--border);color:var(--muted)}
+@media(max-width:900px){.editor-layout{grid-template-columns:1fr}.side{grid-row:1}.fields{grid-template-columns:1fr}.wide{grid-column:auto}}@media(max-width:650px){.hero,.article-row,.topbar{align-items:flex-start;grid-template-columns:1fr;flex-direction:column}.article-row{display:grid}.editor{padding:1.1rem;min-height:420px}.row-actions{justify-content:flex-start}}
+</style>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="/">dale<span>(a)</span></a><nav class="toplinks"><a href="/blog/">View blog</a><a href="/logout">Log out</a></nav></header>
+<main>
+  <p class="notice" id="notice" role="status"></p>
+  <section class="view" id="dashboard">
+    <div class="hero"><div><p class="kicker">DALE Systems Lab</p><h1>Blog editor</h1></div><button class="primary" id="newArticle">New article</button></div>
+    <div class="article-list" id="articleList"><p class="empty">Loading articles…</p></div>
+  </section>
+  <section class="view" id="editorView" hidden>
+    <div class="hero"><div><p class="kicker">Article editor</p><h1 id="editorHeading">New article</h1></div><button id="backToDashboard">Back to articles</button></div>
+    <form id="articleForm">
+      <div class="editor-layout">
+        <div class="panel">
+          <div class="fields">
+            <label class="wide"><span>Title</span><input id="title" required></label>
+            <label class="wide"><span>Subtitle</span><textarea id="subtitle"></textarea></label>
+            <label><span>Slug</span><input id="slug" required pattern="[a-z0-9-]+"></label>
+            <label><span>Author</span><input id="author" value="DALE Systems Lab" required></label>
+            <label><span>Date</span><input id="date" type="date" required></label>
+            <label><span>Category</span><input id="category" placeholder="Market Memory Series"></label>
+            <label class="wide"><span>Tags (comma separated)</span><input id="tags"></label>
+            <label class="wide"><span>Excerpt</span><textarea id="excerpt" required></textarea></label>
+            <label class="wide"><span>Cover image URL</span><input id="coverImage" type="url" placeholder="https://…"></label>
+            <div class="wide">
+              <p class="field-label">Body</p>
+              <div class="toolbar" aria-label="Formatting toolbar">
+                <button type="button" data-command="formatBlock" data-value="p">Paragraph</button>
+                <button type="button" data-command="formatBlock" data-value="h2">Heading</button>
+                <button type="button" data-command="bold">Bold</button>
+                <button type="button" data-command="italic">Italic</button>
+                <button type="button" data-command="createLink">Link</button>
+                <button type="button" data-command="formatBlock" data-value="blockquote">Quote</button>
+                <button type="button" data-command="insertOrderedList">Numbered list</button>
+                <button type="button" data-command="insertUnorderedList">Bulleted list</button>
+                <button type="button" id="pullQuote">Pull quote</button>
+                <button type="button" id="evidenceChain">Evidence chain</button>
+                <button type="button" id="plainText">Paste/plain text</button>
+              </div>
+              <div class="editor" id="bodyEditor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Write or paste the article here…"></div>
+              <p class="help">Paste from Word or Google Docs directly. Font, color, spacing, and other document-specific styling are removed while headings, emphasis, links, lists, and quotes are retained.</p>
+            </div>
+            <label class="wide"><span>References (one reference per blank line)</span><textarea id="references" rows="10"></textarea></label>
+          </div>
+        </div>
+        <aside class="side">
+          <div class="panel">
+            <label><span>Status</span><select id="status"><option value="draft">Draft</option><option value="published">Published</option></select></label>
+            <div class="actions" style="margin-top:1rem"><button class="primary" type="submit">Save</button><button type="button" id="saveDraft">Save draft</button><button type="button" id="preview">Preview</button></div>
+          </div>
+          <div class="panel help"><strong>Publishing</strong><br>Save as draft while writing. Preview is protected and works before publication. Choose Published and save when the article is ready. You can unpublish it later from the article list.</div>
+        </aside>
+      </div>
+    </form>
+  </section>
+</main>
+<script src="/admin/blog/editor.js"></script>
+</body>
+</html>

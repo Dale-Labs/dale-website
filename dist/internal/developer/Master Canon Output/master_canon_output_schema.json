@@ -1,0 +1,443 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kadana.org/schemas/master-canon-output/v1.0.0",
+  "title": "DALE Master Canon Output - CTS-Compliant Canonical Record",
+  "description": "A shared output envelope for all DALE canons. This schema preserves each canon's local record while adding the CTS trace, URT runtime mapping, governance attribution, temporal continuity, contradiction visibility, missingness visibility, and reconstruction fields required for CTS compliance.",
+  "version": "1.0.0",
+  "standard_basis": "CTS / URT v1.0.0",
+  "canonical_sequence": ["COS", "ECOA", "ARA", "RUNNER", "SEC", "CBC", "CTS", "OUTCOME"],
+  "definitions": {
+    "CanonLayer": {
+      "type": "string",
+      "enum": ["COS", "ECOA", "ARA", "RUNNER", "SEC", "CBC", "CTS", "OUTCOME"]
+    },
+    "CanonObjectClass": {
+      "type": "string",
+      "enum": [
+        "OBSERVATION_OBJECT",
+        "VARIABLE_OBJECT",
+        "REGIME_OBJECT",
+        "STATE_OBJECT",
+        "DECISION_OBJECT",
+        "ADAPTATION_OBJECT",
+        "CONTRADICTION_OBJECT",
+        "MISSINGNESS_OBJECT",
+        "AUTHORITY_OBJECT",
+        "OUTCOME_OBJECT",
+        "TEMPORAL_OBJECT",
+        "RUNTIME_EVENT_OBJECT",
+        "PROPAGATION_OBJECT",
+        "CANON_OUTPUT_RECORD"
+      ]
+    },
+    "RuntimeState": {
+      "type": "string",
+      "enum": ["ACTIVE", "STABLE", "ADAPTING", "DEGRADED", "FRAGILE", "BLOCKED", "CONTESTED", "ESCALATING", "STALLED", "COLLAPSED", "SUPERSEDED", "ARCHIVED"]
+    },
+    "GovernanceState": {
+      "type": "string",
+      "enum": ["LEGITIMATE", "CONTESTED", "FRAGMENTED", "DELEGATED", "CENTRALIZED", "DISTRIBUTED", "COLLAPSED"]
+    },
+    "ConfidenceState": {
+      "type": "string",
+      "enum": ["HIGH_CONFIDENCE", "MODERATE_CONFIDENCE", "LOW_CONFIDENCE", "CONTESTED_CONFIDENCE", "UNVERIFIABLE"]
+    },
+    "TemporalState": {
+      "type": "string",
+      "enum": ["CURRENT", "SUPERSEDED", "HISTORICAL", "EXPIRED", "FUTURE_CONDITIONAL", "ARCHIVED"]
+    },
+    "ObjectValidityState": {
+      "type": "string",
+      "enum": ["ACTIVE", "SUPERSEDED", "INVALIDATED", "ARCHIVED", "CONTESTED"]
+    },
+    "ContradictionClass": {
+      "type": "string",
+      "enum": ["RESOURCE", "GOVERNANCE", "STRUCTURAL", "OPERATIONAL", "TEMPORAL", "INCENTIVE", "INFORMATIONAL", "REGULATORY", "CULTURAL", "ENVIRONMENTAL"]
+    },
+    "ContradictionSeverity": {
+      "type": "string",
+      "enum": ["LOW", "MODERATE", "HIGH", "CRITICAL", "TERMINAL"]
+    },
+    "MissingnessClass": {
+      "type": "string",
+      "enum": ["UNOBSERVED", "INACCESSIBLE", "CONFLICTING", "TEMPORAL_GAP", "INVALIDATED", "SUPPRESSED", "DEGRADED", "UNKNOWN_SOURCE"]
+    },
+    "DependencyState": {
+      "type": "string",
+      "enum": ["STABLE", "CONDITIONAL", "VOLATILE", "BLOCKED", "DEGRADED", "COLLAPSED"]
+    },
+    "AdaptationState": {
+      "type": "string",
+      "enum": ["INITIATED", "ACTIVE", "STABILIZING", "COMPLETED", "FAILED", "REVERSED", "NONE"]
+    },
+    "OutcomeState": {
+      "type": "string",
+      "enum": ["EMERGENT", "STABILIZED", "DEGRADED", "CONTESTED", "FAILED", "TRANSFORMED", "NOT_APPLICABLE"]
+    },
+    "PropagationType": {
+      "type": "string",
+      "enum": ["DIRECT", "CONDITIONAL", "ESCALATED", "DEFERRED", "FORKED", "NONE"]
+    },
+    "CTSTraceEnvelope": {
+      "type": "object",
+      "description": "Required CTS trace wrapper for every canon output record.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^CTS-[A-Z]+-[A-Z0-9]+-[0-9]{4,}$"
+        },
+        "type": {
+          "$ref": "#/definitions/CanonObjectClass"
+        },
+        "layer": {
+          "$ref": "#/definitions/CanonLayer"
+        },
+        "root_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parent_id": {
+          "type": ["string", "null"]
+        },
+        "source_local_id": {
+          "type": "string",
+          "description": "The original local identifier from the source canon, such as observation_id, variable_id, runtime_output_id, sip_id, ctp_id, or clause_id."
+        },
+        "runtime_state": {
+          "$ref": "#/definitions/RuntimeState"
+        },
+        "governance_state": {
+          "$ref": "#/definitions/GovernanceState"
+        },
+        "confidence_state": {
+          "$ref": "#/definitions/ConfidenceState"
+        },
+        "validity_status": {
+          "$ref": "#/definitions/ObjectValidityState"
+        },
+        "authority_reference": {
+          "type": "string"
+        },
+        "lineage_depth": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "child_references": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "trace_status": {
+          "type": "string",
+          "enum": ["COMPLETE", "PARTIAL", "BROKEN", "PENDING_RECONSTRUCTION"]
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "layer",
+        "root_id",
+        "source_local_id",
+        "runtime_state",
+        "governance_state",
+        "confidence_state",
+        "validity_status",
+        "authority_reference",
+        "created_at",
+        "trace_status"
+      ]
+    },
+    "CanonContext": {
+      "type": "object",
+      "properties": {
+        "canon_id": {
+          "$ref": "#/definitions/CanonLayer"
+        },
+        "canon_name": {
+          "type": "string"
+        },
+        "canon_version": {
+          "type": "string"
+        },
+        "dale_stage": {
+          "type": "string",
+          "enum": ["Observe", "Structure", "Resolve", "Execute", "Realize", "Formalize", "Trace", "Outcome", "Unspecified"]
+        },
+        "source_schema": {
+          "type": "string"
+        },
+        "source_format": {
+          "type": "string",
+          "enum": ["json", "yaml", "html", "xlsx", "docx", "pdf", "manual", "derived"]
+        },
+        "upstream_layers": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/CanonLayer" }
+        },
+        "downstream_layers": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/CanonLayer" }
+        }
+      },
+      "required": ["canon_id", "canon_name", "canon_version", "dale_stage", "source_schema", "source_format"]
+    },
+    "URTMapping": {
+      "type": "object",
+      "description": "Maps local canon states into the shared URT runtime language without erasing the local canon state.",
+      "properties": {
+        "local_state_field": {
+          "type": "string"
+        },
+        "local_state_value": {
+          "type": "string"
+        },
+        "urt_runtime_state": {
+          "$ref": "#/definitions/RuntimeState"
+        },
+        "mapping_confidence": {
+          "$ref": "#/definitions/ConfidenceState"
+        },
+        "mapping_basis": {
+          "type": "string"
+        }
+      },
+      "required": ["local_state_field", "local_state_value", "urt_runtime_state", "mapping_confidence", "mapping_basis"]
+    },
+    "ContradictionRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "contradiction_class": {
+          "$ref": "#/definitions/ContradictionClass"
+        },
+        "severity_level": {
+          "$ref": "#/definitions/ContradictionSeverity"
+        },
+        "runtime_state": {
+          "$ref": "#/definitions/RuntimeState"
+        },
+        "origin_reference": {
+          "type": "string"
+        },
+        "affected_objects": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "propagation_status": {
+          "$ref": "#/definitions/PropagationType"
+        },
+        "resolution_requirements": {
+          "type": "string"
+        },
+        "authority_visibility": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "contradiction_class", "severity_level", "runtime_state", "origin_reference"]
+    },
+    "MissingnessRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "missingness_class": {
+          "$ref": "#/definitions/MissingnessClass"
+        },
+        "affected_field": {
+          "type": "string"
+        },
+        "cause": {
+          "type": "string"
+        },
+        "confidence_impact": {
+          "$ref": "#/definitions/ConfidenceState"
+        },
+        "runtime_risk": {
+          "type": "string"
+        },
+        "resolution_status": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "missingness_class", "affected_field", "cause", "confidence_impact"]
+    },
+    "ContinuityRecord": {
+      "type": "object",
+      "properties": {
+        "dependency_state": {
+          "$ref": "#/definitions/DependencyState"
+        },
+        "adaptation_state": {
+          "$ref": "#/definitions/AdaptationState"
+        },
+        "outcome_state": {
+          "$ref": "#/definitions/OutcomeState"
+        },
+        "temporal_status": {
+          "$ref": "#/definitions/TemporalState"
+        },
+        "valid_from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "valid_until": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "reconstruction_path": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "propagation_chain": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["dependency_state", "adaptation_state", "outcome_state", "temporal_status", "valid_from", "reconstruction_path"]
+    },
+    "ValidationStatus": {
+      "type": "object",
+      "properties": {
+        "cts_compliant": {
+          "type": "boolean"
+        },
+        "validation_domains_checked": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Lineage_Integrity",
+              "Runtime_Continuity",
+              "Contradiction_Persistence",
+              "Missingness_Continuity",
+              "Governance_Attribution",
+              "Temporal_Integrity",
+              "Adaptation_Coherence",
+              "Cross_Canonical_Coherence",
+              "Machine_Representation",
+              "Reconstruction_Capability"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "open_corrections": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "validation_notes": {
+          "type": "string"
+        }
+      },
+      "required": ["cts_compliant", "validation_domains_checked", "open_corrections"]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "master_output_id": {
+      "type": "string",
+      "pattern": "^MCO-[A-Z]+-[0-9]{4,}$"
+    },
+    "cts_trace": {
+      "$ref": "#/definitions/CTSTraceEnvelope"
+    },
+    "canon_context": {
+      "$ref": "#/definitions/CanonContext"
+    },
+    "urt_mapping": {
+      "$ref": "#/definitions/URTMapping"
+    },
+    "contradictions": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ContradictionRecord" }
+    },
+    "missingness": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/MissingnessRecord" }
+    },
+    "continuity": {
+      "$ref": "#/definitions/ContinuityRecord"
+    },
+    "local_record": {
+      "type": "object",
+      "description": "The original canon-specific output record. This must not be overwritten by the CTS envelope."
+    },
+    "validation": {
+      "$ref": "#/definitions/ValidationStatus"
+    }
+  },
+  "required": [
+    "master_output_id",
+    "cts_trace",
+    "canon_context",
+    "urt_mapping",
+    "contradictions",
+    "missingness",
+    "continuity",
+    "local_record",
+    "validation"
+  ],
+  "additionalProperties": false,
+  "correction_rules": {
+    "do_not_replace_local_schema": "Preserve the source canon record inside local_record.",
+    "do_not_hide_uncertainty": "Unknown, missing, conflicting, suppressed, or inaccessible fields must be recorded in missingness.",
+    "do_not_hide_contradictions": "Structural tensions must remain visible in contradictions until resolved or invalidated.",
+    "do_not_break_lineage": "Every output must carry root_id, parent_id where applicable, source_local_id, reconstruction_path, and propagation_chain.",
+    "do_not_flatten_states": "Local states must be preserved and mapped to URT rather than overwritten.",
+    "do_not_skip_authority": "Every record must carry authority_reference and governance_state, even when authority is unknown or contested."
+  },
+  "canon_output_profiles": {
+    "COS": {
+      "dale_stage": "Observe",
+      "default_object_class": "OBSERVATION_OBJECT",
+      "local_id_candidates": ["observation_id", "condition_id", "input_id"],
+      "required_correction": "Add CTS root_id, parent_id, governance_state, confidence_state, authority_reference, and URT runtime mapping."
+    },
+    "ECOA": {
+      "dale_stage": "Structure",
+      "default_object_class": "VARIABLE_OBJECT",
+      "local_id_candidates": ["observation_package_id", "variable_id", "output_id"],
+      "required_correction": "Add CTS root_id, parent_id, governance_state, confidence_state, authority_reference, and normalized missingness."
+    },
+    "ARA": {
+      "dale_stage": "Resolve",
+      "default_object_class": "REGIME_OBJECT",
+      "local_id_candidates": ["stage2_output_id", "runtime_transfer_id", "trace_id"],
+      "required_correction": "Add CTS minimum trace envelope, URT runtime mapping, governance attribution, and normalized contradiction records."
+    },
+    "RUNNER": {
+      "dale_stage": "Execute",
+      "default_object_class": "STATE_OBJECT",
+      "local_id_candidates": ["runtime_output_id", "runtime_trace_id", "realization_id"],
+      "required_correction": "Add missing YAML and HTML package formats and enforce full CTS runtime, adaptation, temporal, and reconstruction fields."
+    },
+    "SEC": {
+      "dale_stage": "Realize",
+      "default_object_class": "CANON_OUTPUT_RECORD",
+      "local_id_candidates": ["observation_id", "sip_id", "ess_id", "efm_id", "csm_id", "oae_id", "csm2_id", "ctp_id"],
+      "required_correction": "Map RES-* coherence states to URT, add CTS trace envelope, confidence, authority, missingness, and contradiction structures."
+    },
+    "CBC": {
+      "dale_stage": "Formalize",
+      "default_object_class": "DECISION_OBJECT",
+      "local_id_candidates": ["observation_id", "gip_id", "gss_id", "gfm_id", "gcm_id", "gae_id", "gcam_id", "gap_id"],
+      "required_correction": "Map governance coherence states to URT, add CTS trace envelope, confidence, authority, temporal continuity, and reconstruction pathway."
+    },
+    "CTS": {
+      "dale_stage": "Trace",
+      "default_object_class": "TRACE_OBJECT",
+      "local_id_candidates": ["id", "event_id", "propagation_id"],
+      "required_correction": "Add missing YAML and HTML package formats and publish this master output envelope as the reusable implementation layer."
+    }
+  }
+}

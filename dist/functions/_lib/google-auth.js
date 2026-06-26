@@ -2,7 +2,6 @@ const GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 const GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GOOGLE_JWKS_URL = "https://www.googleapis.com/oauth2/v3/certs";
 const GOOGLE_ISSUERS = new Set(["accounts.google.com", "https://accounts.google.com"]);
-const WORKSPACE_DOMAIN = "dale.africa";
 
 let jwksCache = null;
 let jwksExpiresAt = 0;
@@ -43,15 +42,12 @@ async function getGoogleKeys() {
   return jwksCache;
 }
 
-export function isDaleWorkspaceIdentity(claims) {
+function assertWorkspaceIdentity(claims) {
   const email = String(claims.email || "").toLowerCase();
   const domain = email.split("@")[1] || "";
-  return Boolean(email && claims.email_verified && domain === WORKSPACE_DOMAIN && claims.hd === WORKSPACE_DOMAIN);
-}
-
-function assertWorkspaceIdentity(claims) {
-  if (!isDaleWorkspaceIdentity(claims)) {
-    throw new Error("A DALE Google Workspace account is required.");
+  if (!email || !claims.email_verified) throw new Error("Google email is not verified.");
+  if (domain !== "gmail.com" && claims.hd !== domain) {
+    throw new Error("A managed Google Workspace account is required.");
   }
 }
 
