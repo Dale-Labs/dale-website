@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The DALE Draft: Design the future.">
+<title>DALE Careers | The DALE Draft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192x192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="../assets/favicon-512x512.png">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{--orange:#DD6D37;--purple:#33207A;--charcoal:#333333;--white:#FFFFFF;--line:rgba(51,51,51,.2);--line-strong:rgba(51,51,51,.45);--soft:rgba(51,51,51,.055)}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--charcoal);font-family:"Nunito",Arial,sans-serif;line-height:1.75;overflow-x:hidden}
+a{color:inherit}
+.site-nav{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:1.2rem clamp(1.2rem,4vw,3rem);border-bottom:1px solid var(--line);background:rgba(255,255,255,.92);backdrop-filter:blur(14px)}
+.nav-logo{font-family:"Marcellus",Georgia,serif;font-size:1.35rem;letter-spacing:.05em;text-decoration:none;color:var(--charcoal)}
+.nav-logo span,.eyebrow,.card-kicker,.highlight-orange{color:var(--orange)}
+.highlight-purple{color:var(--purple)}
+.nav-links,.footer-links{display:flex;flex-wrap:wrap;gap:1rem 2rem;list-style:none;margin:0;padding:0}
+.nav-links a,.footer-links a{color:var(--charcoal);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-decoration:none;text-transform:uppercase}
+.nav-links a:hover,.footer-links a:hover{color:var(--purple)}
+main{max-width:1180px;margin:0 auto;padding:0 clamp(1.2rem,4vw,2.5rem)}
+.eyebrow,.card-kicker{font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+h1,h2,h3{font-family:"Marcellus",Georgia,serif;font-weight:400;line-height:1.06;letter-spacing:0;color:var(--charcoal)}
+.hero{min-height:calc(100vh - 78px);display:grid;grid-template-columns:minmax(0,.95fr) minmax(260px,.55fr);gap:clamp(2rem,6vw,5rem);align-items:center;padding:clamp(5rem,10vw,8rem) 0;position:relative}
+.hero::after,.section::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--line-strong),transparent)}
+h1{max-width:880px;margin:0;font-size:clamp(4.1rem,12vw,11rem)}
+.hero-question{max-width:760px;margin:clamp(2rem,4vw,3rem) 0 0;color:var(--charcoal);font-size:clamp(1.22rem,2.4vw,1.9rem);line-height:1.55}
+.hero-question span:nth-child(1){color:var(--orange)}
+.hero-question span:nth-child(2){color:var(--purple)}
+.graphic-slot{position:relative}
+.hero-board{min-height:460px;border:1px solid var(--line);background:linear-gradient(90deg,var(--line) 1px,transparent 1px),linear-gradient(var(--line) 1px,transparent 1px);background-size:44px 44px;overflow:hidden}
+.board-line{position:absolute;height:3px;background:var(--charcoal);transform-origin:left center}
+.board-line.primary{left:5%;top:53%;width:78%;transform:rotate(-18deg)}
+.board-line.branch-a{left:42%;top:38%;width:38%;background:var(--orange);transform:rotate(34deg)}
+.board-line.branch-b{left:45%;top:56%;width:42%;background:var(--purple);transform:rotate(14deg)}
+.board-line.branch-c{left:30%;top:49%;width:28%;background:var(--orange);transform:rotate(112deg)}
+.board-node{position:absolute;width:clamp(14px,2vw,24px);aspect-ratio:1;border:2px solid var(--charcoal);background:var(--white)}
+.board-node:nth-of-type(5){left:5%;top:51%;background:var(--orange)}
+.board-node:nth-of-type(6){left:41%;top:35%;background:var(--white)}
+.board-node:nth-of-type(7){left:78%;top:25%;background:var(--purple)}
+.board-node:nth-of-type(8){left:86%;top:60%;background:var(--orange)}
+.board-node:nth-of-type(9){left:28%;top:75%;background:var(--purple)}
+.board-loop{position:absolute;left:49%;top:58%;width:34%;aspect-ratio:1;border:3px solid var(--purple);border-left-color:transparent;border-radius:50%;transform:rotate(-24deg)}
+.js .hero-board{transition:transform .2s ease-out}
+.section{padding:clamp(4.5rem,9vw,7.5rem) 0;position:relative}
+.section-grid{display:grid;grid-template-columns:minmax(0,.72fr) minmax(280px,.48fr);gap:clamp(2rem,6vw,5rem);align-items:start}
+.section h2{margin:.75rem 0 0;font-size:clamp(2.3rem,5vw,5rem)}
+.section-copy{display:grid;gap:1rem;color:var(--charcoal);font-size:clamp(1.02rem,1.7vw,1.16rem)}
+.section-copy p{margin:0}
+.value-diagram{min-height:340px;margin-top:clamp(2rem,5vw,4rem);border:1px solid var(--line);background:var(--soft);overflow:hidden}
+.value-piece{position:absolute;display:grid;place-items:center;min-width:112px;min-height:72px;padding:.8rem;border:2px solid var(--charcoal);background:var(--white);color:var(--charcoal);font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+.value-piece:nth-child(1){left:8%;top:12%;border-color:var(--orange);transform:rotate(-5deg)}
+.value-piece:nth-child(2){right:10%;top:18%;border-color:var(--purple);transform:rotate(4deg)}
+.value-piece:nth-child(3){left:25%;bottom:16%;background:var(--orange);color:var(--white);transform:rotate(2deg)}
+.value-piece:nth-child(4){right:18%;bottom:13%;background:var(--purple);color:var(--white);transform:rotate(-7deg)}
+.value-thread{position:absolute;left:18%;right:16%;top:50%;height:3px;background:var(--charcoal);transform:rotate(-9deg)}
+.value-thread::after{content:"";position:absolute;right:0;top:-6px;width:14px;height:14px;border-top:3px solid var(--charcoal);border-right:3px solid var(--charcoal);transform:rotate(45deg)}
+.existing-question{display:grid;place-items:center;min-height:72vh;text-align:center;overflow:hidden}
+.existing-question::before{content:"";position:absolute;inset:clamp(1rem,4vw,3rem);background:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:clamp(34px,5vw,64px) clamp(34px,5vw,64px)}
+.existing-question::after{content:"";position:absolute;width:clamp(160px,25vw,320px);height:clamp(160px,25vw,320px);border:3px solid var(--purple);right:5%;bottom:8%;transform:rotate(8deg)}
+.existing-question>div{position:relative;z-index:1;background:rgba(255,255,255,.88);padding:clamp(1rem,3vw,2rem)}
+.existing-question h2{max-width:860px;margin:0;font-size:clamp(3rem,8vw,8rem)}
+.existing-question p{max-width:680px;margin:2rem auto 0;color:var(--charcoal);font-size:clamp(1.2rem,2vw,1.5rem)}
+.turn{padding:clamp(4.5rem,9vw,7.5rem) 0}
+.turn-frame{position:relative;display:grid;grid-template-columns:1fr auto 1fr;gap:1px;align-items:stretch;border:1px solid var(--line-strong);background:var(--line);overflow:hidden}
+.turn-frame::before{content:"";position:absolute;left:8%;right:8%;top:50%;height:3px;background:linear-gradient(90deg,var(--charcoal),var(--orange),var(--purple));transform:translateY(-50%)}
+.turn-panel{position:relative;z-index:1;min-height:320px;display:grid;place-items:center;padding:clamp(1.4rem,4vw,3rem);background:rgba(255,255,255,.94);text-align:center}
+.turn-panel:first-child{color:var(--charcoal)}
+.turn-panel:last-child{background:var(--white)}
+.turn-panel p{margin:0;color:var(--orange);font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.turn-panel h2{max-width:440px;margin:.9rem 0 0;font-size:clamp(2.4rem,5vw,5.6rem)}
+.turn-panel:last-child h2{color:var(--purple)}
+.turn-bridge{position:relative;z-index:1;display:grid;place-items:center;min-width:92px;padding:1rem;background:var(--charcoal);color:var(--white);font-size:1.6rem}
+.approach-section::before{content:"";position:absolute;right:-5%;top:14%;width:min(42vw,460px);height:min(42vw,460px);border:2px solid rgba(51,51,51,.16);transform:rotate(18deg)}
+.approach-section::after{content:"";position:absolute;right:8%;bottom:12%;width:min(28vw,280px);height:min(28vw,280px);border:3px solid var(--orange);transform:rotate(-12deg)}
+.approach-lines{position:relative;z-index:1;display:grid;gap:clamp(1.5rem,3vw,2.6rem);max-width:960px}
+.approach-line{margin:0;font-family:"Marcellus",Georgia,serif;font-size:clamp(2rem,4.8vw,4.8rem);line-height:1.12}
+.approach-line.muted{color:var(--purple)}
+.challenge-line{position:relative;z-index:1;margin:clamp(2rem,5vw,4rem) 0 0;padding-top:clamp(1.5rem,3vw,2.5rem);border-top:1px solid var(--line);font-family:"Marcellus",Georgia,serif;font-size:clamp(2.4rem,6vw,6rem);line-height:1.05;color:var(--orange)}
+.participation-section{padding-bottom:clamp(5rem,9vw,8rem)}
+.draft-cta{display:inline-flex;align-items:center;justify-content:center;min-height:clamp(150px,26vw,280px);width:100%;padding:clamp(1.4rem,4vw,3rem);border:3px solid var(--charcoal);background:var(--white);color:var(--charcoal);font-family:"Marcellus",Georgia,serif;font-size:clamp(3rem,9vw,8rem);line-height:1;text-align:center;text-decoration:none;box-shadow:12px 12px 0 var(--orange),24px 24px 0 var(--purple);transition:transform .2s ease,box-shadow .2s ease,color .2s ease}
+.draft-cta:hover,.draft-cta:focus-visible{color:var(--purple);transform:translate(-6px,-6px);box-shadow:18px 18px 0 var(--orange),36px 36px 0 var(--purple)}
+.draft-cta:focus-visible{outline:3px solid var(--orange);outline-offset:5px}
+.participation-board{margin-top:clamp(2rem,5vw,4rem);min-height:180px;border:1px solid var(--line);background:linear-gradient(90deg,var(--line) 1px,transparent 1px),linear-gradient(var(--line) 1px,transparent 1px);background-size:48px 48px;overflow:hidden}
+.participation-path{position:absolute;left:8%;right:8%;top:50%;height:3px;background:var(--charcoal)}
+.participation-path::before,.participation-path::after{content:"";position:absolute;top:0;width:34%;height:3px;background:var(--orange);transform-origin:left center}
+.participation-path::before{left:34%;transform:rotate(-23deg)}
+.participation-path::after{left:34%;background:var(--purple);transform:rotate(23deg)}
+.participation-node{position:absolute;width:24px;aspect-ratio:1;border:2px solid var(--charcoal);background:var(--white)}
+.participation-node.start{left:7%;top:calc(50% - 12px);background:var(--orange)}
+.participation-node.a{right:15%;top:22%;background:var(--purple)}
+.participation-node.b{right:8%;top:calc(50% - 12px);background:var(--orange)}
+.participation-node.c{right:15%;bottom:20%;background:var(--purple)}
+.js .participation-board{max-height:0;min-height:0;margin-top:0;opacity:0;transition:max-height .35s ease,min-height .35s ease,margin-top .35s ease,opacity .35s ease}
+.js .participation-section.is-open .participation-board{max-height:220px;min-height:180px;margin-top:clamp(2rem,5vw,4rem);opacity:1}
+.pathways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(.8rem,2vw,1.2rem);margin-top:clamp(3rem,7vw,5rem)}
+.js .pathways{transform:translateY(1.2rem);opacity:.72;transition:transform .28s ease,opacity .28s ease}
+.js .participation-section.is-open .pathways{transform:translateY(0);opacity:1}
+.pathway-card{display:flex;min-height:300px;flex-direction:column;padding:clamp(1.4rem,3vw,2.4rem);border:2px solid var(--charcoal);background:var(--white);text-decoration:none;transition:background .2s ease,border-color .2s ease,transform .2s ease,box-shadow .2s ease}
+.pathway-card:nth-child(1){box-shadow:8px 8px 0 var(--orange)}
+.pathway-card:nth-child(2){box-shadow:8px 8px 0 var(--purple)}
+.pathway-card:nth-child(3){box-shadow:8px 8px 0 var(--orange),16px 16px 0 var(--purple)}
+.pathway-card:hover,.pathway-card:focus-visible{transform:translateY(-4px);background:var(--soft)}
+.pathway-card:focus-visible{outline:3px solid var(--orange);outline-offset:5px}
+.pathway-card h3{margin:1rem 0 .9rem;font-size:clamp(1.5rem,3vw,2rem);text-transform:uppercase}
+.pathway-card p{margin:0;color:var(--charcoal)}
+.pathway-link{margin-top:auto;padding-top:2rem;color:var(--purple);font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.pathway-link::after{content:" ->";color:var(--orange)}
+footer{max-width:1180px;margin:0 auto;padding:3rem clamp(1.2rem,4vw,2.5rem);border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:2rem;color:var(--charcoal);font-size:.8rem;background:var(--white)}
+@media(max-width:860px){
+  .hero,.section-grid{grid-template-columns:1fr}
+  .hero-board{min-height:340px}
+  .turn-frame{grid-template-columns:1fr}
+  .turn-frame::before{top:0;bottom:0;left:50%;right:auto;width:3px;height:auto;background:linear-gradient(180deg,var(--charcoal),var(--orange),var(--purple));transform:translateX(-50%)}
+  .turn-panel{min-height:220px}
+  .turn-bridge{min-height:72px}
+  .pathways{grid-template-columns:1fr}
+  .pathway-card{min-height:auto}
+}
+@media(max-width:760px){
+  .site-nav,footer{align-items:flex-start;flex-direction:column}
+  .hero{min-height:auto}
+  h1{font-size:clamp(3.4rem,18vw,6rem)}
+  .hero-board{min-height:270px}
+  .value-diagram{min-height:390px}
+  .value-piece{min-width:96px}
+  .draft-cta{box-shadow:7px 7px 0 var(--orange),14px 14px 0 var(--purple)}
+  .draft-cta:hover,.draft-cta:focus-visible{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--orange),20px 20px 0 var(--purple)}
+  .participation-board{min-height:220px}
+  .js .participation-section.is-open .participation-board{min-height:220px;max-height:260px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .js .hero-board{transform:none!important}
+}
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="Primary navigation">
+  <a class="nav-logo" href="../">dale<span>(a)</span></a>
+  <ul class="nav-links">
+    <li><a href="../">Home</a></li>
+    <li><a href="../research/">Research</a></li>
+    <li><a href="../blog/">Blog</a></li>
+    <li><a href="./" aria-current="page">Careers</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="hero" aria-labelledby="draft-title">
+    <div>
+      <h1 id="draft-title">THE DALE DRAFT</h1>
+      <p class="hero-question">What becomes possible when we observe the <span>sum of a system</span> through the redesigned individual weight of its <span>parts</span>?</p>
+    </div>
+    <div class="hero-board graphic-slot" data-motif="branching-system" aria-hidden="true">
+      <span class="board-line primary"></span>
+      <span class="board-line branch-a"></span>
+      <span class="board-line branch-b"></span>
+      <span class="board-line branch-c"></span>
+      <span class="board-node"></span>
+      <span class="board-node"></span>
+      <span class="board-node"></span>
+      <span class="board-node"></span>
+      <span class="board-node"></span>
+      <span class="board-loop"></span>
+    </div>
+  </section>
+
+  <section class="section value-section" aria-labelledby="value-title">
+    <div class="section-grid">
+      <header>
+        <p class="eyebrow">The DALE Draft</p>
+        <h2 id="value-title">The DALE Draft asks a question of value.</h2>
+      </header>
+      <div class="section-copy">
+        <p>It breaks value into its different elements and observes them through provenance. By recreating specific elements within the provenance chain of value, we ask what happens when we recreate the human experience of building value — for ourselves and for our communities.</p>
+      </div>
+    </div>
+    <div class="value-diagram graphic-slot" data-motif="exploded-system" aria-hidden="true">
+      <span class="value-piece">Value</span>
+      <span class="value-piece">Parts</span>
+      <span class="value-piece">Provenance</span>
+      <span class="value-piece">Communities</span>
+      <span class="value-thread"></span>
+    </div>
+  </section>
+
+  <section class="section existing-question" aria-labelledby="systems-title">
+    <div>
+      <h2 id="systems-title">How do we fix our systems?</h2>
+      <p>The biggest questions of this century often begin in the same place:</p>
+      <p>The DALE Draft asks that question too.</p>
+    </div>
+  </section>
+
+  <section class="turn" aria-labelledby="turn-title">
+    <div class="turn-frame">
+      <div class="turn-panel">
+        <div>
+          <p>From</p>
+          <h2>FIX THE SYSTEM</h2>
+        </div>
+      </div>
+      <div class="turn-bridge" aria-hidden="true">-&gt;</div>
+      <div class="turn-panel">
+        <div>
+          <p>But then it asks</p>
+          <h2 id="turn-title">What if we built new pathways?</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section approach-section" aria-labelledby="approach-title">
+    <div class="section-grid">
+      <div class="approach-lines">
+        <p class="approach-line" id="approach-title">Working with complexity instead of against it.</p>
+        <p class="approach-line muted">Letting audacity and humility coexist.</p>
+      </div>
+      <div class="section-copy">
+        <p>Whether the challenge is equality, poverty or climate change, the Draft means going back to the drawing board —</p>
+      </div>
+    </div>
+    <p class="challenge-line">one challenge at a time.</p>
+  </section>
+
+  <section class="section participation-section" aria-labelledby="participation-title" data-participation-section>
+    <h2 id="participation-title"><a class="draft-cta" href="#participation-routes" data-draft-cta>DESIGN THE FUTURE</a></h2>
+
+    <div class="participation-board graphic-slot" data-motif="opening-pathways" aria-hidden="true">
+      <span class="participation-path"></span>
+      <span class="participation-node start"></span>
+      <span class="participation-node a"></span>
+      <span class="participation-node b"></span>
+      <span class="participation-node c"></span>
+    </div>
+
+    <div class="pathways" id="participation-routes" aria-label="DALE Draft participation routes">
+      <a class="pathway-card" href="fellowships/">
+        <h3>FELLOWSHIPS</h3>
+        <p>Research and validation.</p>
+        <span class="pathway-link">Fellowships</span>
+      </a>
+      <a class="pathway-card" href="volunteers/">
+        <h3>VOLUNTEERS</h3>
+        <p>Contribute to the work.</p>
+        <span class="pathway-link">Volunteers</span>
+      </a>
+      <a class="pathway-card" href="experteers/">
+        <h3>EXPERTEERS</h3>
+        <p>Bring specialist expertise.</p>
+        <span class="pathway-link">Experteers</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="nav-logo">dale<span>(a)</span></div>
+  <nav class="footer-links" aria-label="Footer navigation">
+    <a href="../">Home</a>
+    <a href="../research/">Research</a>
+    <a href="../blog/">Blog</a>
+    <a href="mailto:hello@dale.africa">Contact</a>
+  </nav>
+</footer>
+<script>
+document.documentElement.classList.remove("no-js");
+document.documentElement.classList.add("js");
+
+const draftCta = document.querySelector("[data-draft-cta]");
+const participationSection = document.querySelector("[data-participation-section]");
+const participationRoutes = document.getElementById("participation-routes");
+const hero = document.querySelector(".hero");
+const heroBoard = document.querySelector(".hero-board");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+draftCta.addEventListener("click", event => {
+  event.preventDefault();
+  participationSection.classList.add("is-open");
+  participationRoutes.scrollIntoView({ block: "start", behavior: reducedMotion ? "auto" : "smooth" });
+});
+
+if (!reducedMotion) {
+  hero.addEventListener("pointermove", event => {
+    const rect = hero.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width - .5) * 12;
+    const y = ((event.clientY - rect.top) / rect.height - .5) * 12;
+    heroBoard.style.transform = `translate(${x}px, ${y}px)`;
+  });
+
+  hero.addEventListener("pointerleave", () => {
+    heroBoard.style.transform = "";
+  });
+}
+</script>
+</body>
+</html>
