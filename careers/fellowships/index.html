@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DALE Labs Fellowship opportunities for research and validation.">
+<title>DALE Careers | Fellowships</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../assets/favicon-192x192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="../../assets/favicon-512x512.png">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{--bg:#071416;--text:#e8f0f1;--muted:#93b4b9;--dim:#5f8c93;--coral:#f65f54;--teal:#0e4c52;--teal-light:#1a6b73;--border:rgba(127,168,174,.22);--border-strong:rgba(246,95,84,.34);--panel:rgba(14,76,82,.08);--panel-strong:rgba(14,76,82,.15)}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Nunito",Arial,sans-serif;line-height:1.75}
+a{color:inherit}
+button{font:inherit}
+.site-nav{display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:1.2rem clamp(1.2rem,4vw,3rem);border-bottom:1px solid rgba(127,168,174,.14)}
+.nav-logo{font-family:"Marcellus",Georgia,serif;font-size:1.35rem;letter-spacing:.05em;text-decoration:none}
+.nav-logo span,.eyebrow,.step-type,.definition-label,.concept-kicker{color:var(--coral)}
+.nav-links{display:flex;flex-wrap:wrap;gap:1rem 2rem;list-style:none;margin:0;padding:0}
+.nav-links a,.footer-links a{color:var(--muted);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-decoration:none;text-transform:uppercase}
+.nav-links a:hover,.footer-links a:hover{color:var(--text)}
+main{max-width:1180px;margin:0 auto;padding:clamp(4rem,8vw,7rem) clamp(1.2rem,4vw,2.5rem) 0}
+.opening{min-height:calc(100vh - 78px);display:grid;align-items:start;gap:clamp(3rem,7vw,5rem)}
+.eyebrow,.step-type,.definition-label,.concept-kicker{font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.intro{display:grid;grid-template-columns:minmax(0,.86fr) minmax(280px,.44fr);gap:clamp(2rem,5vw,4rem);align-items:end}
+h1,h2{font-family:"Marcellus",Georgia,serif;font-weight:400;line-height:1.1;letter-spacing:0}
+h1{max-width:900px;margin:.85rem 0 0;font-size:clamp(2.65rem,6.2vw,6.3rem)}
+.lead{max-width:650px;margin:0;color:var(--muted);font-size:clamp(1.02rem,1.7vw,1.18rem)}
+.transition-stage{position:relative;padding:clamp(1.2rem,2.4vw,2rem) 0}
+.stage-head{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;margin-bottom:1rem}
+.stage-note{margin:0;color:var(--dim);font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.stage-controls{display:none;gap:.6rem}
+.js .stage-controls{display:flex}
+.stage-controls button{min-width:46px;min-height:42px;border:1px solid var(--border);border-radius:2px;background:transparent;color:var(--muted);cursor:pointer}
+.stage-controls button:hover,.stage-controls button:focus-visible{border-color:var(--border-strong);color:var(--text)}
+.stage-controls button:focus-visible,.concept-node:focus-visible,.back:focus-visible{outline:2px solid var(--coral);outline-offset:4px}
+.sequence{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;margin:0;padding:0;list-style:none;background:var(--border);border:1px solid var(--border)}
+.sequence::before{content:"";position:absolute;left:7%;right:7%;top:50%;height:1px;background:linear-gradient(90deg,rgba(246,95,84,.16),rgba(26,107,115,.64),rgba(246,95,84,.16));transform:translateY(-50%);pointer-events:none}
+.step{position:relative;min-height:224px;display:flex;flex-direction:column;justify-content:space-between;padding:1.1rem;background:rgba(7,20,22,.96);transition:background .35s ease,color .35s ease}
+.step::after{content:"";position:absolute;right:-.62rem;top:50%;z-index:2;width:1.2rem;height:1.2rem;border-top:1px solid var(--border);border-right:1px solid var(--border);background:var(--bg);transform:translateY(-50%) rotate(45deg)}
+.step:last-child::after{display:none}
+.step-state{border-top:3px solid rgba(26,107,115,.75)}
+.step-change{border-top:3px solid rgba(246,95,84,.78)}
+.step-number{color:var(--dim);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.step-title{margin:.65rem 0 .75rem;font-family:"Marcellus",Georgia,serif;font-size:clamp(1.35rem,2.1vw,1.8rem);line-height:1.1}
+.step-copy{margin:0;color:var(--muted);font-size:.9rem;line-height:1.6}
+.step-history{margin-top:1rem;color:var(--dim);font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.step.is-current{background:var(--panel-strong);box-shadow:inset 0 0 0 1px var(--border-strong)}
+.step.is-current .step-history{color:var(--coral)}
+.history-readout{min-height:2rem;margin:1rem 0 0;color:var(--muted);font-size:.92rem}
+.history-readout strong{color:var(--text);font-weight:800}
+.meaning{display:grid;grid-template-columns:minmax(0,.8fr) minmax(280px,.5fr);gap:clamp(2rem,5vw,4rem);align-items:start;padding-bottom:clamp(4rem,8vw,6rem)}
+.question{margin:0;font-family:"Marcellus",Georgia,serif;font-size:clamp(2rem,4vw,3.7rem);line-height:1.14}
+.signal-list{display:grid;gap:.65rem;margin:1.5rem 0 0;padding:0;list-style:none}
+.signal-list li{padding:.8rem 0;border-top:1px solid var(--border);color:var(--muted)}
+.definition{padding:clamp(1.4rem,3vw,2.4rem);border:1px solid var(--border);background:var(--panel)}
+.definition h2{margin:.7rem 0 1rem;font-size:clamp(2rem,4vw,3.25rem)}
+.definition p{margin:0;color:var(--muted);font-size:1.02rem}
+.bridge{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.bridge p{margin:.35rem 0;color:var(--text);font-family:"Marcellus",Georgia,serif;font-size:clamp(1.35rem,2.4vw,2rem);line-height:1.2}
+.descent{display:grid;place-items:center;gap:.75rem;margin-top:2.4rem;color:var(--dim);font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.descent-line{width:1px;height:96px;background:linear-gradient(180deg,var(--border-strong),rgba(127,168,174,0))}
+.iceberg-section{padding:clamp(4rem,8vw,7rem) 0 clamp(4.5rem,8vw,7rem);border-top:1px solid var(--border)}
+.section-intro{display:grid;grid-template-columns:minmax(0,.72fr) minmax(280px,.48fr);gap:clamp(2rem,5vw,4rem);align-items:end;margin-bottom:clamp(2.4rem,5vw,4rem)}
+.section-intro h2{max-width:760px;margin:.75rem 0 0;font-size:clamp(2.4rem,5vw,4.8rem)}
+.section-intro p:last-child{margin:0;color:var(--muted);font-size:clamp(1rem,1.7vw,1.16rem)}
+.iceberg-system{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.65fr);gap:clamp(2rem,5vw,4rem);align-items:stretch}
+.iceberg-visual{position:relative;min-height:640px;padding:1px;border:1px solid var(--border);background:linear-gradient(180deg,rgba(14,76,82,.08),rgba(7,20,22,.95))}
+.waterline{position:absolute;left:0;right:0;top:28%;height:1px;background:rgba(147,180,185,.32)}
+.waterline span{position:absolute;right:1rem;top:-1.8rem;color:var(--dim);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.iceberg-core{position:absolute;inset:clamp(1rem,3vw,2rem);display:grid;grid-template-rows:.32fr .68fr;overflow:hidden}
+.surface-layer{position:relative;display:grid;place-items:center;clip-path:polygon(40% 9%,60% 9%,74% 100%,26% 100%);background:linear-gradient(180deg,rgba(232,240,241,.1),rgba(26,107,115,.2));border:1px solid rgba(147,180,185,.2)}
+.depth-layer{position:relative;display:grid;place-items:center;clip-path:polygon(24% 0,76% 0,95% 88%,50% 100%,5% 88%);background:linear-gradient(180deg,rgba(14,76,82,.22),rgba(7,20,22,.5));border:1px solid rgba(127,168,174,.2)}
+.surface-label,.depth-label{position:absolute;left:50%;transform:translateX(-50%);color:var(--dim);font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.surface-label{top:1.2rem}
+.depth-label{bottom:1.2rem}
+.continuity-layer{position:absolute;left:13%;right:13%;bottom:2rem;padding:1rem;border:1px solid var(--border-strong);background:rgba(7,20,22,.72);text-align:center;color:var(--muted)}
+.continuity-layer strong{display:block;color:var(--text);font-family:"Marcellus",Georgia,serif;font-size:1.45rem;font-weight:400}
+.concept-node{position:absolute;z-index:3;display:grid;place-items:center;min-width:128px;min-height:74px;padding:.85rem 1rem;border:1px solid var(--border);border-radius:2px;background:rgba(7,20,22,.9);color:var(--text);cursor:pointer;text-transform:uppercase;font-size:.76rem;font-weight:800;letter-spacing:.12em;transition:background .25s ease,border-color .25s ease,transform .25s ease}
+.concept-node:hover,.concept-node.is-active{background:var(--panel-strong);border-color:var(--border-strong)}
+.concept-node.is-active{transform:translateY(-3px)}
+.concept-node[data-concept="value"]{left:50%;top:13%;transform:translateX(-50%)}
+.concept-node[data-concept="choice"]{right:10%;top:42%}
+.concept-node[data-concept="agency"]{left:10%;top:48%}
+.concept-node[data-concept="identity"]{left:50%;top:65%;transform:translateX(-50%)}
+.concept-node[data-concept="value"].is-active,.concept-node[data-concept="identity"].is-active{transform:translateX(-50%) translateY(-3px)}
+.loop-path{position:absolute;inset:24% 13% 21%;border:1px solid rgba(246,95,84,.24);border-radius:50%;opacity:.62}
+.loop-path::before,.loop-path::after{content:"";position:absolute;width:.75rem;height:.75rem;border-top:1px solid var(--coral);border-right:1px solid var(--coral)}
+.loop-path::before{right:9%;top:14%;transform:rotate(50deg)}
+.loop-path::after{left:12%;bottom:11%;transform:rotate(228deg)}
+.iceberg-panel{display:flex;flex-direction:column;border:1px solid var(--border);background:rgba(7,20,22,.72)}
+.concept-details{display:grid;gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
+.concept-detail{padding:clamp(1.2rem,2.5vw,1.7rem);background:rgba(7,20,22,.95)}
+.js .concept-detail{display:none}
+.js .concept-detail.is-active{display:block}
+.concept-detail h3{margin:.45rem 0 .75rem;font-family:"Marcellus",Georgia,serif;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:400;line-height:1.12}
+.concept-detail p{margin:0;color:var(--muted)}
+.concept-detail p+p{margin-top:.8rem}
+.loop-reveal{margin-top:auto;padding:clamp(1.2rem,2.5vw,1.7rem)}
+.js .loop-reveal{opacity:.48;transition:opacity .25s ease}
+.js .loop-reveal.is-complete{opacity:1}
+.loop-label{margin:0 0 .8rem;color:var(--dim);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.loop-line{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;color:var(--text);font-family:"Marcellus",Georgia,serif;font-size:clamp(1.15rem,2.1vw,1.65rem)}
+.loop-line span{color:var(--coral)}
+.loop-note{max-width:36rem;margin:1rem 0 0;color:var(--muted);font-size:.92rem}
+.next-prompt{margin:clamp(2.4rem,5vw,4rem) 0 0;padding-top:clamp(1.4rem,3vw,2rem);border-top:1px solid var(--border);font-family:"Marcellus",Georgia,serif;font-size:clamp(1.8rem,3.5vw,3.1rem);line-height:1.16}
+.lens-section{padding:clamp(4rem,8vw,7rem) 0 clamp(4.5rem,8vw,7rem);border-top:1px solid var(--border)}
+.lens-shell{display:grid;gap:clamp(2rem,5vw,4rem)}
+.lens-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
+.lens-tab{display:grid;gap:.45rem;min-height:104px;padding:1rem;border:0;border-top:3px solid transparent;background:rgba(7,20,22,.95);color:var(--muted);text-align:left;cursor:pointer}
+.lens-tab strong{color:var(--text);font-size:.78rem;letter-spacing:.13em;text-transform:uppercase}
+.lens-tab span{font-size:.72rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
+.lens-tab:hover,.lens-tab.is-active{background:var(--panel-strong);border-top-color:var(--coral)}
+.lens-tab:focus-visible{outline:2px solid var(--coral);outline-offset:4px}
+.lens-stage{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.7fr);gap:clamp(2rem,5vw,4rem);align-items:start}
+.lens-map{position:sticky;top:1rem;display:grid;gap:1rem;padding:clamp(1.2rem,2.6vw,2rem);border:1px solid var(--border);background:linear-gradient(180deg,rgba(14,76,82,.11),rgba(7,20,22,.86))}
+.foundation-loop{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
+.foundation-loop span{display:grid;place-items:center;min-height:64px;padding:.7rem;background:rgba(7,20,22,.95);color:var(--muted);font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+.lens-map-frame{position:relative;min-height:360px;display:grid;align-items:center;overflow:hidden;border:1px solid var(--border);background:rgba(7,20,22,.72)}
+.lens-map-frame::before{content:"";position:absolute;inset:8% 14% 22%;clip-path:polygon(42% 0,58% 0,90% 100%,10% 100%);border:1px solid rgba(127,168,174,.24);background:linear-gradient(180deg,rgba(232,240,241,.06),rgba(14,76,82,.18))}
+.lens-map-frame::after{content:"";position:absolute;left:0;right:0;top:31%;height:1px;background:rgba(147,180,185,.28)}
+.lens-model{position:relative;z-index:2;display:grid;gap:.7rem;padding:clamp(1rem,2vw,1.4rem)}
+.model-row{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem}
+.model-token{display:inline-flex;align-items:center;min-height:38px;padding:.55rem .7rem;border:1px solid var(--border);background:rgba(7,20,22,.92);color:var(--text);font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.model-token.unresolved{border-color:var(--border-strong);color:var(--coral)}
+.model-arrow{color:var(--dim);font-weight:800}
+.provenance-bed{position:relative;z-index:2;margin:0 clamp(1rem,2vw,1.4rem) clamp(1rem,2vw,1.4rem);padding:1rem;border:1px solid var(--border-strong);background:rgba(7,20,22,.8);color:var(--muted);text-align:center}
+.provenance-bed strong{display:block;color:var(--text);font-family:"Marcellus",Georgia,serif;font-size:1.35rem;font-weight:400}
+.lens-copy{display:grid;gap:1px;background:var(--border);border:1px solid var(--border)}
+.lens-panel{display:grid;gap:1rem;padding:clamp(1.2rem,2.8vw,2rem);background:rgba(7,20,22,.95)}
+.js .lens-panel{display:none}
+.js .lens-panel.is-active{display:grid}
+.lens-scale{margin:0;color:var(--coral);font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.lens-panel h3{margin:0;font-family:"Marcellus",Georgia,serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;line-height:1.12}
+.lens-panel p{margin:0;color:var(--muted)}
+.lens-unresolved{padding-top:1rem;border-top:1px solid var(--border)}
+.lens-unresolved strong{display:block;margin-bottom:.35rem;color:var(--text);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase}
+.lens-link{display:inline-flex;align-items:center;align-self:start;min-height:42px;margin-top:.4rem;padding:.65rem .85rem;border:1px solid var(--border);color:var(--coral);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+.lens-link:hover,.lens-link:focus-visible{border-color:var(--border-strong);background:var(--panel-strong)}
+.lens-link:focus-visible{outline:2px solid var(--coral);outline-offset:4px}
+.outcome-list{display:flex;flex-wrap:wrap;gap:.45rem;margin:.8rem 0 0;padding:0;list-style:none}
+.outcome-list li{padding:.35rem .55rem;border:1px solid var(--border);color:var(--muted);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.lateral-route{margin-top:clamp(2rem,5vw,4rem);padding:clamp(1.2rem,2.8vw,2rem);border:1px solid var(--border);background:rgba(7,20,22,.72)}
+.lateral-route h3{margin:.45rem 0 .8rem;font-family:"Marcellus",Georgia,serif;font-size:clamp(1.6rem,3vw,2.6rem);font-weight:400;line-height:1.12}
+.lateral-route p{max-width:680px;margin:0;color:var(--muted)}
+.back{display:inline-block;margin:0 0 3rem;color:var(--coral);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+footer{max-width:1180px;margin:0 auto;padding:3rem clamp(1.2rem,4vw,2.5rem);border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:2rem;color:var(--dim);font-size:.8rem}
+.footer-links{display:flex;flex-wrap:wrap;gap:1rem 1.6rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:960px){
+  .intro,.meaning,.section-intro,.iceberg-system,.lens-stage{grid-template-columns:1fr}
+  .sequence{grid-template-columns:1fr;background:transparent;border:0;gap:.75rem}
+  .sequence::before{left:1.1rem;right:auto;top:1rem;bottom:1rem;width:1px;height:auto;background:linear-gradient(180deg,rgba(246,95,84,.28),rgba(26,107,115,.64),rgba(246,95,84,.16));transform:none}
+  .step{min-height:auto;padding:1rem 1rem 1rem 2.8rem;border:1px solid var(--border)}
+  .step::after{left:.72rem;right:auto;top:1.6rem;width:.8rem;height:.8rem;border:1px solid var(--border);border-radius:50%;background:var(--bg);transform:none}
+  .step:last-child::after{display:block}
+  .stage-head{align-items:flex-start;flex-direction:column}
+  .iceberg-visual{min-height:auto;padding:0;border:0;background:transparent}
+  .waterline,.iceberg-core,.loop-path{display:none}
+  .concept-node{position:relative;left:auto!important;right:auto!important;top:auto!important;transform:none!important;width:100%;min-height:60px;justify-content:start;text-align:left;background:rgba(7,20,22,.92)}
+  .concept-node.is-active{transform:none!important}
+  .iceberg-visual{display:grid;gap:.75rem}
+  .continuity-layer{position:relative;left:auto;right:auto;bottom:auto;margin-top:.4rem}
+  .concept-details{border-top:1px solid var(--border)}
+  .lens-map{position:relative;top:auto}
+  .lens-tabs{grid-template-columns:1fr}
+  .lens-tab{min-height:auto}
+  .foundation-loop{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lens-map-frame{min-height:auto}
+  .lens-map-frame::before,.lens-map-frame::after{display:none}
+}
+@media(max-width:760px){
+  .site-nav,footer{align-items:flex-start;flex-direction:column}
+  .opening{min-height:auto}
+  .stage-controls{width:100%}
+  .stage-controls button{flex:1}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="Primary navigation">
+  <a class="nav-logo" href="../../">dale<span>(a)</span></a>
+  <ul class="nav-links">
+    <li><a href="../../">Home</a></li>
+    <li><a href="../">Careers</a></li>
+    <li><a href="./" aria-current="page">Fellowships</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="opening" aria-labelledby="fellowship-title">
+    <div class="intro">
+      <header>
+        <p class="eyebrow">DALE Labs Fellowships</p>
+        <h1 id="fellowship-title">What happens when the baseline itself keeps moving?</h1>
+      </header>
+      <p class="lead">Conflict, climate disruption, political change, market shocks, technological change and changing institutions continually alter the states of people, communities, products and systems.</p>
+    </div>
+
+    <div class="transition-stage" aria-labelledby="sequence-title">
+      <div class="stage-head">
+        <div>
+          <p class="eyebrow" id="sequence-title">State transitions</p>
+          <p class="stage-note">Current state and recoverable history remain visible together</p>
+        </div>
+        <div class="stage-controls" aria-label="State sequence controls">
+          <button type="button" data-step-control="previous" aria-label="Show previous state">Prev</button>
+          <button type="button" data-step-control="next" aria-label="Show next state">Next</button>
+        </div>
+      </div>
+
+      <ol class="sequence" data-state-sequence>
+        <li class="step step-state is-current" data-step-label="State 0">
+          <span class="step-number">01</span>
+          <div>
+            <p class="step-type">State</p>
+            <h2 class="step-title">State 0</h2>
+            <p class="step-copy">A baseline exists.</p>
+          </div>
+          <span class="step-history">Origin</span>
+        </li>
+        <li class="step step-change" data-step-label="Disruption">
+          <span class="step-number">02</span>
+          <div>
+            <p class="step-type">Disruption</p>
+            <h2 class="step-title">Disruption</h2>
+            <p class="step-copy">Conditions shift.</p>
+          </div>
+          <span class="step-history">Change recorded</span>
+        </li>
+        <li class="step step-state" data-step-label="State 1">
+          <span class="step-number">03</span>
+          <div>
+            <p class="step-type">State</p>
+            <h2 class="step-title">State 1</h2>
+            <p class="step-copy">A new state appears.</p>
+          </div>
+          <span class="step-history">Lineage extends</span>
+        </li>
+        <li class="step step-change" data-step-label="Adaptation">
+          <span class="step-number">04</span>
+          <div>
+            <p class="step-type">Adaptation</p>
+            <h2 class="step-title">Adaptation</h2>
+            <p class="step-copy">People and systems respond.</p>
+          </div>
+          <span class="step-history">Response recorded</span>
+        </li>
+        <li class="step step-state" data-step-label="State 2">
+          <span class="step-number">05</span>
+          <div>
+            <p class="step-type">State</p>
+            <h2 class="step-title">State 2</h2>
+            <p class="step-copy">The baseline has moved again.</p>
+          </div>
+          <span class="step-history">Earlier states remain</span>
+        </li>
+        <li class="step step-change" data-step-label="Disruption">
+          <span class="step-number">06</span>
+          <div>
+            <p class="step-type">Disruption</p>
+            <h2 class="step-title">Disruption</h2>
+            <p class="step-copy">Another force enters.</p>
+          </div>
+          <span class="step-history">Change recorded</span>
+        </li>
+        <li class="step step-state" data-step-label="State 3">
+          <span class="step-number">07</span>
+          <div>
+            <p class="step-type">State</p>
+            <h2 class="step-title">State 3</h2>
+            <p class="step-copy">The current state can still be traced.</p>
+          </div>
+          <span class="step-history">Current state</span>
+        </li>
+      </ol>
+      <p class="history-readout" data-history-readout aria-live="polite"><strong>State 0</strong> is visible with its origin.</p>
+      <p class="sr-only">Sequence: State 0, disruption, State 1, adaptation, State 2, disruption, State 3. Earlier states remain visible as the current state changes.</p>
+    </div>
+
+    <div class="meaning">
+      <div>
+        <p class="question">We still make claims about value, development, resilience, identity and economic change by comparing states.</p>
+        <ul class="signal-list" aria-label="Systems that change how states are represented">
+          <li>Tokenisation</li>
+          <li>Digital ledgers</li>
+          <li>Digital identity</li>
+          <li>AI-mediated systems</li>
+          <li>Changing currencies</li>
+          <li>Distributed systems</li>
+        </ul>
+      </div>
+
+      <aside class="definition" aria-labelledby="provenance-title">
+        <p class="definition-label">Provenance</p>
+        <h2 id="provenance-title">The lineage, origin and recoverable record of state transformations over time.</h2>
+        <div class="bridge">
+          <p>Not only where something came from.</p>
+          <p>What happened to it.</p>
+          <p>What changed.</p>
+          <p>What persisted.</p>
+          <p>And how the current state became possible.</p>
+        </div>
+        <div class="descent" aria-hidden="true">
+          <span>Provenance continues below</span>
+          <span class="descent-line"></span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="iceberg-section" aria-labelledby="iceberg-title">
+    <div class="section-intro">
+      <header>
+        <p class="eyebrow">The Provenance Iceberg</p>
+        <h2 id="iceberg-title">What does provenance make visible?</h2>
+      </header>
+      <p>Above the surface, a claim can look simple. Below it, origin, transformation, context and consequence determine whether the current state can still be understood.</p>
+    </div>
+
+    <div class="iceberg-system" data-concept-system>
+      <div class="iceberg-visual" aria-label="Interactive provenance iceberg">
+        <div class="waterline" aria-hidden="true"><span>Surface</span></div>
+        <div class="iceberg-core" aria-hidden="true">
+          <div class="surface-layer"><span class="surface-label">Visible claim</span></div>
+          <div class="depth-layer"><span class="depth-label">Recoverable structure</span></div>
+        </div>
+        <div class="loop-path" aria-hidden="true"></div>
+        <button class="concept-node is-active" type="button" data-concept="value" aria-pressed="true">Value</button>
+        <button class="concept-node" type="button" data-concept="choice" aria-pressed="false">Choice</button>
+        <button class="concept-node" type="button" data-concept="agency" aria-pressed="false">Agency</button>
+        <button class="concept-node" type="button" data-concept="identity" aria-pressed="false">Identity</button>
+        <div class="continuity-layer">
+          <strong>Provenance</strong>
+          <span>Continuity across state transitions</span>
+        </div>
+      </div>
+
+      <div class="iceberg-panel">
+        <div class="concept-details">
+          <article class="concept-detail is-active" data-concept-detail="value">
+            <p class="concept-kicker">Value</p>
+            <h3>What matters, is useful, meaningful, or considered worthwhile.</h3>
+            <p>Provenance provides origin and transformation history.</p>
+            <p>It allows us to follow where value was recognised, what it attached to, how it moved, and whether it changed.</p>
+          </article>
+          <article class="concept-detail" data-concept-detail="choice">
+            <p class="concept-kicker">Choice</p>
+            <h3>The selection among available possibilities.</h3>
+            <p>Provenance provides the decision path.</p>
+            <p>It preserves context, available options, constraints, branch points, selection, and consequence.</p>
+          </article>
+          <article class="concept-detail" data-concept-detail="agency">
+            <p class="concept-kicker">Agency</p>
+            <h3>Capacity to act intentionally.</h3>
+            <p>Provenance provides attribution.</p>
+            <p>It allows us to follow who or what acted, under what conditions, and what followed.</p>
+          </article>
+          <article class="concept-detail" data-concept-detail="identity">
+            <p class="concept-kicker">Identity</p>
+            <h3>The self/system boundary and accumulated lineage of who or what something is.</h3>
+            <p>Provenance provides lineage.</p>
+            <p>Identity becomes more than a static claim; it has origin and accumulated state history.</p>
+          </article>
+        </div>
+
+        <div class="loop-reveal" data-loop-reveal>
+          <p class="loop-label">Conceptual relationship</p>
+          <div class="loop-line" aria-label="Value to choice to agency to identity to value">
+            VALUE <span aria-hidden="true">-&gt;</span> CHOICE <span aria-hidden="true">-&gt;</span> AGENCY <span aria-hidden="true">-&gt;</span> IDENTITY <span aria-hidden="true">-&gt;</span> VALUE
+          </div>
+          <p class="loop-note">This relationship opens the research space. It is not presented here as a proven result.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="next-prompt">What happens when we test this loop at different levels of a system?</p>
+  </section>
+
+  <section class="lens-section" aria-labelledby="lens-title">
+    <div class="section-intro">
+      <header>
+        <p class="eyebrow">Pathway lenses</p>
+        <h2 id="lens-title">The same loop, seen at different scales.</h2>
+      </header>
+      <p>Each lens changes the unit of attention while keeping agency, identity, choice, value and provenance in view.</p>
+    </div>
+
+    <div class="lens-shell" data-lens-system>
+      <div class="lens-tabs" role="tablist" aria-label="Pathway lens selector">
+        <button class="lens-tab is-active" type="button" role="tab" id="lens-tab-jielekeze" aria-selected="true" aria-controls="lens-panel-jielekeze" data-lens="jielekeze">
+          <strong>Jielekeze</strong>
+          <span>Individual</span>
+        </button>
+        <button class="lens-tab" type="button" role="tab" id="lens-tab-sve" aria-selected="false" aria-controls="lens-panel-sve" data-lens="sve">
+          <strong>Shared Value Exchange</strong>
+          <span>Shared system</span>
+        </button>
+        <button class="lens-tab" type="button" role="tab" id="lens-tab-akfc" aria-selected="false" aria-controls="lens-panel-akfc" data-lens="akfc">
+          <strong>APE / A Kenyan Fruit Calendar</strong>
+          <span>Value chain</span>
+        </button>
+        <button class="lens-tab" type="button" role="tab" id="lens-tab-ammi" aria-selected="false" aria-controls="lens-panel-ammi" data-lens="ammi">
+          <strong>APE / AMMI</strong>
+          <span>Cross-context</span>
+        </button>
+      </div>
+
+      <div class="lens-stage">
+        <div class="lens-map" aria-label="Shared pathway lens visual">
+          <div class="foundation-loop" aria-label="Shared foundation">
+            <span>Agency</span>
+            <span>Identity</span>
+            <span>Choice</span>
+            <span>Value</span>
+          </div>
+          <div class="lens-map-frame">
+            <div class="lens-model" data-lens-model>
+              <div class="model-row">
+                <span class="model-token">Identity</span>
+                <span class="model-arrow">-&gt;</span>
+                <span class="model-token">Individual value</span>
+                <span class="model-arrow">-&gt;</span>
+                <span class="model-token">Choice</span>
+              </div>
+              <div class="model-row">
+                <span class="model-token">Choice</span>
+                <span class="model-arrow">-&gt;</span>
+                <span class="model-token">Agency</span>
+                <span class="model-arrow">-&gt;</span>
+                <span class="model-token">State change</span>
+              </div>
+              <div class="model-row">
+                <span class="model-token">State change</span>
+                <span class="model-arrow">-&gt;</span>
+                <span class="model-token unresolved">Desired state?</span>
+                <span class="model-arrow">-&gt;</span>
+                <span class="model-token">Identity</span>
+              </div>
+            </div>
+            <div class="provenance-bed">
+              <strong>Provenance</strong>
+              <span>Continuity layer beneath the lens</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lens-copy">
+          <article class="lens-panel is-active" role="tabpanel" id="lens-panel-jielekeze" aria-labelledby="lens-tab-jielekeze" data-lens-panel="jielekeze">
+            <p class="lens-scale">Individual</p>
+            <h3>What happens when the individual becomes the defining unit of development?</h3>
+            <p>The lens follows identity, individual value, available choices and agency as a person moves toward a desired state.</p>
+            <p>Provenance keeps that movement visible over time.</p>
+            <div class="lens-unresolved">
+              <strong>Unresolved</strong>
+              <p>How do identity, value, choice and agency relate to movement toward a desired state?</p>
+            </div>
+            <a class="lens-link" href="jielekeze/">Open Jielekeze pathway</a>
+          </article>
+
+          <article class="lens-panel" role="tabpanel" id="lens-panel-sve" aria-labelledby="lens-tab-sve" data-lens-panel="sve">
+            <p class="lens-scale">Shared system</p>
+            <h3>If money wasn't the measure of value, what would you use?</h3>
+            <p>This lens watches a shared system define value through interaction, movement, transformation and replication.</p>
+            <p>The value-bearing carrier remains deliberately unresolved.</p>
+            <div class="lens-unresolved">
+              <strong>Unresolved</strong>
+              <p>What does shared value piggyback on as identity while it moves?</p>
+            </div>
+            <a class="lens-link" href="shared-value-exchange/">Open Shared Value Exchange pathway</a>
+          </article>
+
+          <article class="lens-panel" role="tabpanel" id="lens-panel-akfc" aria-labelledby="lens-tab-akfc" data-lens-panel="akfc">
+            <p class="lens-scale">Value chain</p>
+            <h3>Can changing how we understand what we eat change what gets grown?</h3>
+            <p>This lens connects product identity with personal identity, then follows choice as it travels through a value chain.</p>
+            <p>Choice travels.</p>
+            <p>The pattern opens a question about value, consumption, production and seasonal state.</p>
+            <div class="lens-unresolved">
+              <strong>Unresolved</strong>
+              <p>Can choices travel recursively through the chain and alter what becomes possible next?</p>
+            </div>
+            <a class="lens-link" href="akfc/">Open A Kenyan Fruit Calendar pathway</a>
+          </article>
+
+          <article class="lens-panel" role="tabpanel" id="lens-panel-ammi" aria-labelledby="lens-tab-ammi" data-lens-panel="ammi">
+            <p class="lens-scale">Cross-context</p>
+            <h3>What becomes legible when provenance remains connected across an entire market system?</h3>
+            <p>This lens follows identity and value as they move across contexts.</p>
+            <p>The question is whether value tied to one identity can transfer to another, and what happens if it does.</p>
+            <div class="lens-unresolved">
+              <strong>Possible outcomes</strong>
+              <ul class="outcome-list" aria-label="Possible unresolved outcomes">
+                <li>Preserved</li>
+                <li>Transformed</li>
+                <li>Amplified</li>
+                <li>Diminished</li>
+                <li>Lost</li>
+                <li>Emergent</li>
+              </ul>
+            </div>
+            <a class="lens-link" href="ammi/">Open AMMI pathway</a>
+          </article>
+        </div>
+      </div>
+
+      <div class="lateral-route">
+        <p class="lens-scale">Lateral pathway</p>
+        <h3>What holds when different environments test the same underlying architecture?</h3>
+        <p>The Innovation pathway compares what repeats, differs, contradicts, or cannot yet be compared across the four pathways.</p>
+        <a class="lens-link" href="innovation/">Open Innovation pathway</a>
+      </div>
+    </div>
+  </section>
+
+  <a class="back" href="../">Back to Careers</a>
+</main>
+
+<footer>
+  <div class="nav-logo">dale<span>(a)</span></div>
+  <nav class="footer-links" aria-label="Footer navigation">
+    <a href="../../">Home</a>
+    <a href="../">Careers</a>
+    <a href="../../research/">Research</a>
+    <a href="mailto:hello@dale.africa">Contact</a>
+  </nav>
+</footer>
+
+<script>
+document.documentElement.classList.remove("no-js");
+document.documentElement.classList.add("js");
+
+const sequence = document.querySelector("[data-state-sequence]");
+const steps = Array.from(sequence.querySelectorAll(".step"));
+const readout = document.querySelector("[data-history-readout]");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let currentIndex = 0;
+let timer = null;
+
+function setCurrentStep(index) {
+  currentIndex = (index + steps.length) % steps.length;
+  steps.forEach((step, stepIndex) => {
+    step.classList.toggle("is-current", stepIndex === currentIndex);
+  });
+  const current = steps[currentIndex].dataset.stepLabel;
+  const history = steps.slice(0, currentIndex + 1).map(step => step.dataset.stepLabel).join(" -> ");
+  readout.innerHTML = `<strong>${current}</strong> is current. History: ${history}.`;
+}
+
+function moveStep(direction) {
+  setCurrentStep(currentIndex + direction);
+}
+
+document.querySelector("[data-step-control='previous']").addEventListener("click", () => moveStep(-1));
+document.querySelector("[data-step-control='next']").addEventListener("click", () => moveStep(1));
+
+if (!prefersReducedMotion) {
+  timer = window.setInterval(() => moveStep(1), 2800);
+  sequence.addEventListener("pointerenter", () => window.clearInterval(timer));
+  sequence.addEventListener("pointerleave", () => {
+    timer = window.setInterval(() => moveStep(1), 2800);
+  });
+}
+
+const conceptSystem = document.querySelector("[data-concept-system]");
+const conceptButtons = Array.from(conceptSystem.querySelectorAll("[data-concept]"));
+const conceptDetails = Array.from(conceptSystem.querySelectorAll("[data-concept-detail]"));
+const loopReveal = conceptSystem.querySelector("[data-loop-reveal]");
+const visitedConcepts = new Set(["value"]);
+
+function selectConcept(concept) {
+  visitedConcepts.add(concept);
+  conceptButtons.forEach(button => {
+    const isActive = button.dataset.concept === concept;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+  conceptDetails.forEach(detail => {
+    detail.classList.toggle("is-active", detail.dataset.conceptDetail === concept);
+  });
+  loopReveal.classList.toggle("is-complete", visitedConcepts.size === conceptButtons.length);
+}
+
+conceptButtons.forEach(button => {
+  button.addEventListener("click", () => selectConcept(button.dataset.concept));
+});
+
+const lensSystem = document.querySelector("[data-lens-system]");
+const lensTabs = Array.from(lensSystem.querySelectorAll("[data-lens]"));
+const lensPanels = Array.from(lensSystem.querySelectorAll("[data-lens-panel]"));
+const lensModel = lensSystem.querySelector("[data-lens-model]");
+const lensModels = {
+  jielekeze: [
+    ["Identity", "Individual value", "Choice"],
+    ["Choice", "Agency", "State change"],
+    ["State change", "Desired state?", "Identity"]
+  ],
+  sve: [
+    ["Identity / carrier ?", "Interaction", "Value definition"],
+    ["Movement", "Transformation", "Replication"]
+  ],
+  akfc: [
+    ["Product identity", "Personal identity", "Value", "Choice"],
+    ["Consumer choice", "Market choice", "Producer choice"],
+    ["Production", "Agroecological / seasonal state", "Future consumer choice"]
+  ],
+  ammi: [
+    ["Identity A + Value A", "Identity B", "Value ?"],
+    ["East Africa", "Asia", "Europe"]
+  ]
+};
+
+function renderLensModel(lens) {
+  lensModel.innerHTML = lensModels[lens].map(row => {
+    const tokens = row.map((item, index) => {
+      const unresolved = item.includes("?") ? " unresolved" : "";
+      const arrow = index === row.length - 1 ? "" : '<span class="model-arrow">-&gt;</span>';
+      return `<span class="model-token${unresolved}">${item}</span>${arrow}`;
+    }).join("");
+    return `<div class="model-row">${tokens}</div>`;
+  }).join("");
+}
+
+function selectLens(lens) {
+  lensTabs.forEach(tab => {
+    const isActive = tab.dataset.lens === lens;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
+  lensPanels.forEach(panel => {
+    const isActive = panel.dataset.lensPanel === lens;
+    panel.classList.toggle("is-active", isActive);
+    panel.setAttribute("aria-hidden", String(!isActive));
+  });
+  renderLensModel(lens);
+}
+
+lensTabs.forEach(tab => {
+  tab.addEventListener("click", () => selectLens(tab.dataset.lens));
+  tab.addEventListener("keydown", event => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const current = lensTabs.indexOf(tab);
+    const next = event.key === "Home"
+      ? 0
+      : event.key === "End"
+        ? lensTabs.length - 1
+        : (current + (event.key === "ArrowRight" ? 1 : -1) + lensTabs.length) % lensTabs.length;
+    lensTabs[next].focus();
+    selectLens(lensTabs[next].dataset.lens);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structural Amnesia — DALE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1612;
+    --paper: #f4f0e8;
+    --amber: #c8841a;
+    --rust: #8b3a2a;
+    --muted: #6b6358;
+    --rule: #d4c9b0;
+    --highlight: #e8dfc0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { font-size: 18px; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 2rem 0 1rem;
+    text-align: center;
+  }
+
+  .masthead-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .masthead-brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--amber);
+    text-transform: uppercase;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--rust);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .back-link:hover { text-decoration: underline; }
+
+  /* Article */
+  .article-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem 2rem 8rem;
+  }
+
+  /* Kicker */
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .kicker::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rust);
+    opacity: 0.4;
+  }
+
+  /* Title */
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  /* Subtitle */
+  .subtitle {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* Byline */
+  .byline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .byline span { display: flex; align-items: center; gap: 0.4rem; }
+
+  /* Article sharing */
+  .share-section {
+    margin: 0 0 3rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .share-section--end {
+    margin: 3rem 0 0;
+  }
+
+  .share-title {
+    margin-bottom: 0.8rem;
+    padding: 0;
+    border: 0;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .share-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .share-button {
+    appearance: none;
+    min-height: 42px;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+
+  .share-button:hover,
+  .share-button:focus-visible {
+    border-color: var(--rust);
+    background: var(--highlight);
+    outline: none;
+  }
+
+  .share-button[data-share="copy"][data-copied="true"] {
+    border-color: var(--amber);
+    color: var(--rust);
+  }
+
+  .share-button[hidden] { display: none; }
+
+  /* Body */
+  p {
+    margin-bottom: 1.6rem;
+    font-size: 1rem;
+  }
+
+  p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.82;
+    margin: 0.05em 0.12em 0 0;
+    color: var(--rust);
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    border-left: 3px solid var(--amber);
+    padding: 1.25rem 1.5rem;
+    margin: 3rem 0;
+    background: var(--highlight);
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  .pull-quote p::first-letter { all: unset; }
+
+  /* Section headings */
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 3.5rem 0 1.25rem;
+    color: var(--ink);
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Inline term highlight */
+  .term {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82em;
+    background: var(--highlight);
+    padding: 0.1em 0.35em;
+    border-radius: 2px;
+    color: var(--rust);
+  }
+
+  /* Footnote references */
+  sup {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6em;
+    color: var(--amber);
+    vertical-align: super;
+    font-weight: 500;
+  }
+
+  /* Divider */
+  .section-break {
+    text-align: center;
+    margin: 3rem 0;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+  }
+
+  /* Evidence chain block */
+  .chain {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 1.5rem 1.75rem;
+    margin: 2.5rem 0;
+    position: relative;
+  }
+
+  .chain::before {
+    content: 'CHAIN OF EVIDENCE';
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    position: absolute;
+    top: -0.6rem;
+    left: 1.5rem;
+    background: var(--paper);
+    padding: 0 0.5rem;
+  }
+
+  .chain ol {
+    list-style: none;
+    counter-reset: chain;
+    padding: 0;
+  }
+
+  .chain ol li {
+    counter-increment: chain;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .chain ol li:last-child { margin-bottom: 0; }
+
+  .chain ol li::before {
+    content: counter(chain, decimal-leading-zero);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--amber);
+    font-weight: 500;
+    min-width: 1.8rem;
+    padding-top: 0.15rem;
+  }
+
+  /* References */
+  .references {
+    border-top: 2px solid var(--ink);
+    margin-top: 5rem;
+    padding-top: 2rem;
+  }
+
+  .references h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .references ol {
+    padding-left: 1.5rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .references ol li {
+    margin-bottom: 0.75rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+  }
+
+  .references ol li span {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+  }
+
+  /* DALE closing mark */
+  .closing-mark {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .closing-mark p {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .closing-mark p::first-letter { all: unset; }
+
+  .dale-mark {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    color: var(--amber);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .article-container { padding: 2.5rem 1.25rem 5rem; }
+    h1 { font-size: 2.2rem; }
+    .share-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .share-button { display: grid; place-items: center; text-align: center; }
+  }
+</style>
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../assets/favicon-192x192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="../../assets/favicon-512x512.png">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-label">Systems Thinking Lab</div>
+  <div class="masthead-brand">DALE — app.dale.africa</div>
+  <a class="back-link" href="../">← Back to DALE Systems Lab</a>
+</header>
+
+<main class="article-container">
+
+  <div class="kicker">Market Memory Series</div>
+
+  <h1>Structural Amnesia:<br><em>How Forgetting Was Built In</em></h1>
+
+  <p class="subtitle">
+    The gap between what markets remember and what communities know is not a data problem.
+    It is an architecture problem — and that architecture was designed, then reinforced, then digitized.
+  </p>
+
+  <div class="byline">
+    <span>DALE Systems Lab</span>
+    <span>June 2026</span>
+  </div>
+
+  <section class="share-section" aria-label="Share this article">
+    <h2 class="share-title">Share this article</h2>
+    <div class="share-actions">
+      <a class="share-button" data-share="linkedin" href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="share-button" data-share="twitter" href="#" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+      <a class="share-button" data-share="facebook" href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+      <a class="share-button" data-share="whatsapp" href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a class="share-button" data-share="email" href="#">Email</a>
+      <button class="share-button" data-share="copy" type="button" aria-live="polite">Copy Link</button>
+      <button class="share-button" data-share="native" type="button" hidden>Native Share</button>
+    </div>
+  </section>
+
+  <p>
+    There is a word that gets used to describe a large portion of the world's economies —
+    <em>developing</em>. It is used in policy papers, in funding proposals, in the names of
+    international institutions. It implies a direction of travel, a trajectory not yet reached,
+    a condition that might one day be resolved. What it rarely names is the set of decisions
+    that created the condition it describes. This article is not about development. It is about
+    memory — specifically, about which memories were built into economic systems and which
+    were not, and what the observable consequences of that choice look like today.
+  </p>
+
+  <p>
+    The term <em>underdeveloped areas</em> entered official global vocabulary on January 20, 1949,
+    when U.S. President Harry Truman used it in his inaugural address to describe the regions
+    his administration intended to assist.<sup>1</sup> The framing was explicit: these areas had not yet
+    reached the standard that the speaker's civilization had already achieved. A single linear
+    scale was implied. Progress would be measured against it. What went unmeasured was
+    who had constructed the scale, who had set the baseline, and — critically — who had
+    decided what counted as economic activity worth recording.
+  </p>
+
+  <div class="pull-quote">
+    <p>
+      Structural amnesia is not the absence of memory. It is the systematic exclusion
+      of certain memories from the systems that allocate value, credit, and legitimacy.
+    </p>
+  </div>
+
+  <p>
+    That question — what gets recorded — is where the chain of evidence begins.
+  </p>
+
+  <h2>I. What the Ledger Was Built to Count</h2>
+
+  <p>
+    Colonial statistical infrastructure in Africa was not built to understand African
+    economic life. It was built to manage the extraction of resources and the administration
+    of labour. <span class="term">National income accounting</span> as a framework did not
+    arrive in most of sub-Saharan Africa until the late colonial and early post-independence
+    period, and even then, it arrived in a form designed by and for Western European
+    economies.<sup>2</sup>
+  </p>
+
+  <p>
+    The consequences of this are now documented in economic history. Morten Jerven's
+    research across Ghana, Nigeria, Uganda, Kenya, Tanzania, Malawi, Zambia, and
+    Botswana found that the statistical capacities of these economies were built on
+    frameworks that treated large portions of actual economic activity as invisible —
+    particularly the informal sector, where the majority of people in most of these
+    economies have always operated.<sup>3</sup> When Ghana updated its GDP calculations in 2010
+    by shifting the base year from 1993 to 2006 and introducing new definitions and
+    basic data, the country's measured GDP roughly doubled — effectively repositioning
+    Ghana from lower-income to middle-income status overnight.<sup>4</sup> The economy had not
+    doubled. The measurement had simply begun, for the first time, to partially see it.
+  </p>
+
+  <p>
+    The implications of this observation extend beyond statistics. If the measurement
+    framework did not capture the economy, then every policy built on those measurements
+    was built on an incomplete map. Every comparison between economies — which one was
+    growing, which was stagnant, which was "developing" — was a comparison of ledger
+    entries, not of economic realities. <span class="term">What the ledger could not see,
+    it could not remember.</span> And what it could not remember, policy could not value.
+  </p>
+
+  <div class="chain">
+    <ol>
+      <li>Colonial statistical systems were designed to account for extraction flows — commodities, labour, tax revenue — not for the full range of economic activity in communities.</li>
+      <li>National income accounting frameworks, designed for industrialized Western economies, were applied to African economies in the late colonial period without modification for the structural differences in those economies.</li>
+      <li>As a result, informal economic activity — which constituted the majority of livelihoods — was systematically undercounted or uncounted in official national accounts.</li>
+      <li>Policies, comparisons, and classifications built on those accounts therefore reflected a partial picture, framing incomplete measurement as evidence of limited economic activity.</li>
+    </ol>
+  </div>
+
+  <h2>II. The Structural Adjustment Interruption</h2>
+
+  <p>
+    The period immediately after independence represented, in many African countries, the
+    highest investment in statistical capacity — the infrastructure for economic memory.
+    This is not a contested point. Jerven's research notes that statistical capacity was
+    significantly expanded in the late colonial and early post-colonial period.<sup>5</sup>
+    Then, that capacity was dismantled.
+  </p>
+
+  <p>
+    Beginning in the 1980s, IMF and World Bank structural adjustment programmes (SAPs)
+    required governments across Africa to cut public services, reduce public-sector
+    spending, privatize assets, and eliminate protectionist measures as conditions for
+    receiving loans.<sup>6</sup> Statistical offices — which had never been prioritized in
+    international frameworks to begin with — were among the institutional casualties.
+    As Jerven documents, the importance of statistical offices was specifically neglected
+    in the decades of policy reform that followed the economic crises of the 1970s.<sup>7</sup>
+  </p>
+
+  <p>
+    The structural adjustment period is typically analyzed in terms of its effects on
+    health systems, education, or agriculture. What receives less attention is its effect
+    on institutional memory — on the state's capacity to know what was happening inside
+    its own economy, to record it, and to retain that record across time. What SAPs
+    introduced was not just austerity. They introduced a second layer of amnesia on top
+    of the first: the post-colonial dismantling of the very systems that might have
+    begun correcting the colonial measurement deficit.
+  </p>
+
+  <div class="pull-quote">
+    <p>
+      The 1980s did not just impose austerity on public services.
+      They imposed austerity on institutional memory itself.
+    </p>
+  </div>
+
+  <p>
+    The result was a compounding gap. By the time many African economies were
+    classified as the poorest in the world — and treated accordingly in international
+    economic policy — that classification rested on data produced by institutions that
+    were under-resourced, working with frameworks that had never been designed for these
+    economies, and that had recently been further weakened by the conditionalities of
+    the very institutions doing the classifying.<sup>8</sup>
+  </p>
+
+  <div class="chain">
+    <ol>
+      <li>Post-independence governments began building the statistical infrastructure needed to actually see their own economies.</li>
+      <li>The commodity price collapse of the 1970s created fiscal pressure across the continent.</li>
+      <li>SAPs introduced from the 1980s onward required cuts to public-sector institutions as a condition of lending — including statistical offices.</li>
+      <li>The institutions responsible for economic memory were weakened at precisely the moment when correcting the measurement deficit mattered most.</li>
+      <li>International classifications of these economies — used to set policy, allocate aid, and determine credit — were built on data produced by the weakened institutions.</li>
+    </ol>
+  </div>
+
+  <h2>III. The Digital Economy and the Third Encoding</h2>
+
+  <p>
+    The arrival of digital platforms in African markets was widely narrated as a correction
+    to this history — a leapfrog moment in which communities that had been excluded from
+    formal economic systems would now be brought into visibility. The evidence shows
+    something more complicated.
+  </p>
+
+  <p>
+    Digitization has unquestionably created new trails of economic data where none existed
+    before. Mobile money, QR payments, and digital logistics platforms are generating
+    transaction records for millions of micro and small enterprises.<sup>9</sup> In this narrow
+    sense, the informal economy is becoming more legible. But legible to whom, and in
+    what form, and owned by whom?
+  </p>
+
+  <p>
+    The data trails being generated by platform activity belong, in almost every case,
+    to the platform. The market trader whose creditworthiness is now being assessed by
+    a fintech lender is being assessed on the basis of behavioral signals extracted from
+    her transactions — signals she did not choose to generate as records, did not consent
+    to interpret as creditworthiness indicators, and cannot access, correct, or carry
+    to another lender. The community whose supply chain is being traced for EU compliance
+    purposes is generating provenance data that flows to the buyer, not back to the
+    producer. The informal network of trust relationships — who pays, who delivers, who
+    holds reputation across a market — is absorbed into platform logic and re-presented
+    as a score.
+  </p>
+
+  <p>
+    A 2026 World Economic Forum analysis observed what is perhaps the clearest articulation
+    of the gap: <em>"A market trader knows which regulars pay on time because she has watched
+    them settle small debts at the day's end for years."</em><sup>10</sup> That knowledge is market
+    memory. It is not informal. It is not unsophisticated. It is precise, longitudinal,
+    and socially embedded. What the digital economy has not yet built is infrastructure
+    for that memory to be held by the people who generated it.
+  </p>
+
+  <div class="pull-quote">
+    <p>
+      Digitization has made the informal economy more legible.
+      It has not made it more sovereign.
+    </p>
+  </div>
+
+  <p>
+    This is the third encoding of structural amnesia. The first was colonial — what the
+    ledger chose to count. The second was structural adjustment — the dismantling of
+    institutions that might have built better ledgers. The third is architectural — the
+    design of digital systems that extract value from community knowledge without
+    creating durable, transferable, community-owned memory of that knowledge.
+  </p>
+
+  <div class="chain">
+    <ol>
+      <li>Digital platforms enter markets where formal economic memory is weak, providing infrastructure where none existed.</li>
+      <li>Platform activity generates economic data — transaction histories, reputational signals, behavioral patterns — that constitute the first legible record of this economic activity.</li>
+      <li>This data is held by the platform, not the participant. It is not portable, not correctable, and not inheritable across institutional boundaries.</li>
+      <li>Community-level knowledge — trust networks, long-term payment behavior, contextual relationships — is absorbed into platform scoring systems, losing the provenance of who generated it and under what conditions.</li>
+      <li>The "visibility" created by digitization therefore replicates the colonial pattern: economic activity becomes visible to external systems of classification, without that visibility returning to the communities that generated the evidence.</li>
+    </ol>
+  </div>
+
+  <h2>IV. Amnesia as Architecture</h2>
+
+  <p>
+    The word <em>developing</em> carries within it an assumption about time — that the
+    condition it names is temporary, a phase on the way to somewhere else. What the
+    evidence above describes is not a phase. It describes a structure: a series of design
+    choices, made at different moments, by different actors, that produced a consistent
+    outcome — the systematic exclusion of certain communities from the systems that
+    hold economic memory.
+  </p>
+
+  <p>
+    Colonial measurement excluded informal economies from the ledger.
+    Structural adjustment weakened the institutions that might have corrected that ledger.
+    Digital platforms have created new ledgers — but kept them private.
+  </p>
+
+  <p>
+    Each of these is a design choice. None of them is inevitable. The colonial administrator
+    chose what to count. The SAP architects chose which institutions to defund. The platform
+    engineers chose where data sovereignty sits. These are not natural features of markets.
+    They are features of the architecture within which markets operate.
+  </p>
+
+  <p>
+    Structural amnesia is therefore not a data gap to be filled by more data collection,
+    better surveys, or improved satellite imagery. It is a design flaw in the systems that
+    determine whose economic history is remembered, where that memory lives, and who
+    controls access to it. Correcting it requires different architecture — infrastructure
+    that originates memory at the community and producer level, that survives as provenance
+    moves through institutional boundaries, and that remains accessible to the people who
+    generated it.
+  </p>
+
+  <p>
+    The word <em>developing</em> is not a description of these communities. It is a description
+    of the systems that have failed to see them. Those systems are the ones that need to develop.
+  </p>
+
+  <div class="section-break">· · ·</div>
+
+  <p style="font-style: italic; color: var(--muted); font-size: 0.92rem;">
+    This article is part of DALE's Market Memory Series — a body of work examining the conditions
+    under which provenance and value survive (or do not survive) as economic knowledge moves
+    through systems. DALE builds infrastructure for communities to originate, hold, and transfer
+    market memory across institutional boundaries.
+  </p>
+
+  <section class="share-section share-section--end" aria-label="Share this article">
+    <h2 class="share-title">Share this article</h2>
+    <div class="share-actions">
+      <a class="share-button" data-share="linkedin" href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="share-button" data-share="twitter" href="#" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+      <a class="share-button" data-share="facebook" href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+      <a class="share-button" data-share="whatsapp" href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a class="share-button" data-share="email" href="#">Email</a>
+      <button class="share-button" data-share="copy" type="button" aria-live="polite">Copy Link</button>
+      <button class="share-button" data-share="native" type="button" hidden>Native Share</button>
+    </div>
+  </section>
+
+  <div class="references">
+    <h3>References</h3>
+    <ol>
+      <li>
+        Truman, H.S. (1949). Inaugural Address, January 20, 1949.
+        <span>U.S. Department of State Bulletin, January 30, 1949, p. 123.</span>
+        The Point Four program — the fourth foreign policy objective of the speech —
+        introduced the term "underdeveloped areas" into official development discourse.
+      </li>
+      <li>
+        Jerven, M. (2013). <span>Poor Numbers: How We Are Misled by African Development Statistics
+        and What to Do About It.</span> Cornell University Press. On the diffusion of national
+        income accounting frameworks to African economies and their structural mismatch with
+        those economies.
+      </li>
+      <li>
+        African Studies Centre Leiden (2013). Review of Jerven, <span>Poor Numbers.</span>
+        Research conducted across Ghana, Nigeria, Uganda, Kenya, Tanzania, Malawi, Zambia,
+        and Botswana on statistical capacity and data accuracy.
+      </li>
+      <li>
+        African Economic History Network (2019). <span>African Economic Growth 1900–50:
+        Historical National Accounts for British Colonial Africa.</span> Working Paper 50.
+        On Ghana's 2010 GDP rebasing and its implications for historical growth narratives.
+        Also: Jerven, M. (2014). Lessons from Estimating GDP for the Gold Coast, 1891–1954.
+        AEHN Working Paper 3.
+      </li>
+      <li>
+        Democracy in Africa (2013). Review of Jerven, <span>Poor Numbers.</span>
+        On the expansion of statistical capacity in the late colonial and early post-colonial
+        period, and its subsequent decline during structural adjustment.
+      </li>
+      <li>
+        Progressive International (2025). <span>Plundering Africa — Income Deflation and
+        Unequal Ecological Exchange Under Structural Adjustment Programmes.</span>
+        On the requirements of SAPs — cutting public services, privatizing assets, removing
+        industrial policy — imposed across Africa in the 1980s and 1990s.
+      </li>
+      <li>
+        Jerven, M. (2013). <span>Poor Numbers,</span> op. cit. On the specific neglect of statistical
+        offices during the structural adjustment period.
+      </li>
+      <li>
+        Bretton Woods Project (2008). <span>Africa and the Making of Adjustment.</span>
+        On Africa as the primary site for the development and testing of structural adjustment
+        policy, and the consequences for institutional capacity.
+      </li>
+      <li>
+        FurtherAfrica (2026). <span>Africa's Informal Economy Is Becoming Bankable.</span>
+        On the generation of transaction data through mobile money, POS devices, and
+        digital platforms, and its use by lenders for underwriting.
+      </li>
+      <li>
+        World Economic Forum (2026). <span>How Technology Can Help Bank Africa's Informal Economy.</span>
+        February 2026. On market traders' embedded knowledge of creditworthiness, and
+        the gap between that knowledge and what digital systems currently capture.
+      </li>
+    </ol>
+  </div>
+
+  <div class="closing-mark">
+    <span class="dale-mark">DALE</span>
+    <p>Market memory infrastructure · app.dale.africa · Kisumu, Kenya</p>
+  </div>
+
+</main>
+
+<script>
+  (() => {
+    const articleHeading = document.querySelector('h1');
+    const articleTitle = articleHeading
+      ? articleHeading.innerText.replace(/\s+/g, ' ').trim()
+      : document.title;
+    const articleUrl = window.location.href.split('#')[0];
+    const encodedTitle = encodeURIComponent(articleTitle);
+    const encodedUrl = encodeURIComponent(articleUrl);
+    const shareUrls = {
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+      twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+      whatsapp: `https://wa.me/?text=${encodeURIComponent(`${articleTitle} ${articleUrl}`)}`,
+      email: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`
+    };
+
+    Object.entries(shareUrls).forEach(([network, url]) => {
+      document.querySelectorAll(`[data-share="${network}"]`).forEach(link => {
+        link.href = url;
+      });
+    });
+
+    document.querySelectorAll('[data-share="copy"]').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(articleUrl);
+        } catch (error) {
+          const input = document.createElement('textarea');
+          input.value = articleUrl;
+          input.setAttribute('readonly', '');
+          input.style.position = 'fixed';
+          input.style.opacity = '0';
+          document.body.appendChild(input);
+          input.select();
+          document.execCommand('copy');
+          input.remove();
+        }
+
+        button.textContent = 'Link copied';
+        button.dataset.copied = 'true';
+        window.setTimeout(() => {
+          button.textContent = 'Copy Link';
+          delete button.dataset.copied;
+        }, 1800);
+      });
+    });
+
+    if (typeof navigator.share === 'function') {
+      document.querySelectorAll('[data-share="native"]').forEach(button => {
+        button.hidden = false;
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.share({ title: articleTitle, url: articleUrl });
+          } catch (error) {
+            if (error.name !== 'AbortError') console.error('Unable to share article.', error);
+          }
+        });
+      });
+    }
+  })();
+</script>
+</body>
+</html>

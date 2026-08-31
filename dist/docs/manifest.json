@@ -1,0 +1,42 @@
+[
+  {
+    "title": "DALE Research",
+    "filename": "../research/",
+    "category": "Research",
+    "status": "Public",
+    "order": 1,
+    "description": "Public research overview for DALE.",
+    "previous": "../index.html",
+    "next": "../research/origin/"
+  },
+  {
+    "title": "Origin Story",
+    "filename": "../research/origin/",
+    "category": "Research",
+    "status": "Public",
+    "order": 2,
+    "description": "Public origin story for DALE's research question.",
+    "previous": "../research/",
+    "next": "../research/validation-environments/"
+  },
+  {
+    "title": "Validation Environments",
+    "filename": "../research/validation-environments/",
+    "category": "Research",
+    "status": "Public",
+    "order": 3,
+    "description": "Public overview of DALE validation environments.",
+    "previous": "../research/origin/",
+    "next": "../research/publications/"
+  },
+  {
+    "title": "Publications and Notes",
+    "filename": "../research/publications/",
+    "category": "Research",
+    "status": "Public",
+    "order": 4,
+    "description": "Public research summaries and notes.",
+    "previous": "../research/validation-environments/",
+    "next": null
+  }
+]

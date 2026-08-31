@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title desc">
+  <title id="title">A Kenyan Fruit Calendar</title>
+  <desc id="desc">Vintage terracotta fruit archive stamp reading Your Memories in a Jar and Harvested in Kenya.</desc>
+  <defs>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" seed="8" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8"/>
+    </filter>
+  </defs>
+  <g fill="none" stroke="#A33B2E" filter="url(#rough)">
+    <circle cx="300" cy="300" r="268" stroke-width="13"/>
+    <circle cx="300" cy="300" r="241" stroke-width="3"/>
+    <path d="M115 188c86-67 284-67 370 0M115 412c86 67 284 67 370 0" stroke-width="3"/>
+    <path d="M300 170c-18-30-2-58 31-67M303 174c31-44 72-41 96-17-31 24-66 28-96 17Z" stroke-width="8"/>
+    <path d="M301 179c-83 0-128 66-112 139 18 80 71 120 112 120s94-40 112-120c16-73-29-139-112-139Z" stroke-width="10"/>
+    <path d="M222 272c48-34 108-33 157 0M214 319c57-26 117-25 174 0" stroke-width="4" opacity=".8"/>
+  </g>
+  <g fill="#A33B2E" text-anchor="middle">
+    <text x="300" y="78" font-family="Georgia,serif" font-size="34" font-weight="700" letter-spacing="3">A KENYAN</text>
+    <text x="300" y="535" font-family="Georgia,serif" font-size="34" font-weight="700" letter-spacing="3">FRUIT CALENDAR</text>
+    <text x="300" y="229" font-family="Courier New,monospace" font-size="19" font-weight="700" letter-spacing="2">YOUR MEMORIES</text>
+    <text x="300" y="257" font-family="Courier New,monospace" font-size="19" font-weight="700" letter-spacing="2">IN A JAR</text>
+    <text x="300" y="370" font-family="Courier New,monospace" font-size="16" font-weight="700" letter-spacing="2">HARVESTED IN KENYA</text>
+  </g>
+</svg>

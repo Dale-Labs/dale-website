@@ -1,0 +1,479 @@
+# ============================================================
+# Social Enterprise Canvas (SEC) — Canonical YAML Specification
+# DALE Architecture | Kadana | Version 1.0.0 | April 2026
+# Tool Position: Enterprise Synthesis & Coherence | Stage: Realize
+# ============================================================
+
+metadata:
+  tool_id: SEC
+  tool_name: Social Enterprise Canvas (SEC)
+  version: "1.0.0"
+  dale_stage: Realize
+  architectural_layer: Enterprise Synthesis & Coherence
+  architectural_role: Pathway Tool
+  activation: Conditional — Runner determines realization pathway
+  receives_from: [CoS, ECOA, ARA, Runner]
+  feeds_into: [CBC, Master Dataset]
+  schema_ref: sec_schema.json
+  canonical_rules:
+    - "Tools operate on structure. They do not create it."
+    - "SEC organizes enterprise coherence. It does not invent it."
+    - "SEC does not fabricate coherence. It surfaces whether coherence exists,
+       where it is fragile, and what remains unresolved."
+
+# ============================================================
+# PURPOSE
+# ============================================================
+purpose:
+  primary: >
+    Organize and structure how value, impact, resources, delivery, leadership,
+    and continuity come together inside a real operating system. SEC synthesizes
+    already resolved structural conditions — from CoS, ECOA, ARA, and Runner —
+    into a stewardable enterprise operating architecture.
+  determines:
+    - whether a value model can hold together as an operating system
+    - whether the enterprise operates coherently under real-world conditions
+    - whether the enterprise can sustain itself over time
+    - whether the enterprise can adapt under pressure
+    - whether alignment between value, impact, and resourcing is maintained
+  not_purpose:
+    - generating enterprise ideas independently from the system
+    - producing polished investor narratives
+    - assuming coherence without traceability
+    - replacing CoS, ECOA, ARA, or Runner
+    - hiding fragility to make the model appear stronger
+    - jumping directly into scaling or implementation
+    - treating missingness as complete resolution
+
+# ============================================================
+# ACTIVATION LOGIC
+# ============================================================
+activation:
+  not_automatic: true
+  description: >
+    Runner determines the required realization pathway based on resolved
+    structural conditions. SEC does not activate by practitioner decision.
+
+  realization_types:
+    RT-SEC:
+      meaning: Enterprise realization required — SEC activates
+      condition: Value realization, impact continuity, operational coordination,
+                 resourcing, or stewardship/delivery require enterprise operating architecture
+    RT-CBC:
+      meaning: Governance formalization required — bypass SEC, go directly to CBC
+      condition: Resolution can occur through negotiated governance, benefit
+                 formalization, contractual accountability, or institutional
+                 restructuring without enterprise creation
+    RT-H:
+      meaning: Hybrid — both SEC and CBC required
+      condition: Both enterprise synthesis and governance formalization are needed
+    RT-U:
+      meaning: Realization pathway unresolved
+      action: Do not proceed until Runner resolves
+
+  sec_activates_when:
+    - value realization requires enterprise operating architecture
+    - impact continuity requires enterprise operating architecture
+    - operational coordination requires enterprise operating architecture
+    - resourcing requires enterprise operating architecture
+    - stewardship or delivery requires enterprise operating architecture
+
+  direct_to_cbc_when:
+    - negotiated governance without enterprise creation
+    - benefit formalization without enterprise creation
+    - contractual accountability without enterprise creation
+    - institutional restructuring without enterprise creation
+
+# ============================================================
+# PIPELINE POSITION
+# ============================================================
+pipeline:
+  sequence: "CoS Mapping → ECOA Observation → ARA Resolution → Runner Execution → SEC and/or CBC"
+  layer_roles:
+    CoS:    "Captures system signal"
+    ECOA:   "Assigns observational structure — ECOA defines reality"
+    ARA:    "Resolves structural conditions — ARA resolves structure"
+    Runner: "Produces operational emergence states — Runner executes"
+    SEC:    "Synthesizes enterprise coherence"
+    CBC:    "Formalizes negotiated value exchange"
+  canonical_statement: >
+    ECOA defines reality. ARA resolves structure. Runner executes.
+    SEC synthesizes enterprise coherence. CBC formalizes governance
+    and value exchange. No layer substitutes another.
+
+# ============================================================
+# SEVEN-PHASE PROCESS
+# ============================================================
+phases:
+
+  phase_1:
+    name: Structural Intake
+    analogy: Gathering resolved equation components
+    objective: Absorb and organize all traceable upstream structural outputs required for enterprise synthesis
+    output: Structural Intake Package (SIP)
+    entry_condition: RT-SEC or RT-H confirmed from Runner
+
+    inputs:
+      from_cos:
+        - actor_maps
+        - interaction_maps
+        - issue_landscapes
+        - system_pattern_maps
+        - visibility_layers
+      from_ecoa:
+        - admissible_variables
+        - operational_states (X1-X12)
+        - fundamental_variable_assignments (v1-v40)
+        - informational_absence_conditions
+        - structural_absence_conditions
+      from_ara:
+        - resolution_states
+        - structural_contradictions
+        - adaptive_configurations
+        - dependency_structures
+        - balance_conditions
+      from_runner:
+        - execution_pathways
+        - delivery_logic
+        - transition_pathways
+        - operational_conditions
+        - realization_type_determination
+
+    enterprise_domains:
+      Value Domain:    "Value creation and exchange"
+      Impact Domain:   "Change and outcome structures"
+      Resource Domain: "Revenue, resourcing, continuity"
+      Delivery Domain: "Operational execution systems"
+      Governance Domain: "Authority and accountability"
+      Flow Domain:     "Movement through the system"
+      Scale Domain:    "Expansion and survivability"
+
+    process_actions:
+      1: "Gather upstream outputs — assemble admissible structural records from all layers"
+      2: "Verify traceability — ensure all records maintain source paths"
+      3: "Verify realization pathway — confirm RT-SEC or RT-H activation"
+      4: "Identify active enterprise variables — determine activated synthesis domains"
+      5: "Preserve unresolved conditions — carry forward missingness and dependency states. Do not resolve artificially."
+      6: "Organize synthesis intake — group records into seven enterprise domains"
+      7: "Build Structural Intake Package — finalize the SIP"
+
+    critical_rule: >
+      Unresolved conditions from upstream layers (informational absence,
+      structural absence, dependency states) must be preserved explicitly
+      in the SIP. They are structural inputs, not gaps to be filled.
+
+  phase_2:
+    name: Realization Framing
+    analogy: Determining enterprise structure requirements
+    objective: Define the required enterprise operating structure based on Runner outputs
+    output: Enterprise Structure Set (ESS)
+    input: SIP
+
+    determines:
+      - whether enterprise coordination is required
+      - how enterprise value is organized
+      - what structures are necessary for continuity
+      - what enterprise boundaries exist
+
+    domains_and_outputs:
+      Beneficiary Domain:  "Beneficiary structures — who experiences change"
+      Payer Domain:        "Customer/payer structures — who provides resources"
+      Value Domain:        "Value proposition pathways"
+      Impact Domain:       "Impact proposition pathways"
+      Offering Domain:     "Enterprise mechanisms — what is offered"
+      Delivery Domain:     "Channels and operational activities"
+      Resource Domain:     "Resources and cost structures"
+      Stewardship Domain:  "Continuity and responsibility structures"
+
+    process_actions:
+      1: "Define beneficiary structure — identify who experiences change"
+      2: "Define payer structure — identify resource-bearing actors, distinguish from beneficiary"
+      3: "Define value structure — organize value creation pathways traceable to v27 (value)"
+      4: "Define impact structure — organize impact pathways traceable to v28 (impact)"
+      5: "Define offering structure — identify operational mechanisms"
+      6: "Define delivery structure — organize enterprise execution"
+      7: "Define resource structure — organize operational dependencies"
+      8: "Define stewardship structure — organize continuity responsibilities"
+      9: "Define enterprise boundaries — clarify operating scope"
+
+    critical_rule: >
+      SEC does not assume enterprise complexity beyond what the system requires.
+      Every domain output must be traceable to upstream SIP inputs.
+
+  phase_3:
+    name: Enterprise Flow Synthesis
+    analogy: Mapping movement through the enterprise
+    objective: Map movement through the enterprise system
+    output: Enterprise Flow Map (EFM)
+    input: ESS
+
+    mandatory_flows:
+      money_flow:
+        description: "Resource movement — how resources enter, move through, and exit the enterprise"
+        required: true
+      impact_flow:
+        description: "Change movement — how the enterprise produces and sustains impact"
+        required: true
+      data_flow:
+        description: "Information movement — how information is captured, used, and shared"
+        required: true
+      decision_flow:
+        description: "Authority movement — how decisions are made and by whom"
+        required: true
+
+    note: >
+      All four flows must be mapped. Absence of a flow is a structural
+      finding, not a skip. Flow coherence is required for enterprise continuity.
+
+    process_actions:
+      1: "Map money flow — identify all resource movement"
+      2: "Map impact flow — identify all change movement"
+      3: "Map data flow — identify all information movement"
+      4: "Map decision flow — identify all authority movement"
+      5: "Identify flow intersections — surface points of reinforcement and fracture"
+      6: "Capture flow tensions — record contradictions and disconnections as structural findings"
+      7: "Preserve flow dependencies — maintain traceable flow relationships"
+
+    critical_rule: >
+      Flow tensions are structural findings — not problems to be eliminated
+      at this stage. Both reinforcement and fracture intersections must be recorded.
+
+  phase_4:
+    name: Coherence Structuring
+    analogy: Checking whether the structure holds
+    objective: Determine whether the enterprise operating structure holds under real-world conditions
+    output: Coherence Structure Map (CSM)
+    input: EFM
+
+    coherence_dimensions:
+      value_coherence:      "Does value logic align with delivery structure?"
+      impact_coherence:     "Does impact logic connect to operations?"
+      resource_coherence:   "Does resourcing support continuity?"
+      governance_coherence: "Can authority function beyond founder dependence?"
+      flow_coherence:       "Do the four enterprise flows reinforce each other?"
+
+    coherence_states:
+      RES-C:  "Coherent"
+      RES-F:  "Fragile"
+      RES-U:  "Unresolved"
+      RES-D:  "Dependency exposed"
+      RES-B:  "Bottleneck exposed"
+      RES-MD: "Mission drift risk"
+      RES-FD: "Founder dependent"
+      RES-CR: "Continuity risk exposed"
+
+    process_actions:
+      1: "Evaluate value coherence — does value logic align with delivery?"
+      2: "Evaluate impact coherence — does impact logic connect to operations?"
+      3: "Evaluate resource coherence — does resourcing support continuity?"
+      4: "Evaluate governance coherence — can authority function beyond founder dependence?"
+      5: "Evaluate flow coherence — do the four flows reinforce each other?"
+      6: "Identify bottlenecks — surface structural constraints (tag: RES-B)"
+      7: "Identify continuity risks — surface survivability conditions (tag: RES-CR)"
+      8: "Preserve unresolved tensions — explicitly record incompleteness and fragility"
+
+    critical_rule: >
+      SEC does not fabricate coherence. RES-F and RES-U are valid and
+      expected outputs. Do not force RES-C where tensions are unresolved.
+
+  phase_5:
+    name: Operating Architecture Expression
+    analogy: Writing the operating system
+    objective: Produce the structured enterprise operating architecture
+    output: Operating Architecture Expression (OAE)
+    input: CSM
+
+    architecture_layers:
+      front_stage_systems:
+        description: "Visible enterprise structures — what the enterprise presents and delivers externally"
+      back_stage_systems:
+        description: "Operational systems — what the enterprise requires internally to function"
+      partnership_architecture:
+        description: "Dependency structures — relationships required for enterprise function"
+      leadership_architecture:
+        description: "Authority structures — how the enterprise is governed and stewarded"
+
+    process_actions:
+      1: "Build architecture layers — organize enterprise systems into four layers"
+      2: "Organize front-stage systems — capture visible enterprise structures"
+      3: "Organize back-stage systems — capture operational systems"
+      4: "Organize partnership architecture — capture dependency structures"
+      5: "Organize leadership architecture — capture authority structures"
+      6: "Preserve traceability — maintain synthesis paths from OAE elements to upstream phases"
+      7: "Preserve unresolved conditions — keep fragility and dependencies visible"
+
+    critical_rule: >
+      No new enterprise ideas enter at this stage. Everything in the OAE
+      must be traceable to Phase 1-4 synthesis outputs.
+
+  phase_6:
+    name: Continuity & Scale Expression
+    analogy: Stress-testing survivability
+    objective: Stress-test survivability under growth and operational pressure
+    output: Continuity & Scale Map (CSM-2)
+    input: OAE
+
+    scale_pathway_types:
+      replication: "Duplicating the model elsewhere"
+      network:     "Connecting nodes into a coordinated system"
+      franchise:   "Licensing structure and brand"
+      policy:      "Embedding in institutional systems"
+      hybrid:      "Combining multiple pathways"
+
+    continuity_risk_categories:
+      operational:  "What threatens daily function"
+      financial:    "What threatens resource sustainability"
+      legitimacy:   "What threatens trust and accountability"
+      founder:      "What threatens continuity beyond key individuals"
+
+    process_actions:
+      1: "Identify scale pathways — determine applicable type: replication/network/franchise/policy/hybrid"
+      2: "Identify continuity risks — surface operational, financial, legitimacy, founder risks"
+      3: "Evaluate founder dependence — determine degree of authority concentration"
+      4: "Evaluate governance resilience — assess distributed authority structures"
+      5: "Identify scale breakpoints — surface points where scaling creates fragility"
+      6: "Preserve survivability missingness — record all unresolved continuity conditions"
+
+    critical_rule: >
+      Survivability missingness must be recorded explicitly and carried into
+      the CBC Transition Package. Do not project resolution that has not
+      been demonstrated.
+
+  phase_7:
+    name: CBC Transition Readiness
+    analogy: Determining governance formalization needs
+    objective: Identify what requires governance formalization, negotiated exchange, or accountability structuring
+    output: CBC Transition Package (CTP)
+    input: CSM-2
+
+    sec_identifies_not_formalizes:
+      - what requires formalization
+      - where negotiated structures are necessary
+      - where accountability must be structurally protected
+
+    ctp_components:
+      governance_bearing_structures: "Enterprise structures requiring formal governance or contractual protection"
+      negotiated_value_exchange_conditions: "Accountability dependencies requiring formal negotiation"
+      stewardship_obligations: "Responsibility structures that must be formalized"
+      measurement_obligations: "Traceability requirements — what must be measured and reported"
+      continuity_protections: "Governance safeguards required to protect enterprise continuity"
+      unresolved_conditions_forwarded: "All unresolved conditions from Phases 1-6 forwarded to CBC"
+
+    process_actions:
+      1: "Identify governance-bearing structures — determine formalization needs"
+      2: "Identify negotiated value exchange conditions — surface accountability dependencies"
+      3: "Identify stewardship obligations — determine responsibility structures"
+      4: "Identify measurement obligations — determine traceability requirements"
+      5: "Identify continuity protections — determine governance safeguards"
+      6: "Build CBC Transition Package — prepare complete downstream CBC intake"
+
+    critical_rule: >
+      Governance formalization is the role of CBC. SEC prepares the
+      downstream intake — it does not perform the formalization itself.
+
+# ============================================================
+# OUTPUT RECORD FORMAT
+# ============================================================
+output_record_format:
+  description: >
+    Every SEC output record passed to the unified DALE master dataset
+    must carry these fields.
+  fields:
+    ObservationID:        "String — SEC-YYYYMMDD-XXXXXX"
+    SourceTool:           "\"SEC\""
+    Phase:                "Integer 1–7"
+    Layer:                "synthesis | expression | transition"
+    Domain:               "Value | Impact | Resource | Delivery | Governance | Flow | Scale"
+    EntityID:             "String — identifies observed entity"
+    StateID:              "SIP | ESS | EFM | CSM | OAE | CSM-2 | CTP"
+    CoherenceState:       "RES-C | RES-F | RES-U | RES-D | RES-B | RES-MD | RES-FD | RES-CR"
+    RealizationType:      "RT-SEC | RT-CBC | RT-H | RT-U"
+    Status:               "resolved | unresolved | fragile | missing"
+    TraceRef:             "Backward traceability to upstream source"
+    UsedPrinciples:       "Array: P1–P5"
+    ObservationCondition: "Concrete observation condition from CoS"
+    Timestamp:            "ISO 8601 datetime"
+    TracePath:            "Full synthesis path from source to this output"
+
+# ============================================================
+# PHASE OUTPUT CHAIN
+# ============================================================
+phase_output_chain:
+  - { phase: 1, output: "Structural Intake Package",         abbreviation: "SIP",   feeds_into: "Phase 2" }
+  - { phase: 2, output: "Enterprise Structure Set",          abbreviation: "ESS",   feeds_into: "Phase 3" }
+  - { phase: 3, output: "Enterprise Flow Map",               abbreviation: "EFM",   feeds_into: "Phase 4" }
+  - { phase: 4, output: "Coherence Structure Map",           abbreviation: "CSM",   feeds_into: "Phase 5" }
+  - { phase: 5, output: "Operating Architecture Expression", abbreviation: "OAE",   feeds_into: "Phase 6" }
+  - { phase: 6, output: "Continuity & Scale Map",            abbreviation: "CSM-2", feeds_into: "Phase 7" }
+  - { phase: 7, output: "CBC Transition Package",            abbreviation: "CTP",   feeds_into: "CBC tool" }
+
+# ============================================================
+# ARCHITECTURAL CONSTRAINTS
+# ============================================================
+architectural_constraints:
+  not_permitted:
+    - Activating SEC without Runner RT-SEC or RT-H determination
+    - Fabricating coherence where tensions are unresolved
+    - Collapsing unresolved conditions into resolved states
+    - Generating enterprise structures without traceable upstream inputs
+    - Overriding realization type determination from Runner
+    - Skipping phases in the 7-phase sequence
+    - Producing CTP without completing Phases 1-6
+    - Using SEC to replace or substitute for CoS, ECOA, ARA, or Runner
+
+  preservation_rules:
+    - All unresolved conditions from upstream layers preserved in SIP and carried through all phases
+    - RES-F and RES-U are valid and expected coherence outputs — do not force RES-C
+    - Flow tensions are structural findings, not problems to eliminate at Phase 3
+    - Survivability missingness must be recorded in CSM-2 and forwarded in CTP
+    - No SEC structure may exist without traceable inputs, identifiable synthesis logic, explicit coherence state, and visible dependency conditions
+
+# ============================================================
+# INTEGRATION
+# ============================================================
+integration:
+  upstream:
+    CoS:    "Actor Maps, Interaction Maps, Issue Landscapes, System Pattern Maps, Visibility Layers"
+    ECOA:   "Operational states (X1-X12), Fundamental variable assignments (v1-v40), absence conditions"
+    ARA:    "Resolution states, structural contradictions, dependency structures, balance conditions"
+    Runner: "Execution pathways, delivery logic, realization type determination"
+  downstream:
+    tool:              "CBC — Community Benefit Contracts"
+    intake:            "CBC Transition Package (CTP)"
+    handoff_condition: "cbc_intake_complete = true"
+  master_dataset_fields:
+    - ObservationID
+    - SourceTool
+    - Phase
+    - Layer
+    - Domain
+    - EntityID
+    - StateID
+    - CoherenceState
+    - RealizationType
+    - Status
+    - TraceRef
+    - UsedPrinciples
+    - ObservationCondition
+    - Timestamp
+    - TracePath
+
+# ============================================================
+# VALIDATION SIGNALS
+# ============================================================
+validation_signals:
+  inspect_for:
+    - All SIP inputs are traceable to upstream CoS/ECOA/ARA/Runner records
+    - Unresolved conditions are being preserved — not resolved prematurely
+    - Coherence states reflect actual synthesis findings (RES-F and RES-U are valid)
+    - Flow tensions are recorded as structural findings, not eliminated
+    - OAE elements are traceable to Phase 1-4 synthesis
+    - Survivability missingness is explicitly recorded in CSM-2
+    - CTP is complete before CBC handoff
+
+  structural_insufficiency_indicators:
+    - Upstream layers not providing admissible structural inputs to SIP
+    - Enterprise domains cannot be organized from available upstream records
+    - Flow mapping reveals systemic absence of observable flow data
+    - Coherence assessment cannot proceed due to missing structural foundations
+    - CTP cannot be completed due to unresolved conditions from earlier phases

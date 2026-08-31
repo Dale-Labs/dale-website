@@ -1,0 +1,563 @@
+# ============================================================
+# CoS Mapping Tool — Canonical YAML Specification
+# DALE Architecture | Kadana | Version 1.0.0 | April 2026
+# Tool Position: Diagnostic/Sensor | Stage: Observe
+# ============================================================
+
+metadata:
+  tool_id: CoS
+  tool_name: Community Operating System (CoS) Mapping Tool
+  version: "1.0.0"
+  dale_stage: Observe
+  architectural_layer: Tool Interface
+  architectural_role: Diagnostic / Sensor
+  feeds_into:
+    - ECOA Observation (assigns empirical states)
+    - ARA Resolution (resolves non-assigned variables)
+    - Runner Execution (realizes implementation structure)
+  canonical_rule: "Tools operate on structure, they do not create it"
+  schema_ref: cos_mapping_schema.json
+
+# ============================================================
+# PURPOSE
+# ============================================================
+purpose:
+  primary: >
+    Capture system signal from a submitted observation package.
+    Transform admissible abstract inputs into structured empirical
+    observations through the ECOA pipeline. Return layered empirical
+    outputs with full structural traceability.
+  not_purpose:
+    - normative evaluation
+    - ranking or scoring of actors, projects, or systems
+    - prescribing interventions
+    - replacing human or institutional judgment
+
+# ============================================================
+# INPUTS
+# ============================================================
+inputs:
+  observation_unit:
+    description: >
+      One execution = one submitted package of abstract inputs
+      under one concrete observation condition.
+    components:
+      - name: submitted_package
+        type: array[AbstractInput]
+        min_items: 1
+        description: >
+          Finite family of candidate abstract inputs. Each must be
+          admissible as a system under the fixed DALE principle-model frame.
+
+      - name: observation_condition
+        type: ObservationCondition
+        fields:
+          - sector (e.g. climate finance, health, livelihoods)
+          - geography
+          - engagement_type: [Level1_ClientProject, Level2_CommunitySprint, Level3_Platform]
+          - observation_mode: [facilitated_session, document_review, interview_series, mixed]
+
+  admissibility_check:
+    description: >
+      Every candidate input is checked against 7 admissibility conditions
+      before entering the observational process.
+    conditions:
+      1: Expressible in the admissible input form (A_in_form)
+      2: Admissible as a system under the fixed architecture
+      3: Refers only to structures belonging to the defined system
+      4: Every active internal unit realizable as operational variable,
+         fundamental variable, fixed principle, admissible model, or
+         recursively representable subsystem
+      5: Every such unit expressible through the fixed global principle-model frame
+      6: Admits admissible recursive decomposition
+      7: Recursive decomposition reaches terminal realized family through fundamental variables
+
+  noise_classes:
+    form_noise: Not expressible in admissible input form
+    decomposition_noise: Cannot be recursively realized to terminal family
+    architectural_noise: Formally admissible but yields no admissible observational path
+    note: >
+      Noise is not absorbed silently. All non-admissible inputs are
+      recorded in the noise log and made visible in readable output.
+
+# ============================================================
+# FIXED ARCHITECTURAL LAYER (NOT MODIFIABLE DURING EXECUTION)
+# ============================================================
+fixed_architecture:
+
+  global_principles:
+    P1:
+      name: Participant-grounded legitimacy
+      domain: identity, dignity, agency, disclosure, participation, readiness, safety
+      law: >
+        Admissible formation must begin from identity-bearing, dignity-bearing,
+        agency-preserving, safe, and non-coerced participant conditions.
+    P2:
+      name: Structural observation before intervention
+      domain: observation, system description, problem formation, causal depth
+      law: >
+        Admissible action or change must be preceded by structural observation
+        and system describability.
+    P3:
+      name: Explicit relational differentiation for decision-relevant system readability
+      domain: actor position, influence, gatekeeping, value structure, burden distribution
+      law: >
+        Relational asymmetries and decision-relevant signals must be made
+        explicit and non-collapsed.
+    P4:
+      name: Context-fit and bounded movement
+      domain: movement, intervention fit, boundary logic, partnership readiness
+      law: >
+        Admissible movement must fit context, position, timing, safety,
+        readiness, and explicit boundaries.
+    P5:
+      name: Adaptive continuity with local agency
+      domain: continuity, leadership, revisability, localization, community agency
+      law: >
+        Admissible systems must preserve continuity, revisability under learning,
+        local agency, and operational coordination discipline.
+
+  global_model_families:
+    M1:
+      principle: P1
+      models:
+        - Tree of Life Model
+        - Identity Mapping Model
+        - Context–Pattern–Support Model
+        - Facilitator Role Model
+        - Archetype Mirror Model
+        - UTAUT Facilitation Lens
+    M2:
+      principle: P2
+      models:
+        - Community Operating System Model
+        - System Blueprint Model
+        - Cause Ladder / 5 Whys Model
+        - Fishbone / Cause–Effect Model
+        - Boundary Tagging Model
+        - Gap–to–HMW Model
+    M3:
+      principle: P3
+      models:
+        - Influence Map Model
+        - Gatekeeper Model
+        - Value Flow Model
+        - Burden–Benefit–Risk Model
+        - Four-Flow Overlay Model
+        - Audience Triangle Model
+        - Audience Segmentation Model
+        - Impact Map Model
+        - Impact Management Lens
+    M4:
+      principle: P4
+      models:
+        - Move Fit Model
+        - Partnership Readiness Model
+        - Procurement Cycle Model
+        - Negotiation / BATNA Model
+    M5:
+      principle: P5
+      models:
+        - Leadership Shift Model
+        - Continuity Pathways Model
+        - DALE Four-Element Agile Impact Model
+        - Agile Impact Implementation Model
+        - Community-Driven Data Model
+        - Localization Value-Chain Model
+        - Standards-of-Practice and Capacity Development Model
+        - Integrated Accountability System Model
+        - Implementation Roadmap Model
+
+  fundamental_variables:
+    count: 40
+    metric_domain: "[-1, 1]"
+    metric_interpretation:
+      "-1": minimum admissible state of the variable in the realized subsystem
+      "0": valid neutral state — no effective contribution to the system under observation
+      "1": maximum admissible state of the variable in the realized subsystem
+    families:
+      participant_grounded_formation:
+        variables: [v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11]
+        names:
+          v1: identity
+          v2: dignity
+          v3: agency
+          v4: psychological_safety
+          v5: participant_readiness
+          v6: participant_overload
+          v7: participant_freeze
+          v8: reflective_capacity
+          v9: adaptive_thinking
+          v10: pattern_noticing
+          v11: cognitive_load
+      relational_actor_position:
+        variables: [v12, v13, v14, v15, v16]
+        names:
+          v12: beneficiary_position
+          v13: customer_position
+          v14: payer_position
+          v15: payment_capacity
+          v16: decision_authority
+      system_participation_influence:
+        variables: [v17, v18, v19, v20, v21, v22]
+        names:
+          v17: community_participation
+          v18: community_stewardship
+          v19: system_structure
+          v20: decision_pathway
+          v21: power_asymmetry
+          v22: invisible_influence
+      localization_contextual_fit:
+        variables: [v23, v24, v25, v26]
+        names:
+          v23: localization
+          v24: local_actor_agency
+          v25: local_actor_autonomy
+          v26: contextual_fit
+      value_impact_resourcing_flow:
+        variables: [v27, v28, v29, v30, v31, v32, v33, v34]
+        names:
+          v27: value
+          v28: impact
+          v29: resourcing
+          v30: money_flow
+          v31: impact_flow
+          v32: data_flow
+          v33: decision_flow
+          v34: flow_coherence
+      problem_change_learning:
+        variables: [v35, v36, v37, v38]
+        names:
+          v35: root_cause_depth
+          v36: problem_priority
+          v37: assumption_exposure
+          v38: learning_adaptivity
+      continuity_execution:
+        variables: [v39, v40]
+        names:
+          v39: continuity_risk
+          v40: roadmap_readiness
+
+  operational_variables:
+    count: 12
+    families:
+      participant_grounded_formation: [X1, X2]
+      structural_describability: [X3, X5, X6, X7, X8]
+      relational_differentiation: [X4, X9, X10, X11]
+      coordination_closure: [X12]
+    variables:
+      X1:
+        name: identity_articulation_state
+        description: >
+          Readable articulation of identity-bearing structure: personal foundation,
+          direction, challenge, purpose-bearing expression, identity-to-action linkage.
+        dale_families: [Learning, Accountability]
+      X2:
+        name: safety_and_participation_state
+        description: >
+          Readable condition of psychological safety, disclosure boundary,
+          non-performative participation, pacing, reflection legitimacy.
+        dale_families: [Learning, Accountability]
+      X3:
+        name: system_description_state
+        description: >
+          Readable description of surrounding system: actors, rules, routines,
+          decision processes, support/resistance structure, influence structure.
+        dale_families: [Learning, Delivery, Ecosystem]
+      X4:
+        name: flow_visibility_state
+        description: >
+          Readable visibility of value, burden, benefit, risk, information, money,
+          impact, data, and decision-related structural flows.
+        dale_families: [Delivery, Accountability, Ecosystem]
+      X5:
+        name: position_power_and_influence_state
+        description: >
+          Readable relation among actor position, decision-bearing location,
+          action boundary, formal authority, informal influence, gatekeeping.
+        dale_families: [Learning, Delivery, Ecosystem]
+      X6:
+        name: problem_framing_state
+        description: >
+          Readable formulation of problem structure: symptom distinction,
+          cause tracing, focus discipline, leverage exposure, prioritized framing.
+        dale_families: [Learning, Delivery, Ecosystem]
+      X7:
+        name: design_direction_state
+        description: >
+          Readable transition from problem structure toward formulated design direction,
+          mechanism direction, and early structured response formation.
+        dale_families: [Learning, Delivery, Ecosystem]
+      X8:
+        name: learning_and_validation_state
+        description: >
+          Readable adaptive-learning layer: assumption exposure, light testing,
+          contact with reality, field validation, learning-bearing revision.
+        dale_families: [Learning, Delivery, Ecosystem]
+      X9:
+        name: audience_and_payment_structure_state
+        description: >
+          Readable differentiation of beneficiary, user, customer, payer,
+          funder, and related payment-bearing structure.
+        dale_families: [Delivery, Accountability, Ecosystem]
+      X10:
+        name: value_impact_enterprise_state
+        description: >
+          Readable relation between value proposition, impact proposition, proposed
+          offering, mechanism of change, operating architecture, enterprise coherence.
+        dale_families: [Delivery, Accountability, Ecosystem]
+      X11:
+        name: resourcing_scale_and_continuity_state
+        description: >
+          Readable structure of resourcing logic, scale pathway, bottleneck exposure,
+          continuity exposure, and leadership dependency.
+        dale_families: [Delivery, Accountability, Ecosystem]
+      X12:
+        name: coordination_localization_and_roadmap_state
+        description: >
+          Readable closure of coordination, localization condition, standards,
+          data-process requirements, roadmap logic, and implementation-facing commitment.
+        dale_families: [Ecosystem, Accountability, Delivery]
+
+# ============================================================
+# ALGORITHMS / OBSERVATIONAL LOGIC
+# ============================================================
+algorithms:
+
+  step_1_common_input_system:
+    name: Common Input-System Observation
+    description: >
+      Submitted admissible package is placed inside one common DALE-grounded
+      frame before individual recursive realization proceeds.
+    output: S_in(A_adm, c) = {P_proj, M_proj, A_adm, Xi(A_adm, c)}
+
+  step_2_recursive_decomposition:
+    name: Admissible Recursive Decomposition
+    operator: Phi
+    description: >
+      Each admissible abstract input is decomposed through its operational realization,
+      then through lower-level realized subsystems, until every branch reaches a
+      terminal realized subsystem satisfying the stop condition.
+    stop_conditions:
+      Type_I_fundamental_closure:
+        condition: "V(S) ⊆ V_fund"
+        action: >
+          Determine admissible local signed states. Assign empirical values
+          at the fundamental layer. Return states upward.
+      Type_II_structural_non_observability:
+        condition: "V(S) ∩ V_proj = ∅"
+        action: Record status = no_observable_variables. No numerical value assigned.
+    determinism: >
+      For fixed architecture, fixed admissible input, and fixed observation condition,
+      decomposition produces exactly one terminal realized subsystem family.
+      No alternative internal path is admitted.
+
+  step_3_local_signed_state:
+    name: Local Signed-State Realization
+    operator: Delta
+    description: >
+      At terminal Type I subsystems, each fundamental variable receives a local
+      signed observational state in [-1, 1] or explicit informational absence.
+    rule: >
+      delta_R(f; a, c) = info_absence iff no admissible observable data exists
+      in R for f under (a, c).
+
+  step_4_metric_assignment:
+    name: Metric Assignment at Fundamental Layer
+    operator: mu_Phi
+    description: >
+      Empirical assignment is performed only after terminal subsystem realization
+      is fully fundamental and local signed states are determined.
+    default_rule: >
+      mu_Phi(f; a, c) = arithmetic mean of D_f(a, c)
+      where D_f is the set of non-absent local signed states across all terminal
+      subsystems containing f.
+    metric_transformation:
+      formula: "kappa(x; m_min, m_max) = 2 * (x - m_min) / (m_max - m_min) - 1"
+      description: >
+        Local metric expressions must be transformed into [-1, 1] before contributing
+        to D_f(a, c).
+    absence_rule: >
+      If D_f(a, c) = empty, record mu_Phi(f; a, c) = info_absence.
+      No neutral value, default value, or inferred completion is inserted.
+
+  step_5_operational_reconstruction:
+    name: Upward Reconstruction to Operational Layer
+    operator: F_X
+    description: >
+      Operational empirical states are reconstructed from the fundamental layer.
+      Default rule: arithmetic mean of assigned contributing fundamental values
+      in Base(X) ∩ V_fund_act(a, c).
+    absence_rule: >
+      If no assigned contributing fundamental value exists for X,
+      record E_X(a, c) = info_absence.
+
+  step_6_dale_reporting:
+    name: DALE Family Reporting
+    operator: G_S
+    description: >
+      DALE family empirical states (D/A/L/E) are reconstructed from contributing
+      operational states. Default rule: arithmetic mean of assigned contributing
+      operational values for that family.
+    families:
+      Delivery: D
+      Accountability: A
+      Learning: L
+      Ecosystem: E
+
+# ============================================================
+# OUTPUTS
+# ============================================================
+outputs:
+
+  structural_outputs:
+    description: Generated directly by the observational pipeline.
+    layers:
+      fundamental_empirical_state:
+        description: Common empirical substrate. Basis for all higher reconstruction.
+        content: activated fundamental variables with empirical values or info_absence
+      operational_empirical_state:
+        description: First readable output layer.
+        content: reconstructed operational variables with empirical values
+      dale_family_states:
+        description: Compact DALE-readable empirical configuration.
+        content: D/A/L/E family empirical states with signal statuses
+      abstract_level_empirical_output:
+        description: Empirically reconstructed state of the admissible abstract input.
+        content: arithmetic mean of assigned operational values for that input
+
+  organizational_outputs:
+    description: Generated for integration, storage, readable exposure.
+    layers:
+      cos_tool_dataset: Di = (Ei, Vi, Ci, tau_i, Ri)
+      unified_master_dataset: M* — integrates across CoS, SEC, CBC tool datasets
+
+  output_status_logic:
+    assigned: Valid empirical value produced in [-1, 1]
+    info_absence: >
+      Variable activated and architecturally relevant.
+      Required admissible information absent. NOT replaced by neutral value.
+    struct_absence: >
+      Variable architecturally admissible but not in activated observational path.
+
+  structural_distinctions_preserved:
+    - neutral empirical value (0)
+    - informational absence
+    - structural absence
+    - balance-relevant missingness
+    - structural non-observability (no_observable_variables)
+    - non-observed abstract detail (not represented as a variable in the architecture)
+
+  traceability_minimum:
+    description: >
+      Every output record must preserve traceability to the generating path.
+    required_trace_elements:
+      - governing fixed principles
+      - admissible component models
+      - activated fundamental variables
+      - operational variable or family
+      - observation condition
+      - local signed-state realizations (where applicable)
+      - metric transformation logic (where applicable)
+      - tool source (CoS)
+
+# ============================================================
+# OUTPUT RECORD FORMAT
+# ============================================================
+output_record_schema:
+  fields:
+    - ObservationID
+    - SourceTool: CoS
+    - Layer: [fundamental, operational, family, abstract, dale_reporting]
+    - Family
+    - EntityID
+    - StateID
+    - EmpiricalValue: "number in [-1,1] or 'info_absence' or null"
+    - Status: [assigned, info_absence, struct_absence]
+    - UsedVariables: array[string]
+    - InactiveVariables: array[string]
+    - UsedPrinciples: array[string]
+    - UsedModels: array[string]
+    - ObservationCondition: string
+    - Timestamp: datetime
+    - TracePath: string
+
+# ============================================================
+# ADMISSIBILITY CONSTRAINTS (FIXED — NOT MODIFIABLE DURING EXECUTION)
+# ============================================================
+admissibility_constraints:
+  not_permitted_during_execution:
+    - Redefining global principle set (P1–P5)
+    - Redefining global model families (M1–M5)
+    - Extending the admissible variable space
+    - Introducing a third variable class
+    - Reassigning architectural roles (fund/op)
+    - Permitting observationally active content outside the variable architecture
+    - Permitting observationally active content outside the fixed principle-model frame
+    - Inserting neutral or default values in place of explicit informational absence
+    - Collapsing balance-relevant missingness into info_absence or neutral
+    - Admitting an alternative internal observational path for same architecture-input-condition triple
+    - Determining how a later observation package should be reformulated
+
+  revision_space:
+    description: >
+      Ordinary practical adaptation is concentrated in the variable layers.
+      Revision requires explicit version transition — not execution-time change.
+    revisable:
+      - fundamental_variable_layer (v1-v40) — through later architectural refinement
+      - operational_variable_layer (X1-X12) — through later architectural refinement
+      - local tool workflows
+      - local dataset structures
+      - readable reporting layers
+
+# ============================================================
+# INTERPRETIVE CONSTRAINTS
+# ============================================================
+interpretive_constraints:
+  outputs_may_be_read_as:
+    - state description
+    - empirical configuration
+    - reporting carrier of subsystem state
+  outputs_may_NOT_be_read_as:
+    - proof of success
+    - verdict of failure
+    - score of quality
+    - direct intervention command
+    - normative ranking
+
+# ============================================================
+# INTEGRATION POINTS
+# ============================================================
+integration:
+  downstream_tools:
+    SEC:
+      name: Social Enterprise Canvas
+      role: Pathway Tool — maps value pathways
+      receives: operational_empirical_state, fundamental_empirical_state
+    CBC:
+      name: Community Benefit Contracts
+      role: Exchange Tool — formalizes value exchange
+      receives: operational_empirical_state, dale_family_states
+  master_dataset_schema:
+    fields: [ObservationID, SourceTool, Layer, Family, EntityID, StateID,
+             EmpiricalValue, Status, UsedVariables, InactiveVariables,
+             UsedPrinciples, UsedModels, ObservationCondition, Timestamp, TracePath]
+
+# ============================================================
+# VALIDATION SIGNALS (for practitioner inspection)
+# ============================================================
+validation_signals:
+  inspect_for:
+    - admissible abstract inputs are being formed clearly
+    - recurring informational absence patterns
+    - recurring balance-relevant missingness
+    - tool fields capturing sufficient observable data
+    - operational outputs sufficiently readable for practical use
+    - traceability remaining visible enough for review
+    - integration path preserving architecture rather than flattening it
+  structural_insufficiency_indicators:
+    - relevant variable missing from canonical layer
+    - variable too weakly defined for reliable assignment
+    - local system insufficiently grounded in current variable architecture
+    - terminal realized path repeatedly lacks balance-relevant fundamental variables
+    - present variable architecture too narrow for the project type under observation
