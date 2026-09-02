@@ -13,652 +13,142 @@
 <link rel="apple-touch-icon" sizes="512x512" href="../../assets/favicon-512x512.png">
 <style>
 *,*::before,*::after{box-sizing:border-box}
-:root{--bg:#071416;--text:#e8f0f1;--muted:#93b4b9;--dim:#5f8c93;--coral:#f65f54;--teal:#0e4c52;--teal-light:#1a6b73;--border:rgba(127,168,174,.22);--border-strong:rgba(246,95,84,.34);--panel:rgba(14,76,82,.08);--panel-strong:rgba(14,76,82,.15)}
+:root{--paper:#F7F3EC;--ink:#292827;--teal:#00676B;--aqua:#CFE5E1;--coral:#F06449;--yellow:#F5B632;--purple:#3D227C;--soft-coral:#F4B4A7;--edge:clamp(1.25rem,2.8vw,2.5rem);--serif:"Marcellus",Georgia,serif;--sans:"Nunito",Arial,sans-serif}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:"Nunito",Arial,sans-serif;line-height:1.75}
+body{margin:0;overflow-x:hidden;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.58}
 a{color:inherit}
-button{font:inherit}
-.site-nav{display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:1.2rem clamp(1.2rem,4vw,3rem);border-bottom:1px solid rgba(127,168,174,.14)}
-.nav-logo{font-family:"Marcellus",Georgia,serif;font-size:1.35rem;letter-spacing:.05em;text-decoration:none}
-.nav-logo span,.eyebrow,.step-type,.definition-label,.concept-kicker{color:var(--coral)}
-.nav-links{display:flex;flex-wrap:wrap;gap:1rem 2rem;list-style:none;margin:0;padding:0}
-.nav-links a,.footer-links a{color:var(--muted);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-decoration:none;text-transform:uppercase}
-.nav-links a:hover,.footer-links a:hover{color:var(--text)}
-main{max-width:1180px;margin:0 auto;padding:clamp(4rem,8vw,7rem) clamp(1.2rem,4vw,2.5rem) 0}
-.opening{min-height:calc(100vh - 78px);display:grid;align-items:start;gap:clamp(3rem,7vw,5rem)}
-.eyebrow,.step-type,.definition-label,.concept-kicker{font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
-.intro{display:grid;grid-template-columns:minmax(0,.86fr) minmax(280px,.44fr);gap:clamp(2rem,5vw,4rem);align-items:end}
-h1,h2{font-family:"Marcellus",Georgia,serif;font-weight:400;line-height:1.1;letter-spacing:0}
-h1{max-width:900px;margin:.85rem 0 0;font-size:clamp(2.65rem,6.2vw,6.3rem)}
-.lead{max-width:650px;margin:0;color:var(--muted);font-size:clamp(1.02rem,1.7vw,1.18rem)}
-.transition-stage{position:relative;padding:clamp(1.2rem,2.4vw,2rem) 0}
-.stage-head{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;margin-bottom:1rem}
-.stage-note{margin:0;color:var(--dim);font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-.stage-controls{display:none;gap:.6rem}
-.js .stage-controls{display:flex}
-.stage-controls button{min-width:46px;min-height:42px;border:1px solid var(--border);border-radius:2px;background:transparent;color:var(--muted);cursor:pointer}
-.stage-controls button:hover,.stage-controls button:focus-visible{border-color:var(--border-strong);color:var(--text)}
-.stage-controls button:focus-visible,.concept-node:focus-visible,.back:focus-visible{outline:2px solid var(--coral);outline-offset:4px}
-.sequence{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;margin:0;padding:0;list-style:none;background:var(--border);border:1px solid var(--border)}
-.sequence::before{content:"";position:absolute;left:7%;right:7%;top:50%;height:1px;background:linear-gradient(90deg,rgba(246,95,84,.16),rgba(26,107,115,.64),rgba(246,95,84,.16));transform:translateY(-50%);pointer-events:none}
-.step{position:relative;min-height:224px;display:flex;flex-direction:column;justify-content:space-between;padding:1.1rem;background:rgba(7,20,22,.96);transition:background .35s ease,color .35s ease}
-.step::after{content:"";position:absolute;right:-.62rem;top:50%;z-index:2;width:1.2rem;height:1.2rem;border-top:1px solid var(--border);border-right:1px solid var(--border);background:var(--bg);transform:translateY(-50%) rotate(45deg)}
-.step:last-child::after{display:none}
-.step-state{border-top:3px solid rgba(26,107,115,.75)}
-.step-change{border-top:3px solid rgba(246,95,84,.78)}
-.step-number{color:var(--dim);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-.step-title{margin:.65rem 0 .75rem;font-family:"Marcellus",Georgia,serif;font-size:clamp(1.35rem,2.1vw,1.8rem);line-height:1.1}
-.step-copy{margin:0;color:var(--muted);font-size:.9rem;line-height:1.6}
-.step-history{margin-top:1rem;color:var(--dim);font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-.step.is-current{background:var(--panel-strong);box-shadow:inset 0 0 0 1px var(--border-strong)}
-.step.is-current .step-history{color:var(--coral)}
-.history-readout{min-height:2rem;margin:1rem 0 0;color:var(--muted);font-size:.92rem}
-.history-readout strong{color:var(--text);font-weight:800}
-.meaning{display:grid;grid-template-columns:minmax(0,.8fr) minmax(280px,.5fr);gap:clamp(2rem,5vw,4rem);align-items:start;padding-bottom:clamp(4rem,8vw,6rem)}
-.question{margin:0;font-family:"Marcellus",Georgia,serif;font-size:clamp(2rem,4vw,3.7rem);line-height:1.14}
-.signal-list{display:grid;gap:.65rem;margin:1.5rem 0 0;padding:0;list-style:none}
-.signal-list li{padding:.8rem 0;border-top:1px solid var(--border);color:var(--muted)}
-.definition{padding:clamp(1.4rem,3vw,2.4rem);border:1px solid var(--border);background:var(--panel)}
-.definition h2{margin:.7rem 0 1rem;font-size:clamp(2rem,4vw,3.25rem)}
-.definition p{margin:0;color:var(--muted);font-size:1.02rem}
-.bridge{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
-.bridge p{margin:.35rem 0;color:var(--text);font-family:"Marcellus",Georgia,serif;font-size:clamp(1.35rem,2.4vw,2rem);line-height:1.2}
-.descent{display:grid;place-items:center;gap:.75rem;margin-top:2.4rem;color:var(--dim);font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-.descent-line{width:1px;height:96px;background:linear-gradient(180deg,var(--border-strong),rgba(127,168,174,0))}
-.iceberg-section{padding:clamp(4rem,8vw,7rem) 0 clamp(4.5rem,8vw,7rem);border-top:1px solid var(--border)}
-.section-intro{display:grid;grid-template-columns:minmax(0,.72fr) minmax(280px,.48fr);gap:clamp(2rem,5vw,4rem);align-items:end;margin-bottom:clamp(2.4rem,5vw,4rem)}
-.section-intro h2{max-width:760px;margin:.75rem 0 0;font-size:clamp(2.4rem,5vw,4.8rem)}
-.section-intro p:last-child{margin:0;color:var(--muted);font-size:clamp(1rem,1.7vw,1.16rem)}
-.iceberg-system{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.65fr);gap:clamp(2rem,5vw,4rem);align-items:stretch}
-.iceberg-visual{position:relative;min-height:640px;padding:1px;border:1px solid var(--border);background:linear-gradient(180deg,rgba(14,76,82,.08),rgba(7,20,22,.95))}
-.waterline{position:absolute;left:0;right:0;top:28%;height:1px;background:rgba(147,180,185,.32)}
-.waterline span{position:absolute;right:1rem;top:-1.8rem;color:var(--dim);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-.iceberg-core{position:absolute;inset:clamp(1rem,3vw,2rem);display:grid;grid-template-rows:.32fr .68fr;overflow:hidden}
-.surface-layer{position:relative;display:grid;place-items:center;clip-path:polygon(40% 9%,60% 9%,74% 100%,26% 100%);background:linear-gradient(180deg,rgba(232,240,241,.1),rgba(26,107,115,.2));border:1px solid rgba(147,180,185,.2)}
-.depth-layer{position:relative;display:grid;place-items:center;clip-path:polygon(24% 0,76% 0,95% 88%,50% 100%,5% 88%);background:linear-gradient(180deg,rgba(14,76,82,.22),rgba(7,20,22,.5));border:1px solid rgba(127,168,174,.2)}
-.surface-label,.depth-label{position:absolute;left:50%;transform:translateX(-50%);color:var(--dim);font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
-.surface-label{top:1.2rem}
-.depth-label{bottom:1.2rem}
-.continuity-layer{position:absolute;left:13%;right:13%;bottom:2rem;padding:1rem;border:1px solid var(--border-strong);background:rgba(7,20,22,.72);text-align:center;color:var(--muted)}
-.continuity-layer strong{display:block;color:var(--text);font-family:"Marcellus",Georgia,serif;font-size:1.45rem;font-weight:400}
-.concept-node{position:absolute;z-index:3;display:grid;place-items:center;min-width:128px;min-height:74px;padding:.85rem 1rem;border:1px solid var(--border);border-radius:2px;background:rgba(7,20,22,.9);color:var(--text);cursor:pointer;text-transform:uppercase;font-size:.76rem;font-weight:800;letter-spacing:.12em;transition:background .25s ease,border-color .25s ease,transform .25s ease}
-.concept-node:hover,.concept-node.is-active{background:var(--panel-strong);border-color:var(--border-strong)}
-.concept-node.is-active{transform:translateY(-3px)}
-.concept-node[data-concept="value"]{left:50%;top:13%;transform:translateX(-50%)}
-.concept-node[data-concept="choice"]{right:10%;top:42%}
-.concept-node[data-concept="agency"]{left:10%;top:48%}
-.concept-node[data-concept="identity"]{left:50%;top:65%;transform:translateX(-50%)}
-.concept-node[data-concept="value"].is-active,.concept-node[data-concept="identity"].is-active{transform:translateX(-50%) translateY(-3px)}
-.loop-path{position:absolute;inset:24% 13% 21%;border:1px solid rgba(246,95,84,.24);border-radius:50%;opacity:.62}
-.loop-path::before,.loop-path::after{content:"";position:absolute;width:.75rem;height:.75rem;border-top:1px solid var(--coral);border-right:1px solid var(--coral)}
-.loop-path::before{right:9%;top:14%;transform:rotate(50deg)}
-.loop-path::after{left:12%;bottom:11%;transform:rotate(228deg)}
-.iceberg-panel{display:flex;flex-direction:column;border:1px solid var(--border);background:rgba(7,20,22,.72)}
-.concept-details{display:grid;gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
-.concept-detail{padding:clamp(1.2rem,2.5vw,1.7rem);background:rgba(7,20,22,.95)}
-.js .concept-detail{display:none}
-.js .concept-detail.is-active{display:block}
-.concept-detail h3{margin:.45rem 0 .75rem;font-family:"Marcellus",Georgia,serif;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:400;line-height:1.12}
-.concept-detail p{margin:0;color:var(--muted)}
-.concept-detail p+p{margin-top:.8rem}
-.loop-reveal{margin-top:auto;padding:clamp(1.2rem,2.5vw,1.7rem)}
-.js .loop-reveal{opacity:.48;transition:opacity .25s ease}
-.js .loop-reveal.is-complete{opacity:1}
-.loop-label{margin:0 0 .8rem;color:var(--dim);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-.loop-line{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;color:var(--text);font-family:"Marcellus",Georgia,serif;font-size:clamp(1.15rem,2.1vw,1.65rem)}
-.loop-line span{color:var(--coral)}
-.loop-note{max-width:36rem;margin:1rem 0 0;color:var(--muted);font-size:.92rem}
-.next-prompt{margin:clamp(2.4rem,5vw,4rem) 0 0;padding-top:clamp(1.4rem,3vw,2rem);border-top:1px solid var(--border);font-family:"Marcellus",Georgia,serif;font-size:clamp(1.8rem,3.5vw,3.1rem);line-height:1.16}
-.lens-section{padding:clamp(4rem,8vw,7rem) 0 clamp(4.5rem,8vw,7rem);border-top:1px solid var(--border)}
-.lens-shell{display:grid;gap:clamp(2rem,5vw,4rem)}
-.lens-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
-.lens-tab{display:grid;gap:.45rem;min-height:104px;padding:1rem;border:0;border-top:3px solid transparent;background:rgba(7,20,22,.95);color:var(--muted);text-align:left;cursor:pointer}
-.lens-tab strong{color:var(--text);font-size:.78rem;letter-spacing:.13em;text-transform:uppercase}
-.lens-tab span{font-size:.72rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
-.lens-tab:hover,.lens-tab.is-active{background:var(--panel-strong);border-top-color:var(--coral)}
-.lens-tab:focus-visible{outline:2px solid var(--coral);outline-offset:4px}
-.lens-stage{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.7fr);gap:clamp(2rem,5vw,4rem);align-items:start}
-.lens-map{position:sticky;top:1rem;display:grid;gap:1rem;padding:clamp(1.2rem,2.6vw,2rem);border:1px solid var(--border);background:linear-gradient(180deg,rgba(14,76,82,.11),rgba(7,20,22,.86))}
-.foundation-loop{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
-.foundation-loop span{display:grid;place-items:center;min-height:64px;padding:.7rem;background:rgba(7,20,22,.95);color:var(--muted);font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-align:center}
-.lens-map-frame{position:relative;min-height:360px;display:grid;align-items:center;overflow:hidden;border:1px solid var(--border);background:rgba(7,20,22,.72)}
-.lens-map-frame::before{content:"";position:absolute;inset:8% 14% 22%;clip-path:polygon(42% 0,58% 0,90% 100%,10% 100%);border:1px solid rgba(127,168,174,.24);background:linear-gradient(180deg,rgba(232,240,241,.06),rgba(14,76,82,.18))}
-.lens-map-frame::after{content:"";position:absolute;left:0;right:0;top:31%;height:1px;background:rgba(147,180,185,.28)}
-.lens-model{position:relative;z-index:2;display:grid;gap:.7rem;padding:clamp(1rem,2vw,1.4rem)}
-.model-row{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem}
-.model-token{display:inline-flex;align-items:center;min-height:38px;padding:.55rem .7rem;border:1px solid var(--border);background:rgba(7,20,22,.92);color:var(--text);font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-.model-token.unresolved{border-color:var(--border-strong);color:var(--coral)}
-.model-arrow{color:var(--dim);font-weight:800}
-.provenance-bed{position:relative;z-index:2;margin:0 clamp(1rem,2vw,1.4rem) clamp(1rem,2vw,1.4rem);padding:1rem;border:1px solid var(--border-strong);background:rgba(7,20,22,.8);color:var(--muted);text-align:center}
-.provenance-bed strong{display:block;color:var(--text);font-family:"Marcellus",Georgia,serif;font-size:1.35rem;font-weight:400}
-.lens-copy{display:grid;gap:1px;background:var(--border);border:1px solid var(--border)}
-.lens-panel{display:grid;gap:1rem;padding:clamp(1.2rem,2.8vw,2rem);background:rgba(7,20,22,.95)}
-.js .lens-panel{display:none}
-.js .lens-panel.is-active{display:grid}
-.lens-scale{margin:0;color:var(--coral);font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
-.lens-panel h3{margin:0;font-family:"Marcellus",Georgia,serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;line-height:1.12}
-.lens-panel p{margin:0;color:var(--muted)}
-.lens-unresolved{padding-top:1rem;border-top:1px solid var(--border)}
-.lens-unresolved strong{display:block;margin-bottom:.35rem;color:var(--text);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase}
-.lens-link{display:inline-flex;align-items:center;align-self:start;min-height:42px;margin-top:.4rem;padding:.65rem .85rem;border:1px solid var(--border);color:var(--coral);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
-.lens-link:hover,.lens-link:focus-visible{border-color:var(--border-strong);background:var(--panel-strong)}
-.lens-link:focus-visible{outline:2px solid var(--coral);outline-offset:4px}
-.outcome-list{display:flex;flex-wrap:wrap;gap:.45rem;margin:.8rem 0 0;padding:0;list-style:none}
-.outcome-list li{padding:.35rem .55rem;border:1px solid var(--border);color:var(--muted);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-.lateral-route{margin-top:clamp(2rem,5vw,4rem);padding:clamp(1.2rem,2.8vw,2rem);border:1px solid var(--border);background:rgba(7,20,22,.72)}
-.lateral-route h3{margin:.45rem 0 .8rem;font-family:"Marcellus",Georgia,serif;font-size:clamp(1.6rem,3vw,2.6rem);font-weight:400;line-height:1.12}
-.lateral-route p{max-width:680px;margin:0;color:var(--muted)}
-.back{display:inline-block;margin:0 0 3rem;color:var(--coral);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
-footer{max-width:1180px;margin:0 auto;padding:3rem clamp(1.2rem,4vw,2.5rem);border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:2rem;color:var(--dim);font-size:.8rem}
-.footer-links{display:flex;flex-wrap:wrap;gap:1rem 1.6rem}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:0;line-height:1.08}
+.page{position:relative;max-width:1440px;margin:0 auto;overflow:hidden;padding:0 var(--edge)}
+.page::before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(circle at 20% 8%,rgba(244,180,167,.18),transparent 22rem),radial-gradient(circle at 82% 20%,rgba(245,182,50,.16),transparent 26rem)}
+.site-nav{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;padding:2rem 0 1rem}
+.nav-logo{font-family:var(--serif);font-size:1.9rem;line-height:.9;text-decoration:none}.nav-logo span{color:var(--coral)}.nav-tag{display:block;margin-top:.35rem;font-family:var(--sans);font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:clamp(1.6rem,3vw,3rem);margin:.45rem 0 0;padding:0;list-style:none}.nav-links a{position:relative;font-size:.75rem;font-weight:800;letter-spacing:.16em;text-decoration:none;text-transform:uppercase}.nav-links a:hover{color:var(--coral)}.nav-links a[aria-current="page"]{color:var(--coral)}.nav-links a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-1.2rem;height:2px;background:var(--coral)}
+.nav-links a:focus-visible,.pathway-link:focus-visible,.bottom-link:focus-visible,.back:focus-visible{outline:3px solid var(--coral);outline-offset:5px}
+.eyebrow,.mini-label,.bottom-link,.back{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.eyebrow{color:var(--teal)}.eyebrow span{margin-right:.65rem}.coral{color:var(--coral)}.purple{color:var(--purple)}.yellow{color:var(--yellow)}.teal{color:var(--teal)}
+.dash{display:block;width:2rem;height:3px;margin:1.6rem 0;background:var(--coral)}
+.hero{position:relative;display:grid;grid-template-columns:minmax(320px,.32fr) minmax(0,.68fr);gap:clamp(2rem,5vw,4.5rem);min-height:680px;padding:3.2rem 0 1.5rem}
+.hero-copy h1{max-width:430px;margin:1.05rem 0 0;font-size:clamp(3.5rem,4.35vw,4.25rem)}.hero-copy p:last-child{max-width:26rem;font-size:clamp(1rem,1.35vw,1.15rem)}
+.hero-graphic{position:relative;min-height:590px;margin-right:calc(var(--edge) * -1)}.hero-graphic svg{position:absolute;inset:-1rem 0 0 -1.5rem;width:calc(100% + var(--edge));height:100%;overflow:visible}
+.wash{opacity:.68}.wash.aqua{fill:var(--aqua)}.wash.yellow{fill:var(--yellow);opacity:.7}.trace{fill:none;stroke-linecap:round;stroke-linejoin:round}.trace.teal{stroke:var(--teal);stroke-width:2}.trace.coral{stroke:var(--coral);stroke-width:2}.trace.purple{stroke:var(--purple);stroke-width:1.8}.trace.yellow{stroke:var(--yellow);stroke-width:1.8}.trace.dashed{stroke-dasharray:9 9}.node{stroke:var(--paper);stroke-width:3}.node.teal{fill:var(--teal)}.node.coral{fill:var(--coral)}.node.purple{fill:var(--purple)}.node.yellow{fill:var(--yellow)}.node.open-teal,.node.open-yellow,.node.open-purple,.node.open-coral{fill:var(--paper);stroke-width:4}.node.open-teal{stroke:var(--teal)}.node.open-yellow{stroke:var(--yellow)}.node.open-purple{stroke:var(--purple)}.node.open-coral{stroke:var(--coral)}.ring{fill:none;stroke:var(--teal);stroke-width:2}.ring.purple{stroke:var(--purple)}.ring.yellow{stroke:var(--yellow)}.mark{fill:none;stroke:rgba(0,103,107,.55);stroke-width:1.2}.mark.coral{stroke:rgba(240,100,73,.72)}.dotfield{fill:rgba(0,103,107,.24)}.arrow{fill:var(--teal)}
+.svg-text{font-family:var(--sans);font-size:13px;font-weight:800;letter-spacing:.06em;fill:var(--ink)}.svg-small{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:0;fill:var(--ink)}.hand{font-family:var(--sans);font-size:11px;font-weight:800;font-style:italic;letter-spacing:.06em}.hand.teal{fill:var(--teal)}.hand.coral{fill:var(--coral)}.hand.purple{fill:var(--purple)}.hand.yellow{fill:#D78608}
+.two-up{display:grid;grid-template-columns:.47fr .53fr;gap:clamp(2rem,5vw,4rem);padding:3rem 0 4rem}.statement{max-width:30rem}.statement h2{margin:1rem 0 0;font-size:clamp(2.7rem,3.7vw,3.45rem)}
+.provenance-trace{position:relative;min-height:360px}.provenance-trace svg,.iceberg svg,.core-loop svg,.five svg,.bottom-trace svg{width:100%;height:100%;overflow:visible}
+.iceberg{position:relative;grid-column:2;min-height:520px;margin-top:-3.5rem;padding-left:clamp(1rem,3vw,2.4rem);border-left:1px solid rgba(41,40,39,.16)}.iceberg h2{max-width:24rem;margin:.9rem 0 .8rem;font-size:clamp(2rem,3.1vw,2.9rem)}.iceberg p{max-width:34rem;font-size:.92rem}
+.iceberg-graphic{position:absolute;inset:13rem 0 0 0;z-index:-1}
+.core-loop{display:grid;grid-template-columns:.34fr .66fr;gap:clamp(2rem,5vw,4rem);align-items:center;padding:2rem 0 4.2rem}.core-loop h2{max-width:34rem;margin:1rem 0 0;font-size:clamp(2.05rem,3vw,2.75rem)}.loop-art{min-height:250px}
+.pathway-lenses{padding:1rem 0 4.5rem}.pathway-lenses header h2{margin:.9rem 0 .35rem;font-size:clamp(2rem,3vw,2.8rem)}.pathway-lenses header p{max-width:55rem;font-size:.96rem}
+.lenses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:2.1rem}.lens{position:relative;min-height:390px;padding:0 clamp(1rem,2vw,2rem) 0 0}.lens+.lens{padding-left:clamp(1rem,2vw,2rem);border-left:1px solid rgba(41,40,39,.18)}.lens h3{margin:.7rem 0 .6rem;font-family:var(--sans);font-size:1rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.lens .question{max-width:18rem;font-size:.9rem;font-weight:800;line-height:1.45}.lens-art{height:130px;margin:1rem 0}.lens p:not(.scale):not(.question){font-size:.86rem;line-height:1.48}.pathway-link{display:inline-flex;margin-top:1.2rem;color:var(--teal);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-decoration:none;text-transform:uppercase}.pathway-link.coral{color:var(--coral)}.pathway-link.purple{color:var(--purple)}.pathway-link.yellow{color:#D78608}
+.five{position:relative;min-height:360px;padding:2rem 0 4rem}.five-grid{display:grid;grid-template-columns:.18fr .57fr .19fr .1fr;gap:.65rem;align-items:start}.big-num{font-family:var(--serif);font-size:clamp(3.9rem,5.5vw,5rem);line-height:1;color:var(--teal)}.side-note p{margin:.45rem 0 0;font-size:.86rem}.fellow-line{position:relative;min-height:230px}.fellow-line svg{position:absolute;inset:0}.fellow-node{position:absolute;width:8rem;text-align:center}.fellow-node .circle{display:grid;place-items:center;width:5.4rem;aspect-ratio:1;margin:0 auto .9rem;border-radius:50%;background:var(--teal);color:var(--paper);font-size:1.5rem}.fellow-node h3{font-family:var(--sans);font-size:.8rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}.fellow-node.jie{left:0;top:3.4rem}.fellow-node.sve{left:27%;top:3.4rem}.fellow-node.akfc{left:54%;top:3.4rem}.fellow-node.ammi{right:2%;top:3.4rem}.fellow-node.sve .circle{background:var(--purple)}.fellow-node.akfc .circle{background:var(--coral)}.fellow-node.ammi .circle{background:var(--yellow);color:var(--ink)}
+.innovation{position:relative;min-height:230px;margin-left:-2rem;text-align:center}.innovation svg{width:13.8rem;height:11rem;margin-left:-2.1rem}.innovation h3{font-family:var(--sans);font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.innovation p{max-width:13rem;margin:.6rem auto 0;font-size:.86rem}.numbers{display:grid;gap:1.4rem}.numbers div{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:center}.numbers .big-num{color:var(--teal)}
+.bottom-trace{position:relative;min-height:120px}.bottom-trace svg{position:absolute;inset:0}.bottom-links{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;padding-top:2.8rem}.bottom-link{justify-self:center;text-decoration:none}.bottom-link:hover{color:var(--coral)}.back{display:block;width:max-content;margin:0 auto 2.6rem;color:var(--teal);text-decoration:none}
+.footer-edge{position:relative;height:98px;margin:0 calc(var(--edge) * -1);overflow:hidden}.footer-edge svg{position:absolute;inset:0;width:100%;height:100%}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media(max-width:960px){
-  .intro,.meaning,.section-intro,.iceberg-system,.lens-stage{grid-template-columns:1fr}
-  .sequence{grid-template-columns:1fr;background:transparent;border:0;gap:.75rem}
-  .sequence::before{left:1.1rem;right:auto;top:1rem;bottom:1rem;width:1px;height:auto;background:linear-gradient(180deg,rgba(246,95,84,.28),rgba(26,107,115,.64),rgba(246,95,84,.16));transform:none}
-  .step{min-height:auto;padding:1rem 1rem 1rem 2.8rem;border:1px solid var(--border)}
-  .step::after{left:.72rem;right:auto;top:1.6rem;width:.8rem;height:.8rem;border:1px solid var(--border);border-radius:50%;background:var(--bg);transform:none}
-  .step:last-child::after{display:block}
-  .stage-head{align-items:flex-start;flex-direction:column}
-  .iceberg-visual{min-height:auto;padding:0;border:0;background:transparent}
-  .waterline,.iceberg-core,.loop-path{display:none}
-  .concept-node{position:relative;left:auto!important;right:auto!important;top:auto!important;transform:none!important;width:100%;min-height:60px;justify-content:start;text-align:left;background:rgba(7,20,22,.92)}
-  .concept-node.is-active{transform:none!important}
-  .iceberg-visual{display:grid;gap:.75rem}
-  .continuity-layer{position:relative;left:auto;right:auto;bottom:auto;margin-top:.4rem}
-  .concept-details{border-top:1px solid var(--border)}
-  .lens-map{position:relative;top:auto}
-  .lens-tabs{grid-template-columns:1fr}
-  .lens-tab{min-height:auto}
-  .foundation-loop{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .lens-map-frame{min-height:auto}
-  .lens-map-frame::before,.lens-map-frame::after{display:none}
-}
-@media(max-width:760px){
-  .site-nav,footer{align-items:flex-start;flex-direction:column}
-  .opening{min-height:auto}
-  .stage-controls{width:100%}
-  .stage-controls button{flex:1}
-}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
-}
+@media(max-width:1024px){.hero{grid-template-columns:1fr;min-height:auto}.hero-copy h1{max-width:10ch}.hero-graphic{min-height:620px;margin-right:0}.two-up,.core-loop{grid-template-columns:1fr}.iceberg{grid-column:auto;margin-top:0;border-left:0;padding-left:0}.iceberg-graphic{position:relative;inset:auto;min-height:420px;margin-top:1rem}.lenses{grid-template-columns:repeat(2,minmax(0,1fr));gap:2.2rem 0}.five-grid{grid-template-columns:1fr}.fellow-line{min-height:300px}.innovation{margin-left:0;text-align:left}.innovation svg{margin-left:0}.numbers{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:768px){.site-nav{flex-direction:column}.nav-links{gap:1rem 1.5rem}.hero{padding-top:2rem}.hero-copy h1{font-size:clamp(3.1rem,11vw,4.2rem)}.hero-graphic{min-height:720px}.hero-graphic svg{inset:0 -3rem 0 -3rem;width:calc(100% + 6rem)}.two-up{padding-top:2rem}.statement h2{font-size:clamp(2.3rem,8vw,3rem)}.provenance-trace{min-height:330px}.core-loop{padding-top:1rem}.lenses{grid-template-columns:1fr}.lens{min-height:auto;padding:0 0 2rem}.lens+.lens{padding-left:0;border-left:0;border-top:1px solid rgba(41,40,39,.18);padding-top:2rem}.lens-art{height:150px}.fellow-line{display:grid;gap:1.2rem;min-height:auto}.fellow-line svg{display:none}.fellow-node{position:relative;left:auto!important;right:auto!important;top:auto!important;display:grid;grid-template-columns:5rem 1fr;gap:1rem;width:100%;align-items:center;text-align:left}.fellow-node .circle{width:5rem;margin:0}.bottom-links{grid-template-columns:1fr;text-align:center}.bottom-trace svg{display:none}}
+@media(max-width:430px){.page{padding:0 1.1rem}.nav-logo{font-size:1.55rem}.nav-links a{font-size:.66rem}.hero-copy p:last-child{font-size:.98rem}.hero-graphic{min-height:700px;margin-left:-1.2rem;margin-right:-1.2rem}.hero-graphic svg{inset:0 -4.7rem 0 -4.7rem;width:calc(100% + 9.4rem)}.iceberg-graphic{min-height:470px}.numbers{grid-template-columns:1fr}.footer-edge{margin:0 -1.1rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
 </style>
 </head>
 <body>
-<nav class="site-nav" aria-label="Primary navigation">
-  <a class="nav-logo" href="../../">dale<span>(a)</span></a>
-  <ul class="nav-links">
-    <li><a href="../../">Home</a></li>
-    <li><a href="../">Careers</a></li>
-    <li><a href="./" aria-current="page">Fellowships</a></li>
-  </ul>
-</nav>
-
-<main>
-  <section class="opening" aria-labelledby="fellowship-title">
-    <div class="intro">
-      <header>
-        <p class="eyebrow">DALE Labs Fellowships</p>
-        <h1 id="fellowship-title">What happens when the baseline itself keeps moving?</h1>
-      </header>
-      <p class="lead">Conflict, climate disruption, political change, market shocks, technological change and changing institutions continually alter the states of people, communities, products and systems.</p>
-    </div>
-
-    <div class="transition-stage" aria-labelledby="sequence-title">
-      <div class="stage-head">
-        <div>
-          <p class="eyebrow" id="sequence-title">State transitions</p>
-          <p class="stage-note">Current state and recoverable history remain visible together</p>
-        </div>
-        <div class="stage-controls" aria-label="State sequence controls">
-          <button type="button" data-step-control="previous" aria-label="Show previous state">Prev</button>
-          <button type="button" data-step-control="next" aria-label="Show next state">Next</button>
-        </div>
-      </div>
-
-      <ol class="sequence" data-state-sequence>
-        <li class="step step-state is-current" data-step-label="State 0">
-          <span class="step-number">01</span>
-          <div>
-            <p class="step-type">State</p>
-            <h2 class="step-title">State 0</h2>
-            <p class="step-copy">A baseline exists.</p>
-          </div>
-          <span class="step-history">Origin</span>
-        </li>
-        <li class="step step-change" data-step-label="Disruption">
-          <span class="step-number">02</span>
-          <div>
-            <p class="step-type">Disruption</p>
-            <h2 class="step-title">Disruption</h2>
-            <p class="step-copy">Conditions shift.</p>
-          </div>
-          <span class="step-history">Change recorded</span>
-        </li>
-        <li class="step step-state" data-step-label="State 1">
-          <span class="step-number">03</span>
-          <div>
-            <p class="step-type">State</p>
-            <h2 class="step-title">State 1</h2>
-            <p class="step-copy">A new state appears.</p>
-          </div>
-          <span class="step-history">Lineage extends</span>
-        </li>
-        <li class="step step-change" data-step-label="Adaptation">
-          <span class="step-number">04</span>
-          <div>
-            <p class="step-type">Adaptation</p>
-            <h2 class="step-title">Adaptation</h2>
-            <p class="step-copy">People and systems respond.</p>
-          </div>
-          <span class="step-history">Response recorded</span>
-        </li>
-        <li class="step step-state" data-step-label="State 2">
-          <span class="step-number">05</span>
-          <div>
-            <p class="step-type">State</p>
-            <h2 class="step-title">State 2</h2>
-            <p class="step-copy">The baseline has moved again.</p>
-          </div>
-          <span class="step-history">Earlier states remain</span>
-        </li>
-        <li class="step step-change" data-step-label="Disruption">
-          <span class="step-number">06</span>
-          <div>
-            <p class="step-type">Disruption</p>
-            <h2 class="step-title">Disruption</h2>
-            <p class="step-copy">Another force enters.</p>
-          </div>
-          <span class="step-history">Change recorded</span>
-        </li>
-        <li class="step step-state" data-step-label="State 3">
-          <span class="step-number">07</span>
-          <div>
-            <p class="step-type">State</p>
-            <h2 class="step-title">State 3</h2>
-            <p class="step-copy">The current state can still be traced.</p>
-          </div>
-          <span class="step-history">Current state</span>
-        </li>
-      </ol>
-      <p class="history-readout" data-history-readout aria-live="polite"><strong>State 0</strong> is visible with its origin.</p>
-      <p class="sr-only">Sequence: State 0, disruption, State 1, adaptation, State 2, disruption, State 3. Earlier states remain visible as the current state changes.</p>
-    </div>
-
-    <div class="meaning">
-      <div>
-        <p class="question">We still make claims about value, development, resilience, identity and economic change by comparing states.</p>
-        <ul class="signal-list" aria-label="Systems that change how states are represented">
-          <li>Tokenisation</li>
-          <li>Digital ledgers</li>
-          <li>Digital identity</li>
-          <li>AI-mediated systems</li>
-          <li>Changing currencies</li>
-          <li>Distributed systems</li>
-        </ul>
-      </div>
-
-      <aside class="definition" aria-labelledby="provenance-title">
-        <p class="definition-label">Provenance</p>
-        <h2 id="provenance-title">The lineage, origin and recoverable record of state transformations over time.</h2>
-        <div class="bridge">
-          <p>Not only where something came from.</p>
-          <p>What happened to it.</p>
-          <p>What changed.</p>
-          <p>What persisted.</p>
-          <p>And how the current state became possible.</p>
-        </div>
-        <div class="descent" aria-hidden="true">
-          <span>Provenance continues below</span>
-          <span class="descent-line"></span>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <section class="iceberg-section" aria-labelledby="iceberg-title">
-    <div class="section-intro">
-      <header>
-        <p class="eyebrow">The Provenance Iceberg</p>
-        <h2 id="iceberg-title">What does provenance make visible?</h2>
-      </header>
-      <p>Above the surface, a claim can look simple. Below it, origin, transformation, context and consequence determine whether the current state can still be understood.</p>
-    </div>
-
-    <div class="iceberg-system" data-concept-system>
-      <div class="iceberg-visual" aria-label="Interactive provenance iceberg">
-        <div class="waterline" aria-hidden="true"><span>Surface</span></div>
-        <div class="iceberg-core" aria-hidden="true">
-          <div class="surface-layer"><span class="surface-label">Visible claim</span></div>
-          <div class="depth-layer"><span class="depth-label">Recoverable structure</span></div>
-        </div>
-        <div class="loop-path" aria-hidden="true"></div>
-        <button class="concept-node is-active" type="button" data-concept="value" aria-pressed="true">Value</button>
-        <button class="concept-node" type="button" data-concept="choice" aria-pressed="false">Choice</button>
-        <button class="concept-node" type="button" data-concept="agency" aria-pressed="false">Agency</button>
-        <button class="concept-node" type="button" data-concept="identity" aria-pressed="false">Identity</button>
-        <div class="continuity-layer">
-          <strong>Provenance</strong>
-          <span>Continuity across state transitions</span>
-        </div>
-      </div>
-
-      <div class="iceberg-panel">
-        <div class="concept-details">
-          <article class="concept-detail is-active" data-concept-detail="value">
-            <p class="concept-kicker">Value</p>
-            <h3>What matters, is useful, meaningful, or considered worthwhile.</h3>
-            <p>Provenance provides origin and transformation history.</p>
-            <p>It allows us to follow where value was recognised, what it attached to, how it moved, and whether it changed.</p>
-          </article>
-          <article class="concept-detail" data-concept-detail="choice">
-            <p class="concept-kicker">Choice</p>
-            <h3>The selection among available possibilities.</h3>
-            <p>Provenance provides the decision path.</p>
-            <p>It preserves context, available options, constraints, branch points, selection, and consequence.</p>
-          </article>
-          <article class="concept-detail" data-concept-detail="agency">
-            <p class="concept-kicker">Agency</p>
-            <h3>Capacity to act intentionally.</h3>
-            <p>Provenance provides attribution.</p>
-            <p>It allows us to follow who or what acted, under what conditions, and what followed.</p>
-          </article>
-          <article class="concept-detail" data-concept-detail="identity">
-            <p class="concept-kicker">Identity</p>
-            <h3>The self/system boundary and accumulated lineage of who or what something is.</h3>
-            <p>Provenance provides lineage.</p>
-            <p>Identity becomes more than a static claim; it has origin and accumulated state history.</p>
-          </article>
-        </div>
-
-        <div class="loop-reveal" data-loop-reveal>
-          <p class="loop-label">Conceptual relationship</p>
-          <div class="loop-line" aria-label="Value to choice to agency to identity to value">
-            VALUE <span aria-hidden="true">-&gt;</span> CHOICE <span aria-hidden="true">-&gt;</span> AGENCY <span aria-hidden="true">-&gt;</span> IDENTITY <span aria-hidden="true">-&gt;</span> VALUE
-          </div>
-          <p class="loop-note">This relationship opens the research space. It is not presented here as a proven result.</p>
-        </div>
-      </div>
-    </div>
-
-    <p class="next-prompt">What happens when we test this loop at different levels of a system?</p>
-  </section>
-
-  <section class="lens-section" aria-labelledby="lens-title">
-    <div class="section-intro">
-      <header>
-        <p class="eyebrow">Pathway lenses</p>
-        <h2 id="lens-title">The same loop, seen at different scales.</h2>
-      </header>
-      <p>Each lens changes the unit of attention while keeping agency, identity, choice, value and provenance in view.</p>
-    </div>
-
-    <div class="lens-shell" data-lens-system>
-      <div class="lens-tabs" role="tablist" aria-label="Pathway lens selector">
-        <button class="lens-tab is-active" type="button" role="tab" id="lens-tab-jielekeze" aria-selected="true" aria-controls="lens-panel-jielekeze" data-lens="jielekeze">
-          <strong>Jielekeze</strong>
-          <span>Individual</span>
-        </button>
-        <button class="lens-tab" type="button" role="tab" id="lens-tab-sve" aria-selected="false" aria-controls="lens-panel-sve" data-lens="sve">
-          <strong>Shared Value Exchange</strong>
-          <span>Shared system</span>
-        </button>
-        <button class="lens-tab" type="button" role="tab" id="lens-tab-akfc" aria-selected="false" aria-controls="lens-panel-akfc" data-lens="akfc">
-          <strong>APE / A Kenyan Fruit Calendar</strong>
-          <span>Value chain</span>
-        </button>
-        <button class="lens-tab" type="button" role="tab" id="lens-tab-ammi" aria-selected="false" aria-controls="lens-panel-ammi" data-lens="ammi">
-          <strong>APE / AMMI</strong>
-          <span>Cross-context</span>
-        </button>
-      </div>
-
-      <div class="lens-stage">
-        <div class="lens-map" aria-label="Shared pathway lens visual">
-          <div class="foundation-loop" aria-label="Shared foundation">
-            <span>Agency</span>
-            <span>Identity</span>
-            <span>Choice</span>
-            <span>Value</span>
-          </div>
-          <div class="lens-map-frame">
-            <div class="lens-model" data-lens-model>
-              <div class="model-row">
-                <span class="model-token">Identity</span>
-                <span class="model-arrow">-&gt;</span>
-                <span class="model-token">Individual value</span>
-                <span class="model-arrow">-&gt;</span>
-                <span class="model-token">Choice</span>
-              </div>
-              <div class="model-row">
-                <span class="model-token">Choice</span>
-                <span class="model-arrow">-&gt;</span>
-                <span class="model-token">Agency</span>
-                <span class="model-arrow">-&gt;</span>
-                <span class="model-token">State change</span>
-              </div>
-              <div class="model-row">
-                <span class="model-token">State change</span>
-                <span class="model-arrow">-&gt;</span>
-                <span class="model-token unresolved">Desired state?</span>
-                <span class="model-arrow">-&gt;</span>
-                <span class="model-token">Identity</span>
-              </div>
-            </div>
-            <div class="provenance-bed">
-              <strong>Provenance</strong>
-              <span>Continuity layer beneath the lens</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="lens-copy">
-          <article class="lens-panel is-active" role="tabpanel" id="lens-panel-jielekeze" aria-labelledby="lens-tab-jielekeze" data-lens-panel="jielekeze">
-            <p class="lens-scale">Individual</p>
-            <h3>What happens when the individual becomes the defining unit of development?</h3>
-            <p>The lens follows identity, individual value, available choices and agency as a person moves toward a desired state.</p>
-            <p>Provenance keeps that movement visible over time.</p>
-            <div class="lens-unresolved">
-              <strong>Unresolved</strong>
-              <p>How do identity, value, choice and agency relate to movement toward a desired state?</p>
-            </div>
-            <a class="lens-link" href="jielekeze/">Open Jielekeze pathway</a>
-          </article>
-
-          <article class="lens-panel" role="tabpanel" id="lens-panel-sve" aria-labelledby="lens-tab-sve" data-lens-panel="sve">
-            <p class="lens-scale">Shared system</p>
-            <h3>If money wasn't the measure of value, what would you use?</h3>
-            <p>This lens watches a shared system define value through interaction, movement, transformation and replication.</p>
-            <p>The value-bearing carrier remains deliberately unresolved.</p>
-            <div class="lens-unresolved">
-              <strong>Unresolved</strong>
-              <p>What does shared value piggyback on as identity while it moves?</p>
-            </div>
-            <a class="lens-link" href="shared-value-exchange/">Open Shared Value Exchange pathway</a>
-          </article>
-
-          <article class="lens-panel" role="tabpanel" id="lens-panel-akfc" aria-labelledby="lens-tab-akfc" data-lens-panel="akfc">
-            <p class="lens-scale">Value chain</p>
-            <h3>Can changing how we understand what we eat change what gets grown?</h3>
-            <p>This lens connects product identity with personal identity, then follows choice as it travels through a value chain.</p>
-            <p>Choice travels.</p>
-            <p>The pattern opens a question about value, consumption, production and seasonal state.</p>
-            <div class="lens-unresolved">
-              <strong>Unresolved</strong>
-              <p>Can choices travel recursively through the chain and alter what becomes possible next?</p>
-            </div>
-            <a class="lens-link" href="akfc/">Open A Kenyan Fruit Calendar pathway</a>
-          </article>
-
-          <article class="lens-panel" role="tabpanel" id="lens-panel-ammi" aria-labelledby="lens-tab-ammi" data-lens-panel="ammi">
-            <p class="lens-scale">Cross-context</p>
-            <h3>What becomes legible when provenance remains connected across an entire market system?</h3>
-            <p>This lens follows identity and value as they move across contexts.</p>
-            <p>The question is whether value tied to one identity can transfer to another, and what happens if it does.</p>
-            <div class="lens-unresolved">
-              <strong>Possible outcomes</strong>
-              <ul class="outcome-list" aria-label="Possible unresolved outcomes">
-                <li>Preserved</li>
-                <li>Transformed</li>
-                <li>Amplified</li>
-                <li>Diminished</li>
-                <li>Lost</li>
-                <li>Emergent</li>
-              </ul>
-            </div>
-            <a class="lens-link" href="ammi/">Open AMMI pathway</a>
-          </article>
-        </div>
-      </div>
-
-      <div class="lateral-route">
-        <p class="lens-scale">Lateral pathway</p>
-        <h3>What holds when different environments test the same underlying architecture?</h3>
-        <p>The Innovation pathway compares what repeats, differs, contradicts, or cannot yet be compared across the four pathways.</p>
-        <a class="lens-link" href="innovation/">Open Innovation pathway</a>
-      </div>
-    </div>
-  </section>
-
-  <a class="back" href="../">Back to Careers</a>
-</main>
-
-<footer>
-  <div class="nav-logo">dale<span>(a)</span></div>
-  <nav class="footer-links" aria-label="Footer navigation">
-    <a href="../../">Home</a>
-    <a href="../">Careers</a>
-    <a href="../../research/">Research</a>
-    <a href="mailto:hello@dale.africa">Contact</a>
+<div class="page">
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="nav-logo" href="../../">dale<span>(a)</span><span class="nav-tag">Design the future</span></a>
+    <ul class="nav-links">
+      <li><a href="../../">Home</a></li>
+      <li><a href="../../research/">Research</a></li>
+      <li><a href="../../blog/">Blog</a></li>
+      <li><a href="../" aria-current="page">Careers</a></li>
+    </ul>
   </nav>
-</footer>
 
-<script>
-document.documentElement.classList.remove("no-js");
-document.documentElement.classList.add("js");
+  <main>
+    <section class="hero" aria-labelledby="moving-baseline-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span>01</span> Moving Baseline</p>
+        <h1 id="moving-baseline-title">What happens when the baseline itself keeps moving?</h1>
+        <span class="dash" aria-hidden="true"></span>
+        <p>Conflict, climate disruption, political change, market shocks, technological change and changing institutions continually alter the states of people, communities, products and systems.</p>
+      </div>
+      <div class="hero-graphic" aria-hidden="true">
+        <svg viewBox="0 0 900 620">
+          <path class="wash aqua" d="M311 260c94-58 257-57 344 1 86 57 59 163-60 187-103 21-178-41-285-9-91 27-182-18-163-88 12-46 89-44 164-91Z"></path>
+          <path class="wash yellow" d="M880 150c73 41 67 198-22 250-75 44-146-20-127-111 16-76 83-177 149-139Z"></path>
+          <path class="trace teal" d="M0 172c71 12 84-66 158-72 86-7 106 67 186 50 62-13 94-67 166-35 71 32 89 101 58 155-31 55-109 52-137 111-30 63 76 80 150 47 67-30 60-102 122-127 52-21 103 10 126 55"></path>
+          <path class="trace teal dashed" d="M0 360c88 3 114-56 175-80 72-28 113 22 165 2"></path><path class="trace coral dashed" d="M270 105c10 48 40 78 88 92 34 10 56 31 64 68"></path><path class="trace teal dashed" d="M674 298c25-43 72-71 123-76"></path>
+          <circle class="node open-teal" cx="158" cy="100" r="15"></circle><circle class="ring" cx="158" cy="100" r="24"></circle><circle class="node coral" cx="344" cy="150" r="13"></circle><circle class="node teal" cx="510" cy="151" r="14"></circle><circle class="node open-yellow" cx="715" cy="252" r="17"></circle><circle class="node open-purple" cx="144" cy="346" r="15"></circle><circle class="node coral" cx="360" cy="332" r="13"></circle><circle class="node open-teal" cx="536" cy="325" r="16"></circle><circle class="ring" cx="536" cy="325" r="25"></circle><circle class="ring" cx="536" cy="325" r="31"></circle>
+          <path class="mark" d="M767 84h36M785 66v36M801 332h32M817 316v32M88 219h24M100 207v24M622 75h26M635 62v26"></path><g class="dotfield"><circle cx="811" cy="70" r="3"/><circle cx="834" cy="80" r="3"/><circle cx="857" cy="92" r="3"/><circle cx="820" cy="108" r="3"/><circle cx="846" cy="120" r="3"/><circle cx="870" cy="132" r="3"/><circle cx="742" cy="384" r="3"/><circle cx="765" cy="396" r="3"/><circle cx="789" cy="407" r="3"/><circle cx="754" cy="430" r="3"/><circle cx="779" cy="441" r="3"/></g>
+          <text class="svg-text" x="145" y="38">01</text><text class="svg-text" x="145" y="58">STATE 0</text><text class="svg-small" x="145" y="79">A baseline exists.</text><text class="hand teal" x="122" y="155" transform="rotate(-20 122 155)">ORIGIN</text>
+          <text class="svg-text" x="332" y="92">02</text><text class="svg-text" x="332" y="112">DISRUPTION</text><text class="svg-small" x="332" y="133">Conditions shift.</text><text class="hand coral" x="290" y="205" transform="rotate(12 290 205)">CHANGE</text><text class="hand coral" x="287" y="219" transform="rotate(12 287 219)">RECORDED</text>
+          <text class="svg-text" x="511" y="83">03</text><text class="svg-text" x="511" y="103">STATE 1</text><text class="svg-small" x="511" y="124">A new state appears.</text><text class="hand teal" x="505" y="210" transform="rotate(18 505 210)">LINEAGE</text><text class="hand teal" x="504" y="224" transform="rotate(18 504 224)">EXTENDS</text>
+          <text class="svg-text" x="742" y="199">04</text><text class="svg-text" x="742" y="219">ADAPTATION</text><text class="svg-small" x="742" y="240">People and systems</text><text class="svg-small" x="742" y="256">respond.</text><text class="hand yellow" x="700" y="318" transform="rotate(-8 700 318)">RESPONSE</text><text class="hand yellow" x="697" y="333" transform="rotate(-8 697 333)">RECORDED</text>
+          <text class="svg-text" x="130" y="282">05</text><text class="svg-text" x="130" y="302">STATE 2</text><text class="svg-small" x="130" y="323">The baseline has</text><text class="svg-small" x="130" y="339">moved again.</text><text class="hand purple" x="116" y="405" transform="rotate(-3 116 405)">EARLIER STATES</text><text class="hand purple" x="116" y="421" transform="rotate(-3 116 421)">REMAIN</text>
+          <text class="svg-text" x="354" y="286">06</text><text class="svg-text" x="354" y="306">DISRUPTION</text><text class="svg-small" x="354" y="327">Another force</text><text class="svg-small" x="354" y="343">enters.</text><text class="hand coral" x="400" y="400" transform="rotate(14 400 400)">CHANGE</text><text class="hand coral" x="397" y="415" transform="rotate(14 397 415)">RECORDED</text>
+          <text class="svg-text" x="568" y="354">07</text><text class="svg-text" x="568" y="374">STATE 3</text><text class="svg-small" x="568" y="395">The current state</text><text class="svg-small" x="568" y="411">can still be traced.</text><text class="hand teal" x="568" y="461" transform="rotate(-5 568 461)">CURRENT</text><text class="hand teal" x="568" y="477" transform="rotate(-5 568 477)">STATE</text>
+        </svg>
+      </div>
+    </section>
 
-const sequence = document.querySelector("[data-state-sequence]");
-const steps = Array.from(sequence.querySelectorAll(".step"));
-const readout = document.querySelector("[data-history-readout]");
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-let currentIndex = 0;
-let timer = null;
+    <section class="two-up" aria-label="Provenance and the provenance iceberg">
+      <div class="statement">
+        <p class="eyebrow"><span>02</span> <span class="coral">Provenance</span></p>
+        <h2>The lineage, origin and recoverable record of state transformations over time.</h2>
+      </div>
+      <div class="provenance-trace" aria-hidden="true">
+        <svg viewBox="0 0 640 360">
+          <path class="trace teal" d="M90 35c60 49 7 126 80 151 53 18 68 34 70 81 2 54 85 37 116 88"></path>
+          <circle class="node teal" cx="90" cy="35" r="10"></circle><circle class="node coral" cx="162" cy="118" r="10"></circle><circle class="node open-yellow" cx="230" cy="193" r="14"></circle><circle class="node purple" cx="302" cy="264" r="10"></circle>
+          <text class="svg-small" x="118" y="42">Not only where something came from.</text><text class="svg-small" x="190" y="126">What happened to it.</text><text class="svg-small" x="258" y="202">What changed.</text><text class="svg-small" x="330" y="273">What persisted.</text>
+        </svg>
+      </div>
+      <article class="iceberg" aria-labelledby="iceberg-title">
+        <p class="eyebrow"><span>03</span> The Provenance Iceberg</p>
+        <h2 id="iceberg-title">What does provenance make visible?</h2>
+        <p>Above the surface, a claim can look simple. Below it, origin, transformation, context and consequence determine whether the current state can still be understood.</p>
+        <div class="iceberg-graphic" aria-hidden="true">
+          <svg viewBox="0 0 720 460">
+            <path class="wash aqua" d="M121 125c102-77 279-57 408-20 133 38 175 148 81 241-92 91-250 35-371 60-107 22-197-31-190-121 5-61 16-118 72-160Z"></path><path class="trace teal" d="M2 150c95 13 139-27 228-13 95 16 145-26 229-13 88 13 136 54 260 21"></path>
+            <text class="hand teal" x="25" y="136">VISIBLE STATE</text><text class="hand teal" x="25" y="185">PROVENANCE FIELD</text><circle class="ring" cx="530" cy="75" r="26"></circle><circle class="ring" cx="530" cy="75" r="36"></circle><circle class="node open-teal" cx="530" cy="75" r="17"></circle><text class="hand teal" x="585" y="64">CURRENT</text><text class="hand teal" x="585" y="81">STATE</text>
+            <path class="trace teal dashed" d="M520 109c63 83-64 120-113 164-61 55-189 61-225-2-30-53 24-102 91-112 86-13 143 35 247-50Z"></path><circle class="node open-coral" cx="202" cy="224" r="14"></circle><text class="hand coral" x="154" y="197">VALUE</text><circle class="node open-yellow" cx="353" cy="171" r="14"></circle><text class="hand yellow" x="394" y="173">CHOICE</text><circle class="node teal" cx="396" cy="272" r="10"></circle><text class="hand teal" x="385" y="309">AGENCY</text><circle class="node open-teal" cx="522" cy="246" r="14"></circle><text class="hand purple" x="565" y="255">IDENTITY</text>
+            <circle class="node teal" cx="112" cy="394" r="9"></circle><text class="svg-text" x="170" y="348">CONTINUITY</text><text class="svg-small" x="170" y="370">The current state remains</text><text class="svg-small" x="170" y="386">traceable to what came before.</text>
+          </svg>
+        </div>
+      </article>
+    </section>
 
-function setCurrentStep(index) {
-  currentIndex = (index + steps.length) % steps.length;
-  steps.forEach((step, stepIndex) => {
-    step.classList.toggle("is-current", stepIndex === currentIndex);
-  });
-  const current = steps[currentIndex].dataset.stepLabel;
-  const history = steps.slice(0, currentIndex + 1).map(step => step.dataset.stepLabel).join(" -> ");
-  readout.innerHTML = `<strong>${current}</strong> is current. History: ${history}.`;
-}
+    <section class="core-loop" aria-labelledby="core-loop-title">
+      <div><p class="eyebrow"><span>04</span> Core Loop</p><h2 id="core-loop-title">The same elements can be observed at different scales.</h2></div>
+      <div class="loop-art" aria-hidden="true"><svg viewBox="0 0 760 250"><path class="trace teal" d="M180 80c138-80 362-53 396 32 39 97-153 139-305 102-91-22-127-73-91-134Z"></path><path class="arrow" d="M174 81l17-1-8 15Z"></path><circle class="node open-coral" cx="297" cy="55" r="14"></circle><text class="hand coral" x="284" y="25">VALUE</text><circle class="node open-yellow" cx="570" cy="105" r="14"></circle><text class="hand yellow" x="596" y="106">CHOICE</text><circle class="node teal" cx="332" cy="199" r="12"></circle><text class="hand teal" x="310" y="234">AGENCY</text><circle class="node open-purple" cx="128" cy="128" r="14"></circle><text class="hand purple" x="48" y="132">IDENTITY</text><text class="hand teal" x="12" y="100" transform="rotate(-10 12 100)">PROVENANCE</text><text class="hand teal" x="12" y="116" transform="rotate(-10 12 116)">KEEPS THE</text><text class="hand teal" x="12" y="132" transform="rotate(-10 12 132)">TRACE.</text></svg></div>
+    </section>
 
-function moveStep(direction) {
-  setCurrentStep(currentIndex + direction);
-}
+    <section class="pathway-lenses" aria-labelledby="lenses-title">
+      <header><p class="eyebrow"><span>05</span> Pathway Lenses</p><h2 id="lenses-title">The same loop, seen at different scales.</h2><p>Each lens changes the unit of attention while keeping agency, identity, choice, value and provenance in view.</p></header>
+      <div class="lenses">
+        <article class="lens"><p class="scale teal">Individual</p><h3>Jielekeze</h3><p class="question">What happens when the individual becomes the defining unit of development?</p><div class="lens-art" aria-hidden="true"><svg viewBox="0 0 310 140"><path class="trace teal dashed" d="M8 62c55-83 94 34 144 9 42-21 66 7 112 44"></path><circle class="node teal" cx="8" cy="62" r="8"/><circle class="node teal" cx="78" cy="84" r="8"/><circle class="node teal" cx="148" cy="70" r="8"/><circle class="node teal" cx="214" cy="88" r="8"/><circle class="node open-teal" cx="270" cy="116" r="14"/><circle class="ring" cx="270" cy="116" r="24"/><text class="hand teal" x="0" y="20">LEGIBILITY</text><text class="hand teal" x="72" y="52">CHOICE</text><text class="hand teal" x="134" y="39">AGENCY</text><text class="hand teal" x="194" y="58">ACTION</text><text class="hand teal" x="241" y="83">LATER</text><text class="hand teal" x="241" y="99">INDIVIDUAL</text><text class="hand teal" x="241" y="115">STATE</text></svg></div><p>The lens follows identity, individual value, available choices and agency as a person moves toward a desired state. Provenance keeps that movement visible over time.</p><a class="pathway-link" href="jielekeze/">Open Jielekeze pathway -&gt;</a></article>
+        <article class="lens"><p class="scale purple">Shared System</p><h3>Shared Value Exchange</h3><p class="question">If money were not the measure of value, what evidence would make value legible?</p><div class="lens-art" aria-hidden="true"><svg viewBox="0 0 310 140"><path class="trace purple dashed" d="M12 62c56-69 93 28 142 2 40-21 75 24 121 43"></path><circle class="node purple" cx="38" cy="48" r="8"/><circle class="node purple" cx="140" cy="62" r="8"/><circle class="node purple" cx="220" cy="91" r="8"/><circle class="node open-purple" cx="285" cy="112" r="13"/><circle class="ring purple" cx="285" cy="112" r="24"/><text class="hand purple" x="21" y="20">MOVEMENT</text><text class="hand purple" x="100" y="31">TRANSFORMATION</text><text class="hand purple" x="190" y="64">REPLICATION</text><text class="hand purple" x="224" y="82">LATER EFFECT</text></svg></div><p>This lens watches a shared system define value through interaction, movement, transformation and replication. The value-bearing carrier remains deliberately unresolved.</p><a class="pathway-link purple" href="shared-value-exchange/">Open Shared Value Exchange pathway -&gt;</a></article>
+        <article class="lens"><p class="scale coral">Food / Production System</p><h3>APE-AKFC</h3><p class="question">Can changing how we understand what we eat change what gets grown?</p><div class="lens-art" aria-hidden="true"><svg viewBox="0 0 310 140"><path class="trace coral dashed" d="M62 64c20-45 112-47 151-5 37 40-8 72-76 65-56-6-102-25-75-60Z"></path><circle class="node coral" cx="77" cy="77" r="8"/><circle class="node coral" cx="152" cy="45" r="8"/><circle class="node coral" cx="218" cy="72" r="8"/><text class="hand coral" x="7" y="35">CHOICE</text><text class="hand coral" x="6" y="51">TRAVELS.</text><text class="hand coral" x="111" y="22">CONSUMER</text><text class="hand coral" x="224" y="77">MARKET</text><text class="hand coral" x="128" y="126">PRODUCER</text><text class="hand coral" x="31" y="113">ECOLOGY</text></svg></div><p>This lens connects product identity with personal identity, then follows choice as it travels through a value chain. Choice travels. The pattern opens a question about value, consumption, production and seasonal state.</p><a class="pathway-link coral" href="akfc/">Open APE-AKFC pathway -&gt;</a></article>
+        <article class="lens"><p class="scale yellow">Market System</p><h3>APE-AMMI</h3><p class="question">What becomes legible when provenance remains connected across an entire market system?</p><div class="lens-art" aria-hidden="true"><svg viewBox="0 0 310 140"><path class="trace yellow dashed" d="M15 55c35-48 63 32 105 6 43-27 69 20 108 9 30-9 42 16 58 39"></path><circle class="node yellow" cx="28" cy="50" r="8"/><circle class="node yellow" cx="100" cy="67" r="8"/><circle class="node yellow" cx="168" cy="62" r="8"/><circle class="node yellow" cx="225" cy="76" r="8"/><circle class="node open-yellow" cx="282" cy="109" r="13"/><circle class="ring yellow" cx="282" cy="109" r="23"/><text class="hand yellow" x="0" y="22">ORIGINS</text><text class="hand yellow" x="87" y="37">MOVEMENT</text><text class="hand yellow" x="151" y="33">EXCHANGE</text><text class="hand yellow" x="217" y="45">USE</text><text class="hand yellow" x="246" y="73">OUTCOMES</text><text class="hand yellow" x="74" y="101">VALUE IS NOT</text><text class="hand yellow" x="74" y="116">AUTOMATICALLY</text><text class="hand yellow" x="74" y="131">PRICE.</text></svg></div><p>This lens follows identity and value as they move across contexts. The question is whether value tied to one identity can transfer to another, and what happens if it does.</p><a class="pathway-link yellow" href="ammi/">Open APE-AMMI pathway -&gt;</a></article>
+      </div>
+    </section>
 
-document.querySelector("[data-step-control='previous']").addEventListener("click", () => moveStep(-1));
-document.querySelector("[data-step-control='next']").addEventListener("click", () => moveStep(1));
+    <section class="five" aria-labelledby="five-title">
+      <p class="eyebrow"><span>06</span> Five Fellows</p>
+      <div class="five-grid">
+        <div class="side-note"><p class="big-num">3</p><p class="mini-label teal">Validation<br>Environments</p><p>Jielekeze<br>Shared Value Exchange<br>APE</p><p>APE contains two mathematical pathways.</p></div>
+        <div class="fellow-line" aria-label="Four embedded mathematical validation Fellow pathways"><svg viewBox="0 0 760 230" aria-hidden="true"><path class="trace teal" d="M10 148c128 22 160-4 294 1 124 5 198 14 336-76 43-28 80-29 113-3"></path><path class="trace teal dashed" d="M82 18c-28 41 30 65 0 111"></path><circle class="node teal" cx="104" cy="151" r="9"/><circle class="node purple" cx="255" cy="149" r="9"/><circle class="node coral" cx="412" cy="151" r="9"/><circle class="node yellow" cx="552" cy="120" r="9"/><path class="mark" d="M34 50h28M48 36v28M610 30h28M624 16v28"></path></svg><div class="fellow-node jie"><span class="circle">+</span><h3>Jielekeze Fellow</h3></div><div class="fellow-node sve"><span class="circle">*</span><h3>Shared Value Exchange Fellow</h3></div><div class="fellow-node akfc"><span class="circle">o</span><h3>APE-AKFC Fellow</h3></div><div class="fellow-node ammi"><span class="circle">~</span><h3>APE-AMMI Fellow</h3></div></div>
+        <article class="innovation"><svg viewBox="-70 0 250 160" aria-hidden="true"><path class="trace teal" d="M-66 98c35-43 84-62 161-28"></path><path class="trace teal dashed" d="M-52 128c46-65 89-80 147-58"></path><circle class="ring" cx="95" cy="70" r="32"/><circle class="ring" cx="95" cy="70" r="45"/><circle class="node open-teal" cx="95" cy="70" r="18"/><circle class="node teal" cx="95" cy="70" r="6"/><path class="trace teal" d="M95 5v25M95 110v29M32 70h28M130 70h32M127 38l24-17M127 102l24 17M63 38L39 20"></path></svg><h3>DALE Labs Innovation Fellow</h3><p>What holds when different environments test the same underlying architecture?</p><p class="hand teal">LATERAL<br>VALIDATION</p></article>
+        <div class="numbers" aria-label="Fellowship architecture numbers"><div><span class="big-num">4</span><span class="mini-label teal">Mathematical<br>Validation<br>Pathways</span></div><div><span class="big-num">1</span><span class="mini-label teal">Lateral<br>Validation<br>Pathway</span></div><div><span class="big-num">5</span><span class="mini-label teal">Fellows</span></div></div>
+      </div>
+    </section>
 
-if (!prefersReducedMotion) {
-  timer = window.setInterval(() => moveStep(1), 2800);
-  sequence.addEventListener("pointerenter", () => window.clearInterval(timer));
-  sequence.addEventListener("pointerleave", () => {
-    timer = window.setInterval(() => moveStep(1), 2800);
-  });
-}
-
-const conceptSystem = document.querySelector("[data-concept-system]");
-const conceptButtons = Array.from(conceptSystem.querySelectorAll("[data-concept]"));
-const conceptDetails = Array.from(conceptSystem.querySelectorAll("[data-concept-detail]"));
-const loopReveal = conceptSystem.querySelector("[data-loop-reveal]");
-const visitedConcepts = new Set(["value"]);
-
-function selectConcept(concept) {
-  visitedConcepts.add(concept);
-  conceptButtons.forEach(button => {
-    const isActive = button.dataset.concept === concept;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-pressed", String(isActive));
-  });
-  conceptDetails.forEach(detail => {
-    detail.classList.toggle("is-active", detail.dataset.conceptDetail === concept);
-  });
-  loopReveal.classList.toggle("is-complete", visitedConcepts.size === conceptButtons.length);
-}
-
-conceptButtons.forEach(button => {
-  button.addEventListener("click", () => selectConcept(button.dataset.concept));
-});
-
-const lensSystem = document.querySelector("[data-lens-system]");
-const lensTabs = Array.from(lensSystem.querySelectorAll("[data-lens]"));
-const lensPanels = Array.from(lensSystem.querySelectorAll("[data-lens-panel]"));
-const lensModel = lensSystem.querySelector("[data-lens-model]");
-const lensModels = {
-  jielekeze: [
-    ["Identity", "Individual value", "Choice"],
-    ["Choice", "Agency", "State change"],
-    ["State change", "Desired state?", "Identity"]
-  ],
-  sve: [
-    ["Identity / carrier ?", "Interaction", "Value definition"],
-    ["Movement", "Transformation", "Replication"]
-  ],
-  akfc: [
-    ["Product identity", "Personal identity", "Value", "Choice"],
-    ["Consumer choice", "Market choice", "Producer choice"],
-    ["Production", "Agroecological / seasonal state", "Future consumer choice"]
-  ],
-  ammi: [
-    ["Identity A + Value A", "Identity B", "Value ?"],
-    ["East Africa", "Asia", "Europe"]
-  ]
-};
-
-function renderLensModel(lens) {
-  lensModel.innerHTML = lensModels[lens].map(row => {
-    const tokens = row.map((item, index) => {
-      const unresolved = item.includes("?") ? " unresolved" : "";
-      const arrow = index === row.length - 1 ? "" : '<span class="model-arrow">-&gt;</span>';
-      return `<span class="model-token${unresolved}">${item}</span>${arrow}`;
-    }).join("");
-    return `<div class="model-row">${tokens}</div>`;
-  }).join("");
-}
-
-function selectLens(lens) {
-  lensTabs.forEach(tab => {
-    const isActive = tab.dataset.lens === lens;
-    tab.classList.toggle("is-active", isActive);
-    tab.setAttribute("aria-selected", String(isActive));
-  });
-  lensPanels.forEach(panel => {
-    const isActive = panel.dataset.lensPanel === lens;
-    panel.classList.toggle("is-active", isActive);
-    panel.setAttribute("aria-hidden", String(!isActive));
-  });
-  renderLensModel(lens);
-}
-
-lensTabs.forEach(tab => {
-  tab.addEventListener("click", () => selectLens(tab.dataset.lens));
-  tab.addEventListener("keydown", event => {
-    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-    event.preventDefault();
-    const current = lensTabs.indexOf(tab);
-    const next = event.key === "Home"
-      ? 0
-      : event.key === "End"
-        ? lensTabs.length - 1
-        : (current + (event.key === "ArrowRight" ? 1 : -1) + lensTabs.length) % lensTabs.length;
-    lensTabs[next].focus();
-    selectLens(lensTabs[next].dataset.lens);
-  });
-});
-</script>
+    <nav class="bottom-trace" aria-label="Fellowship pathway links">
+      <svg viewBox="0 0 1320 118" aria-hidden="true"><path class="trace teal dashed" d="M0 61c160-4 198 15 330 0 139-16 199 20 330 8 151-13 195-10 330 3 127 13 199-7 330-4"></path><circle class="node teal" cx="170" cy="60" r="8"/><circle class="node purple" cx="390" cy="64" r="8"/><circle class="node coral" cx="610" cy="63" r="8"/><circle class="node yellow" cx="830" cy="68" r="8"/><circle class="node teal" cx="1050" cy="67" r="8"/><path class="mark" d="M15 62h34M32 45v34M1248 62h34M1265 45v34"></path></svg>
+      <div class="bottom-links"><a class="bottom-link teal" href="jielekeze/">Jielekeze -&gt;</a><a class="bottom-link purple" href="shared-value-exchange/">Shared Value Exchange -&gt;</a><a class="bottom-link coral" href="akfc/">APE-AKFC -&gt;</a><a class="bottom-link yellow" href="ammi/">APE-AMMI -&gt;</a><a class="bottom-link teal" href="innovation/">Innovation -&gt;</a></div>
+    </nav>
+    <a class="back" href="../">&lt;- Back to Careers</a>
+  </main>
+  <div class="footer-edge" aria-hidden="true"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path fill="#00676B" d="M0 44c119-19 173 24 280 23 132-1 180-68 309-57 128 11 165 73 305 62 121-10 185-74 317-58 91 11 148 56 229 43v43H0Z"></path></svg></div>
+</div>
+<script>document.documentElement.classList.remove("no-js");document.documentElement.classList.add("js");</script>
 </body>
 </html>
